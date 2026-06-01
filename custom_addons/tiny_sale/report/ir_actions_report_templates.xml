@@ -4,12 +4,15 @@
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
         <xpath expr="//t[@t-call='web.external_layout']" position="replace">
            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+           <meta charset="UTF-8"/>
            <style>
                /* Background cho toàn bộ trang */
                body {
                    background-color: #F5F5F0 !important;
                    margin: 0 !important;
                    padding: 0 !important;
+                   font-family: 'Times New Roman', Times, serif !important;
+                   font-weight: normal !important;
                }
                @page {
                    background-color: #F5F5F0;
@@ -22,10 +25,21 @@
                    padding-left: 7mm !important;
                    padding-right: 7mm !important;
                    background-color: #F5F5F0;
+                   font-family: 'Times New Roman', Times, serif !important;
+                   font-weight: normal !important;
+               }
+               /* Fix font cho tiếng Việt - không bold */
+               * {
+                   font-family: 'Times New Roman', Times, serif !important;
+                   font-weight: normal !important;
+               }
+               /* Giữ bold cho thẻ strong và b */
+               strong, b {
+                   font-weight: bold !important;
                }
            </style>
         
-        <div class="page" style="font-family: 'Times New Roman', Times, serif; font-size: 10pt;">
+        <div class="page" style="font-family: 'Times New Roman', Times, serif; font-size: 10pt; font-weight: normal;">
                     
                     <!-- Header Section -->
                     <div style="margin-bottom: 20px;">
@@ -233,21 +247,21 @@
                                                     <td style="width: 30%;"><strong>Số TK</strong></td>
                                                     <td>
                                                         <!-- TODO: Thêm field bank_account_number -->
-                                                        <span style="color: #999;">0311225686</span>
+                                                        <span style="color: #999;"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>Chủ TK</strong></td>
                                                     <td>
                                                         <!-- TODO: Thêm field bank_account_name -->
-                                                        <span style="color: #999;">Huỳnh Thị Mỹ Duyên</span>
+                                                        <span style="color: #999;"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="vertical-align: top;"><strong>Ngân hàng</strong></td>
                                                     <td>
                                                         <!-- TODO: Thêm field bank_name -->
-                                                        <span style="color: #999;">TMCP Phát Triển Thành phố Hồ Chí Minh (HD Bank)</span>
+                                                        <span style="color: #999;"></span>
                                                     </td>
                                                 </tr>
                                             </table>
