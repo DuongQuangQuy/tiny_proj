@@ -191,7 +191,7 @@ msgstr "Đặt cọc một phần"
 #: model:ir.model.fields,field_description:sale_advance_payment.field_sale_order__account_payment_ids
 #: model_terms:ir.ui.view,arch_db:sale_advance_payment.view_order_form
 msgid "Pay sale advanced"
-msgstr "Thanh toán đặt cọc đơn hàng"
+msgstr "Đặt cọc"
 
 #. module: sale_advance_payment
 #: model_terms:ir.ui.view,arch_db:sale_advance_payment.view_account_voucher_wizard
