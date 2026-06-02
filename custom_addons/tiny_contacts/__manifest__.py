@@ -13,7 +13,7 @@
         'base', 'contacts',
     ],
     'data': [
-        # 'data/sequence.xml',
+        'data/sequence.xml',
         'views/res_partner_views.xml',
         'views/res_company_views.xml',
         # 'report/ir_actions_report_templates.xml',
