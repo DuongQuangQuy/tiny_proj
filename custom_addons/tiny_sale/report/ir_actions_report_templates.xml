@@ -152,18 +152,18 @@
 
                         <!-- Product Table -->
                         <div style="margin-bottom: 20px;">
-                            <table style="width: 100%; border-collapse: collapse; font-size: 8pt;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
                                 <thead>
-                                    <tr style="background-color: #17a2b8; color: white; font-weight: bold;">
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 3%; background-color: #17a2b8;">No.</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 15%; background-color: #17a2b8;">MÃ SP</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #17a2b8;">HÌNH SP</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #17a2b8;">SỐ ĐO</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 15%; background-color: #17a2b8;">GHI CHÚ</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #17a2b8;">MÃ VẢI</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #17a2b8;">MÃ HOA TIẾT</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #17a2b8;">HÌNH HOA TIẾT</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #17a2b8;">GIÁ</th>
+                                    <tr style="background-color: #16796F; color: white; font-weight: bold;">
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 3%; background-color: #16796F;">No.</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 15%; background-color: #16796F;">MÃ SP</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #16796F;">HÌNH SP</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #16796F;">SỐ ĐO</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 15%; background-color: #16796F;">GHI CHÚ</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #16796F;">MÃ VẢI</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #16796F;">MÃ HOA TIẾT</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #16796F;">HÌNH HOA TIẾT</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #16796F;">GIÁ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
