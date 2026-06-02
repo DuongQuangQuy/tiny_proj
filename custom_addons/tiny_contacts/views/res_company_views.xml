@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="res_company_view_inherit_tiny_contacts">
+        <field name="name">company.view.inherit.tiny.contacts</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="priority" eval="5"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="is_mrp"/>
+                <field name="is_service"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sale Order Form View -->
+    <record id="view_order_form_inherit_tiny_sale_purchase" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.tiny.sale.purchase</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="purchase_multi_origin" invisible="not purchase_multi_origin"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

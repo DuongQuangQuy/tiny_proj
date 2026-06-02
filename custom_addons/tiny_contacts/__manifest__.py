@@ -14,7 +14,8 @@
     ],
     'data': [
         # 'data/sequence.xml',
-        # 'views/sale_views.xml',
+        'views/res_partner_views.xml',
+        'views/res_company_views.xml',
         # 'report/ir_actions_report_templates.xml',
 
     ],
