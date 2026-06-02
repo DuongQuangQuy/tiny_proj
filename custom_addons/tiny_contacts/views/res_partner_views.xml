@@ -10,7 +10,7 @@
                 <field name="code"/>
             </xpath>
 
-            <xpath expr="//field[@name='parent_id']" position="before">
+            <xpath expr="//field[@name='parent_id']" position="after">
                 <field name="code"/>
             </xpath>
         </field>
