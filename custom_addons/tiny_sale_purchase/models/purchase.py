@@ -65,5 +65,5 @@ class PurchaseOrder(models.Model):
             so_vals['order_line'].append((0, 0, so_line_vals))
 
         manufacturing_so = self.env['sale.order'].with_company(mrp_company).sudo().create(so_vals)
-
+        manufacturing_so.sudo().action_confirm()
         return manufacturing_so
