@@ -42,14 +42,7 @@ class PurchaseOrder(models.Model):
             'order_line': [],
         }
         for po_line in self.order_line:
-            so_line_vals = {
-                'product_id': po_line.product_id.id,
-                'name': po_line.name,
-                'product_uom_qty': po_line.product_qty,
-                'product_uom_id': po_line.product_uom_id.id,
-                'price_unit': po_line.price_unit,
-
-            }
+            so_line_vals = po_line.vals_lines_so_multi()
             sale_lines = po_line.sudo().sale_line_id or po_line.move_dest_ids.mapped('sale_line_id')
             if sale_lines:
                 sale_line = sale_lines[0]
@@ -67,3 +60,17 @@ class PurchaseOrder(models.Model):
         manufacturing_so = self.env['sale.order'].with_company(mrp_company).sudo().create(so_vals)
         manufacturing_so.sudo().action_confirm()
         return manufacturing_so
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "purchase.order.line"
+    
+    def vals_lines_so_multi(self):
+        vals = {
+            'product_id': self.product_id.id,
+            'name': self.name,
+            'product_uom_qty': self.product_qty,
+            'product_uom_id': self.product_uom_id.id,
+            'price_unit': self.price_unit,
+
+        }
+        return vals
