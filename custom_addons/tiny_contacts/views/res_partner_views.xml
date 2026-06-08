@@ -8,10 +8,12 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='parent_id']" position="before">
                 <field name="code"/>
+                <field name="code_old"/>
             </xpath>
 
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="birthday"/>
+                <field name="partner_referral_id"/>
             </xpath>
         </field>
     </record>

@@ -12,8 +12,15 @@ class ResPartner(models.Model):
         copy=False,
         index=True,
     )
+    code_old = fields.Char(
+        string="Mã cũ",
+    )
     birthday = fields.Date(
         string='Ngày sinh'
+    )
+    partner_referral_id = fields.Many2one(
+        'res.partner',
+        string='Người giới thiệu'
     )
 
     def _ensure_partner_sequence_range(self):
