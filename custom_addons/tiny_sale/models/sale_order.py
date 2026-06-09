@@ -12,3 +12,5 @@ _logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
+
+    partner_code = fields.Char(string='Mã khách hàng', related='partner_id.code', store=True)

@@ -35,6 +35,11 @@ class SaleOrder(models.Model):
         tracking=True,
         compute="_compute_advance_payment",
     )
+    total_advance = fields.Monetary(
+        string="Total advance",
+        compute="_compute_advance_payment",
+        store=True,
+    )
 
     @api.depends(
         "currency_id",
@@ -105,3 +110,5 @@ class SaleOrder(models.Model):
             order.payment_line_ids = mls
             order.amount_residual = amount_residual
             order.advance_payment_status = payment_state
+            order.total_advance = advance_amount
+

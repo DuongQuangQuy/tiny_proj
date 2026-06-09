@@ -21,4 +21,8 @@
     <record id="sale.action_report_saleorder" model="ir.actions.report">
         <field name="paperformat_id" ref="paperformat_tiny_sale"/>
     </record>
+
+    <record id="sale_pdf_quote_builder.action_report_saleorder_raw" model="ir.actions.report">
+        <field name="paperformat_id" ref="paperformat_tiny_sale"/>
+    </record>
 </odoo>

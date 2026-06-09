@@ -4,18 +4,20 @@
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
         <xpath expr="//t[@t-call='web.external_layout']" position="replace">
            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+           <t t-set="base_url" t-value="env['ir.config_parameter'].sudo().get_param('web.base.url')" />
            <meta charset="UTF-8"/>
            <style>
+               @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap');
                /* Background cho toàn bộ trang */
                body {
-                   background-color: #F5F5F0 !important;
+                   background-color: #f9f8f6 !important;
                    margin: 0 !important;
                    padding: 0 !important;
-                   font-family: 'Times New Roman', Times, serif !important;
+                   font-family: 'Barlow', sans-serif !important;
                    font-weight: normal !important;
                }
                @page {
-                   background-color: #F5F5F0;
+                   background-color: #f9f8f6;
                    margin: 0;
                }
                /* Padding để tạo lề */
@@ -24,13 +26,13 @@
                    padding-bottom: 10mm !important;
                    padding-left: 7mm !important;
                    padding-right: 7mm !important;
-                   background-color: #F5F5F0;
-                   font-family: 'Times New Roman', Times, serif !important;
+                   background-color: #f9f8f6;
+                   font-family: 'Barlow', sans-serif !important;
                    font-weight: normal !important;
                }
                /* Fix font cho tiếng Việt - không bold */
                * {
-                   font-family: 'Times New Roman', Times, serif !important;
+                   font-family: 'Barlow', sans-serif !important;
                    font-weight: normal !important;
                }
                /* Giữ bold cho thẻ strong và b */
@@ -39,7 +41,7 @@
                }
            </style>
         
-        <div class="page" style="font-family: 'Times New Roman', Times, serif; font-size: 10pt; font-weight: normal;">
+        <div class="page" style="font-family: 'Barlow', sans-serif; font-size: 10pt; font-weight: normal;">
                     
                     <!-- Header Section -->
                     <div style="margin-bottom: 20px;">
@@ -47,15 +49,13 @@
                             <tr>
                                 <td style="width: 30%; vertical-align: top;">
                                     <!-- Logo -->
-                                    <div style="font-size: 32pt; font-weight: bold; color: #000; line-height: 1; letter-spacing: 2px;">
-                                        TINY INK
-                                    </div>
-                                    <div style="font-size: 7pt; margin-top: 5px; font-weight: bold; letter-spacing: 0.5px;">
+                                    <img t-attf-src="{{base_url}}/tiny_sale/static/description/LOGO.png" style="max-height: 200px; max-width: 270px;"/>
+                                    <div style="font-size: 10pt; margin-top: 10px; font-weight: bold; letter-spacing: 1px;-webkit-text-stroke: 1px;">
                                         WEARABLE ART TAILORED FOR EXCLUSIVE SOUL
                                     </div>
                                 </td>
                                 <td style="width: 35%; vertical-align: top; padding-left: 20px;">
-                                    <div style="font-size: 8pt; line-height: 1.6;">
+                                    <div style="font-size: 9pt; line-height: 1.6;">
                                         <div>11E Phan Kế Bính, Tân Định,</div>
                                         <div>Hồ Chí Minh, 700000</div>
                                         <div>Vietnam</div>
@@ -66,20 +66,20 @@
                                 <td style="width: 35%; vertical-align: top; padding-left: 20px;">
                                     <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
                                         <tr>
-                                            <td style="padding: 5px 8px; font-weight: bold; text-align: left;">NO.</td>
+                                            <td style="padding: 5px 8px; font-weight: bold; text-align: left;-webkit-text-stroke: 0.9px black;letter-spacing: 1.3px">NO.</td>
                                             <td style="padding: 5px 8px; text-align: right;" t-esc="doc.name"></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding: 5px 8px; font-weight: bold; font-style: italic; text-align: left;">Order Date</td>
+                                            <td style="padding: 5px 8px; font-weight: bold; font-style: italic; text-align: left;-webkit-text-stroke: 0.9px black;letter-spacing: 1.3px">Order Date</td>
                                             <td style="padding: 5px 8px; text-align: right;" t-esc="doc.date_order.strftime('%d/%m/%Y') if doc.date_order else ''"></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding: 5px 8px; font-weight: bold; font-style: italic; text-align: left;">Delivery Date</td>
+                                            <td style="padding: 5px 8px; font-weight: bold; font-style: italic; text-align: left;-webkit-text-stroke: 0.9px black;letter-spacing: 1.3px">Delivery Date</td>
                                             <td style="padding: 5px 8px; text-align: right;" t-esc="doc.commitment_date.strftime('%d/%m/%Y') if doc.commitment_date else ''"></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding: 5px 8px; font-weight: bold; font-style: italic; text-align: left;">Giao hàng</td>
-                                            <td style="padding: 5px 8px; text-align: right;" t-esc="doc.commitment_date.strftime('%d/%m/%Y') if doc.commitment_date else ''"></td>
+                                            <td style="padding: 5px 8px; font-weight: bold; font-style: italic; text-align: left;-webkit-text-stroke: 0.9px black;letter-spacing: 1.3px">Giao hàng</td>
+                                            <td style="padding: 5px 8px; text-align: right;" t-esc="doc.carrier_id.name or ''"></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -95,14 +95,14 @@
                                         <div style="margin-bottom: 5px;">
                                             <strong>Bill To</strong>
                                             <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_id.code"/>
+                                                <t t-esc="doc.partner_id.code or ''"/>
                                             </span>
                                         </div>
 
                                         <div style="margin-bottom: 5px;">
                                             <strong>Khách hàng</strong>
                                             <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_id.name">Khách hàng</t>
+                                                <t t-esc="doc.partner_id.name or ''"/>
                                             </span>
                                         </div>
                                         <div style="margin-bottom: 5px;">
@@ -114,7 +114,7 @@
                                         <div style="margin-bottom: 5px;">
                                             <strong>Điện thoại</strong>
                                             <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_id.phone or doc.partner_id.mobile or ''"></t>
+                                                <t t-esc="doc.partner_id.phone  or ''"></t>
                                             </span>
                                         </div>
                                     </td>
@@ -123,26 +123,26 @@
                                         <div style="margin-bottom: 5px;">
                                             <strong>Cửa hàng</strong>
                                             <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_shipping_id.name if doc.partner_shipping_id != doc.partner_id else doc.partner_id.name"></t>
+                                                <t t-esc="doc.company_id.name or ''"></t>
                                             </span>
                                         </div>
 
                                         <div style="margin-bottom: 5px;">
                                             <strong>Khách hàng</strong>
                                             <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_shipping_id.name if doc.partner_shipping_id != doc.partner_id else doc.partner_id.name"></t>
+                                                <t t-esc="(doc.partner_shipping_id.name or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.name or '')"></t>
                                             </span>
                                         </div>
                                         <div style="margin-bottom: 5px;">
                                             <strong>Địa chỉ</strong>
                                             <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_shipping_id.street if doc.partner_shipping_id != doc.partner_id else doc.partner_id.street or ''"></t>
+                                                <t t-esc="(doc.partner_shipping_id.street or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.street or '')"></t>
                                             </span>
                                         </div>
                                         <div style="margin-bottom: 5px;">
                                             <strong>Điện thoại</strong>
                                             <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_shipping_id.phone if doc.partner_shipping_id != doc.partner_id else doc.partner_id.phone or doc.partner_id.mobile or ''"></t>
+                                                <t t-esc="(doc.partner_shipping_id.phone or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.phone or '')"></t>
                                             </span>
                                         </div>
                                     </td>
@@ -150,20 +150,23 @@
                             </table>
                         </div>
 
+                        <!-- Divider -->
+                        <div style="border-top: 2px solid #146b62; margin-bottom: 20px;"></div>
+
                         <!-- Product Table -->
                         <div style="margin-bottom: 20px;">
                             <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
                                 <thead>
-                                    <tr style="background-color: #16796F; color: white; font-weight: bold;">
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 3%; background-color: #16796F;">No.</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 15%; background-color: #16796F;">MÃ SP</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #16796F;">HÌNH SP</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #16796F;">SỐ ĐO</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 15%; background-color: #16796F;">GHI CHÚ</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #16796F;">MÃ VẢI</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #16796F;">MÃ HOA TIẾT</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #16796F;">HÌNH HOA TIẾT</th>
-                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #16796F;">GIÁ</th>
+                                    <tr style="background-color: #146b62; color: white; font-weight: bold;">
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 3%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">No.</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 15%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">MÃ SP</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">HÌNH SP</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">SỐ ĐO</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 15%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">GHI CHÚ</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">MÃ VẢI</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 10%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">MÃ HOA TIẾT</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 14%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">HÌNH HOA TIẾT</th>
+                                        <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 8%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">GIÁ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -209,7 +212,7 @@
                                             </td>
                                             <!-- GIÁ -->
                                             <td style="border: 1px solid #ddd; padding: 8px; text-align: right; vertical-align: top;">
-                                                <span t-esc="'{:,.0f}'.format(line.price_unit)">0</span>
+                                                <span t-esc="'{:,.0f}'.format(line.price_unit or 0)">0</span>
                                             </td>
                                         </tr>
                                     </t>
@@ -217,99 +220,102 @@
                             </table>
                         </div>
 
-                        <!-- Note Section -->
-                        <div style="margin-bottom: 15px; font-size: 8pt; font-style: italic;">
-                            *** Vui lòng đóng mẫu trong vòng 2 tháng kể từ ngày xác nhận hoàn thiện
-                        </div>
-
                         <!-- Footer Section -->
                         <div style="margin-top: 20px;">
                             <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
                                 <tr>
-                                    <td style="width: 50%; vertical-align: top; padding-right: 10px;">
-                                        <!-- Payment Method -->
-                                        <div style="font-weight: bold; color: #17a2b8; margin-bottom: 10px; font-size: 11pt;">
-                                            PHƯƠNG THỨC THANH TOÁN
+                                    <td style="width: 60%; vertical-align: top; padding-right: 15px;">
+                                        <!-- Note -->
+                                        <div style="margin-bottom: 12px; font-size: 9pt; font-style: italic;-webkit-text-stroke: 0.5px;letter-spacing: 0.5px">
+                                            *** Vui lòng đóng mẫu trong vòng 2 tháng kể từ ngày xác nhận hoàn thiện
                                         </div>
-                                        <div style="margin-bottom: 10px;">
-                                            <div style="margin-bottom: 5px;">* Quét mã QR để thanh toán</div>
-                                            <div style=" padding: 10px; display: inline-block;">
-                                                <!-- TODO: Thêm field qr_code_image -->
-                                                <div style="width: 100px; height: 100px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 8pt; color: #999;">
-                                                    QR Code
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="margin-top: 15px;">
-                                            <div style="font-weight: bold; margin-bottom: 5px;">* Hoặc chuyển khoản theo thông tin dưới đây</div>
-                                            <table style="width: 100%; font-size: 8pt; line-height: 1.8;">
-                                                <tr>
-                                                    <td style="width: 30%;"><strong>Số TK</strong></td>
-                                                    <td>
-                                                        <!-- TODO: Thêm field bank_account_number -->
-                                                        <span style="color: #999;"></span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Chủ TK</strong></td>
-                                                    <td>
-                                                        <!-- TODO: Thêm field bank_account_name -->
-                                                        <span style="color: #999;"></span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="vertical-align: top;"><strong>Ngân hàng</strong></td>
-                                                    <td>
-                                                        <!-- TODO: Thêm field bank_name -->
-                                                        <span style="color: #999;"></span>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                                        <!-- Payment Method header + QR inline -->
+                                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px;">
+                                            <tr>
+                                                <td style="vertical-align: center; width: 33%;">
+                                                    <div style="font-weight: bold; font-size: 10pt; margin-bottom: 8px;">
+                                                        PHƯƠNG THỨC THANH TOÁN
+                                                    </div>
+                                                    <div style="font-size: 9pt; margin-bottom: 6px;">* Quét mã QR để thanh toán</div>
+                                                </td>
+                                                <td style="vertical-align: top; width: 140px; padding-left: 0;">
+                                                    <img t-attf-src="{{base_url}}/tiny_sale/static/description/qr_payment.png" style="width: 180px; height: 170px;"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!-- Bank transfer info -->
+                                        <div style="font-size: 9pt; font-style: italic; margin-bottom: 5px;">* Hoặc chuyển khoản theo thông tin dưới đây</div>
+                                        <table style="width: 100%; font-size: 9pt; line-height: 1.8;">
+                                            <tr>
+                                                <td style="width: 25%; color: #555;">Số TK</td>
+                                                <td>
+                                                    <!-- TODO: Thêm field bank_account_number -->
+                                                    <span style="color: #999;"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #555;">Chủ TK</td>
+                                                <td>
+                                                    <!-- TODO: Thêm field bank_account_name -->
+                                                    <span style="color: #999;"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top; color: #555;">Ngân hàng</td>
+                                                <td>
+                                                    <!-- TODO: Thêm field bank_name -->
+                                                    <span style="color: #999;"></span>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
-                                    <td style="width: 50%; vertical-align: top; padding-left: 10px;">
+                                    <td style="width: 40%; vertical-align: top; padding-left: 10px;">
                                         <!-- Total Information -->
-                                        <div style="font-weight: bold; margin-bottom: 10px; text-align: right;">Thông tin</div>
-                                        <table style="width: 100%; font-size: 9pt; margin-bottom: 15px;">
+                                        <table style="width: 100%; font-size: 9pt; margin-bottom: 10px; border-collapse: collapse;">
                                             <tr>
-                                                <td style="padding: 5px;"><strong>Sản phẩm riêng</strong></td>
-                                                <td style="text-align: right; padding: 5px;">
-                                                    <!-- TODO: Thêm field is_custom_product -->
-                                                    <span style="color: #999;">-</span>
+                                                <td style="padding: 4px 5px;">Tổng tiền</td>
+                                                <td style="text-align: right; padding: 4px 5px;">
+                                                    <span t-esc="'{:,.0f}'.format(doc.amount_undiscounted or 0)">0</span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="padding: 5px;"><strong>Đặt cọc</strong></td>
-                                                <td style="text-align: right; padding: 5px;">
-                                                    <t t-set="deposit_amount" t-value="doc.amount_total - (doc.amount_residual or doc.amount_total)"/>
-                                                    <span t-esc="'{:,.0f}'.format(deposit_amount)">0</span>
+                                                <td style="padding: 4px 5px;">Sau chiết khấu</td>
+                                                <td style="text-align: right; padding: 4px 5px;">
+                                                    <span t-esc="'{:,.0f}'.format(doc.amount_total or 0)">0</span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="padding: 5px;  font-weight: bold;">Còn lại</td>
-                                                <td style="padding: 5px;  text-align: right; font-weight: bold;">
+                                                <td style="padding: 4px 5px;">Đặt cọc</td>
+                                                <td style="text-align: right; padding: 4px 5px;">
+<!--                                                    <t t-set="deposit_amount" t-value="doc.amount_total - (doc.amount_residual or doc.amount_total)"/>-->
+                                                    <span t-esc="'{:,.0f}'.format(doc.total_advance)">0</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 4px 5px; font-weight: bold;">Còn lại</td>
+                                                <td style="text-align: right; padding: 4px 8px; font-weight: bold; background-color: #146b62; color: white;">
                                                     <span t-esc="'{:,.0f}'.format(doc.amount_residual or doc.amount_total)">0</span>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <div style="margin-top: 30px; text-align: center;">
-                                            <div style="font-weight: bold; margin-bottom: 50px;">Khách hàng</div>
-                                            <div style="border-bottom: 1px dotted #000; width: 200px; margin: 0 auto;"></div>
+                                        <div style="margin-top: 70px; text-align: center; font-weight: bold;">
+                                            <div style="font-style: italic; margin-bottom: 80px;font-weight: bold !important;">Khách hàng</div>
+                                            <div style="border-bottom: 1px dotted #000; width: 180px; margin: 0 auto;"></div>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
 
-                        <!-- Legal Notice -->
-                        <div style="margin-top: 20px; font-size: 7pt; font-style: italic; text-align: justify; line-height: 1.4;">
-                            Hành trình may đo của bạn cùng <strong>Tiny Ink</strong> bắt đầu từ đây. Chúng tôi tâm trong hành trình này và sẽ làm nên những thiết kế mang chữ ký 
-                            phong cách riêng của bạn. Cảm ơn bạn đã sử dụng hành cùng <strong>Tiny Ink</strong>.
-                        </div>
-
-                        <!-- Footer Brand -->
-                        <div style="margin-top: 30px; text-align: center; font-weight: bold; font-size: 10pt; padding: 10px 0; border-top: 2px solid #17a2b8;">
-                            TINYINK.VN
+                        <!-- Legal Notice + Footer Brand -->
+                        <div style="margin-top: 20px; border-top: 2px solid #146b62; padding-top: 12px; text-align: center;">
+                            <div style="font-size: 9pt; font-style: italic; line-height: 1.6; margin-bottom: 15px;">
+                                Hành trình may đo của bạn cùng <strong>Tiny Ink</strong> bắt đầu từ đây. Chúng tôi trân trọng từng chi tiết để tạo nên những thiết kế phản
+                                chiếu phong cách riêng của bạn. Cảm ơn bạn đã đồng hành cùng <strong>Tiny Ink</strong>.
+                            </div>
+                            <div style="font-weight: bold; font-size: 10pt;-webkit-text-stroke: 0.5px;letter-spacing: 0.5px">
+                                TINYINK.VN
+                            </div>
                         </div>
 
         </div>
