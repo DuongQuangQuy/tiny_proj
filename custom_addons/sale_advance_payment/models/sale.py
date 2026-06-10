@@ -36,7 +36,7 @@ class SaleOrder(models.Model):
         compute="_compute_advance_payment",
     )
     total_advance = fields.Monetary(
-        string="Total advance",
+        string="Tổng tiền đặt cọc",
         compute="_compute_advance_payment",
         store=True,
     )

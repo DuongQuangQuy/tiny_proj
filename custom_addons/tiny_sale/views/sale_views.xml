@@ -6,12 +6,12 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/list/field[@name='product_uom_qty']" position="before" >
-                <field name="product_size" />
-                <field name="note" />
-                <field name="default_code" />
+                <field name="product_size" required="1"/>
+                <field name="note" required="1"/>
+                <field name="default_code" required="1"/>
                 <field name="product_pattern_id" />
                 <field name="product_pattern_image" widget="image" class="oe_avatar w-auto float-start" force_save="1" readonly="1"/>
-                <field name="note_pattern" />
+                <field name="note_pattern"  required="product_pattern_id"/>
             </xpath>
 
         </field>

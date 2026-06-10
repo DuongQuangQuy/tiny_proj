@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_advance_line_user,sale.advance.line.user,model_sale_advance_line,account.group_account_invoice,1,1,1,1
+access_sale_advance_line_manager,sale.advance.line.manager,model_sale_advance_line,account.group_account_manager,1,1,1,1

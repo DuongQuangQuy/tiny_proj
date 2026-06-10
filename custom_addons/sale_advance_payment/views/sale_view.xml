@@ -14,18 +14,31 @@
                     invisible="state in ('cancel', 'done')"
                 />
             </button>
-            <notebook position="inside">
-                <page string="Payment advances" groups="account.group_account_invoice">
-                    <field
-                        name="account_payment_ids"
-                        nolabel="1"
-                        colspan="4"
-                        readonly="False"
-                        context="{'form_view_ref': 'account.view_account_payment_form','tree_view_ref': 'sale_advance_payment.view_account_payment_tree'}"
-                    />
-                </page>
-            </notebook>
+<!--            <notebook position="inside">-->
+<!--                <page string="Payment advances" groups="account.group_account_invoice">-->
+<!--                    <field-->
+<!--                        name="account_payment_ids"-->
+<!--                        nolabel="1"-->
+<!--                        colspan="4"-->
+<!--                        readonly="False"-->
+<!--                        context="{'form_view_ref': 'account.view_account_payment_form','tree_view_ref': 'sale_advance_payment.view_account_payment_tree'}"-->
+<!--                    />-->
+<!--                </page>-->
+<!--            </notebook>-->
             <field name="tax_totals" position="after">
+                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                    <label for="total_advance" />
+                    <field class="oe_inline"
+                    name="total_advance"
+                    nolabel="1"
+                    readonly="True"
+
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                />
+                </div>
+
+
                 <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                     <label for="amount_residual" />
                 </div>
