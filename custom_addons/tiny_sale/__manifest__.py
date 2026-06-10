@@ -15,6 +15,7 @@
     'data': [
         # 'data/sequence.xml',
         'views/sale_views.xml',
+        'views/account_move_views.xml',
         'report/ir_actions_report.xml',
         'report/ir_actions_report_templates.xml',
 

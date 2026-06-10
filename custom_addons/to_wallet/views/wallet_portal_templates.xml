@@ -1,0 +1,231 @@
+<odoo>
+
+	<template id="portal_breadcrumbs_wallet" inherit_id="portal.portal_breadcrumbs">
+		<xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+			<li t-if="page_name in ('wallet', 'wallet_transaction_history')" t-attf-class="breadcrumb-item #{'active' if not wallet else ''}">
+				<t t-set="query" t-value="keep_query('debug')" />
+				<a t-if="wallet" t-attf-href="/my/wallets{{ '?' + query if query else '' }}">Wallets</a>
+				<t t-else="">Wallets</t>
+			</li>
+			<li t-if="wallet" class="breadcrumb-item active">
+				<span t-field="wallet.name" />
+			</li>
+			<li t-if="page_name == 'wallet_transaction_history' or wallet_histories" class="breadcrumb-item active">
+				<span>Transaction Histories</span>
+			</li>
+		</xpath>
+	</template>
+
+	<template id="portal_my_home_wallet" inherit_id="account.portal_my_home_invoice" priority="100" customize_show="True">
+		<xpath expr="//div[@id='portal_client_category']" position="inside">
+			<t t-call="portal.portal_docs_entry">
+				<t t-set="icon" t-value="'/to_wallet/static/src/img/wallet.svg'"/>
+				<t t-set="title">Wallets</t>
+				<t t-set="url" t-value="'/my/wallets'" />
+				<t t-set="text">Follow, create, top-up or withdraw your wallets</t>
+				<t t-set="placeholder_count" t-value="'wallet_count'" />
+			</t>
+		</xpath>
+	</template>
+
+	<template id="portal_wallets_page" name="My Wallets">
+		<t t-call="portal.portal_layout">
+			<t t-set="breadcrumbs_searchbar" t-value="True" />
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">Wallets</t>
+			</t>
+			<div class="o_create_wallet">
+				<button id="btnCreateWallet" class="btn btn-secondary mb-2">
+					<i class="fa fa-plus"/>
+					<span>New Wallet</span>
+				</button>
+			</div>
+			<div name="wallet_content">
+				<t t-if="not wallets">
+					<div class="alert alert-info mb-2">
+						<p class="mb-0 py-2">There are currently no wallets for your account.</p>
+					</div>
+				</t>
+				<t t-if="wallets">
+					<div class="row">
+						<t t-foreach="grouped_wallets" t-as="wallets">
+							<t t-foreach="wallets" t-as="wallet">
+								<div class="o_wallet_container col-12 col-lg-4">
+									<t t-call="portal.portal_record_layout">
+										<t t-set="classes" t-value="" />
+										<t t-set="card_header">
+											<div class="d-flex justify-content-between flex-wrap">
+												<h4 class="mb-2 mb-md-0">
+													<span t-field="wallet.name" />
+												</h4>
+											</div>
+										</t>
+										<t t-set="card_body">
+											<div class="o_wallet_balance">
+												<div class="d-flex flex-nonwrap justify-content-between mb-2">
+													<label><strong>Available Balance:</strong></label>
+													<span t-field="wallet.amount" />
+												</div>
+												<div class="d-flex flex-nonwrap justify-content-between mb-2">
+													<label><strong>Pending Balance:</strong></label>
+													<span t-field="wallet.amount_pending" />
+												</div>
+											</div>
+											<div class="d-flex flex-nonwrap justify-content-between mt-3 o_wallet_operations" t-att-data-wallet-id="wallet.id" t-att-data-wallet-name="wallet.name">
+												<t t-set="wallet_type" t-value="wallet.wallet_type_id" />
+												<button id="btnTopUpWallet" title="Top Up"
+													t-att-class="'btn btn-outline-primary' if wallet_type.show_button_top_up_wallet_on_portal() else 'btn btn-primary disabled'">
+													<img class="rounded" alt="Top Up" width="30px" height="30px" t-attf-src="/to_wallet/static/src/img/topup-wallet.svg" />
+													<div>Top Up</div>
+												</button>
+												<button id="btnWithdrawWallet" title="Withdraw"
+													t-att-class="'btn btn-outline-secondary' if wallet_type.show_button_withdraw_wallet_on_portal() else'btn btn-secondary disabled'">
+													<img class="rounded" alt="Withdraw" width="30px" height="30px" t-attf-src="/to_wallet/static/src/img/withdraw-wallet.svg" />
+													<div>Withdraw</div>
+												</button>
+												<button id="btnViewWalletTransactionHistory" title="History" class="btn btn-outline-info">
+													<img class="rounded" alt="History" width="30px" height="30px" t-attf-src="/to_wallet/static/src/img/wallet-history.svg" />
+													<div>History</div>
+												</button>
+											</div>
+										</t>
+									</t>
+								</div>
+							</t>
+						</t>
+					</div>
+				</t>
+			</div>
+		</t>
+	</template>
+
+	<template id="portal_wallet_histories_page" name="Portal Wallet Histories Page">
+		<t t-call="portal.portal_layout">
+			<t t-set="breadcrumbs_searchbar" t-value="True" />
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">Transaction Histories</t>
+			</t>
+			<div class="wallet-transaction-history-list">
+				<t t-if="wallet_histories">
+					<t t-call="portal.portal_table">
+						<t t-foreach="grouped_wallet_histories" t-as="wallet_histories">
+							<thead>
+								<tr class="table-light">
+									<th class="text-start" name="transaction_code_thead">Code</th>
+									<th class="text-start" name="transaction_date_thead">Transaction Date</th>
+									<th class="text-end" name="transaction_amount_thead">Amount</th>
+									<th class="text-start" name="transaction_type_thead">Transaction Type</th>
+									<th class="text-start" name="transaction_state_thead">State</th>
+									<th class="text-start" name="transaction_reference_thead">Reference</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-foreach="wallet_histories" t-as="wallet_history">
+									<tr>
+										<td class="text-start" name="transaction_code">
+											<span t-field="wallet_history.name" />
+										</td>
+										<td class="text-start" name="transaction_date">
+											<span t-field="wallet_history.create_date" />
+										</td>
+										<td class="text-end" name="transaction_amount">
+											<span t-field="wallet_history.amount" />
+										</td>
+										<td class="text-start" name="transaction_type">
+											<t t-if="wallet_history.wallet_history_type == 'top-up'">
+												<em class="badge bg-success text-white">Top-Up</em>
+											</t>
+											<t t-if="wallet_history.wallet_history_type == 'withdraw'">
+												<em class="badge bg-danger text-white">Withdrawal</em>
+											</t>
+											<t t-if="wallet_history.wallet_history_type == 'payment'">
+												<em class="badge bg-warning text-white">Payment</em>
+											</t>
+											<t t-if="wallet_history.wallet_history_type == 'refund'">
+												<em class="badge bg-info text-white">Refund</em>
+											</t>
+										</td>
+										<td class="text-start" name="transaction_state">
+											<t t-if="wallet_history.state == 'pending'">
+												<em class="badge bg-warning text-white">Pending</em>
+											</t>
+											<t t-if="wallet_history.state == 'done'">
+												<em class="badge bg-success text-white">Successful</em>
+											</t>
+											<t t-if="wallet_history.state == 'cancel'">
+												<em class="badge bg-light text-dark">Cancelled</em>
+											</t>
+										</td>
+										<td class="text-start" name="transaction_reference">
+											<span t-field="wallet_history.reference" />
+										</td>
+									</tr>
+								</t>
+							</tbody>
+						</t>
+					</t>
+				</t>
+				<t t-else="">
+					<div class="alert alert-info mt8" role="alert">
+						There are no wallet transaction history.
+					</div>
+				</t>
+			</div>
+		</t>
+	</template>
+
+	<template id="wallet_withdraw_payment_confirm">
+        <t t-call="portal.frontend_layout">
+            <t t-set="page_title" t-value="'Withdraw Wallet Confirmation'"/>
+            <t t-set="additional_title"><t t-esc="page_title"/></t>
+            <div class="wrap">
+                <div class="container">
+                    <!-- Portal breadcrumb -->
+                    <t t-call="payment.portal_breadcrumb"/>
+                    <!-- Confirmation page -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <div class="alert alert-info alert-dismissible">
+                                	<button class="btn-close" data-bs-dismiss="alert" title="Dismiss"/>
+                                	<p class="mb-0">Your withdrawal request is being processed. We will send you a notification email after the processing is completed. Thank you!</p>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="form_partner_name" class="col-md-3 col-form-label">From</label>
+                                    <span name="form_partner_name" class="col-md-9 col-form-label" t-esc="wallet.partner_id.name"/>
+                                </div>
+                                <hr/>
+                                <div class="mb-3 row">
+                                    <label for="form_reference" class="col-md-3 col-form-label">Reference</label>
+                                    <span name="form_reference" class="col-md-9 col-form-label" t-esc="payment_reference"/>
+                                </div>
+                                <hr/>
+                                <div class="mb-3 row">
+                                    <label for="form_wallet_name" class="col-md-3 col-form-label">Withdraw Wallet</label>
+                                    <span name="form_wallet_name" class="col-md-9 col-form-label" t-esc="wallet.name"/>
+                                </div>
+                                <hr/>
+                                <div class="mb-3 row">
+                                    <label for="form_amount" class="col-md-3 col-form-label">Amount</label>
+                                    <span name="form_amount" class="col-md-9 col-form-label" t-esc="amount"
+                                    	t-options="{'widget': 'monetary', 'display_currency': wallet.currency_id}"/>
+                                </div>
+                                <hr/>
+                                <div class="mb-3 row">
+                                	<div class="col-md-5"></div>
+                                    <div class="col-md-4 offset-md-3 mt-2 ps-0">
+                                        <a role="button"
+                                           t-attf-class="btn btn-primary float-end" href="/my/wallets">
+                                            <i class="fa fa-arrow-circle-right"/> Back to My Wallet
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,159 @@
+<odoo>
+
+	<record id="wallet_history_form" model="ir.ui.view">
+		<field name="name">wallet.history.form</field>
+		<field name="model">wallet.history</field>
+		<field name="arch" type="xml">
+			<form edit="0" create="0">
+				<header>
+					<button name="action_done" type="object" groups="account.group_account_invoice"
+						string="Done" class="oe_highlight" invisible="state != 'pending'"/>
+					<button name="action_cancel" type="object" groups="account.group_account_invoice"
+						string="Cancel" invisible="state != 'pending'"/>
+					<field name="state" readonly="1" widget="statusbar" />
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button type="object" name="action_view_account_move_lines" class="oe_stat_button"
+							groups="account.group_account_readonly" icon="fa-pencil">
+							<field name="account_move_line_count" widget="statinfo" string="Journal Items" />
+						</button>
+					</div>
+					<widget name="web_ribbon" title="Top-Up" invisible="wallet_history_type != 'top-up'"/>
+					<widget name="web_ribbon" title="Withdrawal" bg_color="bg-danger" invisible="wallet_history_type != 'withdraw'"/>
+					<widget name="web_ribbon" title="Payment" bg_color="bg-warning" invisible="wallet_history_type != 'payment'"/>
+					<widget name="web_ribbon" title="Refund" bg_color="bg-info" invisible="wallet_history_type != 'refund'"/>
+					<h1>
+						<field name="name" />
+					</h1>
+					<group>
+						<group>
+							<field name="partner_id" />
+							<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
+							<field name="wallet_type_id" />
+							<field name="wallet_id" />
+							<field name="payment_ids" widget="many2many_tags" invisible="not payment_ids" />
+						</group>
+						<group>
+							<field name="wallet_history_type" invisible="1" />
+							<field name="create_date" string='Transaction Date' />
+							<field name="date" invisible="state != 'done'" />
+							<field name="amount" />
+							<field name="currency_id" invisible="1" />
+							<field name="currency_id" groups="base.group_multi_currency" options="{'no_create': True}"  />
+							<field name="reference" />
+						</group>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" />
+					<field name="message_ids" />
+					<field name="activity_ids"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="wallet_history_list" model="ir.ui.view">
+		<field name="name">wallet.history.list</field>
+		<field name="model">wallet.history</field>
+		<field name="arch" type="xml">
+			<list sample="1" edit="0" create="0"
+				decoration-success="amount > 0 and state == 'done'"
+				decoration-danger="amount &lt; 0 and state == 'done'"
+				decoration-warning="state == 'pending'"
+				decoration-muted="state == 'cancel'">
+				<field name="create_date" string="Transaction Date" />
+				<field name="name" string="Code" />
+				<field name="partner_id" />
+				<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
+				<field name="wallet_type_id" />
+				<field name="wallet_id" />
+				<field name="currency_id" />
+				<field name="amount" sum="Total" />
+				<field name="state" widget="badge"
+					decoration-success="amount > 0 and state == 'done'"
+					decoration-danger="amount &lt; 0 and state == 'done'"
+					decoration-warning="state == 'pending'"
+					decoration-muted="state == 'cancel'"
+				/>
+			</list>
+		</field>
+	</record>
+
+	<record id="wallet_history_pivot" model="ir.ui.view">
+		<field name="name">wallet.history.pivot</field>
+		<field name="model">wallet.history</field>
+		<field name="arch" type="xml">
+			<pivot sample="1">
+				<field name="partner_id" type="row" />
+				<field name="wallet_id" type="row" />
+				<field name="wallet_history_type" type="row" />
+                <field name="amount" type="measure" />
+			</pivot>
+		</field>
+	</record>
+
+	<record id="wallet_history_graph" model="ir.ui.view">
+		<field name="name">wallet.history.graph</field>
+		<field name="model">wallet.history</field>
+		<field name="arch" type="xml">
+			<graph type="line" sample="1">
+				<field name="create_date" type="row" />
+                <field name="amount" type="measure" />
+			</graph>
+		</field>
+	</record>
+
+	<record id="wallet_history_search" model="ir.ui.view">
+		<field name="name">wallet.history.search</field>
+		<field name="model">wallet.history</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name" />
+				<field name="partner_id" />
+				<field name="wallet_type_id" />
+				<field name="payment_ids" />
+				<field name="reference" />
+				<!-- Filter -->
+				<filter name="flt_pending_state" string="Pending" domain="[('state', '=', 'pending')]" />
+				<filter name="flt_done_state" string="Successful" domain="[('state', '=', 'done')]" />
+				<filter name="flt_cancel_state" string="Cancelled" domain="[('state', '=', 'cancel')]" />
+				<separator />
+				<filter name="flt_top_up_operation" string="Top-Up" domain="[('wallet_history_type', '=', 'top-up')]" />
+				<filter name="flt_withdraw_operation" string="Withdrawal" domain="[('wallet_history_type', '=', 'withdraw')]" />
+				<filter name="flt_payment_operation" string="Payment" domain="[('wallet_history_type', '=', 'payment')]" />
+				<filter name="flt_refund_operation" string="Refund" domain="[('wallet_history_type', '=', 'refund')]" />
+				<separator />
+<!--				<filter name="ftr_create_date" string="Transaction Date"     date="create_date" default_period="this_month"/>-->
+				<!-- Group By -->
+<!--				<group expand="0" string="Group By">-->
+					<filter name="grp_partner_id" string="Partner" context="{'group_by': 'partner_id'}" />
+					<filter name="grp_wallet_type_id" string="Wallet Type" context="{'group_by': 'wallet_type_id'}" />
+					<filter name="grp_wallet_id" string="Wallet" context="{'group_by': 'wallet_id'}" />
+					<filter name="grp_state" string="State" context="{'group_by': 'state'}" />
+					<filter name="grp_wallet_history_type" string="Transaction Type" context="{'group_by': 'wallet_history_type'}" />
+					<separator />
+					<filter name="grp_create_date" string="Transaction Date" context="{'group_by': 'create_date:day'}" />
+					<separator />
+					<filter name="grp_company_id" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company" />
+<!--				</group>-->
+			</search>
+		</field>
+	</record>
+
+	<record id="action_view_wallet_histories" model="ir.actions.act_window">
+		<field name="name">Wallet Transaction Histories</field>
+		<field name="res_model">wallet.history</field>
+		<field name="view_mode">list,form,pivot,graph</field>
+		<field name="context">{'search_default_grp_create_date': 1}</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+				No transactions occurred!
+			</p>
+		</field>
+	</record>
+
+	<menuitem action="action_view_wallet_histories" id="wallet_history_menu" parent="account.menu_finance_receivables" sequence="21" />
+
+</odoo>

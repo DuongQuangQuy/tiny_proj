@@ -1,0 +1,40 @@
+<odoo>
+	<record id="account_payment_form" model="ir.ui.view">
+		<field name="name">account.payment.form.inherit.wallet</field>
+		<field name="model">account.payment</field>
+		<field name="inherit_id" ref="account.view_account_payment_form" />
+		<field name="arch" type="xml">
+			<field name="partner_id" position="after">
+				<field name="is_wallet"
+					invisible="partner_type != 'customer' or payment_type not in ('inbound', 'outbound') or not partner_id" readonly="state != 'draft'"/>
+				<field name="wallet_type_id"
+					invisible="not is_wallet or not partner_id" readonly="state in ['cancel', 'posted']" required="is_wallet"/>
+				<field name="wallet_id" readonly="1" invisible="not is_wallet or not partner_id or state != 'posted'" />
+			</field>
+			<xpath expr="//label[@for='amount']" position="attributes">
+				<attribute name="invisible">is_wallet and payment_type == 'outbound'</attribute>
+			</xpath>
+			<xpath expr="//label[@for='amount']" position="after">
+				<label for="amount"
+					string="Amount Withdraw Wallet"
+				invisible="not is_wallet or is_wallet and payment_type == 'inbound'"/>
+			</xpath>
+			<div name="amount_div" position="after">
+				<field name="wallet_amount"
+					string="Amount Top Up Wallet"
+				invisible="not is_wallet or not partner_id or payment_type == 'outbound'" readonly="state in ['cancel', 'posted']"/>
+			</div>
+		</field>
+	</record>
+
+	<record id="view_account_payment_search" model="ir.ui.view">
+		<field name="name">account.payment.search.inherit.wallet</field>
+		<field name="model">account.payment</field>
+		<field name="inherit_id" ref="account.view_account_payment_search" />
+		<field name="arch" type="xml">
+			<filter name="inbound_filter" position="after">
+				<filter name="wallet_filter" string="Wallet Payments" domain="[('is_wallet', '=', True)]" />
+			</filter>
+		</field>
+	</record>
+</odoo>

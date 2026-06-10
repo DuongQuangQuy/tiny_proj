@@ -47,14 +47,14 @@
                     <div style="margin-bottom: 20px;">
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
-                                <td style="width: 30%; vertical-align: top;">
+                                <td style="width: 40%; vertical-align: top;">
                                     <!-- Logo -->
                                     <img t-attf-src="{{base_url}}/tiny_sale/static/description/LOGO.png" style="max-height: 200px; max-width: 270px;"/>
                                     <div style="font-size: 10pt; margin-top: 10px; font-weight: bold; letter-spacing: 1px;-webkit-text-stroke: 1px;">
                                         WEARABLE ART TAILORED FOR EXCLUSIVE SOUL
                                     </div>
                                 </td>
-                                <td style="width: 35%; vertical-align: top; padding-left: 20px;">
+                                <td style="width: 30%; vertical-align: top; padding-left: 20px;">
                                     <div style="font-size: 9pt; line-height: 1.6;">
                                         <div>11E Phan Kế Bính, Tân Định,</div>
                                         <div>Hồ Chí Minh, 700000</div>
@@ -151,7 +151,7 @@
                         </div>
 
                         <!-- Divider -->
-                        <div style="border-top: 2px solid #146b62; margin-bottom: 20px;"></div>
+                        <div style="border-top: 1px solid #146b62; margin-bottom: 20px;"></div>
 
                         <!-- Product Table -->
                         <div style="margin-bottom: 20px;">
@@ -245,26 +245,25 @@
                                         </table>
                                         <!-- Bank transfer info -->
                                         <div style="font-size: 9pt; font-style: italic; margin-bottom: 5px;">* Hoặc chuyển khoản theo thông tin dưới đây</div>
+                                        <t t-set="bank"
+                                            t-value="doc.company_id.partner_id.bank_ids and doc.company_id.partner_id.bank_ids[0] or False"/>
                                         <table style="width: 100%; font-size: 9pt; line-height: 1.8;">
                                             <tr>
                                                 <td style="width: 25%; color: #555;">Số TK</td>
                                                 <td>
-                                                    <!-- TODO: Thêm field bank_account_number -->
-                                                    <span style="color: #999;"></span>
+                                                    <span t-esc="bank.acc_number if bank else ''"/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="color: #555;">Chủ TK</td>
                                                 <td>
-                                                    <!-- TODO: Thêm field bank_account_name -->
-                                                    <span style="color: #999;"></span>
+                                                    <span t-esc="bank.acc_holder_name if bank else ''"/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="vertical-align: top; color: #555;">Ngân hàng</td>
                                                 <td>
-                                                    <!-- TODO: Thêm field bank_name -->
-                                                    <span style="color: #999;"></span>
+                                                    <span t-esc="bank.bank_id.name if bank and bank.bank_id else ''"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -294,7 +293,7 @@
                                             <tr>
                                                 <td style="padding: 4px 5px; font-weight: bold;">Còn lại</td>
                                                 <td style="text-align: right; padding: 4px 8px; font-weight: bold; background-color: #146b62; color: white;">
-                                                    <span t-esc="'{:,.0f}'.format(doc.amount_residual or doc.amount_total)">0</span>
+                                                    <span t-esc="'{:,.0f}'.format(doc.amount_residual)">0</span>
                                                 </td>
                                             </tr>
                                         </table>
@@ -308,7 +307,7 @@
                         </div>
 
                         <!-- Legal Notice + Footer Brand -->
-                        <div style="margin-top: 20px; border-top: 2px solid #146b62; padding-top: 12px; text-align: center;">
+                        <div style="margin-top: 20px; border-top: 1px solid #146b62; padding-top: 12px; text-align: center;">
                             <div style="font-size: 9pt; font-style: italic; line-height: 1.6; margin-bottom: 15px;">
                                 Hành trình may đo của bạn cùng <strong>Tiny Ink</strong> bắt đầu từ đây. Chúng tôi trân trọng từng chi tiết để tạo nên những thiết kế phản
                                 chiếu phong cách riêng của bạn. Cảm ơn bạn đã đồng hành cùng <strong>Tiny Ink</strong>.

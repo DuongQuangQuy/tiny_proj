@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data noupdate="1">
+
+		<record id="reward_wallet_type" model="wallet.type">
+			<field name="name">Reward</field>
+			<field name="allow_top_up" eval="False"></field>
+			<field name="allow_withdraw" eval="False"></field>
+			<field name="allow_pay_online" eval="True"></field>
+		</record>
+
+		<record id="consumption_wallet_type" model="wallet.type">
+			<field name="name">Consumption</field>
+			<field name="allow_top_up" eval="True"></field>
+			<field name="allow_withdraw" eval="True"></field>
+			<field name="allow_pay_online" eval="True"></field>
+		</record>
+
+	</data>
+</odoo>

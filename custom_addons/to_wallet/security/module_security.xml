@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- ==================== PRIVILEGE ==================== -->
+        <record model="res.groups.privilege" id="res_groups_privilege_wallet">
+			<field name="name">eWallet</field>
+			<field name="category_id" ref="base.module_category_accounting"/>
+			<field name="sequence">10</field>
+		</record>
+
+        <!-- ==================== GROUPS ==================== -->
+        <record id="group_wallet_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="sequence">50</field>
+            <field name="comment">The users in this group will be able to manage partner's ewallets.</field>
+            <field name="privilege_id" ref="res_groups_privilege_wallet"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="account.group_account_invoice" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('group_wallet_manager'))]"/>
+        </record>
+
+        <record id="account.group_account_readonly" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('group_wallet_manager'))]"/>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <!-- ==================== WALLET RULES ==================== -->
+        <record id="portal_wallet_own_rule" model="ir.rule">
+            <field name="name">Wallet: Own Wallet (Portal)</field>
+            <field name="model_id" ref="model_wallet"/>
+            <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+        <record id="internal_wallet_own_rule" model="ir.rule">
+            <field name="name">Wallet: Own Wallet (Internal)</field>
+            <field name="model_id" ref="model_wallet"/>
+            <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="manager_wallet_all_rule" model="ir.rule">
+            <field name="name">Wallet: All Wallets (Manager)</field>
+            <field name="model_id" ref="model_wallet"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('to_wallet.group_wallet_manager'))]"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- ==================== WALLET HISTORY RULES ==================== -->
+        <record id="portal_wallet_history_own_rule" model="ir.rule">
+            <field name="name">Wallet History: Own History (Portal)</field>
+            <field name="model_id" ref="model_wallet_history"/>
+            <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+        <record id="internal_wallet_history_own_rule" model="ir.rule">
+            <field name="name">Wallet History: Own History (Internal)</field>
+            <field name="model_id" ref="model_wallet_history"/>
+            <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="manager_wallet_history_all_rule" model="ir.rule">
+            <field name="name">Wallet History: All History (Manager)</field>
+            <field name="model_id" ref="model_wallet_history"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('to_wallet.group_wallet_manager'))]"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- ==================== MULTI-COMPANY RULES ==================== -->
+        <record id="wallet_type_multi_company_rule" model="ir.rule">
+            <field name="name">Wallet Type: Multi Company</field>
+            <field name="model_id" ref="model_wallet_type"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+
+        <record id="wallet_multi_company_rule" model="ir.rule">
+            <field name="name">Wallet: Multi Company</field>
+            <field name="model_id" ref="model_wallet"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="wallet_history_multi_company_rule" model="ir.rule">
+            <field name="name">Wallet History: Multi Company</field>
+            <field name="model_id" ref="model_wallet_history"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

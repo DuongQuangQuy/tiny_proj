@@ -1,0 +1,32 @@
+<templates>
+	<t t-name="CreateWalletDialogContent">
+		<div>
+			<form method="post" action="/my/wallets/create" id="createWalletForm">
+				<input type="hidden" name="csrf_token" t-att-value="csrf_token" />
+				<div class="row">
+					<div class="col-lg-6 mb-3 form-field">
+						<label for="walletTypeId">Wallet Type</label>
+						<select name="wallet_type_id" id="walletTypeId" class="form-control" required="1">
+							<t t-esc="wallet_types" />
+							<t t-foreach="wallet_types" t-as="wallet_type" t-key="wallet_type">
+								<option t-att-value="wallet_type.id">
+									<t t-esc="wallet_type.name" />
+								</option>
+							</t>
+						</select>
+					</div>
+					<div class="col-lg-6 mb-3 form-field">
+						<label for="walletCurrency">Currency</label>
+						<select name="currency_id" id="walletCurrency" class="form-control" required="1">
+							<t t-foreach="currencies" t-as="currency" t-key="currency">
+								<option t-att-value="currency.id">
+									<t t-esc="currency.name" />
+								</option>
+							</t>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</t>
+</templates>

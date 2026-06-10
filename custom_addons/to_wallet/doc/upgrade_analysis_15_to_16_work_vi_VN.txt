@@ -1,0 +1,320 @@
+---Classes in module ---
+
+FILE: to_wallet/__init__.py
+
+
+FILE: to_wallet/controllers/wallet_portal.py
+
+class WalletPortal(PaymentPortal):
+
+    @property
+    def _partner_sudo(self):
+    @property
+    def _wallets(self):
+    def _prepare_home_portal_values(self, counters):
+    def _prepare_wallets_page_values(self):
+    @http.route('/my/wallets', type='http', auth='user', website=True, sitemap=False)
+    def wallets_page(self, **kwargs):
+    def _get_wallet_by_id(self, wallet_id):
+    @http.route('/my/wallet/<int:wallet_id>/payment', type='http', auth='user', website=True, sitemap=False)
+    def wallet_payment_page(self, wallet_id, **kwargs):
+    @http.route('/my/wallet/<int:wallet_id>/transaction', type='json', auth='user', website=True, sitemap=False)
+    def wallet_payment_transaction(self, wallet_id, **kwargs):
+    @http.route('/my/wallet/<int:wallet_id>/transaction-status', type='http', auth='user', website=True, sitemap=False)
+    def wallet_transaction_status(self, wallet_id):
+
+FILE: to_wallet/controllers/__init__.py
+
+
+FILE: to_wallet/wizard/account_payment_register.py
+
+class AccountPaymentRegister(models.TransientModel):
+    _inherit = 'account.payment.register'
+
+
+    wallet = fields.Boolean(string='Is Wallet Deposit/Withdraw', compute='_compute_wallet', store=True, readonly=False,
+                            help="Check this field if the payment is to deposit to or withdraw from wallet.")
+    wallet_amount = fields.Monetary(currency_field='currency_id', compute='_compute_wallet', store=True, readonly=False)
+    @api.depends('line_ids.move_id.wallet_total', 'currency_id', 'company_id', 'payment_date')
+    def _compute_wallet(self):
+    def _create_payment_vals_from_wizard(self):
+    def _create_payment_vals_from_batch(self, batch_result):
+
+FILE: to_wallet/wizard/__init__.py
+
+
+FILE: to_wallet/models/account_move.py
+
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+
+    wallet_total = fields.Monetary(string='Wallet Total', compute='_compute_wallet_total', store=True,
+                                   readonly=False, states={'posted': [('readonly', True)], 'cancel': [('readonly', True)]},
+                                   help="The total amount of wallet invoice lines")
+    @api.depends('invoice_line_ids', 'invoice_line_ids.price_total', 'invoice_line_ids.wallet')
+    def _compute_wallet_total(self):
+    def _get_receivable_wallet_lines(self):
+        """
+        This method get all the receivable move lines of the invoices in self that are wallet operations related
+        """
+
+    def _post(self, soft=True):
+
+FILE: to_wallet/models/account_full_reconcile.py
+
+class AccountFullReconcile(models.Model):
+    _inherit = 'account.full.reconcile'
+
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        This override to ensure that we will not create full reconcile for move lines that have amount_residual other than zero
+        that happens with wallet related move lines
+        """
+
+
+FILE: to_wallet/models/account_move_line.py
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+
+    wallet = fields.Boolean(string='Is Wallet Operation',
+                            help="This field indicates if this journal item is related to eWallet operations."
+                            " If this is an invoice line, this indicates if the item could be paid with wallet only.")
+    wallet_id = fields.Many2one('wallet', string='Related Wallet', readonly=True)
+    wallet_amount = fields.Monetary(currency_field='company_currency_id', readonly=True)
+    wallet_amount_currency = fields.Monetary(currency_field='currency_id', readonly=True)
+    wallet_amount_residual = fields.Monetary(currency_field='company_currency_id', compute='_compute_wallet_amount_residual', store=True)
+    wallet_amount_residual_currency = fields.Monetary(currency_field='currency_id', compute='_compute_wallet_amount_residual', store=True)
+    non_wallet_amount_residual = fields.Monetary(currency_field='company_currency_id', compute='_compute_non_wallet_amount_residual', store=True)
+    non_wallet_amount_residual_currency = fields.Monetary(currency_field='currency_id', compute='_compute_non_wallet_amount_residual', store=True)
+    @api.constrains('balance', 'currency_id', 'amount_currency', 'wallet_amount', 'wallet_amount_currency')
+    def _check_wallet_amount(self):
+            # TODO: In 15.0, deleted to serve selling SaaS under the new policy. Remove or uncomment this code in the future if needed.
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+    def _compute_wallet_amount(self):
+        """
+        :deprecated: This method is not compliant with the naming convention
+        """
+
+    def _update_wallet_amount(self):
+        """
+        This compute wallet fields for:
+            1. customer invoice lines
+            2. customer invoice's receivable lines
+            3. payment move lines
+            4. If the line is not either of the above, set zero for the numeric fields
+        """
+
+    @api.depends('wallet', 'wallet_amount', 'wallet_amount_currency',
+    def _compute_wallet_amount_residual(self):
+        """Fork from the method _compute_amount_residual().
+
+        Computation is almost same as _compute_amount_residual(). The differences are:
+            * Use wallet_amount (and wallet_amount_currency) as base amount instead of balance (and amount_currency).
+            * Subtract total amount of wallet partial reconcile records instead of all matching partial reconcile records.
+        """
+
+    @api.depends('amount_residual', 'wallet_amount_residual', 'amount_residual_currency', 'wallet_amount_residual_currency')
+    def _compute_non_wallet_amount_residual(self):
+    def reconcile(self):
+        """
+        This override ensures the followings:
+            1. If all the lines are non-wallet lines, fall back to the Odoo's default behavior
+            2. If all the lines are wallet lines, reconcile them with reconcile amount of wallet
+              residual instead of normal residual amount
+            3. If one or more (not all) of the lines are wallet, reconcile with
+              non_wallet_amount_residual or non_wallet_amount_residual_currency
+            4. after the operation above mentioned, fall back for the remaining unreconciled lines
+        """
+
+        def _reconcile(wallet):
+    def _create_exchange_difference_move(self):
+
+FILE: to_wallet/models/res_partner.py
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+
+    wallet_ids = fields.One2many('wallet', 'partner_id', groups="to_wallet.group_wallet_manager")
+    def _parepare_wallet_data(self, currency=None):
+    def _create_wallet_if_not_exist(self, currency=None):
+        """
+        Method to create a partner's wallet in the given currency if not exists.
+
+        :param currency: currency record for which the wallet will be generated.
+            If no currency is passed, either the partner's currency or the company's currency will be applied
+        :return: return the newly created wallet or the existing one if it exists.
+        """
+
+
+FILE: to_wallet/models/product_template.py
+
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+
+    wallet = fields.Boolean(string='Paid by Wallet', help="If checked, this product will be paid by wallet credit only.")
+
+FILE: to_wallet/models/wallet.py
+
+class Wallet(models.Model):
+    _name = 'wallet'
+
+    _description = 'Wallet'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
+    _mail_post_access = 'read'
+
+    currency_id = fields.Many2one('res.currency', required=True, readonly=True)
+    partner_id = fields.Many2one('res.partner', required=True, readonly=True)
+    company_id = fields.Many2one('res.company', related='partner_id.company_id', readonly=True)
+    amount = fields.Monetary(currency_field='currency_id', compute='_compute_amount', store=True, tracking=True)
+    payment_ids = fields.One2many('account.payment', 'wallet_id', groups="account.group_account_invoice")
+    payments_count = fields.Integer(compute='_compute_payments_count', groups="account.group_account_invoice")
+    transaction_ids = fields.One2many('payment.transaction', 'wallet_id', readonly=True)
+    move_line_ids = fields.One2many('account.move.line', 'wallet_id', string='Journal Items', readonly=True, groups="account.group_account_invoice")
+    move_lines_count = fields.Integer(string='Journal Items Count', compute='_compute_move_lines_count', compute_sudo=True)
+    empty_date = fields.Datetime(string='Est. Credit out',
+                                 compute='_compute_empty_date', store=True,
+                                 help='Estimated date on when the wallet is empty')
+    realtime_amount = fields.Monetary(string='Realtime Amount', currency_field='currency_id',
+                                      compute='_compute_realtime_amount', compute_sudo=True)
+    _sql_constraints = [
+        ('currency_per_partner_uniq', 'unique(currency_id, partner_id)', 'Wallet Error. Currency must be unique per partner.')
+
+    ]
+
+    @api.depends('amount')
+    def _compute_realtime_amount(self):
+    def _get_realtime_amount(self):
+    @api.depends('move_line_ids.reconciled',
+    def _compute_amount(self):
+    def _compute_move_lines_count(self):
+    @api.depends('amount')
+    def _compute_empty_date(self):
+    def _get_empty_date(self):
+        """
+        This method is place holder for other module to override 
+        to calculate empty date of this wallet
+        """
+
+    @api.depends('payment_ids')
+    def _compute_payments_count(self):
+    def _get_compatible_payment_acquirers(self):
+    def _prepare_payment_transaction_values(self, **kwargs):
+    def _prepapre_payment_page_values(self, **kwargs):
+    def action_view_account_move_lines(self):
+    def _get_last_transaction(self):
+    def name_get(self):
+
+FILE: to_wallet/models/payment_transaction.py
+
+class PaymentTransaction(models.Model):
+    _inherit = 'payment.transaction'
+
+
+    wallet_id = fields.Many2one('wallet', string='Wallet', readonly=True)
+    wallet_amount = fields.Monetary(string='Wallet Amount', readonly=True)
+    def _get_wallet_vals(self):
+        """
+        Hooking method for modifying the current wallet before submitted to acquirer.
+        Currently, this method will check any invoice here that has a wallet line, we will put the wallet residual amount here
+        """
+
+    def _compute_reference_prefix(self, provider, separator, **values):
+    def _create_payment(self, **extra_create_values):
+    def _prepare_wallet_payment_vals(self):
+    def _is_wallet_transaction(self):
+    def _get_processing_values(self):
+        """
+        Update transaction before being submitted to acquirer.
+        See `self._get_wallet_vals()` for hook method.
+        """
+
+
+FILE: to_wallet/models/__init__.py
+
+
+FILE: to_wallet/models/account_partial_reconcile.py
+
+class AccountPartialReconcile(models.Model):
+    _inherit = 'account.partial.reconcile'
+
+
+    wallet = fields.Boolean(string='Wallet', readonly=True, groups="to_wallet.group_wallet_manager",
+                            help="This indicates if this reconcile is for wallet related journal items")
+    @api.model_create_multi
+    def create(self, vals_list):
+
+FILE: to_wallet/models/account_payment.py
+
+class AccountPayment(models.Model):
+    _inherit = 'account.payment'
+
+
+    wallet = fields.Boolean(string='Is Wallet Deposit/Withdraw',  compute='_compute_wallet', store=True, readonly=False,
+                            help="Check this field if the payment is to deposit to or withdraw from wallet.")
+    wallet_amount = fields.Monetary(currency_field='currency_id', compute='_compute_wallet_amount', store=True, tracking=True, readonly=False,
+                                    states={
+                                        'posted': [('readonly', True)],
+                                        'cancel': [('readonly', True)],
+                                    }, help="Wallet Amount deposit/withdraw through payments")
+    wallet_id = fields.Many2one('wallet', string='Wallet', readonly=True, help="The related wallet of the payment")
+    @api.constrains('payment_type', 'wallet')
+    def _check_payment_type(self):
+    @api.constrains('amount', 'wallet_amount', 'journal_id')
+    def _check_wallet_amount_vs_amount(self):
+    @api.constrains('wallet_amount', 'wallet', 'partner_id', 'payment_type')
+    def _check_wallet_withdrawal(self):
+    @api.depends('is_internal_transfer', 'partner_id')
+    def _compute_wallet(self):
+    @api.depends('wallet', 'amount', 'currency_id')
+    def _compute_wallet_amount(self):
+    @api.depends('currency_id', 'wallet')
+    def _compute_wallet_currency(self):
+    @api.model_create_multi
+    def create(self, vals_list):
+    def write(self, vals):
+    def create_wallets_if_not_exist(self):
+    def _get_wallet_currency(self):
+    def _get_wallet_amount_origin(self):
+    def _get_wallet_currency_conversion_rate(self):
+    def _get_wallet_move_line_vals(self):
+    def _prepare_move_line_default_vals(self, write_off_line_vals=None):
+        """
+        Override to add wallet fields into account move line if payment contain wallet
+
+        NOTE: on version 13.0 we override on `_prepare_payment_moves` that is not exist anymore
+        """
+
+
+FILE: to_wallet/migrations/14.0.0.5/end-migration.py
+
+def migrate(cr, installed_version):
+
+FILE: to_wallet/migrations/13.0.0.4/post-migration.py
+
+def migrate(cr, installed_version):
+
+FILE: to_wallet/migrations/12.0.0.2/post-migration.py
+
+def migrate(cr, installed_version):
+
+FILE: to_wallet/migrations/12.0.0.3/post-migration.py
+
+def migrate(cr, installed_version):
+
+FILE: to_wallet/migrations/12.0.0.3/pre-migration.py
+
+def migrate(cr, installed_version):
+    cr.execute("""
+        ALTER TABLE account_move_line
+        ADD COLUMN IF NOT EXISTS wallet_id INTEGER
+    """)
+

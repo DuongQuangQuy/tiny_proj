@@ -1,0 +1,26 @@
+<odoo>
+	<data noupdate="0">
+		<template id="wallet_inline_form">
+	        <div t-attf-id="wallet-container-{{provider_id}}">
+	            <div class="row">
+	            	<div class="col-8 mb-0">
+	                    <select id="wallet" name="wallet" class="form-select">
+	                    	<t t-foreach="provider_sudo._get_wallets_pay_online(partner_id, amount, currency)" t-as="wallet">
+                    			<option t-att-value="wallet.id" t-att-title="wallet.name">
+		                            <span><t t-out="wallet.wallet_type_id.name" /></span>
+		                            <span><t t-esc="wallet.amount" t-options="{'widget': 'monetary', 'display_currency': currency}" /></span>
+		                            <span>(<t t-out="wallet.currency_id.name" />)</span>
+		                        </option>
+	                    	</t>
+	                    </select>
+	                </div>
+	            </div>
+	        </div>
+	    </template>
+		<template id="to_wallet.payment_form" inherit_id="payment.form">
+			<xpath expr="//form[@id='o_payment_form']" position="attributes">
+				<attribute name="t-att-data-wallet-id">wallet_id</attribute>
+			</xpath>
+		</template>
+	</data>
+</odoo>

@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wallet_portal,wallet.portal,model_wallet,base.group_portal,1,0,0,0
+access_wallet_internal,wallet.internal,model_wallet,base.group_user,1,0,0,0
+access_wallet_user,wallet.user,model_wallet,to_wallet.group_wallet_manager,1,0,0,0
+access_wallet_type_portal,wallet.type.portal,model_wallet_type,base.group_portal,1,0,0,0
+access_wallet_type_internal,wallet.type.internal,model_wallet_type,base.group_user,1,0,0,0
+access_wallet_type_user,wallet.type.user,model_wallet_type,to_wallet.group_wallet_manager,1,0,0,0
+access_wallet_type_manager,wallet.type.manager,model_wallet_type,account.group_account_manager,1,1,1,1
+access_wallet_history_portal,wallet.history.portal,model_wallet_history,base.group_portal,1,0,0,0
+access_wallet_history_internal,wallet.history.internal,model_wallet_history,base.group_user,1,0,0,0
+access_wallet_history_user,wallet.history.user,model_wallet_history,to_wallet.group_wallet_manager,1,0,0,0
+access_wallet_history_invoice,wallet.history.invoice,model_wallet_history,account.group_account_invoice,1,1,0,0
+access_wallet_payment_wizard,wallet.payment.wizard,model_wallet_payment_wizard,account.group_account_invoice,1,1,1,0
+access_wallet_payment_creation_wizard,wallet.payment.creation.wizard,model_wallet_payment_creation_wizard,account.group_account_invoice,1,1,1,0

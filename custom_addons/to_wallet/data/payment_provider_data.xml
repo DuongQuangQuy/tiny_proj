@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<data noupdate="1">
+		<record id="payment_method_wallet" model="payment.method">
+			<field name="name">E-Wallet</field>
+			<field name="code">wallet</field>
+			<field name="sequence">1000</field>
+			<field name="active">True</field>
+			<field name="image" type="base64" file="to_wallet/static/description/icon.png"/>
+			<field name="support_tokenization">False</field>
+			<field name="support_express_checkout">False</field>
+		</record>
+
+		<record id="payment_provider_company_wallet" model="payment.provider">
+			<field name="name">E-Wallet</field>
+			<field name="image_128" type="base64" file="to_wallet/static/description/icon.png" />
+			<field name="code">wallet</field>
+			<field name="company_id" ref="base.main_company" />
+			<field name="sequence">1</field>
+			<field name="module_id" ref="base.module_to_wallet" />
+			<field name="inline_form_view_id" ref="wallet_inline_form"/>
+			<field name="payment_method_ids" eval="[(6, 0, [ref('payment_method_wallet')])]"/>
+			<field name="allow_tokenization">False</field>
+			<field name="allow_express_checkout">False</field>
+		</record>
+
+	</data>
+
+</odoo>

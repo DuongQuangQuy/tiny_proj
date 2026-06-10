@@ -1,0 +1,11 @@
+<templates>
+	<t t-name='WalletPaymentDialog'>
+		<div>
+			<div>
+				<input type="text" hidden="" class="form-control" id="paymentAmount" />
+				<input type="text" placeholder="Amount" id="paymentAmountDisplay" class="form-control" required="1"
+					data-twts="paymentAmount" />
+			</div>
+		</div>
+	</t>
+</templates>

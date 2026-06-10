@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+
+		<record id="mail_template_wallet_fluctuation_notification" model="mail.template">
+			<field name="name">Wallet: Notification of wallet balance fluctuations</field>
+			<field name="model_id" ref="to_wallet.model_wallet" />
+			<field name="subject">[{{ object.company_id.name }}] Notification of wallet balance fluctuations</field>
+			<field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+			<field name="partner_to">{{ object.partner_id.id }}</field>
+			<field name="description">Sent automatically to partner when wallet balance fluctuates</field>
+			<field name="lang">{{ object.partner_id.lang }}</field>
+			<field name="body_html" type="html">
+				<t t-set="company" t-value="(object.company_id or object.env.company)" />
+				<table border="0" cellpadding="0" cellspacing="0"
+					style="padding-top: 1rem; background-color: #F1F1F1; color: #000000; width: 100%; border-collapse:separate;">
+					<tr>
+						<td align="center">
+							<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 0; background-color: #fcfcfc;">
+								<tbody>
+									<!-- HEADER -->
+									<tr>
+										<td align="center" style="min-width: 590px; padding: 0 !important;">
+											<table border="0" cellpadding="0" cellspacing="0"
+												style="min-width: 590px; min-height:61px; background-color: #00BBCE; padding: 0 !important; border-collapse:separate;">
+												<tr style="height: 100%;">
+													<td valign="middle">
+														<t t-if="company">
+															<img t-attf-src="data:image/png;base64,{{ company.logo.decode() }}"
+																style="padding-left: 29px; margin: 0; height: auto; max-width: 131px; color: #fff; font-weight: bold;"
+																t-att-alt="company.name" />
+														</t>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+
+									<!-- CONTENT -->
+									<tr>
+										<td align="center" style="width: 100%; padding: 1rem;">
+											<table border="0" cellpadding="0" cellspacing="0">
+												<tr>
+													<td align="middle">
+														<div style="margin: 15px;">
+															<p style="color: #7F4282; font-size: 30px; font-weight: bold; margin-bottom: 1rem;">
+																NOTIFICATION
+															</p>
+															<p style="font-size: 23px; font-weight: bold; margin-top: 0;">
+																<span style="color: #00BBCE">WALLET BALANCE FLUCTUATIONS</span>
+															</p>
+															<p name="transaction_type" style="font-size: 18px; font-weight: bold; margin-bottom: 1rem;">
+																<t t-if="wallet_history.wallet_history_type == 'top-up'">
+																	<span>(TOP UP)</span>
+																</t>
+																<t t-if="wallet_history.wallet_history_type == 'withdraw'">
+																	<span>(WITHDRAW)</span>
+																</t>
+																<t t-if="wallet_history.wallet_history_type == 'payment'">
+																	<span>(PAYMENT)</span>
+																</t>
+																<t t-if="wallet_history.wallet_history_type == 'refund'">
+																	<span>(REFUND)</span>
+																</t>
+															</p>
+														</div>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td style="padding: 0em 1.5em 2em 1.5em;">
+											<table border="0" cellpadding="0" cellspacing="0">
+												<tr>
+													<td>
+														<p>
+															Dear
+															<t t-out="object.partner_id.name" />
+															,
+														</p>
+														<p>
+															Wallet
+															<strong>
+																<t t-out="object.name" />
+															</strong>
+															has been
+															<t t-if="wallet_history.amount > 0">
+																<span>added</span>
+															</t>
+															<t t-else="">
+																<span>deducted</span>
+															</t>
+															<strong>
+																<t t-out="abs(wallet_history.amount)"
+																	t-options="{'widget': 'monetary', 'display_currency': wallet_history.currency_id}" />
+															</strong>
+														</p>
+														<p>
+															<table class="table table-bordered">
+																<tbody>
+																	<tr>
+																		<td style="width: auto;">
+																			<strong>Code</strong>
+																		</td>
+																		<td>
+																			<t t-out="wallet_history.name" />
+																		</td>
+																	</tr>
+																	<tr>
+																		<td style="width: auto;">
+																			<strong>Transaction Datetime</strong>
+																		</td>
+																		<td>
+																			<t t-out="format_datetime(object.env, wallet_history.date, dt_format='short')" />
+																		</td>
+																	</tr>
+																	<tr>
+																		<td style="width: auto;">
+																			<strong>Amount</strong>
+																		</td>
+																		<td>
+																			<t t-out="abs(wallet_history.amount)"
+																				t-options="{'widget': 'monetary', 'display_currency': wallet_history.currency_id}" />
+																		</td>
+																	</tr>
+																	<tr>
+																		<td style="width: auto;">
+																			<strong>Wallet</strong>
+																		</td>
+																		<td>
+																			<t t-out="object.name" />
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</p>
+														<p>
+															Please feel free to contact us if you have any questions and ask for our or need assistance
+															during your usage.
+														</p>
+														<p>This is an automated email. Please do not reply!</p>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+
+									<!-- FOOTER -->
+									<tr>
+										<td style="min-width: 590px; padding: 16px ;">
+											<hr />
+											<p style="color: #00BBCE;">
+												<strong>
+													<t t-out="company.name" />
+												</strong>
+											</p>
+											<p class="text-muted">
+												<strong>Hotline:</strong>
+												<t t-out="company.phone" />
+											</p>
+											<p>
+												<t t-out="company.website" />
+											</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</field>
+		</record>
+
+	</data>
+</odoo>

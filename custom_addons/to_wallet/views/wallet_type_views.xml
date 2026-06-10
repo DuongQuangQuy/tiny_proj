@@ -1,0 +1,107 @@
+<odoo>
+
+	<record id="wallet_type_form" model="ir.ui.view">
+		<field name="name">wallet.type.form</field>
+		<field name="model">wallet.type</field>
+		<field name="arch" type="xml">
+			<form>
+				<header></header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button icon="fa-credit-card-alt" name="action_view_wallet" type="object"
+							invisible="wallets_count == 0">
+							<field name="wallets_count" widget="statinfo" string="Wallet" />
+						</button>
+						<button icon="fa-history" name="action_view_wallet_history" type="object"
+							invisible="wallet_histories_count == 0">
+							<field name="wallet_histories_count" widget="statinfo" string="Transaction Histories" />
+						</button>
+					</div>
+					<label for="name" />
+					<h1>
+						<field name="name" placeholder="E.g: Reward Wallet" />
+					</h1>
+					<group>
+					</group>
+					<notebook>
+						<page name="config" string="Configuration">
+							<group>
+								<group name="topup_configuration" string="Top Up">
+									<field name="allow_top_up" />
+								</group>
+								<group name="withdraw_configuration" string="Withdraw">
+									<field name="allow_withdraw" />
+									<field name="company_id" invisible="1" />
+								</group>
+								<group name="pay_online_configuration" string="Pay Online">
+									<field name="allow_pay_online" />
+								</group>
+								<group name="notify_configuration" string="Notify">
+									<field name="notice_recipient_ids" options="{'no_create': True}" widget="many2many_tags" />
+								</group>
+							</group>
+						</page>
+						<page name="other_information" string="Other Information">
+							<group>
+								<group>
+									<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
+								</group>
+							</group>
+						</page>
+						<page name="description" string="Description">
+							<field name="description" widget="html" placeholder="Description ..." />
+						</page>
+					</notebook>
+				</sheet>
+				<chatter/>
+			</form>
+		</field>
+	</record>
+
+	<record id="wallet_type_list" model="ir.ui.view">
+		<field name="name">wallet.type.list</field>
+		<field name="model">wallet.type</field>
+		<field name="arch" type="xml">
+			<list sample="1">
+				<field name="name" />
+				<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
+				<field name="allow_top_up" widget="boolean_toggle" />
+				<field name="allow_withdraw" widget="boolean_toggle" />
+				<field name="allow_pay_online" widget="boolean_toggle" />
+			</list>
+		</field>
+	</record>
+
+	<record id="wallet_type_search" model="ir.ui.view">
+		<field name="name">wallet.type.search</field>
+		<field name="model">wallet.type</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name" />
+				<!-- Filter -->
+				<filter name="flt_allow_top_up" string="Top Up" domain="[('allow_top_up', '=', True)]" />
+				<filter name="flt_allow_withdraw" string="Withdraw" domain="[('allow_withdraw', '=', True)]" />
+				<filter name="flt_allow_pay_online" string="Use To Pay Online" domain="[('allow_pay_online', '=', True)]" />
+				<!-- Group By -->
+				<filter name="grp_company_id" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company" />
+			</search>
+		</field>
+	</record>
+
+	<record id="action_view_wallet_types" model="ir.actions.act_window">
+		<field name="name">Wallet Types</field>
+		<field name="res_model">wallet.type</field>
+		<field name="view_mode">list,form</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+				Create a new wallet type
+			</p>
+		</field>
+	</record>
+
+	<menuitem name="Wallet" id="menu_config_wallet" parent="account.menu_finance_configuration" sequence="5" />
+
+	<menuitem action="action_view_wallet_types" id="wallet_type_menu" parent="menu_config_wallet" sequence="10"
+		groups="account.group_account_manager" />
+
+</odoo>

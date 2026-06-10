@@ -1,0 +1,111 @@
+<odoo>
+	<record id="account_payment_action_view_tree_wallet"
+		model="ir.actions.act_window">
+		<field name="name">Wallet Payments</field>
+		<field name="res_model">account.payment</field>
+		<field name="view_mode">list,form</field>
+		<field name="domain">[('wallet_id', '=', active_id)]</field>
+	</record>
+
+	<record id="wallet_form" model="ir.ui.view">
+		<field name="name">wallet.form</field>
+		<field name="model">wallet</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<field name="allow_top_up" invisible="1" />
+					<field name="allow_withdraw" invisible="1" />
+					<button name="action_create_payment" type="object" groups="account.group_account_invoice"
+						context="{'default_type': 'inbound'}" string="Top Up" invisible="not allow_top_up" />
+					<button name="action_create_payment" type="object" groups="account.group_account_invoice"
+						context="{'default_type': 'outbound'}" string="Withdraw" invisible="not allow_withdraw" />
+				</header>
+				<sheet>
+					<div class="oe_button_box wallet_button_box oe_read_only"
+						name="button_box">
+						<button icon="fa-money"
+							name="%(account_payment_action_view_tree_wallet)d" type="action"
+							groups="account.group_account_readonly,account.group_account_invoice"
+							context="{
+								'default_partner_id': partner_id,
+								'default_wallet_type_id': wallet_type_id,
+								'default_is_wallet': 1,
+							}">
+							<field name="payments_count" widget="statinfo"
+								string="Payments" />
+						</button>
+						<button type="object" name="action_view_account_move_lines"
+							class="oe_stat_button"
+							groups="account.group_account_readonly"
+							icon="fa-pencil">
+							<field name="move_lines_count" widget="statinfo"
+								string="Journal Items" />
+						</button>
+						<button icon="fa-history" name="action_view_wallet_history" type="object"
+							invisible="wallet_histories_count == 0">
+							<field name="wallet_histories_count" widget="statinfo" string="Transaction Histories" />
+						</button>
+					</div>
+					<group>
+						<group string="Reference">
+							<field name="partner_id" />
+							<field name="wallet_type_id" />
+							<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
+						</group>
+						<group string="Data">
+							<field name="amount" />
+							<field name="amount_pending" />
+							<field name="currency_id" groups="base.group_multi_currency" options="{'no_create': True}" />
+						</group>
+					</group>
+				</sheet>
+				<chatter/>
+			</form>
+		</field>
+	</record>
+
+	<record id="wallet_list" model="ir.ui.view">
+		<field name="name">wallet.list</field>
+		<field name="model">wallet</field>
+		<field name="arch" type="xml">
+			<list default_order="currency_id, amount desc" sample="1">
+				<field name="partner_id" />
+				<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
+				<field name="wallet_type_id" />
+				<field name="amount" />
+				<field name="amount_pending" />
+				<field name="currency_id" />
+				<!-- TODO: Consider removing or transfer to the module cluster on the saas-infrastructure repo -->
+				<!-- <field name="empty_date" /> -->
+			</list>
+		</field>
+	</record>
+
+	<record id="wallet_search" model="ir.ui.view">
+		<field name="name">wallet.search</field>
+		<field name="model">wallet</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="partner_id" />
+				<field name="wallet_type_id" />
+				<!-- Group By -->
+				<filter name="grp_partner_id" string="Partner" context="{'group_by': 'partner_id'}" />
+				<separator />
+				<filter name="grp_wallet_type_id" string="Wallet Type" context="{'group_by': 'wallet_type_id'}" />
+				<separator />
+				<filter name="grp_company_id" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company" />
+				
+			</search>
+		</field>
+	</record>
+
+	<record id="action_view_wallets" model="ir.actions.act_window">
+		<field name="name">Wallets</field>
+		<field name="res_model">wallet</field>
+		<field name="view_mode">list,form</field>
+	</record>
+
+	<menuitem id="menu_wallets" name="Wallets"
+		parent="account.menu_finance_receivables" sequence="20"
+		action="action_view_wallets" />
+</odoo>

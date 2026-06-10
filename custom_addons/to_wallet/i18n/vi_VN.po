@@ -1,0 +1,2008 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* to_wallet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-28 02:40+0000\n"
+"PO-Revision-Date: 2024-05-28 02:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+#, python-format
+msgid "%s must be greater or equal to 0"
+msgstr "%s phải lớn hơn hoặc bằng 0"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+#, python-format
+msgid "%s must not be greater than the payment amount which is %s"
+msgstr "%s không được lớn hơn số tiền thanh toán là %s"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+#, python-format
+msgid "%s to wallet %s successful!"
+msgstr "%s ví %s thành công!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-danger text-white\">Withdrawal</em>"
+msgstr "<em class=\"badge bg-danger text-white\">Rút tiền</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-info text-white\">Refund</em>"
+msgstr "<em class=\"badge bg-info text-white\">Hoàn trả</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-light text-dark\">Cancelled</em>"
+msgstr "<em class=\"badge bg-light text-dark\">Đã hủy</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-success text-white\">Successful</em>"
+msgstr "<em class=\"badge bg-success text-white\">Thành công</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-success text-white\">Top-Up</em>"
+msgstr "<em class=\"badge bg-success text-white\">Nạp tiền</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-warning text-white\">Payment</em>"
+msgstr "<em class=\"badge bg-warning text-white\">Thanh toán</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-warning text-white\">Pending</em>"
+msgstr "<em class=\"badge bg-warning text-white\">Đang chờ xử lý</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "<i class=\"fa fa-arrow-circle-right\"/> Back to My Wallet"
+msgstr "<i class=\"fa fa-arrow-circle-right\"/> Quay Lại Ví của tôi"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid ""
+"<i class=\"fa fa-plus\"/>\n"
+"\t\t\t\t\t<span>New Wallet</span>"
+msgstr ""
+"<i class=\"fa fa-plus\"/>\n"
+"\t\t\t\t\t<span>Ví mới</span>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_breadcrumbs_wallet
+msgid "<span>Transaction Histories</span>"
+msgstr "<span>Lịch sử Giao dịch</span>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid "<strong>Available Balance:</strong>"
+msgstr "<strong>Số dư khả dụng:</strong>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_payment_creation_wizard_form_views
+msgid ""
+"<strong>Note: </strong>\n"
+"\t\t\t\t\t\t<span>Enter the reference of the pending wallet transaction history into <strong>Reference</strong> to link it with the new payment.</span>"
+msgstr ""
+"<strong>Lưu ý: </strong>\n"
+"\t\t\t\t\t\t<span>Nhập tham chiếu của lịch sử giao dịch ví đang chờ xử lý vào <strong>Tham chiếu</strong> để liên kết nó với khoản thanh toán mới.</span>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid "<strong>Pending Balance:</strong>"
+msgstr "<strong>Số dư chờ xử lý:</strong>"
+
+#. module: to_wallet
+#: model:mail.template,body_html:to_wallet.mail_template_wallet_fluctuation_notification
+msgid ""
+"<t t-set=\"company\" t-value=\"(object.company_id or object.env.company)\"></t>\n"
+"\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 1rem; background-color: #F1F1F1; color: #000000; width: 100%; border-collapse:separate;\">\n"
+"\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t<td align=\"center\">\n"
+"\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 0; background-color: #fcfcfc;\">\n"
+"\t\t\t\t\t\t\t\t<tbody>\n"
+"\t\t\t\t\t\t\t\t\t<!-- HEADER -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"min-width: 590px; padding: 0 !important;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"min-width: 590px; min-height:61px; background-color: #00BBCE; padding: 0 !important; border-collapse:separate;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"height: 100%;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td valign=\"middle\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"company\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img t-attf-src=\"data:image/png;base64,{{ company.logo.decode() }}\" style=\"padding-left: 29px; margin: 0; height: auto; max-width: 131px; color: #fff; font-weight: bold;\" t-att-alt=\"company.name\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\n"
+"\t\t\t\t\t\t\t\t\t<!-- CONTENT -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"width: 100%; padding: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"middle\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"margin: 15px;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"color: #7F4282; font-size: 30px; font-weight: bold; margin-bottom: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tNOTIFICATION\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"font-size: 23px; font-weight: bold; margin-top: 0;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span style=\"color: #00BBCE\">WALLET BALANCE FLUCTUATIONS</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p name=\"transaction_type\" style=\"font-size: 18px; font-weight: bold; margin-bottom: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'top-up'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(TOP UP)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'withdraw'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(WITHDRAW)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'payment'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(PAYMENT)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'refund'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(REFUND)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td style=\"padding: 0em 1.5em 2em 1.5em;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDear\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.partner_id.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t,\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tWallet\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\thas been\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.amount &gt; 0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>added</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-else=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>deducted</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"abs(wallet_history.amount)\" t-options=\"{'widget': 'monetary', 'display_currency': wallet_history.currency_id}\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table class=\"table table-bordered\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Code</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"wallet_history.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Transaction Datetime</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"format_datetime(object.env, wallet_history.date, dt_format='short')\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Amount</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"abs(wallet_history.amount)\" t-options=\"{'widget': 'monetary', 'display_currency': wallet_history.currency_id}\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Wallet</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPlease feel free to contact us if you have any questions and ask for our or need assistance\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tduring your usage.\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>This is an automated email. Please do not reply!</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\n"
+"\t\t\t\t\t\t\t\t\t<!-- FOOTER -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td style=\"min-width: 590px; padding: 16px ;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<hr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p style=\"color: #00BBCE;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p class=\"text-muted\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<strong>Hotline:</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.phone\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.website\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t</tbody>\n"
+"\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t</tr>\n"
+"\t\t\t\t</table>\n"
+"\t\t\t"
+msgstr ""
+"<t t-set=\"company\" t-value=\"(object.company_id or object.env.company)\"></t>\n"
+"\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 1rem; background-color: #F1F1F1; color: #000000; width: 100%; border-collapse:separate;\">\n"
+"\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t<td align=\"center\">\n"
+"\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 0; background-color: #fcfcfc;\">\n"
+"\t\t\t\t\t\t\t\t<tbody>\n"
+"\t\t\t\t\t\t\t\t\t<!-- HEADER -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"min-width: 590px; padding: 0 !important;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"min-width: 590px; min-height:61px; background-color: #00BBCE; padding: 0 !important; border-collapse:separate;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"height: 100%;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td valign=\"middle\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"company\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img t-attf-src=\"data:image/png;base64,{{ company.logo.decode() }}\" style=\"padding-left: 29px; margin: 0; height: auto; max-width: 131px; color: #fff; font-weight: bold;\" t-att-alt=\"company.name\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\n"
+"\t\t\t\t\t\t\t\t\t<!-- CONTENT -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"width: 100%; padding: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"middle\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"margin: 15px;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"color: #7F4282; font-size: 30px; font-weight: bold; margin-bottom: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tTHÔNG BÁO\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"font-size: 23px; font-weight: bold; margin-top: 0;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span style=\"color: #00BBCE\">BIẾN ĐỘNG SỐ DƯ VÍ</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p name=\"transaction_type\" style=\"font-size: 18px; font-weight: bold; margin-bottom: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'top-up'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(NẠP TIỀN)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'withdraw'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(RÚT TIỀN)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'payment'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(THANH TOÁN)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'refund'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(HOÀN TRẢ)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td style=\"padding: 0em 1.5em 2em 1.5em;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tGửi\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.partner_id.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t,\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tVí\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tđã\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.amount &gt; 0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>được cộng</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-else=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>bị trừ</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"abs(wallet_history.amount)\" t-options=\"{'widget': 'monetary', 'display_currency': wallet_history.currency_id}\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table class=\"table table-bordered\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Mã</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"wallet_history.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Ngày, giờ giao dịch</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"format_datetime(object.env, wallet_history.date, dt_format='short')\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Số tiền</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"abs(wallet_history.amount)\" t-options=\"{'widget': 'monetary', 'display_currency': wallet_history.currency_id}\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Ví</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tXin vui lòng liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi nào và yêu cầu chúng tôi hỗ trợ hoặc cần hỗ trợ\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\ttrong quá trình sử dụng.\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>Đây là email tự động. Vui lòng không phản hồi email này!</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\n"
+"\t\t\t\t\t\t\t\t\t<!-- FOOTER -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td style=\"min-width: 590px; padding: 16px ;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<hr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p style=\"color: #00BBCE;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.name\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p class=\"text-muted\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<strong>Đường dây nóng:</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.phone\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.website\"></t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t</tbody>\n"
+"\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t</tr>\n"
+"\t\t\t\t</table>\n"
+"\t\t\t"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_move_line.py:0
+#, python-format
+msgid ""
+"A journal item can only link to transaction histories within the same "
+"wallet!"
+msgstr ""
+"Một phát sinh kế toán chỉ có thể liên kết với các lịch sử giao dịch trong "
+"cùng một ví!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid ""
+"A wallet with currency %s already exists. Currency is unique for each wallet"
+" type!"
+msgstr ""
+"Ví có đơn vị tiền tệ %s đã tồn tại. Tiền tệ là duy nhất cho mỗi loại ví!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__account_type
+msgid "Account Type"
+msgstr "Loại tài khoản"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_needaction
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_needaction
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_needaction
+msgid "Action Needed"
+msgstr "Cần có hành động"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_ids
+msgid "Activities"
+msgstr "Hoạt động"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_exception_decoration
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_exception_decoration
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Hoạt động ngoại lệ"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_state
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_state
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_state
+msgid "Activity State"
+msgstr "Trạng thái hoạt động"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_type_icon
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_type_icon
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icon kiểu hoạt động"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Add New Wallet"
+msgstr "Thêm Ví mới"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "All"
+msgstr "Tất cả"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__allow_top_up
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__allow_top_up
+msgid "Allow Top Up"
+msgstr "Cho phép Nạp tiền"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__allow_pay_online
+msgid "Allow Use To Pay Online"
+msgstr "Sử dụng để thanh toán trực tuyến"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__allow_withdraw
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__allow_withdraw
+msgid "Allow Withdraw"
+msgstr "Cho phép Rút tiền"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_partial_reconcile__wallet_amount_currency
+msgid ""
+"Always positive amount concerned by this matching expressed in the wallet "
+"credit/debit line foreign currency."
+msgstr ""
+"Số tiền luôn dương liên quan đến việc khớp này được thể hiện bằng ngoại tệ "
+"dòng ghi có/nợ."
+
+#. module: to_wallet
+#. odoo-javascript
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/static/src/xml/wallet_payment_dialog.xml:0
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__amount
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__amount
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+#, python-format
+msgid "Amount"
+msgstr "Số tiền"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__wallet_amount
+#: model_terms:ir.ui.view,arch_db:to_wallet.account_payment_form
+msgid "Amount Top Up Wallet"
+msgstr "Tổng tiền nạp ví"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.account_payment_form
+msgid "Amount Withdraw Wallet"
+msgstr "Tổng tiền rút ví"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+#, python-format
+msgid "Amount must be greater than zero!"
+msgstr "Số tiền phải lớn hơn 0!"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Amount must be positive!"
+msgstr "Số tiền phải là một số dương!"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_payment__wallet_amount
+msgid "Amount top up wallet through payments."
+msgstr "Số tiền nạp vào ví thông qua thanh toán."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_res_company__loyalty_expense_account_id
+#: model:ir.model.fields,help:to_wallet.field_res_config_settings__loyalty_expense_account_id
+msgid ""
+"An account to record expensed amount due to Sale promotion. It is usually an"
+" Expense account."
+msgstr ""
+"Tài khoản để ghi lại số tiền chi phí từ khuyến mại Bán hàng. Nó thường là "
+"tài khoản Chi phí."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_res_company__loyalty_income_account_id
+#: model:ir.model.fields,help:to_wallet.field_res_config_settings__loyalty_income_account_id
+msgid ""
+"An account to record gained amount due to Sale promotion. It is usually an "
+"Other Income account."
+msgstr ""
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_attachment_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_attachment_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_attachment_count
+msgid "Attachment Count"
+msgstr "SL tệp đính kèm"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__amount
+#, python-format
+msgid "Available Balance"
+msgstr "Số dư khả dụng"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_wallet_payment_wizard_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_payment_creation_wizard_form_views
+msgid "Cancel"
+msgstr "Hủy"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__state__cancel
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Cancelled"
+msgstr "Đã hủy"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Cancelled Status"
+msgstr "Trạng thái Đã hủy"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_payment__is_wallet
+msgid "Check this field if the payment is top up/withdraw from wallet."
+msgstr "Tích chọn trường này nếu khoản thanh toán được nạp/rút từ ví."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_payment_register__is_wallet
+msgid ""
+"Check this field if you want to top up payment's residual amount after "
+"reconciling it with invoice."
+msgstr ""
+"Tích chọn trường này nếu bạn muốn chuyển số dư thanh toán sau khi đối soát "
+"hóa đơn."
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_payment_provider__code
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_tree
+msgid "Code"
+msgstr "Mã"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_res_partner__commercial_partner_wallet_ids
+#: model:ir.model.fields,field_description:to_wallet.field_res_users__commercial_partner_wallet_ids
+msgid "Commercial Partner Wallets"
+msgstr "Ví đối tác thương mại"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_res_company
+msgid "Companies"
+msgstr "Công ty"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__company_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__company_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__company_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__company_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__company_id
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+msgid "Company"
+msgstr "Công ty"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_res_config_settings
+msgid "Config Settings"
+msgstr "Thiết lập cấu hình"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Configuration"
+msgstr "Cấu hình"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Confirm"
+msgstr "Xác nhận"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__confirm_payment
+msgid "Confirm Payment"
+msgstr "Xác nhận Thanh toán"
+
+#. module: to_wallet
+#: model:wallet.type,name:to_wallet.consumption_wallet_type
+msgid "Consumption"
+msgstr "Tiêu dùng"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_res_partner
+msgid "Contact"
+msgstr "Liên hệ"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_move_line.py:0
+#, python-format
+msgid ""
+"Could not reconcile journal items related to wallet transactions in "
+"different currencies!"
+msgstr ""
+"Không thể đối soát các phát sinh kế toán có liên quan đến giao dịch ví có "
+"tiền tệ khác nhau!"
+
+#. module: to_wallet
+#: model_terms:ir.actions.act_window,help:to_wallet.action_view_wallet_types
+msgid "Create a new wallet type"
+msgstr "Tạo mới một loại ví"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Create wallet successfully!"
+msgstr "Tạo ví thành công!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__create_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__create_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__create_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__create_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__create_uid
+msgid "Created by"
+msgstr "Tạo bởi"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__create_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__create_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__create_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__create_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__create_date
+msgid "Created on"
+msgstr "Tạo vào"
+
+#. module: to_wallet
+#. odoo-javascript
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/static/src/xml/create_wallet_dialog.xml:0
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__currency_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__currency_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__currency_id
+#, python-format
+msgid "Currency"
+msgstr "Tiền tệ"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/payment_link_wizard.py:0
+#, python-format
+msgid ""
+"Currently, when making an online payment with an e-wallet, the system "
+"doesn't allow partial payments. Please make sure the total amount is set to "
+"%s to use the e-wallet payment method!"
+msgstr ""
+"Hiện tại, khi thực hiện thanh toán trực tuyến bằng ví điện tử, hệ thống "
+"không cho phép thanh toán một phần. Hãy đảm bảo tổng số tiền được đặt thành "
+"%s để sử dụng phương thức thanh toán bằng ví điện tử!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__partner_id
+msgid "Customer"
+msgstr "Khách hàng"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+msgid "Data"
+msgstr "Dữ liệu"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__description
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Description"
+msgstr "Mô tả"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Description ..."
+msgstr "Mô tả ..."
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "Dismiss"
+msgstr "Bỏ qua"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+msgid "Done"
+msgstr "Hoàn thành"
+
+#. module: to_wallet
+#: model:payment.provider,name:to_wallet.payment_provider_company_wallet
+msgid "E-Wallet"
+msgstr "Ví điện tử"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/payment_transaction.py:0
+#, python-format
+msgid "E-Wallet: No transaction found matching reference %s."
+msgstr "Ví điện tử: Không tìm thấy giao dịch nào khớp với tham chiếu %s."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/payment_transaction.py:0
+#, python-format
+msgid "E-Wallet: Unable to identify transaction wallet!"
+msgstr "Ví điện tử: Không thể xác định được ví giao dịch!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "E.g: Reward Wallet"
+msgstr "Ví dụ: Ví phần thưởng"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Error"
+msgstr "Lỗi"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/payment_link_wizard.py:0
+#, python-format
+msgid "Feature not supported!"
+msgstr "Tính năng chưa được hỗ trợ!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_my_home_wallet
+msgid "Follow, create, top-up or withdraw your wallets"
+msgstr "Theo dõi, tạo, nạp tiền hoặc rút tiền ví của bạn"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_follower_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_follower_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_follower_ids
+msgid "Followers"
+msgstr "Người theo dõi"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_partner_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_partner_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Người theo dõi (đối tác)"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__activity_type_icon
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_type_icon
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "From"
+msgstr "Từ"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_payment_link_wizard
+msgid "Generate Payment Link"
+msgstr "Tạo Liên kết Thanh toán"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+msgid "Group By"
+msgstr "Nhóm theo"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__has_message
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__has_message
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__has_message
+msgid "Has Message"
+msgstr "Có thông điệp"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid "History"
+msgstr "Lịch sử"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__id
+msgid "ID"
+msgstr ""
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_exception_icon
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_exception_icon
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_exception_icon
+msgid "Icon"
+msgstr "Icon"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__activity_exception_icon
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_exception_icon
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icon để chỉ báo một hoạt động ngoại lệ."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_needaction
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_needaction
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Nếu được đánh dấu, các thông điệp mới sẽ cần bạn xem xét."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_has_error
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_has_sms_error
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_has_error
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_has_sms_error
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_has_error
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Nếu được đánh dấu, một số thông điệp đã gặp lỗi khi gửi đi."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+#, python-format
+msgid "Invalid operation. The selected wallet type does not support top up!"
+msgstr "Hoạt động không hợp lệ. Loại ví đã chọn không hỗ trợ nạp tiền!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+#, python-format
+msgid "Invalid operation. The selected wallet type does not support withdraw!"
+msgstr "Hoạt động không hợp lệ. Loại ví đã chọn không hỗ trợ rút tiền!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_is_follower
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_is_follower
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_is_follower
+msgid "Is Follower"
+msgstr "Đang theo dõi"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__is_wallet
+msgid "Is Top Up/Withdraw Wallet"
+msgstr "Nạp/rút tiền ví"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__journal_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__journal_id
+msgid "Journal"
+msgstr "Số nhật ký"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_move
+msgid "Journal Entry"
+msgstr "Bút toán kế toán"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_move_line
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__account_move_line_ids
+msgid "Journal Item"
+msgstr "Phát sinh KT"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__move_line_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__move_line_ids
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+msgid "Journal Items"
+msgstr "Phát sinh kế toán"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__move_lines_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__account_move_line_count
+msgid "Journal Items Count"
+msgstr "Số lượng phát sinh kế toán"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_move.py:0
+#, python-format
+msgid ""
+"Journal entries related to transactions in the customer's e-wallet cannot be"
+" reset to draft after being posted."
+msgstr ""
+"Các bút toán sổ nhật ký liên quan đến giao dịch ví điện tử của khách hàng "
+"không thể đặt về dự thảo sau khi đã được vào sổ."
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__write_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__write_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__write_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__write_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__write_uid
+msgid "Last Updated by"
+msgstr "Cập nhật lần cuối bởi"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__write_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__write_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__write_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__write_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__write_date
+msgid "Last Updated on"
+msgstr "Cập nhật lần cuối vào"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_has_error
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_has_error
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_has_error
+msgid "Message Delivery error"
+msgstr "Có lỗi gửi thông điệp"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_ids
+msgid "Messages"
+msgstr "Thông điệp"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__my_activity_date_deadline
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__my_activity_date_deadline
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Hạn chót hoạt động"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__name
+msgid "Name"
+msgstr "Tên"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Newest"
+msgstr "Mới nhất"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_date_deadline
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_date_deadline
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Hạn chót hoạt động kế tiếp"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_summary
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_summary
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_summary
+msgid "Next Activity Summary"
+msgstr "Tóm tắt hoạt động kế tiếp"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_type_id
+msgid "Next Activity Type"
+msgstr "Kiểu hành động kế tiếp"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+#, python-format
+msgid ""
+"No journal could be found in company %(company_name)s for any of those "
+"types: %(journal_types)s"
+msgstr ""
+"Không thể tìm thấy số nhật ký nào trong công ty %(company_name)s cho bất kỳ "
+"loại nào trong số đó: %(journal_types)s"
+
+#. module: to_wallet
+#: model_terms:ir.actions.act_window,help:to_wallet.action_view_wallet_histories
+msgid "No transactions occurred!"
+msgstr "Không có giao dịch nào!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/payment_transaction.py:0
+#, python-format
+msgid "No wallet linked to the specified payment transaction was found!"
+msgstr "Không tìm thấy ví liên kết tới giao dịch thanh toán được chỉ định!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__non_wallet_amount_currency
+msgid "Non Wallet Amount Currency"
+msgstr "Giá trị Ngoại tệ ngoài Ví"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__non_wallet_amount_residual_currency
+msgid "Non Wallet Amount Residual Currency"
+msgstr "Giá trị Ngoại tệ còn lại ngoài Ví"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "None"
+msgstr "Không"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__notice_recipient_ids
+msgid "Notification Recipient"
+msgstr "Người nhận Thông báo"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Notify"
+msgstr "Thông báo"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_needaction_counter
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_needaction_counter
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Số lượng hành động"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_has_error_counter
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_has_error_counter
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_has_error_counter
+msgid "Number of errors"
+msgstr "Số lượng lỗi"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_needaction_counter
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_needaction_counter
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Số thông điệp cần có hành động"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_has_error_counter
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_has_error_counter
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Số thông điệp có lỗi khi gửi đi"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+#, python-format
+msgid "Only use send/receive payment type can top up/withdraw with wallet!"
+msgstr "Chỉ sử dụng loại thanh toán gửi/nhận mới có thể nạp/rút bằng ví!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet_type.py:0
+#, python-format
+msgid "Operation '%s' is not supported. Supported operations: %s"
+msgstr "Hoạt động '%s' không được hỗ trợ. Các hoạt động được hỗ trợ: %s"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Other Information"
+msgstr "Thông tin khác"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_partial_reconcile
+msgid "Partial Reconcile"
+msgstr "Đối soát một phần"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__partner_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__partner_id
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_search
+msgid "Partner"
+msgstr "Đối tác"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Pay Online"
+msgstr "Thanh toán Trực tuyến"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_wizard__account_type__liability_payable
+msgid "Payable"
+msgstr "Phải trả"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__payment_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__payment_id
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__wallet_history_type__payment
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Payment"
+msgstr "Thanh toán"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__payment_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__payment_date
+msgid "Payment Date"
+msgstr "Ngày thanh toán"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_payment_provider
+msgid "Payment Provider"
+msgstr "Nhà cung cấp thanh toán"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: model:ir.model,name:to_wallet.model_payment_transaction
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__payment_transaction_id
+#, python-format
+msgid "Payment Transaction"
+msgstr "Giao dịch Thanh toán"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__type
+msgid "Payment Type"
+msgstr "Kiểu thanh toán"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_payment_form.js:0
+#, python-format
+msgid "Payment processing failed"
+msgstr "Xử lý thanh toán không thành công"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_payment
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+msgid "Payments"
+msgstr "Thanh toán"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__payments_count
+msgid "Payments Count"
+msgstr "SL thanh toán"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__state__pending
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Pending"
+msgstr "Đang xử lý"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__amount_pending
+#, python-format
+msgid "Pending Balance"
+msgstr "Số dư chờ xử lý"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Pending Status"
+msgstr "Trạng thái Chờ xử lý"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Please enter amount!"
+msgstr "Vui lòng nhập số tiền!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_wallet_payment_wizard_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_payment_creation_wizard_form_views
+msgid "Process"
+msgstr "Thực hiện"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_wizard__account_type__asset_receivable
+msgid "Receivable"
+msgstr "Phải thu"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__reference
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__payment_ref
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "Reference"
+msgstr "Tham chiếu"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__wallet_history_type__refund
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Refund"
+msgstr "Hoàn trả"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Refund Transaction"
+msgstr "Giao dịch Hoàn trả"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_payment_register
+msgid "Register Payment"
+msgstr "Ghi nhận thanh toán"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_move_line.py:0
+#: model:ir.actions.act_window,name:to_wallet.wallet_payment_wizard_action
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_move_form_inherit
+#, python-format
+msgid "Register Payment By Wallet"
+msgstr "Ghi nhận Thanh toán bằng Ví"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_user_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_user_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_user_id
+msgid "Responsible User"
+msgstr "Người chịu trách nhiệm"
+
+#. module: to_wallet
+#: model:wallet.type,name:to_wallet.reward_wallet_type
+msgid "Reward"
+msgstr "Phần thưởng"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_has_sms_error
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_has_sms_error
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Có lỗi gửi SMS"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_res_company__loyalty_expense_account_id
+#: model:ir.model.fields,field_description:to_wallet.field_res_config_settings__loyalty_expense_account_id
+msgid "Sale Promotion Expense Account"
+msgstr "Tài khoản Chi phí Khuyến mãi Bán hàng"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_res_company__loyalty_income_account_id
+#: model:ir.model.fields,field_description:to_wallet.field_res_config_settings__loyalty_income_account_id
+msgid "Sale Promotion Income Account"
+msgstr "Tài khoản Thu nhập Khuyến mãi Bán hàng"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Search All"
+msgstr "Tìm kiếm tất cả"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Search Transaction Code"
+msgstr "Tìm kiếm Mã giao dịch"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Search Transaction Reference"
+msgstr "Tìm kiếm Tham chiếu giao dịch"
+
+#. module: to_wallet
+#: model:mail.template,description:to_wallet.mail_template_wallet_fluctuation_notification
+msgid "Sent automatically to partner when wallet balance fluctuates"
+msgstr "Tự động gửi cho đối tác khi ví biến động số dư"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__state
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "State"
+msgstr "Trạng thái"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__activity_state
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_state
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Trạng thái dựa trên hoạt động\n"
+"Quá hạn: Ngày đến hạn đã trôi qua\n"
+"Hôm nay: Hôm nay là ngày phải thực hiện\n"
+"Đã hoạch định: Các hoạt động trong tương lai."
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__date
+msgid "Success Date"
+msgstr "Ngày hoàn thành"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__state__done
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Successful"
+msgstr "Hoàn thành"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Successful Status"
+msgstr "Trạng thái thành công"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+#, python-format
+msgid ""
+"The amount to withdraw exceeds the available balance! (Pending: %s, Demand: "
+"%s, Availability: %s)"
+msgstr ""
+"Số tiền rút vượt quá số dư khả dụng! (Đang chờ xử lý: %s, Nhu cầu: %s, Khả "
+"dụng: %s)"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+#, python-format
+msgid "The partner %s does not have any wallet to withdraw by the payment %s!"
+msgstr "Đối tác %s không có bất kỳ ví nào để rút bằng khoản thanh toán %s!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_payment.py:0
+#: code:addons/to_wallet/controllers/wallet_payment.py:0
+#, python-format
+msgid "The provided parameters are invalid."
+msgstr "Các tham số được cung cấp không hợp lệ."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_payment__wallet_id
+msgid "The related wallet of the payment."
+msgstr "Ví liên quan đến khoản thanh toán"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr "Mã kỹ thuật của nhà cung cấp dịch vụ thanh toán này."
+
+#. module: to_wallet
+#: model:res.groups,comment:to_wallet.group_wallet_manager
+msgid "The users in this group will be able to manage partner's ewallets."
+msgstr ""
+"Người dùng trong nhóm này sẽ có quyền quản lý ví của các đối tác / khách "
+"hàng."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid ""
+"The wallet payment register wizard should only be called on account.move or "
+"account.move.line records."
+msgstr ""
+"Trình hướng dẫn đăng ký thanh toán ví chỉ nên được gọi trên các bản ghi "
+"account.move hoặc account.move.line."
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid "There are currently no wallets for your account."
+msgstr "Hiện tại không có ví nào cho tài khoản của bạn."
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "There are no wallet transaction history."
+msgstr "Không có lịch sử giao dịch ví."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+#, python-format
+msgid "There is no pending wallet transaction history has reference '%s'"
+msgstr "Không có lịch sử giao dịch ví đang chờ xử lý nào có tham chiếu '%s'"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+msgid "Top Up"
+msgstr "Nạp tiền"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+#, python-format
+msgid "Top Up Wallet"
+msgstr "Nạp tiền"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Top Up Wallet: %s"
+msgstr "Nạp tiền Ví: %s"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__wallet_history_type__top-up
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_creation_wizard__type__inbound
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#, python-format
+msgid "Top-Up"
+msgstr "Nạp tiền"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Top-Up Transaction"
+msgstr "Giao dịch Nạp tiền"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_tree
+msgid "Total"
+msgstr "Tổng"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__name
+msgid "Transaction Code"
+msgstr "Mã giao dịch"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_tree
+msgid "Transaction Date"
+msgstr "Ngày Giao dịch"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Transaction Date: Day"
+msgstr "Ngày Giao dịch: Ngày"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Transaction Date: Month"
+msgstr "Ngày Giao dịch: Tháng"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Transaction Date: Year"
+msgstr "Ngày Giao dịch: Năm"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__wallet_history_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__wallet_history_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__wallet_history_ids
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Transaction Histories"
+msgstr "Lịch sử Giao dịch"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__wallet_histories_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__wallet_histories_count
+msgid "Transaction Histories Count"
+msgstr "SL lịch sử giao dịch"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Transaction Status"
+msgstr "Trạng thái Giao dịch"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#, python-format
+msgid "Transaction Type"
+msgstr "Kiểu Giao dịch"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment_register__is_wallet
+msgid "Transfer To Wallet"
+msgstr "Nạp/rút tiền Ví"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__activity_exception_decoration
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_exception_decoration
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Kiểu hoạt động ngoại lệ trên bản ghi."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_partial_reconcile.py:0
+#, python-format
+msgid ""
+"Unable to create wallet transaction history for partial reconciliation not "
+"related to wallet!"
+msgstr ""
+"Không thể tạo lịch sử giao dịch ví cho sự đối chiếu một phần không liên quan"
+" đến ví!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+msgid "Use To Pay Online"
+msgstr "Sử dụng để thanh toán trực tuyến"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet_history.py:0
+#, python-format
+msgid "Verify wallet %s history."
+msgstr "Xác nhận lịch sử %s ví"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__wallet_id
+#: model:ir.model.fields,field_description:to_wallet.field_account_partial_reconcile__wallet_id
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__wallet_id
+#: model:ir.model.fields,field_description:to_wallet.field_payment_transaction__wallet_id
+#: model:ir.model.fields,field_description:to_wallet.field_res_partner__wallet_ids
+#: model:ir.model.fields,field_description:to_wallet.field_res_users__wallet_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__wallet_id
+#: model:ir.model.fields.selection,name:to_wallet.selection__payment_provider__code__wallet
+#: model:ir.ui.menu,name:to_wallet.menu_config_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Wallet"
+msgstr "Ví"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__wallet_amount_currency
+#: model:ir.model.fields,field_description:to_wallet.field_account_partial_reconcile__wallet_amount_currency
+msgid "Wallet Amount Currency"
+msgstr "Giá trị nguyên tệ nạp ví"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__wallet_amount_residual_currency
+msgid "Wallet Amount Residual Currency"
+msgstr "Số tiền nguyên tệ còn lại của ví"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_wallet_history
+#: model:ir.model.fields,field_description:to_wallet.field_account_partial_reconcile__wallet_history_id
+msgid "Wallet History"
+msgstr "Lịch sử Ví"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_wallet_payment_creation_wizard
+msgid "Wallet Payment Creation Wizard"
+msgstr "Trình hướng dẫn Tạo Thanh toán Ví"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_wallet_payment_wizard
+msgid "Wallet Payment Wizard"
+msgstr "Trình hướng dẫn Thanh toán bằng ví"
+
+#. module: to_wallet
+#: model:ir.actions.act_window,name:to_wallet.account_payment_action_view_tree_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_account_payment_search
+msgid "Wallet Payments"
+msgstr "Thanh toán ví"
+
+#. module: to_wallet
+#: model:ir.actions.act_window,name:to_wallet.action_view_wallet_histories
+#: model:ir.model.fields,field_description:to_wallet.field_payment_transaction__wallet_history_ids
+#: model:ir.ui.menu,name:to_wallet.wallet_history_menu
+msgid "Wallet Transaction Histories"
+msgstr "Lịch sử giao dịch ví"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__wallet_history_type
+msgid "Wallet Transaction History Type"
+msgstr "Kiểu Lịch sử Giao dịch Ví"
+
+#. module: to_wallet
+#. odoo-javascript
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/static/src/xml/create_wallet_dialog.xml:0
+#: model:ir.model,name:to_wallet.model_wallet_type
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment_register__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__wallet_type_id
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_search
+#, python-format
+msgid "Wallet Type"
+msgstr "Loại ví"
+
+#. module: to_wallet
+#: model:ir.actions.act_window,name:to_wallet.action_view_wallet_types
+#: model:ir.ui.menu,name:to_wallet.wallet_type_menu
+msgid "Wallet Types"
+msgstr "Loại ví"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid "Wallet balance is not available! (Balance: %s)"
+msgstr "Số dư ví không khả dụng! (Số dư: %s)"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+#, python-format
+msgid "Wallet balance is unavailable! (Remaining balance: %d %s)"
+msgstr "Số dư ví không khả dụng! (Số dư còn lại: %d %s)"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/payment_transaction.py:0
+#, python-format
+msgid "Wallet balance is unavailable! (Remaining balance: %s)"
+msgstr "Số dư ví không khả dụng! (Số dư còn lại: %s)"
+
+#. module: to_wallet
+#: model:ir.model.constraint,message:to_wallet.constraint_wallet_currency_per_partner_uniq
+msgid "Wallet error. Currency must be unique for per wallet type."
+msgstr "Lỗi ví. Tiền tệ phải là duy nhất cho mỗi loại ví của đối tác."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+#, python-format
+msgid "Wallet top up amount"
+msgstr "Tổng tiền nạp ví"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+#, python-format
+msgid "Wallet withdraw amount"
+msgstr "Tổng tiền rút ví"
+
+#. module: to_wallet
+#: model:mail.template,name:to_wallet.mail_template_wallet_fluctuation_notification
+msgid "Wallet: Notification of wallet balance fluctuations"
+msgstr "Ví: Thông báo biến động số dư ví"
+
+#. module: to_wallet
+#: model:ir.actions.act_window,name:to_wallet.action_view_wallets
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__wallet_ids
+#: model:ir.ui.menu,name:to_wallet.menu_wallets
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_breadcrumbs_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_my_home_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_partner_form
+msgid "Wallets"
+msgstr "Ví"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_res_partner__wallets_count
+#: model:ir.model.fields,field_description:to_wallet.field_res_users__wallets_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__wallets_count
+msgid "Wallets Count"
+msgstr "SL Ví"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Warning"
+msgstr "Cảnh báo"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__website_message_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__website_message_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__website_message_ids
+msgid "Website Messages"
+msgstr "Thông điệp website"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__website_message_ids
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__website_message_ids
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__website_message_ids
+msgid "Website communication history"
+msgstr "Lịch sử thông tin liên lạc website"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__notice_recipient_ids
+msgid ""
+"When there is a request to withdraw or top up money from a customer, the "
+"user set up here will receive a notification."
+msgstr ""
+"Khi có yêu cầu rút hoặc nạp tiền của khách hàng, người dùng được thiết lập "
+"tại đây sẽ nhận được thông báo."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_creation_wizard__type__outbound
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+#, python-format
+msgid "Withdraw"
+msgstr "Rút tiền"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+#, python-format
+msgid "Withdraw Wallet"
+msgstr "Rút tiền Ví"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+#, python-format
+msgid "Withdraw Wallet: %s"
+msgstr "Rút tiền Ví: %s"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__wallet_history_type__withdraw
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Withdrawal"
+msgstr "Rút tiền"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Withdrawal Transaction"
+msgstr "Giao dịch Rút tiền"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#, python-format
+msgid "Withdrawal request with reference %s already exists."
+msgstr "Yêu cầu rút tiền có tham chiếu %s đã tồn tại."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet_history.py:0
+#, python-format
+msgid ""
+"You are not allowed to cancel this wallet transaction history! Contact your "
+"administrator to request access if necessary."
+msgstr ""
+"Bạn không được phép hủy bỏ lịch sử giao dịch ví này! Hãy liên hệ với quản "
+"trị viên của bạn để yêu cầu quyền truy cập nếu cần."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet_history.py:0
+#, python-format
+msgid ""
+"You are not allowed to done this wallet transaction history! Contact your "
+"administrator to request access if necessary."
+msgstr ""
+"Bạn không được phép đánh dấu hoàn thành lịch sử giao dịch ví này! Hãy liên "
+"hệ với quản trị viên của bạn để yêu cầu quyền truy cập nếu cần."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid "You can only use this wizard for posted journal items."
+msgstr ""
+"Bạn chỉ có thể sử dụng trình hướng dẫn này cho các phát sinh kế toán đã vào "
+"sổ."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid ""
+"You can only use this wizard on journal items that have account type "
+"Receivable or Payable!"
+msgstr ""
+"Bạn chỉ có thể sử dụng trình hướng dẫn này cho các phát sinh kế toán có loại"
+" tài khoản Phải thu hoặc Phải trả!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid ""
+"You can't register a payment because there is nothing left to pay on the "
+"selected journal items."
+msgstr ""
+"Bạn không thể đăng ký thanh toán vì không còn gì để thanh toán cho các phát "
+"sinh kế toán đã chọn."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid ""
+"You can't register payments for both receivable and payable at the same "
+"time!"
+msgstr ""
+"Bạn không thể đăng ký thanh toán cho cả khoản phải thu và khoản phải trả "
+"cùng một lúc!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid ""
+"You cannot use this wizard for journal items that are not yet reconciled!"
+msgstr ""
+"Bạn không thể sử dụng trình hướng dẫn này cho các phát sinh kế toán chưa "
+"được đối soát!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid ""
+"You cannot use this wizard on journal items belonging to different "
+"companies!"
+msgstr ""
+"Bạn không thể sử dụng trình hướng dẫn này cho các phát sinh kế toán thuộc "
+"các công ty khác nhau!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+#, python-format
+msgid ""
+"You cannot use this wizard on journal items belonging to different partners!"
+msgstr ""
+"Bạn không thể sử dụng trình hướng dẫn này trên các phát sinh kế toán thuộc "
+"về các đối tác khác nhau!"
+
+#. module: to_wallet
+#: model_terms:payment.provider,auth_msg:to_wallet.payment_provider_company_wallet
+msgid "Your payment has been authorized."
+msgstr "Thanh toán của bạn đã được ủy quyền."
+
+#. module: to_wallet
+#: model_terms:payment.provider,cancel_msg:to_wallet.payment_provider_company_wallet
+msgid "Your payment has been cancelled."
+msgstr "Thanh toán của bạn đã bị hủy bỏ."
+
+#. module: to_wallet
+#: model_terms:payment.provider,pending_msg:to_wallet.payment_provider_company_wallet
+msgid ""
+"Your payment has been successfully processed but is waiting for approval."
+msgstr "Thanh toán của bạn đã được xử lý thành công nhưng đang chờ phê duyệt."
+
+#. module: to_wallet
+#: model_terms:payment.provider,done_msg:to_wallet.payment_provider_company_wallet
+msgid "Your payment has been successfully processed."
+msgstr "Thanh toán của bạn đã được xử lý thành công."
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid ""
+"Your withdrawal request is being processed. We will send you a notification "
+"email after the processing is completed. Thank you!"
+msgstr ""
+"Yêu cầu rút tiền của bạn đang được xử lý. Chúng tôi sẽ gửi cho bạn email "
+"thông báo sau khi quá trình xử lý hoàn tất. Cảm ơn bạn!"
+
+#. module: to_wallet
+#: model:mail.template,subject:to_wallet.mail_template_wallet_fluctuation_notification
+msgid ""
+"[{{ object.company_id.name }}] Notification of wallet balance fluctuations"
+msgstr "[{{ object.company_id.name }}] Thông báo biến động số dư"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_move_line_form
+msgid "eWallet"
+msgstr "Ví điện tử"
+
+#. module: to_wallet
+#: model:res.groups,name:to_wallet.group_wallet_manager
+msgid "eWallet Manager"
+msgstr "Quản lý ví điện tử"
