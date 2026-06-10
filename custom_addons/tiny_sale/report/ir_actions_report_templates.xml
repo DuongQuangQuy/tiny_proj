@@ -274,7 +274,7 @@
                                             <tr>
                                                 <td style="padding: 4px 5px;">Tổng tiền</td>
                                                 <td style="text-align: right; padding: 4px 5px;">
-                                                    <span t-esc="'{:,.0f}'.format(doc.amount_undiscounted or 0)">0</span>
+                                                    <span t-esc="'{:,.0f}'.format(doc.amount_total or 0)">0</span>
                                                 </td>
                                             </tr>
                                             <tr>
