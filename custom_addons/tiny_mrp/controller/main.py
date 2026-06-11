@@ -37,7 +37,7 @@ class MrpPortal(CustomerPortal):
     def portal_workorders(self, **kw):
         user = request.env.user
         workorders = request.env['mrp.workorder'].sudo().search([
-            ('user_mrp_ids', 'in', user.id)
+            ('user_mrp_ids', 'in', user.id), ('state', 'not in', ('done', 'cancel'))
         ], order='id desc')
         return request.render('tiny_mrp.portal_my_workorders', {
             'workorders': workorders,
