@@ -92,59 +92,60 @@
                             <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
                                 <tr>
                                     <td style="width: 50%; vertical-align: top; padding-right: 10px;">
-                                        <div style="margin-bottom: 5px;">
-                                            <strong>Bill To</strong>
-                                            <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_id.code or ''"/>
-                                            </span>
-                                        </div>
-
-                                        <div style="margin-bottom: 5px;">
-                                            <strong>Khách hàng</strong>
-                                            <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_id.name or ''"/>
-                                            </span>
-                                        </div>
-                                        <div style="margin-bottom: 5px;">
-                                            <strong>Địa chỉ</strong>
-                                            <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_id.street or ''"></t>
-                                            </span>
-                                        </div>
-                                        <div style="margin-bottom: 5px;">
-                                            <strong>Điện thoại</strong>
-                                            <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.partner_id.phone  or ''"></t>
-                                            </span>
-                                        </div>
+                                        <table style="width: 100%; border-collapse: collapse;">
+                                            <tr style="margin-bottom: 5px;">
+                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Bill To</td>
+                                                <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
+                                                    <t t-esc="doc.partner_id.code or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Khách hàng</td>
+                                                <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
+                                                    <t t-esc="doc.partner_id.name or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Địa chỉ</td>
+                                                <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
+                                                    <t t-esc="doc.partner_id.street or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Điện thoại</td>
+                                                <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
+                                                    <t t-esc="doc.partner_id.phone or ''"/>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                     <td style="width: 50%; vertical-align: top; padding-left: 10px;">
-
-                                        <div style="margin-bottom: 5px;">
-                                            <strong>Cửa hàng</strong>
-                                            <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="doc.company_id.name or ''"></t>
-                                            </span>
-                                        </div>
-
-                                        <div style="margin-bottom: 5px;">
-                                            <strong>Khách hàng</strong>
-                                            <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="(doc.partner_shipping_id.name or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.name or '')"></t>
-                                            </span>
-                                        </div>
-                                        <div style="margin-bottom: 5px;">
-                                            <strong>Địa chỉ</strong>
-                                            <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="(doc.partner_shipping_id.street or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.street or '')"></t>
-                                            </span>
-                                        </div>
-                                        <div style="margin-bottom: 5px;">
-                                            <strong>Điện thoại</strong>
-                                            <span style="border-bottom: 1px dotted #000; display: inline-block; min-width: 200px; margin-left: 10px;">
-                                                <t t-esc="(doc.partner_shipping_id.phone or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.phone or '')"></t>
-                                            </span>
-                                        </div>
+                                        <table style="width: 100%; border-collapse: collapse;">
+                                            <tr>
+                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Cửa hàng</td>
+                                                <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
+                                                    <t t-esc="doc.company_id.name or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Khách hàng</td>
+                                                <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
+                                                    <t t-esc="(doc.partner_shipping_id.name or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.name or '')"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Địa chỉ</td>
+                                                <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
+                                                    <t t-esc="(doc.partner_shipping_id.street or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.street or '')"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Điện thoại</td>
+                                                <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
+                                                    <t t-esc="(doc.partner_shipping_id.phone or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.phone or '')"/>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                             </table>
