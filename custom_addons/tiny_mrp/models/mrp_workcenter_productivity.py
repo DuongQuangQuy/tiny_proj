@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 
 class MrpWorkcenterProductivity(models.Model):
     _inherit = "mrp.workcenter.productivity"
-    
+
     user_mrp_id = fields.Many2one('res.users', string='Nhân viên MRP')
 
     @api.model_create_multi
@@ -20,6 +20,8 @@ class MrpWorkcenterProductivity(models.Model):
         if portal_user_id:
             for vals in vals_list:
                 if not vals.get('user_mrp_id'):
+                    employee = self.env['hr.employee'].sudo().search([('user_id', '=', portal_user_id)], limit=1)
+                    if employee:
+                        vals['employee_id'] = employee.id
                     vals['user_mrp_id'] = portal_user_id
         return super().create(vals_list)
-    
