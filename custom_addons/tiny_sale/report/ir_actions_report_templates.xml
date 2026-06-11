@@ -94,25 +94,25 @@
                                     <td style="width: 50%; vertical-align: top; padding-right: 10px;">
                                         <table style="width: 100%; border-collapse: collapse;">
                                             <tr style="margin-bottom: 5px;">
-                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Bill To</td>
+                                                <td style="width: 70px; white-space: nowrap; vertical-align: top; padding-bottom: 6px;"><strong>Bill To</strong></td>
                                                 <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
                                                     <t t-esc="doc.partner_id.code or ''"/>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Khách hàng</td>
+                                                <td style="width: 70px; white-space: nowrap; vertical-align: top; padding-bottom: 6px;"><strong>Khách hàng</strong></td>
                                                 <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
                                                     <t t-esc="doc.partner_id.name or ''"/>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Địa chỉ</td>
+                                                <td style="width: 70px; white-space: nowrap; vertical-align: top; padding-bottom: 6px;"><strong>Địa chỉ</strong></td>
                                                 <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
                                                     <t t-esc="doc.partner_id.street or ''"/>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Điện thoại</td>
+                                                <td style="width: 70px; white-space: nowrap; vertical-align: top; padding-bottom: 6px;"><strong>Điện thoại</strong></td>
                                                 <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
                                                     <t t-esc="doc.partner_id.phone or ''"/>
                                                 </td>
@@ -122,25 +122,25 @@
                                     <td style="width: 50%; vertical-align: top; padding-left: 10px;">
                                         <table style="width: 100%; border-collapse: collapse;">
                                             <tr>
-                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Cửa hàng</td>
+                                                <td style="width: 70px; white-space: nowrap; vertical-align: top; padding-bottom: 6px;"><strong>Cửa hàng</strong></td>
                                                 <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
                                                     <t t-esc="doc.company_id.name or ''"/>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Khách hàng</td>
+                                                <td style="width: 70px; white-space: nowrap; vertical-align: top; padding-bottom: 6px;"><strong>Khách hàng</strong></td>
                                                 <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
                                                     <t t-esc="(doc.partner_shipping_id.name or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.name or '')"/>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Địa chỉ</td>
+                                                <td style="width: 70px; white-space: nowrap; vertical-align: top; padding-bottom: 6px;"><strong>Địa chỉ</strong></td>
                                                 <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
                                                     <t t-esc="(doc.partner_shipping_id.street or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.street or '')"/>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 70px; font-weight: bold; white-space: nowrap; vertical-align: top; padding-bottom: 6px;">Điện thoại</td>
+                                                <td style="width: 70px; white-space: nowrap; vertical-align: top; padding-bottom: 6px;"><strong>Điện thoại</strong></td>
                                                 <td style="border-bottom: 1px dotted #000; vertical-align: top; padding-bottom: 6px; padding-left: 8px;">
                                                     <t t-esc="(doc.partner_shipping_id.phone or '') if doc.partner_shipping_id != doc.partner_id else (doc.partner_id.phone or '')"/>
                                                 </td>
