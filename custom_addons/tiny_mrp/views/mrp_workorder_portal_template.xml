@@ -131,18 +131,12 @@
 
                                 <dt class="col-sm-5 text-muted">Bắt đầu dự kiến</dt>
                                 <dd class="col-sm-7">
-                                    <t t-if="workorder.date_start">
-                                        <t t-esc="workorder.date_start.strftime('%d/%m/%Y %H:%M')"/>
-                                    </t>
-                                    <t t-else="">—</t>
+                                    <t t-esc="fmt_dt(workorder.date_start)"/>
                                 </dd>
 
                                 <dt class="col-sm-5 text-muted">Kết thúc dự kiến</dt>
                                 <dd class="col-sm-7">
-                                    <t t-if="workorder.date_finished">
-                                        <t t-esc="workorder.date_finished.strftime('%d/%m/%Y %H:%M')"/>
-                                    </t>
-                                    <t t-else="">—</t>
+                                    <t t-esc="fmt_dt(workorder.date_finished)"/>
                                 </dd>
                             </dl>
                         </div>
@@ -273,14 +267,11 @@
                                 <tbody>
                                     <tr t-foreach="productivities" t-as="p">
                                         <td>
-                                            <t t-if="p.date_start">
-                                                <t t-esc="p.date_start.strftime('%d/%m/%Y %H:%M')"/>
-                                            </t>
-                                            <t t-else="">—</t>
+                                            <t t-esc="fmt_dt(p.date_start)"/>
                                         </td>
                                         <td>
                                             <t t-if="p.date_end">
-                                                <t t-esc="p.date_end.strftime('%d/%m/%Y %H:%M')"/>
+                                                <t t-esc="fmt_dt(p.date_end)"/>
                                             </t>
                                             <t t-else="">
                                                 <span class="badge bg-success">Đang chạy</span>

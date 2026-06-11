@@ -1,7 +1,19 @@
+import pytz
+
 from odoo import http, _
 from odoo.http import request
 from odoo.exceptions import UserError
 from odoo.addons.portal.controllers.portal import CustomerPortal
+
+
+def _make_fmt_dt(env):
+    tz_name = env.context.get('tz') or env.user.tz or 'UTC'
+    tz = pytz.timezone(tz_name)
+    def fmt_dt(dt):
+        if not dt:
+            return '—'
+        return pytz.utc.localize(dt).astimezone(tz).strftime('%d/%m/%Y %H:%M')
+    return fmt_dt
 
 _STATE_LABEL = {
     'pending': 'Chờ xử lý',
@@ -56,6 +68,7 @@ class MrpPortal(CustomerPortal):
         return request.render('tiny_mrp.portal_workorder_detail', {
             'workorder': workorder,
             'has_open_time': has_open_time,
+            'fmt_dt': _make_fmt_dt(request.env),
             'page_name': 'workorder',
             'state_label': _STATE_LABEL,
             'state_color': _STATE_COLOR,
@@ -103,6 +116,7 @@ class MrpPortal(CustomerPortal):
             return request.render('tiny_mrp.portal_workorder_detail', {
                 'workorder': workorder,
                 'has_open_time': has_open_time,
+                'fmt_dt': _make_fmt_dt(request.env),
                 'page_name': 'workorder',
                 'state_label': _STATE_LABEL,
                 'state_color': _STATE_COLOR,
@@ -120,6 +134,7 @@ class MrpPortal(CustomerPortal):
         return request.render('tiny_mrp.portal_workorder_productivity', {
             'workorder': workorder,
             'productivities': workorder.time_ids.sorted('date_start', reverse=True),
+            'fmt_dt': _make_fmt_dt(request.env),
             'page_name': 'workorder',
             'state_label': _STATE_LABEL,
             'state_color': _STATE_COLOR,
