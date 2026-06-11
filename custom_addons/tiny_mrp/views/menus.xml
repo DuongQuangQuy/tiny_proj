@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="website_menu_mrp_workorders" model="website.menu">
+            <field name="name">Lệnh Công Việc</field>
+            <field name="url">/my/workorders</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">60</field>
+        </record>
+    </data>
+</odoo>

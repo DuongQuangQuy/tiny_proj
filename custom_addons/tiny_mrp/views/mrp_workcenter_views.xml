@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_mrp_workcenter_form_inherit" model="ir.ui.view">
+        <field name="model">mrp.workcenter</field>
+        <field name="name">view.mrp.workcenter.form.inherit</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='resource_calendar_id']" position="after" >
+                <field name="user_mrp_ids" widget="many2many_tags"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

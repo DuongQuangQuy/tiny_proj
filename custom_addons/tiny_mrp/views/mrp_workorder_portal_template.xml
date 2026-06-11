@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== PORTAL HOME ENTRY ===================== -->
+    <template id="portal_my_home_workorder" inherit_id="portal.portal_my_home"
+              customize_show="True" name="Lệnh Công Việc MRP">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Lệnh Công Việc</t>
+                <t t-set="url" t-value="'/my/workorders'"/>
+                <t t-set="count" t-value="workorder_count"/>
+                <t t-set="placeholder_count">lệnh</t>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- ===================== WORKORDER LIST ===================== -->
+    <template id="portal_my_workorders" name="My Work Orders">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_my_workorders">
+            <!-- <t t-set="breadcrumbs_searchbar" t-value="True"/> -->
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Lệnh Công Việc Của Tôi</t>
+            </t>
+            <t t-if="not workorders">
+                <div class="alert alert-info mt-4" role="alert">
+                    <i class="fa fa-info-circle me-1"/>
+                    Bạn chưa có lệnh công việc nào được giao.
+                </div>
+            </t>
+            <t t-else="">
+                <div class="card mt-4">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Tên lệnh</th>
+                                    <th>Lệnh sản xuất</th>
+                                    <th>Trạm làm việc</th>
+                                    <th class="text-center">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="workorders" t-as="wo"
+                                    t-attf-onclick="window.location='/my/workorders/#{wo.id}'"
+                                    style="cursor: pointer;">
+                                    <td class="fw-semibold">
+                                        <t t-esc="wo.name"/>
+                                    </td>
+                                    <td><t t-esc="wo.production_id.name or '—'"/></td>
+                                    <td><t t-esc="wo.workcenter_id.name or '—'"/></td>
+                                    <td class="text-center">
+                                        <span t-att-class="'badge ' + state_color.get(wo.state, 'bg-secondary')">
+                                            <t t-esc="state_label.get(wo.state, wo.state)"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== WORKORDER DETAIL ===================== -->
+    <template id="portal_workorder_detail" name="Work Order Detail">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_workorder_detail">
+
+            <!-- Error alert -->
+            <div t-if="error" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <i class="fa fa-exclamation-triangle me-1"/>
+                <strong>Lỗi:</strong> <t t-esc="error"/>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"/>
+            </div>
+
+            <!-- Breadcrumb back -->
+            <div class="mt-3 mb-3">
+                <a href="/my/workorders" class="btn btn-sm btn-outline-secondary">
+                    <i class="fa fa-arrow-left me-1"/> Danh sách lệnh
+                </a>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- Info card -->
+                <div class="col-lg-8">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5 class="mb-0">
+                                <i class="fa fa-cogs me-1 text-muted"/>
+                                <t t-esc="workorder.name"/>
+                            </h5>
+                            <span t-att-class="'badge fs-6 ' + state_color.get(workorder.state, 'bg-secondary')">
+                                <t t-esc="state_label.get(workorder.state, workorder.state)"/>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-5 text-muted">Lệnh sản xuất</dt>
+                                <dd class="col-sm-7">
+                                    <t t-esc="workorder.production_id.name or '—'"/>
+                                </dd>
+
+                                <dt class="col-sm-5 text-muted">Sản phẩm</dt>
+                                <dd class="col-sm-7">
+                                    <t t-esc="workorder.production_id.product_id.display_name or '—'"/>
+                                </dd>
+
+                                <dt class="col-sm-5 text-muted">Trạm làm việc</dt>
+                                <dd class="col-sm-7">
+                                    <t t-esc="workorder.workcenter_id.name or '—'"/>
+                                </dd>
+
+                                <dt class="col-sm-5 text-muted">Số lượng SX</dt>
+                                <dd class="col-sm-7">
+                                    <t t-esc="workorder.qty_production"/>
+                                    <span class="text-muted ms-1">
+                                        <t t-esc="workorder.production_id.product_uom_id.name or ''"/>
+                                    </span>
+                                </dd>
+
+                                <dt class="col-sm-5 text-muted">Còn lại</dt>
+                                <dd class="col-sm-7">
+                                    <t t-esc="workorder.qty_remaining"/>
+                                </dd>
+
+                                <dt class="col-sm-5 text-muted">Bắt đầu dự kiến</dt>
+                                <dd class="col-sm-7">
+                                    <t t-if="workorder.date_start">
+                                        <t t-esc="workorder.date_start.strftime('%d/%m/%Y %H:%M')"/>
+                                    </t>
+                                    <t t-else="">—</t>
+                                </dd>
+
+                                <dt class="col-sm-5 text-muted">Kết thúc dự kiến</dt>
+                                <dd class="col-sm-7">
+                                    <t t-if="workorder.date_finished">
+                                        <t t-esc="workorder.date_finished.strftime('%d/%m/%Y %H:%M')"/>
+                                    </t>
+                                    <t t-else="">—</t>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action panel -->
+                <div class="col-lg-4">
+
+                    <!-- Action buttons card -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h6 class="mb-0">
+                                <i class="fa fa-hand-pointer-o me-1"/>Thao tác
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <t t-set="can_act"
+                               t-value="workorder.production_state not in ('draft', 'done', 'cancel')
+                                        and workorder.working_state != 'blocked'
+                                        and workorder.state not in ('done', 'cancel')"/>
+
+                            <!-- Start: hiện khi không có open time record (giống backend: not is_user_working) -->
+                            <t t-if="can_act and not has_open_time">
+                                <form t-attf-action="/my/workorders/#{workorder.id}/action" method="POST">
+                                    <input type="hidden" name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+                                    <button name="action" value="start" type="submit"
+                                            class="btn btn-success w-100">
+                                        <i class="fa fa-play me-1"/> Bắt đầu
+                                    </button>
+                                </form>
+                            </t>
+                            <!-- Pause/Finish: hiện khi có open time record và đang progress (giống backend: is_user_working) -->
+                            <t t-elif="can_act and has_open_time and workorder.state == 'progress'">
+                                <form t-attf-action="/my/workorders/#{workorder.id}/action" method="POST">
+                                    <input type="hidden" name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+                                    <button name="action" value="pending" type="submit"
+                                            class="btn btn-warning w-100 mb-2">
+                                        <i class="fa fa-pause me-1"/> Tạm dừng
+                                    </button>
+                                    <button name="action" value="finish" type="submit"
+                                            class="btn btn-primary w-100">
+                                        <i class="fa fa-check me-1"/> Hoàn thành
+                                    </button>
+                                </form>
+                            </t>
+                            <t t-else="">
+                                <t t-if="workorder.working_state == 'blocked'">
+                                    <p class="text-danger text-center mb-0 small">
+                                        <i class="fa fa-ban me-1"/>Trạm làm việc đang bị chặn.
+                                    </p>
+                                </t>
+                                <t t-elif="workorder.production_state in ('draft', 'done', 'cancel')">
+                                    <p class="text-muted text-center mb-0 small">
+                                        <i class="fa fa-info-circle me-1"/>Lệnh sản xuất không ở trạng thái hoạt động.
+                                    </p>
+                                </t>
+                                <t t-else="">
+                                    <p class="text-muted text-center mb-0 small">
+                                        Không có thao tác khả dụng.
+                                    </p>
+                                </t>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- Productivity link card -->
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p class="text-muted small mb-2">Xem lịch sử chạy máy</p>
+                            <a t-attf-href="/my/workorders/#{workorder.id}/productivity"
+                               class="btn btn-outline-secondary w-100">
+                                <i class="fa fa-history me-1"/> Nhật ký hoạt động
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== PRODUCTIVITY PAGE ===================== -->
+    <template id="portal_workorder_productivity" name="Work Order Productivity">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_workorder_productivity">
+
+            <!-- Breadcrumb back -->
+            <div class="mt-3 mb-3">
+                <a t-attf-href="/my/workorders/#{workorder.id}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fa fa-arrow-left me-1"/> Quay lại: <t t-esc="workorder.name"/>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">
+                        <i class="fa fa-history me-1 text-muted"/>
+                        Nhật ký hoạt động — <t t-esc="workorder.name"/>
+                    </h5>
+                    <span t-att-class="'badge ' + state_color.get(workorder.state, 'bg-secondary')">
+                        <t t-esc="state_label.get(workorder.state, workorder.state)"/>
+                    </span>
+                </div>
+                <div class="card-body p-0">
+                    <t t-if="not productivities">
+                        <p class="text-muted text-center p-4 mb-0">
+                            <i class="fa fa-inbox fa-2x d-block mb-2"/>
+                            Chưa có nhật ký hoạt động nào.
+                        </p>
+                    </t>
+                    <t t-else="">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Bắt đầu</th>
+                                        <th>Kết thúc</th>
+                                        <th>Thời lượng</th>
+                                        <th>Loại</th>
+                                        <th>Nhân viên MRP</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="productivities" t-as="p">
+                                        <td>
+                                            <t t-if="p.date_start">
+                                                <t t-esc="p.date_start.strftime('%d/%m/%Y %H:%M')"/>
+                                            </t>
+                                            <t t-else="">—</t>
+                                        </td>
+                                        <td>
+                                            <t t-if="p.date_end">
+                                                <t t-esc="p.date_end.strftime('%d/%m/%Y %H:%M')"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span class="badge bg-success">Đang chạy</span>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="p.duration">
+                                                <t t-set="dur_h" t-value="int(p.duration // 60)"/>
+                                                <t t-set="dur_m" t-value="int(p.duration % 60)"/>
+                                                <t t-if="dur_h">
+                                                    <t t-esc="'%d giờ %02d phút' % (dur_h, dur_m)"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-esc="'%d phút' % dur_m"/>
+                                                </t>
+                                            </t>
+                                            <t t-else="">—</t>
+                                        </td>
+                                        <td><t t-esc="p.loss_id.name or '—'"/></td>
+                                        <td>
+                                            <t t-if="p.user_mrp_id">
+                                                <span class="badge bg-light text-dark border">
+                                                    <i class="fa fa-user me-1"/>
+                                                    <t t-esc="p.user_mrp_id.name"/>
+                                                </span>
+                                            </t>
+                                            <t t-else="">—</t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_res_users_form_inherit" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="name">view.res.users.form.inherit</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_ids']" position="before" >
+<!--                <field name="is_mrp"/>-->
+                <field name="is_mrp_stock"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

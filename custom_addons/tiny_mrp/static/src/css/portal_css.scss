@@ -1,0 +1,123 @@
+/* =====================================================
+   tiny_mrp — Portal Mobile Responsive CSS
+   ===================================================== */
+
+/* ---------- List page: table responsive ---------- */
+.o_portal_my_workorders {
+    .table-responsive-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table.table {
+        min-width: 480px;
+    }
+
+    @media (max-width: 575.98px) {
+        table thead th {
+            font-size: 0.75rem;
+            padding: 0.5rem 0.4rem;
+            white-space: nowrap;
+        }
+
+        table tbody td {
+            font-size: 0.82rem;
+            padding: 0.55rem 0.4rem;
+        }
+    }
+}
+
+/* ---------- Detail page ---------- */
+.o_portal_workorder_detail {
+
+    /* Mobile: hiển thị action panel TRÊN info card */
+    @media (max-width: 991.98px) {
+        .col-lg-8 { order: 2; }
+        .col-lg-4 { order: 1; }
+    }
+
+    /* Card header trên mobile */
+    @media (max-width: 575.98px) {
+        .card-header {
+            padding: 0.6rem 0.8rem;
+        }
+
+        .card-header h5 {
+            font-size: 1rem;
+        }
+
+        .card-header h6 {
+            font-size: 0.875rem;
+        }
+
+        /* Badge trạng thái */
+        .card-header .badge {
+            font-size: 0.72rem;
+            padding: 0.3em 0.55em;
+        }
+
+        /* Info dl list */
+        dl.row dt,
+        dl.row dd {
+            font-size: 0.82rem;
+        }
+
+        /* Action buttons */
+        .btn.w-100 {
+            font-size: 0.92rem;
+            padding: 0.55rem 1rem;
+        }
+    }
+}
+
+/* ---------- Productivity page ---------- */
+.o_portal_workorder_productivity {
+
+    .table-responsive {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 767.98px) {
+        table thead th {
+            font-size: 0.75rem;
+            padding: 0.45rem 0.4rem;
+            white-space: nowrap;
+        }
+
+        table tbody td {
+            font-size: 0.80rem;
+            padding: 0.5rem 0.4rem;
+        }
+
+        /* Badge "Đang chạy" */
+        .badge {
+            font-size: 0.7rem;
+        }
+    }
+
+    /* Ẩn cột Kết thúc & Loại trên màn hình rất nhỏ */
+    @media (max-width: 479.98px) {
+        table thead th:nth-child(2),
+        table tbody td:nth-child(2),
+        table thead th:nth-child(4),
+        table tbody td:nth-child(4) {
+            display: none;
+        }
+    }
+}
+
+/* ---------- Back button & breadcrumb ---------- */
+@media (max-width: 575.98px) {
+    .btn.btn-sm.btn-outline-secondary {
+        font-size: 0.78rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+/* ---------- Error alert ---------- */
+@media (max-width: 575.98px) {
+    .alert {
+        font-size: 0.82rem;
+        padding: 0.6rem 0.8rem;
+    }
+}
