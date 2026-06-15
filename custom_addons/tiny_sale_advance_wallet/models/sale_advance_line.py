@@ -92,8 +92,8 @@ class SaleAdvanceLine(models.Model):
     def _compute_state(self):
         for rec in self:
             if rec.advance_type == 'wallet':
-                history = rec.wallet_history_id
-                if history and history.state == 'cancel':
+                move = rec.move_id
+                if move and move.state == 'cancel':
                     rec.state = 'cancel'
                 else:
                     rec.state = 'posted'
