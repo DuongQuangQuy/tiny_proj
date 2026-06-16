@@ -15,6 +15,24 @@ def _make_fmt_dt(env):
         return pytz.utc.localize(dt).astimezone(tz).strftime('%d/%m/%Y %H:%M')
     return fmt_dt
 
+_PRODUCTION_STATE_LABEL = {
+    'draft': 'Nháp',
+    'confirmed': 'Đã xác nhận',
+    'progress': 'Đang thực hiện',
+    'to_close': 'Cần đóng',
+    'done': 'Hoàn thành',
+    'cancel': 'Đã hủy',
+}
+
+_PRODUCTION_STATE_COLOR = {
+    'draft': 'bg-secondary',
+    'confirmed': 'bg-info text-dark',
+    'progress': 'bg-primary',
+    'to_close': 'bg-warning text-dark',
+    'done': 'bg-success',
+    'cancel': 'bg-danger',
+}
+
 _STATE_LABEL = {
     'pending': 'Chờ xử lý',
     'waiting': 'Chờ vật tư',
@@ -42,6 +60,12 @@ class MrpPortal(CustomerPortal):
             user = request.env.user
             values['workorder_count'] = request.env['mrp.workorder'].sudo().search_count([
                 ('user_mrp_ids', 'in', user.id)
+            ])
+        if 'production_count' in counters:
+            user = request.env.user
+            values['production_count'] = request.env['mrp.production'].sudo().search_count([
+                ('user_mrp_stock_ids', 'in', user.id),
+                ('state', '=', 'draft'),
             ])
         return values
 
@@ -124,6 +148,243 @@ class MrpPortal(CustomerPortal):
             })
 
         return request.redirect('/my/workorders/%d' % workorder_id)
+
+    @http.route('/my/productions', auth='user', website=True, type='http')
+    def portal_productions(self, **kw):
+        user = request.env.user
+        productions = request.env['mrp.production'].sudo().search([
+            ('user_mrp_stock_ids', 'in', user.id),
+            ('state', '=', 'draft'),
+        ], order='id desc')
+        return request.render('tiny_mrp.portal_my_productions', {
+            'productions': productions,
+            'page_name': 'production',
+            'production_state_label': _PRODUCTION_STATE_LABEL,
+            'production_state_color': _PRODUCTION_STATE_COLOR,
+        })
+
+    @http.route('/my/productions/<int:production_id>', auth='user', website=True, type='http')
+    def portal_production_detail(self, production_id, **kw):
+        user = request.env.user
+        production = request.env['mrp.production'].sudo().browse(production_id)
+        if not production.exists() or user not in production.user_mrp_stock_ids:
+            return request.not_found()
+        return request.render('tiny_mrp.portal_production_detail', {
+            'production': production,
+            'fmt_dt': _make_fmt_dt(request.env),
+            'page_name': 'production',
+            'production_state_label': _PRODUCTION_STATE_LABEL,
+            'production_state_color': _PRODUCTION_STATE_COLOR,
+        })
+
+    @http.route('/my/productions/<int:production_id>/action', auth='user', website=True, type='http', methods=['POST'])
+    def portal_production_action(self, production_id, action=None, **kw):
+        user = request.env.user
+        production = request.env['mrp.production'].sudo().browse(production_id)
+        if not production.exists() or user not in production.user_mrp_stock_ids:
+            return request.not_found()
+
+        error = None
+        try:
+            if production.state != 'draft':
+                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
+            if action == 'confirm':
+                production.action_confirm()
+            else:
+                raise UserError(_('Thao tác không hợp lệ.'))
+        except UserError as e:
+            error = e.args[0] if e.args else str(e)
+        except Exception as e:
+            error = str(e)
+
+        if error:
+            return request.render('tiny_mrp.portal_production_detail', {
+                'production': production,
+                'fmt_dt': _make_fmt_dt(request.env),
+                'page_name': 'production',
+                'production_state_label': _PRODUCTION_STATE_LABEL,
+                'production_state_color': _PRODUCTION_STATE_COLOR,
+                'error': error,
+            })
+
+        return request.redirect('/my/productions')
+
+    def _portal_move_ctx(self, production, move, **extra):
+        return {
+            'production': production,
+            'move': move,
+            'page_name': 'production',
+            'production_state_label': _PRODUCTION_STATE_LABEL,
+            'production_state_color': _PRODUCTION_STATE_COLOR,
+            **extra,
+        }
+
+    @http.route('/my/productions/<int:production_id>/move/<int:move_id>', auth='user', website=True, type='http')
+    def portal_production_move_detail(self, production_id, move_id, edit=None, **kw):
+        user = request.env.user
+        production = request.env['mrp.production'].sudo().browse(production_id)
+        if not production.exists() or user not in production.user_mrp_stock_ids:
+            return request.not_found()
+        move = request.env['stock.move'].sudo().browse(move_id)
+        if not move.exists() or move.raw_material_production_id.id != production_id:
+            return request.not_found()
+        edit_line = None
+        if edit:
+            try:
+                edit_line = request.env['stock.move.line'].sudo().browse(int(edit))
+                if not edit_line.exists() or edit_line.move_id.id != move_id:
+                    edit_line = None
+            except Exception:
+                edit_line = None
+        available_quants = request.env['stock.quant'].sudo().search([
+            ('product_id', '=', move.product_id.id),
+            ('location_id', 'child_of', move.location_id.id),
+            ('quantity', '>', 0),
+        ], order='lot_id asc, location_id asc').filtered(lambda q: q.available_quantity > 0)
+        return request.render('tiny_mrp.portal_production_move_detail',
+            self._portal_move_ctx(production, move, edit_line=edit_line,
+                                  available_quants=available_quants))
+
+    @http.route('/my/productions/<int:production_id>/move/<int:move_id>/save', auth='user', website=True, type='http', methods=['POST'])
+    def portal_production_move_save(self, production_id, move_id, product_uom_qty=None, **kw):
+        user = request.env.user
+        production = request.env['mrp.production'].sudo().browse(production_id)
+        if not production.exists() or user not in production.user_mrp_stock_ids:
+            return request.not_found()
+        move = request.env['stock.move'].sudo().browse(move_id)
+        if not move.exists() or move.raw_material_production_id.id != production_id:
+            return request.not_found()
+        error = None
+        try:
+            if production.state != 'draft':
+                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp, không thể chỉnh sửa.'))
+            qty = float(product_uom_qty or 0)
+            if qty <= 0:
+                raise UserError(_('Số lượng phải lớn hơn 0.'))
+            move.write({'product_uom_qty': qty})
+        except (UserError, ValueError) as e:
+            error = e.args[0] if hasattr(e, 'args') and e.args else str(e)
+        except Exception as e:
+            error = str(e)
+        if error:
+            return request.render('tiny_mrp.portal_production_move_detail',
+                self._portal_move_ctx(production, move, error=error))
+        return request.redirect('/my/productions/%d/move/%d' % (production_id, move_id))
+
+    @http.route('/my/productions/<int:production_id>/move/<int:move_id>/add-line', auth='user', website=True, type='http', methods=['POST'])
+    def portal_production_move_add_line(self, production_id, move_id, quant_id=None, lot_name=None, quantity=None, **kw):
+        user = request.env.user
+        production = request.env['mrp.production'].sudo().browse(production_id)
+        if not production.exists() or user not in production.user_mrp_stock_ids:
+            return request.not_found()
+        move = request.env['stock.move'].sudo().browse(move_id)
+        if not move.exists() or move.raw_material_production_id.id != production_id:
+            return request.not_found()
+        error = None
+        try:
+            if production.state != 'draft':
+                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
+            vals = {
+                'move_id': move.id,
+                'product_id': move.product_id.id,
+                'product_uom_id': move.product_uom.id,
+                'location_id': move.location_id.id,
+                'location_dest_id': move.location_dest_id.id,
+                'company_id': move.company_id.id,
+            }
+            if quant_id:
+                quant = request.env['stock.quant'].sudo().browse(int(quant_id))
+                if not quant.exists() or quant.product_id.id != move.product_id.id:
+                    raise UserError(_('Lô hàng không hợp lệ.'))
+                done_qty = sum(move.move_line_ids.mapped('quantity'))
+                remaining = max(0.0, move.product_uom_qty - done_qty)
+                auto_qty = max(0.0, min(quant.available_quantity, remaining)) if remaining > 0 else quant.available_quantity
+                if auto_qty <= 0:
+                    raise UserError(_('Không còn số lượng khả dụng trên lô này.'))
+                vals.update({
+                    'lot_id': quant.lot_id.id if quant.lot_id else False,
+                    'location_id': quant.location_id.id,
+                    'quantity': auto_qty,
+                })
+            else:
+                qty = float(quantity or 0)
+                if qty <= 0:
+                    raise UserError(_('Số lượng phải lớn hơn 0.'))
+                vals.update({
+                    'lot_name': lot_name.strip() if lot_name and lot_name.strip() else False,
+                    'quantity': qty,
+                })
+            request.env['stock.move.line'].sudo().create(vals)
+        except (UserError, ValueError) as e:
+            error = e.args[0] if hasattr(e, 'args') and e.args else str(e)
+        except Exception as e:
+            error = str(e)
+        if error:
+            available_quants = request.env['stock.quant'].sudo().search([
+                ('product_id', '=', move.product_id.id),
+                ('location_id', 'child_of', move.location_id.id),
+                ('quantity', '>', 0),
+            ], order='lot_id asc, location_id asc').filtered(lambda q: q.available_quantity > 0)
+            return request.render('tiny_mrp.portal_production_move_detail',
+                self._portal_move_ctx(production, move, error=error,
+                                      available_quants=available_quants))
+        return request.redirect('/my/productions/%d/move/%d' % (production_id, move_id))
+
+    @http.route('/my/productions/<int:production_id>/move/<int:move_id>/line/<int:line_id>/save', auth='user', website=True, type='http', methods=['POST'])
+    def portal_production_move_line_save(self, production_id, move_id, line_id, lot_name=None, quantity=None, **kw):
+        user = request.env.user
+        production = request.env['mrp.production'].sudo().browse(production_id)
+        if not production.exists() or user not in production.user_mrp_stock_ids:
+            return request.not_found()
+        move = request.env['stock.move'].sudo().browse(move_id)
+        if not move.exists() or move.raw_material_production_id.id != production_id:
+            return request.not_found()
+        line = request.env['stock.move.line'].sudo().browse(line_id)
+        if not line.exists() or line.move_id.id != move_id:
+            return request.not_found()
+        error = None
+        try:
+            if production.state != 'draft':
+                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
+            qty = float(quantity or 0)
+            if qty <= 0:
+                raise UserError(_('Số lượng phải lớn hơn 0.'))
+            line.write({
+                'lot_name': lot_name.strip() if lot_name and lot_name.strip() else False,
+                'quantity': qty,
+            })
+        except (UserError, ValueError) as e:
+            error = e.args[0] if hasattr(e, 'args') and e.args else str(e)
+        except Exception as e:
+            error = str(e)
+        if error:
+            return request.render('tiny_mrp.portal_production_move_detail',
+                self._portal_move_ctx(production, move, edit_line=line, error=error))
+        return request.redirect('/my/productions/%d/move/%d' % (production_id, move_id))
+
+    @http.route('/my/productions/<int:production_id>/move/<int:move_id>/line/<int:line_id>/delete', auth='user', website=True, type='http', methods=['POST'])
+    def portal_production_move_line_delete(self, production_id, move_id, line_id, **kw):
+        user = request.env.user
+        production = request.env['mrp.production'].sudo().browse(production_id)
+        if not production.exists() or user not in production.user_mrp_stock_ids:
+            return request.not_found()
+        move = request.env['stock.move'].sudo().browse(move_id)
+        if not move.exists() or move.raw_material_production_id.id != production_id:
+            return request.not_found()
+        line = request.env['stock.move.line'].sudo().browse(line_id)
+        if not line.exists() or line.move_id.id != move_id:
+            return request.not_found()
+        error = None
+        try:
+            if production.state != 'draft':
+                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
+            line.unlink()
+        except (UserError, Exception) as e:
+            error = e.args[0] if hasattr(e, 'args') and e.args else str(e)
+        if error:
+            return request.render('tiny_mrp.portal_production_move_detail',
+                self._portal_move_ctx(production, move, error=error))
+        return request.redirect('/my/productions/%d/move/%d' % (production_id, move_id))
 
     @http.route('/my/workorders/<int:workorder_id>/productivity', auth='user', website=True, type='http')
     def portal_workorder_productivity(self, workorder_id, **kw):

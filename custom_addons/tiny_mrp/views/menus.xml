@@ -7,5 +7,11 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">60</field>
         </record>
+        <record id="website_menu_mrp_productions" model="website.menu">
+            <field name="name">Lệnh Sản Xuất</field>
+            <field name="url">/my/productions</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">55</field>
+        </record>
     </data>
 </odoo>

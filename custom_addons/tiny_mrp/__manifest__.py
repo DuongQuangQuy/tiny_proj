@@ -19,6 +19,7 @@
         'views/menus.xml',
         'views/mrp_workorder_portal_template.xml',
         'views/mrp_production_views.xml',
+        'views/mrp_production_portal_template.xml',
 
     ],
     'assets': {

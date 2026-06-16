@@ -144,7 +144,7 @@
 
                         <!-- Product Table -->
                         <div style="margin-bottom: 20px;">
-                            <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                            <table class="o_main_table" style="width: 100%; border-collapse: collapse; font-size: 9pt;">
                                 <thead>
                                     <tr style="background-color: #146b62; color: white; font-weight: bold;">
                                         <th style="border: 1px solid #fff; padding: 8px; text-align: center; width: 3%; background-color: #146b62;-webkit-text-stroke: 0.8px;letter-spacing: 1.2px">No.</th>
