@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_payment_form_loyalty" model="ir.ui.view">
+        <field name="name">account.payment.form.inherit.wallet.loyalty</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='wallet_amount']" position="after">
+                <field name="loyalty_rule_id"
+                    string="Loyalty Promotion"
+                    invisible="not is_wallet or payment_type != 'inbound' or not partner_id"
+                    readonly="state in ['cancel', 'posted']"
+                    options="{'no_create': True}"
+                    domain="[
+                        ('active', '=', True),
+                        ('currency_id', '=', currency_id),
+                        ('min_amount', '&lt;=', wallet_amount),
+                        '|', ('company_id', '=', False), ('company_id', '=', company_id),
+                        '|', ('wallet_type_id', '=', False), ('wallet_type_id', '=', wallet_type_id),
+                        '|', ('date_from', '=', False), ('date_from', '&lt;=', context_today()),
+                        '|', ('date_to', '=', False), ('date_to', '&gt;=', context_today()),
+                    ]"
+                />
+                <field name="loyalty_bonus_amount"
+                    string="Estimated Bonus"
+                    invisible="not loyalty_rule_id"
+                    readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

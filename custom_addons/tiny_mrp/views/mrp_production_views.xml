@@ -5,8 +5,8 @@
         <field name="name">view.mrp.production.form.inherit</field>
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='resource_calendar_id']" position="after" >
-                <field name="user_mrp_ids" widget="many2many_tags"/>
+            <xpath expr="//field[@name='user_id']" position="after" >
+                <field name="user_mrp_stock_ids" widget="many2many_tags"/>
             </xpath>
 
         </field>

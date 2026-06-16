@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wallet_loyalty_rule_manager,wallet.loyalty.rule manager,model_wallet_loyalty_rule,account.group_account_manager,1,1,1,1
+access_wallet_loyalty_rule_invoice,wallet.loyalty.rule invoice user,model_wallet_loyalty_rule,account.group_account_invoice,1,0,0,0
+access_wallet_loyalty_rule_readonly,wallet.loyalty.rule readonly,model_wallet_loyalty_rule,account.group_account_readonly,1,0,0,0

@@ -67,7 +67,7 @@ class WalletPaymentCreationWizard(models.TransientModel):
             'journal_id': self.journal_id.id,
             'amount': self.amount,
             'wallet_amount': self.amount,
-            'ref': self.payment_ref
+            'memo': self.payment_ref
         }
 
     def _create_payment(self):
@@ -75,9 +75,9 @@ class WalletPaymentCreationWizard(models.TransientModel):
         if self.currency_id.compare_amounts(self.amount, 0) <= 0:
             raise UserError(_("Amount must be greater than zero!"))
         payment = self.env['account.payment'].create(self._prepare_payment_values())
-        wallet_histories = self.env['wallet.history'].search([('reference', '=', payment.ref), ('state', '=', 'pending')])
+        wallet_histories = self.env['wallet.history'].search([('reference', '=', payment.memo), ('state', '=', 'pending')])
         skip_creating_wallet_history = self.env.context.get('skip_creating_wallet_history', {})
-        move_line = payment.line_ids.filtered(lambda l: l.partner_id and l.account_id.account_type == 'asset_receivable')
+        move_line = payment.move_id.line_ids.filtered(lambda l: l.partner_id and l.account_id.account_type == 'asset_receivable')
         if wallet_histories:
             skip_creating_wallet_history[move_line.id] = wallet_histories.ids
             move_line.wallet_history_ids = [(4, h.id) for h in wallet_histories]
