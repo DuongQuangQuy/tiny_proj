@@ -1,6 +1,6 @@
 import pytz
 
-from odoo import http, _
+from odoo import http, fields, _
 from odoo.http import request
 from odoo.exceptions import UserError
 from odoo.addons.portal.controllers.portal import CustomerPortal
@@ -73,8 +73,11 @@ class MrpPortal(CustomerPortal):
     def portal_workorders(self, **kw):
         user = request.env.user
         workorders = request.env['mrp.workorder'].sudo().search([
-            ('user_mrp_ids', 'in', user.id), ('state', 'not in', ('done', 'cancel'))
-        ], order='id desc')
+            ('user_mrp_ids', 'in', user.id),
+            ('state', 'not in', ('done', 'cancel')),
+            ('production_id.date_start', '<=', fields.Datetime.now()),
+        ])
+        workorders = workorders.sorted(key=lambda wo: (wo.production_id.date_start or fields.Datetime.max, wo.id))
         return request.render('tiny_mrp.portal_my_workorders', {
             'workorders': workorders,
             'page_name': 'workorder',
