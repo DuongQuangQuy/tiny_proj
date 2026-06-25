@@ -49,6 +49,8 @@ class MrpProduction(models.Model):
     
     def action_confirm_stock(self):
         for production in self:
+            if production.state_pattern != 'confirmed':
+                raise UserError(_('Chỉ có thể xác nhận lệnh sản xuất kho khi lệnh rập đã được xác nhận.'))
             production.state_stock = 'confirmed'
 
     def action_done_pattern(self):
