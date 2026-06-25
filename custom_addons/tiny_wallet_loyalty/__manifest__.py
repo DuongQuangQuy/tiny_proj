@@ -14,6 +14,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/wallet_type_views.xml',
         'views/wallet_loyalty_rule_views.xml',
         'views/account_payment_views.xml',
         'views/wallet_payment_creation_wizard_views.xml',

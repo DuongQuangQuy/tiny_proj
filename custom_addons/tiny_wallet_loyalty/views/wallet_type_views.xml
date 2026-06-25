@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wallet_type_form_loyalty" model="ir.ui.view">
+        <field name="name">wallet.type.form.inherit.loyalty</field>
+        <field name="model">wallet.type</field>
+        <field name="inherit_id" ref="to_wallet.wallet_type_form"/>
+        <field name="arch" type="xml">
+            <page name="config" position="inside">
+                <group name="loyalty_accounting" string="Loyalty Bonus Accounting">
+                    <field name="loyalty_bonus_account_id"
+                        options="{'no_create': True}"
+                        placeholder="VD: TK 641, TK 3387, TK 521"/>
+                    <field name="loyalty_bonus_journal_id"
+                        options="{'no_create': True}"
+                        domain="[('type', '=', 'general')]"/>
+                </group>
+            </page>
+        </field>
+    </record>
+
+</odoo>
