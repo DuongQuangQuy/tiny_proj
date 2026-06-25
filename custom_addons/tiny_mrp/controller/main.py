@@ -76,6 +76,9 @@ class MrpPortal(CustomerPortal):
             ('user_mrp_ids', 'in', user.id),
             ('state', 'not in', ('done', 'cancel')),
             ('production_id.date_start', '<=', fields.Datetime.now()),
+            '|',
+            ('production_id.is_mrp_pattern', '=', True),
+            ('production_id.state_stock', '=', 'confirmed'),
         ])
         workorders = workorders.sorted(key=lambda wo: (wo.production_id.date_start or fields.Datetime.max, wo.id))
         return request.render('tiny_mrp.portal_my_workorders', {
@@ -155,12 +158,23 @@ class MrpPortal(CustomerPortal):
     @http.route('/my/productions', auth='user', website=True, type='http')
     def portal_productions(self, **kw):
         user = request.env.user
-        productions = request.env['mrp.production'].sudo().search([
+        MrpProduction = request.env['mrp.production'].sudo()
+        base_domain = [
             ('user_mrp_stock_ids', 'in', user.id),
-            ('state', '=', 'draft'),
-        ], order='id desc')
+            ('state', 'in', ('draft', 'confirmed')),
+        ]
+        productions_main = MrpProduction.search(
+            base_domain + [('is_mrp_pattern', '=', False)], order='id desc'
+        )
+        productions_sub = MrpProduction.search([
+            ('user_mrp_stock_ids', 'in', user.id),
+            ('is_mrp_pattern', '=', True),
+            ('state', '!=', 'cancel'),
+        ], order='id desc') if user.is_mrp_pattern else MrpProduction.browse()
         return request.render('tiny_mrp.portal_my_productions', {
-            'productions': productions,
+            'productions_main': productions_main,
+            'productions_sub': productions_sub,
+            'user_is_mrp': user.is_mrp_pattern,
             'page_name': 'production',
             'production_state_label': _PRODUCTION_STATE_LABEL,
             'production_state_color': _PRODUCTION_STATE_COLOR,
@@ -178,6 +192,8 @@ class MrpPortal(CustomerPortal):
             'page_name': 'production',
             'production_state_label': _PRODUCTION_STATE_LABEL,
             'production_state_color': _PRODUCTION_STATE_COLOR,
+            'user_is_mrp': user.is_mrp_pattern,
+            'user_is_mrp_stock': user.is_mrp_stock,
         })
 
     @http.route('/my/productions/<int:production_id>/action', auth='user', website=True, type='http', methods=['POST'])
@@ -189,10 +205,34 @@ class MrpPortal(CustomerPortal):
 
         error = None
         try:
-            if production.state != 'draft':
-                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
             if action == 'confirm':
+                if not user.is_mrp_pattern:
+                    raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                if production.state != 'draft':
+                    raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
                 production.action_confirm()
+            elif action == 'confirm_pattern':
+                if not user.is_mrp_pattern:
+                    raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                if production.state != 'confirmed':
+                    raise UserError(_('Lệnh sản xuất chưa được xác nhận, không thể xác nhận rập.'))
+                if production.state_pattern != 'draft':
+                    raise UserError(_('Trạng thái rập đã được xác nhận.'))
+                production.action_confirm_pattern()
+            elif action == 'confirm_stock':
+                if not user.is_mrp_stock:
+                    raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                if production.state_stock != 'draft':
+                    raise UserError(_('Trạng thái kho đã được xác nhận.'))
+                production.action_confirm_stock()
+            elif action == 'done_pattern':
+                if not user.is_mrp_pattern:
+                    raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                if not production.is_mrp_pattern:
+                    raise UserError(_('Đây không phải là lệnh rập.'))
+                if production.state in ('done', 'cancel'):
+                    raise UserError(_('Lệnh sản xuất đã hoàn thành hoặc bị hủy.'))
+                production.action_done_pattern()
             else:
                 raise UserError(_('Thao tác không hợp lệ.'))
         except UserError as e:
@@ -208,6 +248,8 @@ class MrpPortal(CustomerPortal):
                 'production_state_label': _PRODUCTION_STATE_LABEL,
                 'production_state_color': _PRODUCTION_STATE_COLOR,
                 'error': error,
+                'user_is_mrp': user.is_mrp_pattern,
+                'user_is_mrp_stock': user.is_mrp_stock,
             })
 
         return request.redirect('/my/productions')

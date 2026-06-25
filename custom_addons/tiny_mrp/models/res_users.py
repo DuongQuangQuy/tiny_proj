@@ -13,5 +13,5 @@ _logger = logging.getLogger(__name__)
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    # is_mrp = fields.Boolean(string='Là nhân viên MRP', default=False)
+    is_mrp_pattern = fields.Boolean(string='Là nhân viên MRP rập', default=False)
     is_mrp_stock = fields.Boolean(string='Là nhân viên kho MRP', default=False)

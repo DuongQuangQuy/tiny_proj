@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_ids']" position="before" >
-<!--                <field name="is_mrp"/>-->
+               <field name="is_mrp_pattern"/>
                 <field name="is_mrp_stock"/>
             </xpath>
 

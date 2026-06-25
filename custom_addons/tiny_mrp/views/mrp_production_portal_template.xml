@@ -15,64 +15,93 @@
     </template>
 
     <!-- ===================== PRODUCTION LIST ===================== -->
+    <!-- Macro tái sử dụng để render bảng danh sách lệnh -->
+    <template id="portal_productions_table" name="Productions Table">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Tên lệnh</th>
+                            <th>Sản phẩm</th>
+                            <th class="text-end">Số lượng</th>
+                            <th>Ngày bắt đầu</th>
+                            <th class="text-center">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="productions_rows" t-as="mo"
+                            t-attf-onclick="window.location='/my/productions/#{mo.id}'"
+                            style="cursor: pointer;">
+                            <td class="fw-semibold"><t t-esc="mo.name"/></td>
+                            <td><t t-esc="mo.product_id.display_name or '—'"/></td>
+                            <td class="text-end">
+                                <t t-esc="mo.product_qty"/>
+                                <span class="text-muted ms-1 small">
+                                    <t t-esc="mo.product_uom_id.name or ''"/>
+                                </span>
+                            </td>
+                            <td class="text-nowrap">
+                                <t t-if="mo.date_start">
+                                    <t t-esc="mo.date_start" t-options="{'widget': 'date'}"/>
+                                </t>
+                                <t t-else="">—</t>
+                            </td>
+                            <td class="text-center">
+                                <span t-att-class="'badge ' + production_state_color.get(mo.state, 'bg-secondary')">
+                                    <t t-esc="production_state_label.get(mo.state, mo.state)"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+
     <template id="portal_my_productions" name="My Productions">
         <t t-call="portal.portal_layout">
             <div class="o_portal_my_productions">
             <t t-call="portal.portal_searchbar">
-                <t t-set="title">Lệnh Sản Xuất Chờ Xác Nhận</t>
+                <t t-set="title">Lệnh Sản Xuất</t>
             </t>
-            <t t-if="not productions">
-                <div class="alert alert-info mt-4" role="alert">
+
+            <!-- ── Lệnh phụ (chỉ nhân viên is_mrp_pattern mới thấy) ── -->
+            <t t-if="user_is_mrp">
+                <h6 class="mt-4 mb-2 text-muted text-uppercase fw-semibold" style="font-size:0.75rem; letter-spacing:.05em;">
+                    <i class="fa fa-puzzle-piece me-1"/>Lệnh phụ
+                </h6>
+                <t t-if="not productions_sub">
+                    <div class="alert alert-info" role="alert">
+                        <i class="fa fa-info-circle me-1"/>
+                        Không có lệnh phụ nào.
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="card">
+                        <t t-set="productions_rows" t-value="productions_sub"/>
+                        <t t-call="tiny_mrp.portal_productions_table"/>
+                    </div>
+                </t>
+            </t>
+
+            <!-- ── Lệnh chính (tất cả đều thấy) ── -->
+            <h6 class="mt-4 mb-2 text-muted text-uppercase fw-semibold" style="font-size:0.75rem; letter-spacing:.05em;">
+                <i class="fa fa-industry me-1"/>Lệnh chính
+            </h6>
+            <t t-if="not productions_main">
+                <div class="alert alert-info" role="alert">
                     <i class="fa fa-info-circle me-1"/>
-                    Bạn chưa có lệnh sản xuất nào ở trạng thái nháp.
+                    Không có lệnh sản xuất chính nào.
                 </div>
             </t>
             <t t-else="">
-                <div class="card mt-4">
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Tên lệnh</th>
-                                    <th>Sản phẩm</th>
-                                    <th class="text-end">Số lượng</th>
-                                    <th>Ngày bắt đầu</th>
-                                    <th class="text-center">Trạng thái</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr t-foreach="productions" t-as="mo"
-                                    t-attf-onclick="window.location='/my/productions/#{mo.id}'"
-                                    style="cursor: pointer;">
-                                    <td class="fw-semibold">
-                                        <t t-esc="mo.name"/>
-                                    </td>
-                                    <td><t t-esc="mo.product_id.display_name or '—'"/></td>
-                                    <td class="text-end">
-                                        <t t-esc="mo.product_qty"/>
-                                        <span class="text-muted ms-1 small">
-                                            <t t-esc="mo.product_uom_id.name or ''"/>
-                                        </span>
-                                    </td>
-                                    <td class="text-nowrap">
-                                        <t t-if="mo.date_start">
-                                            <t t-esc="mo.date_start" t-options="{'widget': 'date'}"/>
-                                        </t>
-                                        <t t-else="">—</t>
-                                    </td>
-                                    <td class="text-center">
-                                        <span t-att-class="'badge ' + production_state_color.get(mo.state, 'bg-secondary')">
-                                            <t t-esc="production_state_label.get(mo.state, mo.state)"/>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
+                <div class="card">
+                    <t t-set="productions_rows" t-value="productions_main"/>
+                    <t t-call="tiny_mrp.portal_productions_table"/>
                 </div>
             </t>
+
             </div>
         </t>
     </template>
@@ -158,8 +187,49 @@
                             </h6>
                         </div>
                         <div class="card-body">
-                            <t t-if="production.state == 'draft'">
-                                <form t-attf-action="/my/productions/#{production.id}/action" method="POST">
+                            <!-- Hoàn thành rập: chỉ hiện với nhân viên is_mrp_pattern khi là lệnh rập và chưa done/cancel -->
+                            <t t-if="user_is_mrp and production.is_mrp_pattern and production.state not in ('done', 'cancel')">
+                                <form t-attf-action="/my/productions/#{production.id}/action"
+                                      method="POST" class="mb-2">
+                                    <input type="hidden" name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+                                    <button name="action" value="done_pattern" type="submit"
+                                            class="btn btn-success w-100">
+                                        <i class="fa fa-check-circle me-1"/> Hoàn thành
+                                    </button>
+                                </form>
+                            </t>
+
+                            <!-- Xác nhận rập: chỉ hiện với nhân viên is_mrp khi production đã confirmed và state_pattern còn draft và không phải lệnh phụ -->
+                            <t t-if="user_is_mrp and not production.is_mrp_pattern and production.state == 'confirmed' and production.state_pattern == 'draft'">
+                                <form t-attf-action="/my/productions/#{production.id}/action"
+                                      method="POST" class="mb-2">
+                                    <input type="hidden" name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+                                    <button name="action" value="confirm_pattern" type="submit"
+                                            class="btn btn-warning w-100">
+                                        <i class="fa fa-check me-1"/> Xác nhận rập
+                                    </button>
+                                </form>
+                            </t>
+
+                            <!-- Xác nhận kho: chỉ hiện với nhân viên is_mrp_stock khi state_stock còn draft và không phải lệnh phụ -->
+                            <t t-if="user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'draft'">
+                                <form t-attf-action="/my/productions/#{production.id}/action"
+                                      method="POST" class="mb-2">
+                                    <input type="hidden" name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+                                    <button name="action" value="confirm_stock" type="submit"
+                                            class="btn btn-info w-100">
+                                        <i class="fa fa-check me-1"/> Xác nhận kho
+                                    </button>
+                                </form>
+                            </t>
+
+                            <!-- Xác nhận lệnh: chỉ hiện với nhân viên is_mrp khi production còn draft -->
+                            <t t-if="user_is_mrp and production.state == 'draft'">
+                                <form t-attf-action="/my/productions/#{production.id}/action"
+                                      method="POST">
                                     <input type="hidden" name="csrf_token"
                                            t-att-value="request.csrf_token()"/>
                                     <button name="action" value="confirm" type="submit"
@@ -168,10 +238,16 @@
                                     </button>
                                 </form>
                             </t>
-                            <t t-else="">
+
+                            <t t-if="not (
+                                (user_is_mrp and production.is_mrp_pattern and production.state not in ('done', 'cancel')) or
+                                (user_is_mrp and not production.is_mrp_pattern and production.state == 'confirmed' and production.state_pattern == 'draft') or
+                                (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'draft') or
+                                (user_is_mrp and production.state == 'draft')
+                            )">
                                 <p class="text-muted text-center mb-0 small">
                                     <i class="fa fa-info-circle me-1"/>
-                                    Lệnh sản xuất không ở trạng thái nháp.
+                                    Không có thao tác khả dụng.
                                 </p>
                             </t>
                         </div>

@@ -5,6 +5,11 @@
         <field name="name">view.mrp.production.form.inherit</field>
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
+            <xpath expr="header" position="inside">
+                <button name="action_confirm_pattern" string="Xác nhận rập" type="object" invisible="state_pattern != 'draft' or state != 'confirmed' or is_mrp_pattern"/>
+                <button name="action_confirm_stock" string="Xác nhận kho" type="object" invisible="state_stock != 'draft' or state != 'confirmed' or is_mrp_pattern"/>
+                
+            </xpath>
             <xpath expr="//field[@name='user_id']" position="after" >
                 <field name="user_mrp_stock_ids" widget="many2many_tags"/>
             </xpath>
