@@ -187,8 +187,8 @@
                             </h6>
                         </div>
                         <div class="card-body">
-                            <!-- Hoàn thành rập: chỉ hiện với nhân viên is_mrp_pattern khi là lệnh rập và chưa done/cancel -->
-                            <t t-if="user_is_mrp and production.is_mrp_pattern and production.state not in ('done', 'cancel')">
+                            <!-- Hoàn thành rập: chỉ hiện với nhân viên is_mrp_pattern khi là lệnh rập và chưa done/cancel và không còn draft -->
+                            <t t-if="user_is_mrp and production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel')">
                                 <form t-attf-action="/my/productions/#{production.id}/action"
                                       method="POST" class="mb-2">
                                     <input type="hidden" name="csrf_token"
@@ -240,7 +240,7 @@
                             </t>
 
                             <t t-if="not (
-                                (user_is_mrp and production.is_mrp_pattern and production.state not in ('done', 'cancel')) or
+                                (user_is_mrp and production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel')) or
                                 (user_is_mrp and not production.is_mrp_pattern and production.state == 'confirmed' and production.state_pattern == 'draft') or
                                 (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'draft') or
                                 (user_is_mrp and production.state == 'draft')
