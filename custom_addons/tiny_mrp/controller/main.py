@@ -205,7 +205,7 @@ class MrpPortal(CustomerPortal):
         MrpProduction = request.env['mrp.production'].sudo()
         base_domain = [
             ('user_mrp_stock_ids', 'in', user.id),
-            ('state', 'in', ('draft', 'confirmed')),
+            ('state', 'in', ('draft', 'confirmed','progress')),
         ]
         productions_main = MrpProduction.search(
             base_domain + [('is_mrp_pattern', '=', False)], order='id desc'

@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== PORTAL HOME ENTRY ===================== -->
+    <template id="portal_my_home_approvals" inherit_id="portal.portal_my_home"
+              customize_show="True" name="Yêu cầu phê duyệt xuất kho">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Yêu cầu phê duyệt xuất kho</t>
+                <t t-set="url" t-value="'/my/approvals'"/>
+                <t t-set="count" t-value="approval_count"/>
+                <t t-set="placeholder_count">yêu cầu</t>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- ===================== APPROVAL REQUEST LIST ===================== -->
+    <template id="portal_my_approvals" name="Yêu cầu phê duyệt xuất kho">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_my_approvals">
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">Yêu cầu phê duyệt xuất kho</t>
+                </t>
+
+                <t t-if="not approvals">
+                    <div class="alert alert-info mt-3" role="alert">
+                        <i class="fa fa-info-circle me-1"/>
+                        Bạn chưa có yêu cầu phê duyệt nào.
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="card mt-3">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Tên yêu cầu</th>
+                                            <th>Lệnh sản xuất</th>
+                                            <th>Ngày tạo</th>
+                                            <th class="text-center">Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="approvals" t-as="ap"
+                                            t-attf-onclick="window.location='/my/approvals/#{ap.id}'"
+                                            style="cursor:pointer;">
+                                            <td class="fw-semibold">
+                                                <t t-esc="ap.name or '—'"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ap.mrp_production_id.name or '—'"/>
+                                            </td>
+                                            <td class="text-nowrap">
+                                                <t t-esc="fmt_dt(ap.create_date)"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-att-class="'badge ' + approval_status_color.get(ap.request_status, 'bg-secondary')">
+                                                    <t t-esc="approval_status_label.get(ap.request_status, ap.request_status)"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== APPROVAL REQUEST DETAIL ===================== -->
+    <template id="portal_approval_detail" name="Chi tiết yêu cầu phê duyệt">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_approval_detail">
+
+                <!-- Error -->
+                <div t-if="error" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <i class="fa fa-exclamation-triangle me-1"/>
+                    <strong>Lỗi:</strong> <t t-esc="error"/>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"/>
+                </div>
+
+                <!-- Breadcrumb -->
+                <div class="mt-3 mb-3">
+                    <a href="/my/approvals" class="btn btn-sm btn-outline-secondary">
+                        <i class="fa fa-arrow-left me-1"/> Danh sách yêu cầu phê duyệt
+                    </a>
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- Info card -->
+                    <div class="col-lg-8">
+                        <div class="card h-100">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-file-text-o me-1 text-muted"/>
+                                    <t t-esc="approval.name or '—'"/>
+                                </h5>
+                                <span t-att-class="'badge fs-6 ' + approval_status_color.get(approval.request_status, 'bg-secondary')">
+                                    <t t-esc="approval_status_label.get(approval.request_status, approval.request_status)"/>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-5 text-muted">Người yêu cầu</dt>
+                                    <dd class="col-sm-7">
+                                        <t t-esc="approval.request_owner_id.name or '—'"/>
+                                    </dd>
+
+                                    <dt class="col-sm-5 text-muted">Danh mục</dt>
+                                    <dd class="col-sm-7">
+                                        <t t-esc="approval.category_id.name or '—'"/>
+                                    </dd>
+
+                                    <dt class="col-sm-5 text-muted">Lệnh sản xuất</dt>
+                                    <dd class="col-sm-7">
+                                        <t t-if="approval.mrp_production_id">
+                                            <a t-attf-href="/my/productions/#{approval.mrp_production_id.id}">
+                                                <t t-esc="approval.mrp_production_id.name"/>
+                                            </a>
+                                        </t>
+                                        <t t-else="">—</t>
+                                    </dd>
+
+                                    <dt class="col-sm-5 text-muted">Ngày tạo</dt>
+                                    <dd class="col-sm-7">
+                                        <t t-esc="fmt_dt(approval.create_date)"/>
+                                    </dd>
+
+                                    <dt class="col-sm-5 text-muted">Ngày nộp</dt>
+                                    <dd class="col-sm-7">
+                                        <t t-esc="fmt_dt(approval.date_confirmed)"/>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action panel -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-hand-pointer-o me-1"/>Thao tác
+                                </h6>
+                            </div>
+                            <div class="card-body">
+
+                                <!-- Nộp yêu cầu -->
+                                <t t-if="approval.request_status == 'new'">
+                                    <form t-attf-action="/my/approvals/#{approval.id}/action"
+                                          method="POST" class="mb-2">
+                                        <input type="hidden" name="csrf_token"
+                                               t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="action" value="confirm"/>
+                                        <button type="submit" class="btn btn-primary w-100">
+                                            <i class="fa fa-paper-plane me-1"/> Nộp yêu cầu
+                                        </button>
+                                    </form>
+                                </t>
+
+                                <!-- Đưa về nháp -->
+                                <t t-if="approval.request_status in ('pending', 'refused', 'cancel')">
+                                    <form t-attf-action="/my/approvals/#{approval.id}/action"
+                                          method="POST" class="mb-2">
+                                        <input type="hidden" name="csrf_token"
+                                               t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="action" value="draft"/>
+                                        <button type="submit" class="btn btn-outline-secondary w-100">
+                                            <i class="fa fa-undo me-1"/> Đưa về nháp
+                                        </button>
+                                    </form>
+                                </t>
+
+                                <!-- Đã phê duyệt -->
+                                <t t-if="approval.request_status == 'approved'">
+                                    <div class="alert alert-success p-2 mb-0 small">
+                                        <i class="fa fa-check-circle me-1"/>
+                                        Yêu cầu đã được phê duyệt.
+                                    </div>
+                                </t>
+
+                                <!-- Không có thao tác -->
+                                <t t-if="approval.request_status not in ('new', 'pending', 'refused', 'cancel', 'approved')">
+                                    <p class="text-muted text-center mb-0 small">
+                                        <i class="fa fa-info-circle me-1"/>
+                                        Không có thao tác khả dụng.
+                                    </p>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Product lines tab -->
+                <div class="mt-4">
+                    <ul class="nav nav-tabs" id="approvalTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-bs-toggle="tab"
+                                    data-bs-target="#productLines" type="button" role="tab">
+                                <i class="fa fa-list me-1"/>
+                                Danh sách sản phẩm
+                                <span class="badge bg-light text-dark border ms-1">
+                                    <t t-esc="len(approval.product_line_ids)"/>
+                                </span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content border border-top-0 rounded-bottom" id="approvalTabContent">
+                        <div class="tab-pane fade show active" id="productLines" role="tabpanel">
+
+                            <!-- Inline edit form -->
+                            <t t-if="edit_line and approval.request_status == 'new'">
+                                <div class="p-3 border-bottom bg-light">
+                                    <p class="fw-semibold mb-2 small text-primary">
+                                        <i class="fa fa-pencil me-1"/>Chỉnh sửa dòng
+                                    </p>
+                                    <form t-attf-action="/my/approvals/#{approval.id}/line/#{edit_line.id}/save"
+                                          method="POST" class="row g-2 align-items-end">
+                                        <input type="hidden" name="csrf_token"
+                                               t-att-value="request.csrf_token()"/>
+                                        <div class="col-sm-4">
+                                            <label class="form-label form-label-sm">Sản phẩm</label>
+                                            <select name="product_id" class="form-select form-select-sm"
+                                                    required="required">
+                                                <option value="">-- Chọn --</option>
+                                                <t t-foreach="products" t-as="p">
+                                                    <option t-att-value="p.id"
+                                                            t-att-selected="p.id == edit_line.product_id.id and 'selected' or False">
+                                                        <t t-esc="p.display_name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="form-label form-label-sm">Mô tả</label>
+                                            <input type="text" name="description"
+                                                   class="form-control form-control-sm"
+                                                   t-att-value="edit_line.description or ''"/>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="form-label form-label-sm">Số lượng</label>
+                                            <input type="number" name="quantity"
+                                                   class="form-control form-control-sm"
+                                                   t-att-value="edit_line.quantity"
+                                                   min="0.001" step="0.001" required="required"/>
+                                        </div>
+                                        <div class="col-sm-2 d-flex gap-2">
+                                            <button type="submit" class="btn btn-sm btn-primary flex-fill">
+                                                <i class="fa fa-save me-1"/>Lưu
+                                            </button>
+                                            <a t-attf-href="/my/approvals/#{approval.id}"
+                                               class="btn btn-sm btn-outline-secondary">
+                                                <i class="fa fa-times"/>
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </t>
+
+                            <!-- Lines table -->
+                            <t t-if="not approval.product_line_ids">
+                                <p class="text-muted text-center p-4 mb-0">
+                                    <i class="fa fa-inbox fa-2x d-block mb-2"/>
+                                    Chưa có sản phẩm nào.
+                                </p>
+                            </t>
+                            <t t-else="">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Sản phẩm</th>
+                                                <th>Mô tả</th>
+                                                <th class="text-end">Số lượng</th>
+                                                <th>Đơn vị</th>
+                                                <t t-if="approval.request_status == 'new'">
+                                                    <th class="text-center">Thao tác</th>
+                                                </t>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="approval.product_line_ids" t-as="line">
+                                                <td class="fw-semibold">
+                                                    <t t-esc="line.product_id.display_name or '—'"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line.description or '—'"/>
+                                                </td>
+                                                <td class="text-end">
+                                                    <t t-esc="line.quantity"/>
+                                                </td>
+                                                <td class="text-muted small">
+                                                    <t t-esc="line.product_uom_id.name or ''"/>
+                                                </td>
+                                                <t t-if="approval.request_status == 'new'">
+                                                    <td class="text-center text-nowrap">
+                                                        <a t-attf-href="/my/approvals/#{approval.id}?edit=#{line.id}"
+                                                           class="btn btn-sm btn-outline-secondary me-1">
+                                                            <i class="fa fa-pencil"/>
+                                                        </a>
+                                                        <form t-attf-action="/my/approvals/#{approval.id}/line/#{line.id}/delete"
+                                                              method="POST" class="d-inline"
+                                                              onsubmit="return confirm('Xóa dòng này?')">
+                                                            <input type="hidden" name="csrf_token"
+                                                                   t-att-value="request.csrf_token()"/>
+                                                            <button type="submit"
+                                                                    class="btn btn-sm btn-outline-danger">
+                                                                <i class="fa fa-trash"/>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+
+                            <!-- Add line form (chỉ ở trạng thái nháp) -->
+                            <t t-if="approval.request_status == 'new'">
+                                <div class="p-3 border-top bg-light">
+                                    <p class="fw-semibold mb-2 small text-muted">
+                                        <i class="fa fa-plus me-1"/>Thêm sản phẩm
+                                    </p>
+                                    <form t-attf-action="/my/approvals/#{approval.id}/line/add"
+                                          method="POST" class="row g-2 align-items-end">
+                                        <input type="hidden" name="csrf_token"
+                                               t-att-value="request.csrf_token()"/>
+                                        <div class="col-sm-4">
+                                            <label class="form-label form-label-sm">Sản phẩm</label>
+                                            <select name="product_id" class="form-select form-select-sm"
+                                                    required="required">
+                                                <option value="">-- Chọn sản phẩm --</option>
+                                                <t t-foreach="products" t-as="p">
+                                                    <option t-att-value="p.id">
+                                                        <t t-esc="p.display_name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="form-label form-label-sm">Mô tả</label>
+                                            <input type="text" name="description"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="Mô tả sản phẩm (tùy chọn)"/>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="form-label form-label-sm">Số lượng</label>
+                                            <input type="number" name="quantity"
+                                                   class="form-control form-control-sm"
+                                                   value="1" min="0.001" step="0.001"
+                                                   required="required"/>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit" class="btn btn-sm btn-success w-100">
+                                                <i class="fa fa-plus me-1"/>Thêm
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </t>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

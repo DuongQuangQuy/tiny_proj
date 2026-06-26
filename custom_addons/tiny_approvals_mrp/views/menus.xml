@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="website_menu_approvals" model="website.menu">
+            <field name="name">Phiếu phê duyệt</field>
+            <field name="url">/my/approvals</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">60</field>
+        </record>
+</odoo>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="portal_production_detail_approvals"
+              inherit_id="tiny_mrp.portal_production_detail"
+              name="Portal Production Detail - Stock Approval">
+
+        <!-- Thêm nút Phê duyệt xuất kho sau nút Xác nhận kho -->
+        <xpath expr="//button[@value='confirm_stock']/parent::form/parent::t" position="after">
+            <t t-if="user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'confirmed'">
+                <!-- Nút mở modal (luôn hiển thị, cho phép tạo nhiều lần) -->
+                <div class="mb-2">
+                    <button type="button" class="btn btn-primary w-100"
+                            data-bs-toggle="modal" data-bs-target="#stockApprovalModal">
+                        <i class="fa fa-thumbs-up me-1"/> Phê duyệt xuất kho
+                    </button>
+                </div>
+
+                <!-- Modal nhập yêu cầu phê duyệt -->
+                <div class="modal fade" id="stockApprovalModal" tabindex="-1"
+                     aria-labelledby="stockApprovalModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="stockApprovalModalLabel">
+                                    <i class="fa fa-thumbs-up me-1 text-primary"/>
+                                    Yêu cầu phê duyệt xuất kho
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                            </div>
+                            <form t-attf-action="/my/productions/#{production.id}/action" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="action" value="request_stock_approval"/>
+                                <div class="modal-body">
+                                    <!-- Header: người yêu cầu và danh mục -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold small">Người yêu cầu</label>
+                                            <input type="text" class="form-control form-control-sm"
+                                                   t-att-value="request.env.user.name" readonly="1"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold small">Danh mục</label>
+                                            <input type="text" class="form-control form-control-sm"
+                                                   value="Phê duyệt kho MRP" readonly="1"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bảng sản phẩm -->
+                                    <h6 class="fw-semibold mb-2">Danh sách sản phẩm</h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered align-middle mb-2"
+                                               id="o_approval_product_lines">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th style="min-width:200px">Sản phẩm</th>
+                                                    <th>Mô tả</th>
+                                                    <th style="width:120px">Số lượng</th>
+                                                    <th style="width:48px"/>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="o_approval_product_row">
+                                                    <td>
+                                                        <select name="product_ids[]"
+                                                                class="form-select form-select-sm o_product_select">
+                                                            <option value="">-- Chọn sản phẩm --</option>
+                                                            <t t-foreach="products" t-as="p">
+                                                                <option t-att-value="p.id"
+                                                                        t-att-data-desc="p.description_purchase or p.display_name or ''"
+                                                                        t-esc="p.display_name"/>
+                                                            </t>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="descriptions[]"
+                                                               class="form-control form-control-sm"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="quantities[]"
+                                                               class="form-control form-control-sm"
+                                                               value="1" min="0.001" step="0.001"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-danger o_remove_line">
+                                                            <i class="fa fa-times"/>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            id="o_add_approval_line">
+                                        <i class="fa fa-plus me-1"/> Thêm dòng
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Hủy</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-paper-plane me-1"/> Gửi yêu cầu
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    (function () {
+                        var tbody = document.querySelector('#o_approval_product_lines tbody');
+                        var addBtn = document.getElementById('o_add_approval_line');
+                        if (!tbody || !addBtn) return;
+
+                        function bindRow(row) {
+                            var sel = row.querySelector('.o_product_select');
+                            if (sel) {
+                                sel.addEventListener('change', function () {
+                                    var opt = sel.options[sel.selectedIndex];
+                                    var descInput = row.querySelector('input[name="descriptions[]"]');
+                                    if (descInput &amp;&amp; !descInput.value) {
+                                        descInput.value = opt.dataset.desc || '';
+                                    }
+                                });
+                            }
+                            var removeBtn = row.querySelector('.o_remove_line');
+                            if (removeBtn) {
+                                removeBtn.addEventListener('click', function () {
+                                    if (tbody.querySelectorAll('tr').length > 1) {
+                                        row.remove();
+                                    }
+                                });
+                            }
+                        }
+
+                        bindRow(tbody.querySelector('tr'));
+
+                        addBtn.addEventListener('click', function () {
+                            var template = tbody.querySelector('tr').cloneNode(true);
+                            template.querySelector('.o_product_select').value = '';
+                            template.querySelector('input[name="descriptions[]"]').value = '';
+                            template.querySelector('input[name="quantities[]"]').value = '1';
+                            tbody.appendChild(template);
+                            bindRow(template);
+                        });
+                    })();
+                </script>
+            </t>
+        </xpath>
+
+        <!-- Cập nhật điều kiện "Không có thao tác" để tính thêm nút mới -->
+        <xpath expr="//t[@t-if][p[@class='text-muted text-center mb-0 small']]" position="replace">
+            <t t-if="not (
+                (user_is_mrp and production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel')) or
+                (user_is_mrp and not production.is_mrp_pattern and production.state == 'confirmed' and production.state_pattern == 'draft') or
+                (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'draft') or
+                (user_is_mrp and production.state == 'draft') or
+                (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock in ('confirmed', 'done'))
+            )">
+                <p class="text-muted text-center mb-0 small">
+                    <i class="fa fa-info-circle me-1"/>
+                    Không có thao tác khả dụng.
+                </p>
+            </t>
+        </xpath>
+
+    </template>
+
+</odoo>
