@@ -36,6 +36,50 @@
         .col-lg-4 { order: 1; }
     }
 
+    /* Ảnh sản phẩm + tên: xếp dọc trên màn hình nhỏ */
+    @media (max-width: 479.98px) {
+        .d-flex.align-items-center.gap-3.mb-3 {
+            flex-direction: column;
+            align-items: flex-start !important;
+
+            a[data-bs-target="#productImageModal"],
+            img.rounded.border {
+                width: 100% !important;
+                height: 180px !important;
+                object-fit: contain;
+                border-radius: 0.375rem;
+            }
+        }
+    }
+
+    /* Modal xem ảnh: gần fullscreen trên mobile */
+    @media (max-width: 575.98px) {
+        #productImageModal .modal-dialog {
+            margin: 0.5rem;
+        }
+
+        #productImageModal img {
+            max-height: 80vh;
+        }
+    }
+
+    /* Form tạm dừng inline */
+    #pauseInlineForm {
+        textarea.form-control {
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 575.98px) {
+            .d-flex.gap-2 {
+                flex-direction: column;
+
+                button {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
     /* Card header trên mobile */
     @media (max-width: 575.98px) {
         .card-header {
@@ -187,8 +231,10 @@
             }
         }
 
-        /* Ẩn cột Vị trí nguồn trên màn hình rất nhỏ */
+        /* Ẩn cột Vị trí nguồn & Dự báo tồn trên màn hình rất nhỏ */
         @media (max-width: 479.98px) {
+            table thead th:nth-child(3),
+            table tbody td:nth-child(3),
             table thead th:nth-child(4),
             table tbody td:nth-child(4) {
                 display: none;
@@ -200,6 +246,75 @@
         @media (max-width: 575.98px) {
             font-size: 0.82rem;
             padding: 0.4rem 0.7rem;
+        }
+    }
+
+    /* Move detail: form chỉnh qty + add-line */
+    .card-body .row.g-3 {
+        @media (max-width: 575.98px) {
+            .col-sm-5, .col-sm-7 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    }
+
+    /* Move detail: form add-line inline */
+    .card-footer {
+        @media (max-width: 575.98px) {
+            .row.g-2 {
+                .col-sm-9, .col-sm-5, .col-sm-4 {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+
+                .col-sm-3 {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+
+                    button {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Move detail: bảng move lines — ẩn cột Đơn vị trên mobile nhỏ */
+    @media (max-width: 479.98px) {
+        .table thead th:nth-child(3),
+        .table tbody td:nth-child(3) {
+            display: none;
+        }
+
+        /* Nút edit/delete xếp dọc */
+        .text-center.text-nowrap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            align-items: center;
+        }
+    }
+
+    /* Move detail: inline edit form */
+    .card-body.border-bottom.bg-light {
+        @media (max-width: 575.98px) {
+            .row.g-2 {
+                .col-sm-5, .col-sm-4 {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+
+                .col-sm-3 {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+
+                    .d-flex.gap-2 button,
+                    .d-flex.gap-2 a {
+                        flex: 1;
+                    }
+                }
+            }
         }
     }
 }
