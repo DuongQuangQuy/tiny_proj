@@ -13,6 +13,7 @@
         'base', 'mrp', 'portal', 'website'
     ],
     'data': [
+        'security/ir.model.access.csv',
         'views/res_users_views.xml',
         'views/mrp_workcenter_views.xml',
         'views/mrp_workorder_views.xml',

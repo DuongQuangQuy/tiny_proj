@@ -65,7 +65,7 @@ class MrpPortal(CustomerPortal):
             user = request.env.user
             values['production_count'] = request.env['mrp.production'].sudo().search_count([
                 ('user_mrp_stock_ids', 'in', user.id),
-                ('state', '=', 'draft'),
+                ('state', 'in', ('draft', 'confirmed')),
             ])
         return values
 
@@ -81,12 +81,35 @@ class MrpPortal(CustomerPortal):
             ('production_id.state_stock', '=', 'confirmed'),
         ])
         workorders = workorders.sorted(key=lambda wo: (wo.production_id.date_start or fields.Datetime.max, wo.id))
+        active_times = request.env['mrp.workcenter.productivity'].sudo().search([
+            ('user_mrp_id', '=', user.id),
+            ('date_end', '=', False),
+        ])
+        active_wo_ids = set(active_times.mapped('workorder_id').ids)
         return request.render('tiny_mrp.portal_my_workorders', {
             'workorders': workorders,
+            'active_wo_ids': active_wo_ids,
             'page_name': 'workorder',
             'state_label': _STATE_LABEL,
             'state_color': _STATE_COLOR,
         })
+
+    def _get_product_image_src(self, product):
+        if not product:
+            return ''
+        img = product.sudo().image_256
+        if not img:
+            return ''
+        if isinstance(img, bytes):
+            img = img.decode('utf-8')
+        return 'data:image/png;base64,' + img
+
+    def _get_user_other_active_workorder(self, user, exclude_workorder_id):
+        return request.env['mrp.workcenter.productivity'].sudo().search([
+            ('user_mrp_id', '=', user.id),
+            ('date_end', '=', False),
+            ('workorder_id', '!=', exclude_workorder_id),
+        ], limit=1)
 
     @http.route('/my/workorders/<int:workorder_id>', auth='user', website=True, type='http')
     def portal_workorder_detail(self, workorder_id, **kw):
@@ -95,9 +118,14 @@ class MrpPortal(CustomerPortal):
         if not workorder.exists() or user not in workorder.user_mrp_ids:
             return request.not_found()
         has_open_time = bool(workorder.time_ids.filtered(lambda t: not t.date_end))
+        other_active = self._get_user_other_active_workorder(user, workorder.id)
+        product = workorder.production_id.product_id
         return request.render('tiny_mrp.portal_workorder_detail', {
             'workorder': workorder,
             'has_open_time': has_open_time,
+            'has_other_active': bool(other_active),
+            'other_active_name': other_active.workorder_id.name if other_active else '',
+            'product_image_src': self._get_product_image_src(product),
             'fmt_dt': _make_fmt_dt(request.env),
             'page_name': 'workorder',
             'state_label': _STATE_LABEL,
@@ -125,11 +153,22 @@ class MrpPortal(CustomerPortal):
             if action == 'start':
                 if has_open_time:
                     raise UserError(_('Lệnh công việc đang có phiên làm việc chưa kết thúc, hãy tạm dừng trước.'))
+                other_active = self._get_user_other_active_workorder(user, workorder.id)
+                if other_active:
+                    raise UserError(_('Bạn đang thực hiện công đoạn "%s". Hãy tạm dừng trước khi bắt đầu công đoạn mới.' % other_active.workorder_id.name))
                 workorder.with_context(portal_user_id=user.id).button_start(bypass=True)
             elif action == 'pending':
+                pause_reason = kw.get('pause_reason', '').strip()
+                if not pause_reason:
+                    raise UserError(_('Vui lòng nhập lý do tạm dừng.'))
                 if not has_open_time or workorder.state != 'progress':
                     raise UserError(_('Thao tác không hợp lệ. Không có phiên làm việc nào đang mở.'))
                 workorder.with_context(portal_user_id=user.id).button_pending()
+                request.env['mrp.pause.reason'].sudo().create({
+                    'name': pause_reason,
+                    'user_id': user.id,
+                    'workorder_id': workorder.id,
+                })
             elif action == 'finish':
                 if workorder.state != 'progress':
                     raise UserError(_('Thao tác không hợp lệ. Lệnh công việc không đang trong trạng thái thực hiện.'))
@@ -143,9 +182,14 @@ class MrpPortal(CustomerPortal):
 
         if error:
             has_open_time = bool(workorder.time_ids.filtered(lambda t: not t.date_end))
+            other_active = self._get_user_other_active_workorder(user, workorder.id)
+            product = workorder.production_id.product_id
             return request.render('tiny_mrp.portal_workorder_detail', {
                 'workorder': workorder,
                 'has_open_time': has_open_time,
+                'has_other_active': bool(other_active),
+                'other_active_name': other_active.workorder_id.name if other_active else '',
+                'product_image_src': self._get_product_image_src(product),
                 'fmt_dt': _make_fmt_dt(request.env),
                 'page_name': 'workorder',
                 'state_label': _STATE_LABEL,
@@ -252,7 +296,7 @@ class MrpPortal(CustomerPortal):
                 'user_is_mrp_stock': user.is_mrp_stock,
             })
 
-        return request.redirect('/my/productions')
+        return request.redirect('/my/productions/%d' % production_id)
 
     def _portal_move_ctx(self, production, move, **extra):
         return {
@@ -301,8 +345,8 @@ class MrpPortal(CustomerPortal):
             return request.not_found()
         error = None
         try:
-            if production.state != 'draft':
-                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp, không thể chỉnh sửa.'))
+            if production.state not in ('draft', 'confirmed'):
+                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
             qty = float(product_uom_qty or 0)
             if qty <= 0:
                 raise UserError(_('Số lượng phải lớn hơn 0.'))
@@ -327,8 +371,8 @@ class MrpPortal(CustomerPortal):
             return request.not_found()
         error = None
         try:
-            if production.state != 'draft':
-                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
+            if production.state not in ('draft', 'confirmed'):
+                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
             vals = {
                 'move_id': move.id,
                 'product_id': move.product_id.id,
@@ -389,8 +433,8 @@ class MrpPortal(CustomerPortal):
             return request.not_found()
         error = None
         try:
-            if production.state != 'draft':
-                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
+            if production.state not in ('draft', 'confirmed'):
+                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
             qty = float(quantity or 0)
             if qty <= 0:
                 raise UserError(_('Số lượng phải lớn hơn 0.'))
@@ -421,8 +465,8 @@ class MrpPortal(CustomerPortal):
             return request.not_found()
         error = None
         try:
-            if production.state != 'draft':
-                raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
+            if production.state not in ('draft', 'confirmed'):
+                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
             line.unlink()
         except (UserError, Exception) as e:
             error = e.args[0] if hasattr(e, 'args') and e.args else str(e)

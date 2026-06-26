@@ -47,6 +47,11 @@
                                     style="cursor: pointer;">
                                     <td class="fw-semibold">
                                         <t t-esc="wo.name"/>
+                                        <t t-if="wo.id in active_wo_ids">
+                                            <span class="badge bg-success ms-1">
+                                                <i class="fa fa-play me-1"/>Đang chạy
+                                            </span>
+                                        </t>
                                     </td>
                                     <td><t t-esc="wo.production_id.name or '—'"/></td>
                                     <td><t t-esc="wo.workcenter_id.name or '—'"/></td>
@@ -100,6 +105,47 @@
                             </span>
                         </div>
                         <div class="card-body">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <t t-if="product_image_src">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productImageModal"
+                                       style="flex-shrink:0;" title="Nhấn để xem ảnh lớn">
+                                        <img t-att-src="product_image_src"
+                                             class="rounded border"
+                                             style="width:130px;height:130px;object-fit:contain;"
+                                             t-att-alt="workorder.production_id.product_id.display_name"/>
+                                    </a>
+                                </t>
+                                <div>
+                                    <div class="fw-semibold fs-5">
+                                        <t t-esc="workorder.production_id.product_id.display_name or '—'"/>
+                                    </div>
+                                    <div class="text-muted small">
+                                        <t t-esc="workorder.production_id.name or ''"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal xem ảnh lớn -->
+                            <t t-if="product_image_src">
+                                <div class="modal fade" id="productImageModal" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header py-2">
+                                                <h6 class="modal-title">
+                                                    <t t-esc="workorder.production_id.product_id.display_name or ''"/>
+                                                </h6>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                                            </div>
+                                            <div class="modal-body text-center p-3">
+                                                <img t-att-src="product_image_src"
+                                                     class="img-fluid rounded"
+                                                     style="max-height:70vh;object-fit:contain;"
+                                                     t-att-alt="workorder.production_id.product_id.display_name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
                             <dl class="row mb-0">
                                 <dt class="col-sm-5 text-muted">Lệnh sản xuất</dt>
                                 <dd class="col-sm-7">
@@ -161,24 +207,59 @@
 
                             <!-- Start: hiện khi không có open time record (giống backend: not is_user_working) -->
                             <t t-if="can_act and not has_open_time">
-                                <form t-attf-action="/my/workorders/#{workorder.id}/action" method="POST">
-                                    <input type="hidden" name="csrf_token"
-                                           t-att-value="request.csrf_token()"/>
-                                    <button name="action" value="start" type="submit"
-                                            class="btn btn-success w-100">
-                                        <i class="fa fa-play me-1"/> Bắt đầu
-                                    </button>
-                                </form>
+                                <t t-if="has_other_active">
+                                    <div class="alert alert-warning p-2 mb-0 small">
+                                        <i class="fa fa-exclamation-triangle me-1"/>
+                                        <strong>Không thể bắt đầu.</strong><br/>
+                                        Bạn đang thực hiện công đoạn
+                                        <strong><t t-esc="other_active_name"/></strong>.
+                                        Hãy tạm dừng hoặc hoàn thành trước.
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <form t-attf-action="/my/workorders/#{workorder.id}/action" method="POST">
+                                        <input type="hidden" name="csrf_token"
+                                               t-att-value="request.csrf_token()"/>
+                                        <button name="action" value="start" type="submit"
+                                                class="btn btn-success w-100">
+                                            <i class="fa fa-play me-1"/> Bắt đầu
+                                        </button>
+                                    </form>
+                                </t>
                             </t>
-                            <!-- Pause/Finish: hiện khi có open time record và đang progress (giống backend: is_user_working) -->
+                            <!-- Pause/Finish: hiện khi có open time record và đang progress -->
                             <t t-elif="can_act and has_open_time and workorder.state == 'progress'">
+                                <!-- Tạm dừng: toggle inline form -->
+                                <button type="button" class="btn btn-warning w-100 mb-2"
+                                        onclick="document.getElementById('pauseInlineForm').style.display='block';this.style.display='none';">
+                                    <i class="fa fa-pause me-1"/> Tạm dừng
+                                </button>
+                                <!-- Inline form nhập lý do tạm dừng -->
+                                <div id="pauseInlineForm" style="display:none;" class="mb-2">
+                                    <form t-attf-action="/my/workorders/#{workorder.id}/action" method="POST">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="action" value="pending"/>
+                                        <label class="form-label form-label-sm fw-semibold mb-1">
+                                            Lý do tạm dừng <span class="text-danger">*</span>
+                                        </label>
+                                        <textarea name="pause_reason" class="form-control form-control-sm mb-2"
+                                                  rows="3" required="required"
+                                                  placeholder="Nhập lý do tạm dừng..."></textarea>
+                                        <div class="d-flex gap-2">
+                                            <button type="submit" class="btn btn-warning btn-sm flex-fill">
+                                                <i class="fa fa-pause me-1"/> Xác nhận
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                                    onclick="document.getElementById('pauseInlineForm').style.display='none';document.querySelector('.btn-warning[onclick]').style.display='';">
+                                                Hủy
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Hoàn thành submit trực tiếp -->
                                 <form t-attf-action="/my/workorders/#{workorder.id}/action" method="POST">
                                     <input type="hidden" name="csrf_token"
                                            t-att-value="request.csrf_token()"/>
-                                    <button name="action" value="pending" type="submit"
-                                            class="btn btn-warning w-100 mb-2">
-                                        <i class="fa fa-pause me-1"/> Tạm dừng
-                                    </button>
                                     <button name="action" value="finish" type="submit"
                                             class="btn btn-primary w-100">
                                         <i class="fa fa-check me-1"/> Hoàn thành
@@ -219,7 +300,8 @@
                 </div>
             </div>
 
-            </div>
+
+</div>
         </t>
     </template>
 

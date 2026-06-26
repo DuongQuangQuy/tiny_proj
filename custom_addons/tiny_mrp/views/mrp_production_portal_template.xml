@@ -317,7 +317,7 @@
                                                 <t t-esc="move.location_id.display_name or '—'"/>
                                             </td>
                                             <td class="text-center">
-                                                <t t-if="production.state == 'draft'">
+                                                <t t-if="production.state in ('draft', 'confirmed')">
                                                     <a t-attf-href="/my/productions/#{production.id}/move/#{move.id}"
                                                        class="btn btn-sm btn-outline-primary">
                                                         <i class="fa fa-pencil me-1"/> Chi tiết

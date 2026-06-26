@@ -13,7 +13,7 @@ class MrpWorkorder(models.Model):
     _inherit = "mrp.workorder"
 
     user_mrp_ids = fields.Many2many('res.users', 'mrp_workorder_user_mrp_rel', string='Nhân viên thực hiện',compute='_compute_user_mrp_ids',store=True,readonly=False)
-
+    reason_ids = fields.One2many('mrp.pause.reason', 'workorder_id', string='Lý do tạm dừng')
     @api.depends('workcenter_id','workcenter_id.user_mrp_ids')
     def _compute_user_mrp_ids(self):
         for record in self:
