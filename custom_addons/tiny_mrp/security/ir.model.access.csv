@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access_mrp_pause_reason_user,mrp.pause.reason user,model_mrp_pause_reason,base.group_user,1,1,1,1
+access_mrp_reason_user,mrp.reason user,model_mrp_reason,base.group_user,1,1,1,1

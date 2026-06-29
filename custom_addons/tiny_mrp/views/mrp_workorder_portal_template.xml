@@ -128,7 +128,7 @@
                             <!-- Modal xem ảnh lớn -->
                             <t t-if="product_image_src">
                                 <div class="modal fade" id="productImageModal" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-sm-down">
                                         <div class="modal-content">
                                             <div class="modal-header py-2">
                                                 <h6 class="modal-title">
@@ -136,10 +136,10 @@
                                                 </h6>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"/>
                                             </div>
-                                            <div class="modal-body text-center p-3">
+                                            <div class="modal-body text-center p-2">
                                                 <img t-att-src="product_image_src"
                                                      class="img-fluid rounded"
-                                                     style="max-height:70vh;object-fit:contain;"
+                                                     style="max-height:85vh;width:100%;object-fit:contain;"
                                                      t-att-alt="workorder.production_id.product_id.display_name"/>
                                             </div>
                                         </div>
@@ -234,7 +234,7 @@
                                         onclick="document.getElementById('pauseInlineForm').style.display='block';this.style.display='none';">
                                     <i class="fa fa-pause me-1"/> Tạm dừng
                                 </button>
-                                <!-- Inline form nhập lý do tạm dừng -->
+                                <!-- Inline form chọn lý do tạm dừng -->
                                 <div id="pauseInlineForm" style="display:none;" class="mb-2">
                                     <form t-attf-action="/my/workorders/#{workorder.id}/action" method="POST">
                                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
@@ -242,9 +242,14 @@
                                         <label class="form-label form-label-sm fw-semibold mb-1">
                                             Lý do tạm dừng <span class="text-danger">*</span>
                                         </label>
-                                        <textarea name="pause_reason" class="form-control form-control-sm mb-2"
-                                                  rows="3" required="required"
-                                                  placeholder="Nhập lý do tạm dừng..."></textarea>
+                                        <select name="reason_id" class="form-select form-select-sm mb-2" required="required">
+                                            <option value="">-- Chọn lý do --</option>
+                                            <t t-foreach="mrp_reasons" t-as="r">
+                                                <option t-att-value="r.id">
+                                                    <t t-esc="r.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
                                         <div class="d-flex gap-2">
                                             <button type="submit" class="btn btn-warning btn-sm flex-fill">
                                                 <i class="fa fa-pause me-1"/> Xác nhận

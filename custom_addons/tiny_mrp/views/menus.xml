@@ -13,5 +13,10 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">55</field>
         </record>
+        <menuitem   id="menu_mrp_reason"
+                    name="Lý do"
+                    parent="mrp.menu_mrp_configuration"
+                    action="action_mrp_reason"
+                    sequence="40"/>
     </data>
 </odoo>

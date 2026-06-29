@@ -17,10 +17,11 @@
         'views/res_users_views.xml',
         'views/mrp_workcenter_views.xml',
         'views/mrp_workorder_views.xml',
-        'views/menus.xml',
+        'views/mrp_reason_views.xml',
         'views/mrp_workorder_portal_template.xml',
         'views/mrp_production_views.xml',
         'views/mrp_production_portal_template.xml',
+        'views/menus.xml',
 
     ],
     'assets': {

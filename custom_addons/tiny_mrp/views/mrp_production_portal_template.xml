@@ -317,7 +317,7 @@
                                                 <t t-esc="move.location_id.display_name or '—'"/>
                                             </td>
                                             <td class="text-center">
-                                                <t t-if="production.state in ('draft', 'confirmed')">
+                                                <t t-if="(user_is_mrp_stock or user_is_mrp) and production.state in ('draft', 'confirmed', 'progress')">
                                                     <a t-attf-href="/my/productions/#{production.id}/move/#{move.id}"
                                                        class="btn btn-sm btn-outline-primary">
                                                         <i class="fa fa-pencil me-1"/> Chi tiết
@@ -389,27 +389,43 @@
                             </dl>
                         </div>
                         <div class="col-sm-7">
-                            <form t-attf-action="/my/productions/#{production.id}/move/#{move.id}/save" method="POST"
-                                  class="d-flex align-items-end gap-2">
-                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                <div class="flex-fill">
+                            <t t-if="user_can_edit_move and production.state in ('draft', 'confirmed', 'progress')">
+                                <form t-attf-action="/my/productions/#{production.id}/move/#{move.id}/save" method="POST"
+                                      class="d-flex align-items-end gap-2">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="flex-fill">
+                                        <label class="form-label fw-semibold mb-1">
+                                            <i class="fa fa-balance-scale me-1"/>Tổng cần dùng
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="number" name="product_uom_qty"
+                                                   class="form-control"
+                                                   t-att-value="move.product_uom_qty"
+                                                   min="0.001" step="0.001" required="required"/>
+                                            <span class="input-group-text">
+                                                <t t-esc="move.product_uom.name or ''"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-save"/>
+                                    </button>
+                                </form>
+                            </t>
+                            <t t-else="">
+                                <div>
                                     <label class="form-label fw-semibold mb-1">
                                         <i class="fa fa-balance-scale me-1"/>Tổng cần dùng
                                     </label>
                                     <div class="input-group">
-                                        <input type="number" name="product_uom_qty"
-                                               class="form-control"
-                                               t-att-value="move.product_uom_qty"
-                                               min="0.001" step="0.001" required="required"/>
+                                        <input type="number" class="form-control" readonly="readonly"
+                                               t-att-value="move.product_uom_qty"/>
                                         <span class="input-group-text">
                                             <t t-esc="move.product_uom.name or ''"/>
                                         </span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-save"/>
-                                </button>
-                            </form>
+                            </t>
                         </div>
                     </div>
                 </div>
@@ -426,8 +442,8 @@
                     </h6>
                 </div>
 
-                <!-- Inline edit form (shown when ?edit=<line_id>) -->
-                <t t-if="edit_line">
+                <!-- Inline edit form (shown when ?edit=<line_id>, only for is_mrp_stock + editable state) -->
+                <t t-if="edit_line and user_is_mrp_stock and production.state in ('draft', 'confirmed', 'progress')">
                     <div class="card-body border-bottom bg-light">
                         <p class="fw-semibold mb-2 small text-primary">
                             <i class="fa fa-pencil me-1"/>Chỉnh sửa dòng
@@ -495,19 +511,21 @@
                                         <t t-esc="line.product_uom_id.name or ''"/>
                                     </td>
                                     <td class="text-center text-nowrap">
-                                        <a t-attf-href="/my/productions/#{production.id}/move/#{move.id}?edit=#{line.id}"
-                                           class="btn btn-sm btn-outline-secondary me-1">
-                                            <i class="fa fa-pencil"/>
-                                        </a>
-                                        <form t-attf-action="/my/productions/#{production.id}/move/#{move.id}/line/#{line.id}/delete"
-                                              method="POST" class="d-inline"
-                                              onsubmit="return confirm('Xóa dòng này?')">
-                                            <input type="hidden" name="csrf_token"
-                                                   t-att-value="request.csrf_token()"/>
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                <i class="fa fa-trash"/>
-                                            </button>
-                                        </form>
+                                        <t t-if="user_is_mrp_stock and production.state in ('draft', 'confirmed', 'progress')">
+                                            <a t-attf-href="/my/productions/#{production.id}/move/#{move.id}?edit=#{line.id}"
+                                               class="btn btn-sm btn-outline-secondary me-1">
+                                                <i class="fa fa-pencil"/>
+                                            </a>
+                                            <form t-attf-action="/my/productions/#{production.id}/move/#{move.id}/line/#{line.id}/delete"
+                                                  method="POST" class="d-inline"
+                                                  onsubmit="return confirm('Xóa dòng này?')">
+                                                <input type="hidden" name="csrf_token"
+                                                       t-att-value="request.csrf_token()"/>
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fa fa-trash"/>
+                                                </button>
+                                            </form>
+                                        </t>
                                     </td>
                                 </tr>
                             </tbody>
@@ -515,7 +533,8 @@
                     </t>
                 </div>
 
-                <!-- Add new line form -->
+                <!-- Add new line form: only for is_mrp_stock + editable state -->
+                <t t-if="user_is_mrp_stock and production.state in ('draft', 'confirmed', 'progress')">
                 <div class="card-footer">
 
                     <!-- PRIMARY: Chọn từ tồn kho (stock.quant) -->
@@ -580,6 +599,7 @@
                         </div>
                     </form>
                 </div>
+                </t>
             </div>
 
             </div>

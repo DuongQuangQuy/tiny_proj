@@ -2,15 +2,56 @@
    tiny_mrp — Portal Mobile Responsive CSS
    ===================================================== */
 
-/* ---------- List page: table responsive ---------- */
+/* ---------- Touch-friendly base ---------- */
+@media (max-width: 767.98px) {
+    /* Tất cả button, select, input đủ cao để ngón tay nhấn dễ */
+    .btn {
+        min-height: 44px;
+        font-size: 1rem;
+    }
+
+    .form-select,
+    .form-control {
+        min-height: 44px;
+        font-size: 1rem;
+    }
+
+    .btn-sm {
+        min-height: 36px;
+        font-size: 0.875rem;
+    }
+
+    .form-select-sm,
+    .form-control-sm {
+        min-height: 38px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ---------- Back button & breadcrumb ---------- */
+@media (max-width: 575.98px) {
+    .btn.btn-sm.btn-outline-secondary {
+        font-size: 0.82rem;
+        padding: 0.35rem 0.7rem;
+    }
+}
+
+/* ---------- Error alert ---------- */
+@media (max-width: 575.98px) {
+    .alert {
+        font-size: 0.85rem;
+        padding: 0.65rem 0.9rem;
+    }
+}
+
+/* ---------- Workorder list page ---------- */
 .o_portal_my_workorders {
-    .table-responsive-wrapper {
-        overflow-x: auto;
+    .table-responsive {
         -webkit-overflow-scrolling: touch;
     }
 
     table.table {
-        min-width: 480px;
+        min-width: 420px;
     }
 
     @media (max-width: 575.98px) {
@@ -21,69 +62,69 @@
         }
 
         table tbody td {
-            font-size: 0.82rem;
-            padding: 0.55rem 0.4rem;
+            font-size: 0.85rem;
+            padding: 0.6rem 0.4rem;
+        }
+
+        /* Badge "Đang chạy" */
+        .badge {
+            font-size: 0.72rem;
         }
     }
 }
 
-/* ---------- Detail page ---------- */
+/* ---------- Workorder detail page ---------- */
 .o_portal_workorder_detail {
 
-    /* Mobile: hiển thị action panel TRÊN info card */
+    /* Mobile: action panel TRÊN info card */
     @media (max-width: 991.98px) {
         .col-lg-8 { order: 2; }
         .col-lg-4 { order: 1; }
     }
 
-    /* Ảnh sản phẩm + tên: xếp dọc trên màn hình nhỏ */
+    /* Ảnh sản phẩm: full-width dưới 480px */
     @media (max-width: 479.98px) {
         .d-flex.align-items-center.gap-3.mb-3 {
             flex-direction: column;
             align-items: flex-start !important;
 
-            a[data-bs-target="#productImageModal"],
+            a[data-bs-target="#productImageModal"] {
+                width: 100%;
+            }
+
             img.rounded.border {
                 width: 100% !important;
-                height: 180px !important;
+                height: 200px !important;
                 object-fit: contain;
-                border-radius: 0.375rem;
             }
         }
     }
 
-    /* Modal xem ảnh: gần fullscreen trên mobile */
-    @media (max-width: 575.98px) {
-        #productImageModal .modal-dialog {
-            margin: 0.5rem;
+    /* Modal xem ảnh — fullscreen-sm-down đã xử lý mobile,
+       chỉ cần đảm bảo ảnh lấp đầy không gian */
+    #productImageModal {
+        .modal-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
         }
 
-        #productImageModal img {
-            max-height: 80vh;
-        }
-    }
+        img {
+            max-height: 85vh;
+            width: 100%;
+            object-fit: contain;
 
-    /* Form tạm dừng inline */
-    #pauseInlineForm {
-        textarea.form-control {
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 575.98px) {
-            .d-flex.gap-2 {
-                flex-direction: column;
-
-                button {
-                    width: 100%;
-                }
+            @media (max-width: 575.98px) {
+                max-height: calc(100dvh - 60px);
             }
         }
     }
 
-    /* Card header trên mobile */
+    /* Card header */
     @media (max-width: 575.98px) {
         .card-header {
-            padding: 0.6rem 0.8rem;
+            padding: 0.65rem 0.9rem;
         }
 
         .card-header h5 {
@@ -94,7 +135,6 @@
             font-size: 0.875rem;
         }
 
-        /* Badge trạng thái */
         .card-header .badge {
             font-size: 0.72rem;
             padding: 0.3em 0.55em;
@@ -103,18 +143,35 @@
         /* Info dl list */
         dl.row dt,
         dl.row dd {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Form tạm dừng inline */
+    #pauseInlineForm {
+        select.form-select {
+            font-size: 0.9rem;
         }
 
-        /* Action buttons */
-        .btn.w-100 {
-            font-size: 0.92rem;
-            padding: 0.55rem 1rem;
+        @media (max-width: 575.98px) {
+            select.form-select {
+                font-size: 1rem;
+                min-height: 44px;
+            }
+
+            .d-flex.gap-2 {
+                flex-direction: column;
+
+                button {
+                    width: 100%;
+                    min-height: 44px;
+                }
+            }
         }
     }
 }
 
-/* ---------- Productivity page ---------- */
+/* ---------- Workorder productivity page ---------- */
 .o_portal_workorder_productivity {
 
     .table-responsive {
@@ -129,11 +186,10 @@
         }
 
         table tbody td {
-            font-size: 0.80rem;
+            font-size: 0.82rem;
             padding: 0.5rem 0.4rem;
         }
 
-        /* Badge "Đang chạy" */
         .badge {
             font-size: 0.7rem;
         }
@@ -157,7 +213,7 @@
     }
 
     table.table {
-        min-width: 480px;
+        min-width: 420px;
     }
 
     @media (max-width: 575.98px) {
@@ -168,13 +224,13 @@
         }
 
         table tbody td {
-            font-size: 0.82rem;
-            padding: 0.55rem 0.4rem;
+            font-size: 0.85rem;
+            padding: 0.6rem 0.4rem;
         }
     }
 }
 
-/* ---------- Production detail page ---------- */
+/* ---------- Production detail & move detail page ---------- */
 .o_portal_production_detail {
 
     /* Mobile: action panel TRÊN info card */
@@ -185,7 +241,7 @@
 
     @media (max-width: 575.98px) {
         .card-header {
-            padding: 0.6rem 0.8rem;
+            padding: 0.65rem 0.9rem;
         }
 
         .card-header h5 {
@@ -203,12 +259,7 @@
 
         dl.row dt,
         dl.row dd {
-            font-size: 0.82rem;
-        }
-
-        .btn.w-100 {
-            font-size: 0.92rem;
-            padding: 0.55rem 1rem;
+            font-size: 0.85rem;
         }
     }
 
@@ -226,12 +277,12 @@
             }
 
             table tbody td {
-                font-size: 0.80rem;
+                font-size: 0.82rem;
                 padding: 0.5rem 0.4rem;
             }
         }
 
-        /* Ẩn cột Vị trí nguồn & Dự báo tồn trên màn hình rất nhỏ */
+        /* Ẩn cột Dự báo tồn & Vị trí nguồn trên màn hình rất nhỏ */
         @media (max-width: 479.98px) {
             table thead th:nth-child(3),
             table tbody td:nth-child(3),
@@ -244,26 +295,29 @@
 
     .nav-tabs .nav-link {
         @media (max-width: 575.98px) {
-            font-size: 0.82rem;
-            padding: 0.4rem 0.7rem;
+            font-size: 0.85rem;
+            padding: 0.45rem 0.75rem;
+            min-height: 40px;
         }
     }
 
-    /* Move detail: form chỉnh qty + add-line */
+    /* Move detail: header card form chỉnh qty */
     .card-body .row.g-3 {
         @media (max-width: 575.98px) {
-            .col-sm-5, .col-sm-7 {
+            .col-sm-5,
+            .col-sm-7 {
                 flex: 0 0 100%;
                 max-width: 100%;
             }
         }
     }
 
-    /* Move detail: form add-line inline */
-    .card-footer {
+    /* Move detail: inline edit form */
+    .card-body.border-bottom.bg-light {
         @media (max-width: 575.98px) {
             .row.g-2 {
-                .col-sm-9, .col-sm-5, .col-sm-4 {
+                .col-sm-5,
+                .col-sm-4 {
                     flex: 0 0 100%;
                     max-width: 100%;
                 }
@@ -272,15 +326,37 @@
                     flex: 0 0 100%;
                     max-width: 100%;
 
-                    button {
-                        width: 100%;
+                    .d-flex.gap-2 {
+                        button,
+                        a {
+                            flex: 1;
+                            min-height: 40px;
+                        }
                     }
                 }
             }
         }
     }
 
-    /* Move detail: bảng move lines — ẩn cột Đơn vị trên mobile nhỏ */
+    /* Move detail: bảng move lines */
+    .table-responsive {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 767.98px) {
+        .table thead th {
+            font-size: 0.75rem;
+            padding: 0.45rem 0.4rem;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            font-size: 0.82rem;
+            padding: 0.5rem 0.4rem;
+        }
+    }
+
+    /* Ẩn cột Đơn vị trên mobile nhỏ */
     @media (max-width: 479.98px) {
         .table thead th:nth-child(3),
         .table tbody td:nth-child(3) {
@@ -291,16 +367,18 @@
         .text-center.text-nowrap {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0.3rem;
             align-items: center;
         }
     }
 
-    /* Move detail: inline edit form */
-    .card-body.border-bottom.bg-light {
+    /* Move detail: footer add-line form */
+    .card-footer {
         @media (max-width: 575.98px) {
             .row.g-2 {
-                .col-sm-5, .col-sm-4 {
+                .col-sm-9,
+                .col-sm-5,
+                .col-sm-4 {
                     flex: 0 0 100%;
                     max-width: 100%;
                 }
@@ -309,28 +387,12 @@
                     flex: 0 0 100%;
                     max-width: 100%;
 
-                    .d-flex.gap-2 button,
-                    .d-flex.gap-2 a {
-                        flex: 1;
+                    button {
+                        width: 100%;
+                        min-height: 44px;
                     }
                 }
             }
         }
-    }
-}
-
-/* ---------- Back button & breadcrumb ---------- */
-@media (max-width: 575.98px) {
-    .btn.btn-sm.btn-outline-secondary {
-        font-size: 0.78rem;
-        padding: 0.3rem 0.6rem;
-    }
-}
-
-/* ---------- Error alert ---------- */
-@media (max-width: 575.98px) {
-    .alert {
-        font-size: 0.82rem;
-        padding: 0.6rem 0.8rem;
     }
 }

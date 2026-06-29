@@ -25,7 +25,8 @@
                     <field name="reason_ids">
                         <list>
                             <field name="user_id"/>
-                            <field name="name"/>
+                            <!-- <field name="name"/> -->
+                            <field name="reason_id"/>
                         </list>
                     </field>
                 </page>
