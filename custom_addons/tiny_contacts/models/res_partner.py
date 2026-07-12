@@ -24,6 +24,8 @@ class ResPartner(models.Model):
         string='Người giới thiệu'
     )
 
+    note_size = fields.Text(string='Ghi chú số đo')
+
     def _ensure_partner_sequence_range(self):
         """Tạo date range cho năm hiện tại nếu chưa tồn tại"""
 
