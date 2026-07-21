@@ -5,6 +5,11 @@
         <field name="name">view.sale.order.form.inherit</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='payment_term_id']" position="after" >
+                <field name="ship_to" />
+            </xpath>
+
             <xpath expr="//field[@name='order_line']/list/field[@name='product_uom_qty']" position="before" >
                 <field name="product_size" required="product_type == 'consu'"/>
 <!--                <field name="product_type" required="product_type == 'consu'"/>-->

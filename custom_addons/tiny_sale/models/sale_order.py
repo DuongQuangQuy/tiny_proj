@@ -9,8 +9,8 @@ from odoo.tools.date_utils import float_to_time
 _logger = logging.getLogger(__name__)
 
 
-
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     partner_code = fields.Char(string='Mã khách hàng', related='partner_id.code', store=True)
+    ship_to = fields.Selection([('shop', 'Cửa hàng'), ('address_cus', 'Địa chỉ KH')], default='shop', string='Ship to')
