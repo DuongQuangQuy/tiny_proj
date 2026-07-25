@@ -25,6 +25,17 @@ class ResPartner(models.Model):
     )
 
     note_size = fields.Text(string='Ghi chú số đo')
+    note_supplier = fields.Text(string='Ghi chú NCC')
+
+    partner_type = fields.Selection(
+        selection=[
+            ('supplier', 'Nhà cung cấp'),
+            ('pre_customer', 'Khách hàng tiềm năng'),
+            ('customer', 'Khách hàng'),
+        ],
+        string='Loại đối tác',
+        default='pre_customer',
+    )
 
     def _ensure_partner_sequence_range(self):
         """Tạo date range cho năm hiện tại nếu chưa tồn tại"""
@@ -76,7 +87,17 @@ class ResPartner(models.Model):
         partners = super().create(vals_list)
 
         for partner in partners:
-            if not partner.code:
+            if not partner.code and partner.partner_type == 'customer':
                 partner.code = partner._generate_partner_code()
 
         return partners
+
+    def action_set_customer(self):
+        for partner in self:
+            if partner.partner_type != 'pre_customer':
+                continue
+
+            partner.partner_type = 'customer'
+
+            if not partner.code:
+                partner.code = partner._generate_partner_code()

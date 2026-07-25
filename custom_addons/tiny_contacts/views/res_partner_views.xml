@@ -9,12 +9,24 @@
             <xpath expr="//field[@name='parent_id']" position="before">
                 <field name="code"/>
                 <field name="code_old"/>
+                <field name="partner_type"/>
             </xpath>
 
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="birthday"/>
                 <field name="partner_referral_id"/>
-                <field name="note_size"/>
+                <field name="note_size" invisible="partner_type == 'supplier'"/>
+                <field name="note_supplier" invisible="partner_type != 'supplier'"/>
+            </xpath>
+
+            <xpath expr="/form/sheet" position="before">
+                <header>
+                    <button name="action_set_customer"
+                            type="object"
+                            string="Chuyển thành khách hàng"
+                            class="btn-primary"
+                            invisible="partner_type != 'pre_customer'"/>
+                </header>
             </xpath>
         </field>
     </record>
