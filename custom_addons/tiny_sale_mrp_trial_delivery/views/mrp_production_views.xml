@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_production_form_trial_delivery" model="ir.ui.view">
+        <field name="name">mrp.production.form.trial.delivery</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="trial_delivery_count" invisible="1"/>
+                <button name="action_view_trial_deliveries" type="object"
+                    class="oe_stat_button" icon="fa-truck"
+                    invisible="trial_delivery_count == 0">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="trial_delivery_count"/>
+                        </span>
+                        <span class="o_stat_text">Giao thử</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                <field name="sale_line_id" invisible="1"/>
+                <button name="action_create_trial_delivery" string="Tạo phiếu giao hàng thử"
+                    type="object" class="btn-secondary"
+                    invisible="state in ('draft', 'cancel') or not sale_line_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

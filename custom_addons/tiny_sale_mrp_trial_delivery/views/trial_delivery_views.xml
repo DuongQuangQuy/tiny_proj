@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_trial_delivery_form" model="ir.ui.view">
+        <field name="name">trial.delivery.form</field>
+        <field name="model">trial.delivery</field>
+        <field name="arch" type="xml">
+            <form string="Phiếu Giao Hàng Thử">
+                <header>
+                    <button name="action_delivered" string="Xác nhận đã giao" type="object"
+                        class="oe_highlight"
+                        invisible="state != 'draft'"/>
+                    <button name="action_returned" string="Xác nhận đã trả" type="object"
+                        class="oe_highlight"
+                        invisible="state != 'delivered'"/>
+                    <button name="action_cancel" string="Hủy" type="object"
+                        invisible="state not in ('cancel')"/>
+                    
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="draft,delivered,returned,cancel"/>
+                </header>
+
+                <sheet>
+                    <!-- Smart buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <!-- <button name="action_view_picking" type="object"
+                            class="oe_stat_button" icon="fa-truck"
+                            invisible="not delivery_picking_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Phiếu xuất kho</span>
+                            </div>
+                        </button> -->
+                     
+                    </div>
+
+                    <!-- Cảnh báo quá hạn -->
+                    <!-- <div class="alert alert-warning" role="alert"
+                        invisible="not is_overdue or state not in ('confirmed','delivered')">
+                        <strong>⚠ Quá hạn phản hồi!</strong> Hạn chót là <field name="date_deadline" readonly="1"/> nhưng khách chưa phản hồi.
+                    </div> -->
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Thông tin đơn hàng">
+                            <field name="production_id"/>
+                            <field name="sale_origin" readonly="1"/>
+                        </group>
+                        <group string="Thông tin khách hàng">
+                            <field name="partner_id" required="1"/>
+                            <field name="partner_shipping_id"/>
+                            <field name="partner_phone"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Thời gian">
+                            <field name="date_delivery"/>
+                            <field name="date_return"/>
+                       
+                        </group>
+                        <group >
+                            <!-- <field name="result_sale_order_id" readonly="1" invisible="not result_sale_order_id"/>
+                            <field name="result_return_picking_id" readonly="1" invisible="not result_return_picking_id"/>
+                            <field name="return_reason" invisible="not return_reason"/> -->
+                        </group>
+                    </group>
+
+                    <!-- Danh sách sản phẩm -->
+                    <notebook>
+                        <page string="Sản phẩm giao thử" name="products">
+                            <field name="line_ids" widget="one2many">
+                                <list string="Sản phẩm" editable="bottom">
+                                    <field name="product_id" required="1"/>
+                                    <field name="description" optional="hide"/>
+                                    <field name="qty_trial" string="SL giao thử"/>
+                                    <field name="product_uom_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Ghi chú" name="notes">
+                            <group>
+                                <field name="note" placeholder="Ghi chú nội bộ..."/>
+                                <field name="customer_note" placeholder="Ghi chú cho khách hàng..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <!-- Chatter -->
+                 <chatter/>
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_trial_delivery_list" model="ir.ui.view">
+        <field name="name">trial.delivery.list</field>
+        <field name="model">trial.delivery</field>
+        <field name="arch" type="xml">
+            <list string="Phiếu Giao Hàng Thử" decoration-warning="state in ('delivered')"
+                  decoration-success="state == 'returned'"
+                  decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                    
+                <field name="production_id" optional="show"/>
+                <field name="sale_origin" optional="hide"/>
+                <field name="date_delivery"/>
+                <field name="date_return"/>
+                
+                <field name="state" widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-primary="state == 'delivered'"
+                    decoration-success="state == 'returned'"
+                    decoration-muted="state == 'cancel'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_trial_delivery_search" model="ir.ui.view">
+        <field name="name">trial.delivery.search</field>
+        <field name="model">trial.delivery</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm phiếu giao thử">
+                <field name="name" string="Số phiếu"/>
+                <field name="partner_id" string="Khách hàng"/>
+              
+                <field name="production_id" string="Lệnh sản xuất"/>
+                <field name="sale_origin" string="Đơn hàng gốc"/>
+                <separator/>
+                <filter name="filter_draft" string="Nháp" domain="[('state','=','draft')]"/>
+                <filter name="filter_delivered" string="Đã giao thử" domain="[('state','=','delivered')]"/>
+                <filter name="filter_returned" string="Khách trả hàng" domain="[('state','=','returned')]"/>
+                <separator/>
+                <!-- <filter name="filter_overdue" string="Quá hạn" domain="[('is_overdue','=',True)]"/>
+                <filter name="filter_today" string="Giao hôm nay"
+                    domain="[('date_trial','=',context_today().strftime('%Y-%m-%d'))]"/> -->
+<!--                <group expand="0" string="Nhóm theo">-->
+                    <filter name="group_state" string="Trạng thái" context="{'group_by': 'state'}"/>
+                    <filter name="group_partner" string="Khách hàng" context="{'group_by': 'partner_id'}"/>
+                    <!-- <filter name="group_date" string="Ngày giao thử" context="{'group_by': 'date_trial:month'}"/> -->
+<!--                </group>-->
+            </search>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_trial_delivery_kanban" model="ir.ui.view">
+        <field name="name">trial.delivery.kanban</field>
+        <field name="model">trial.delivery</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_return"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <!-- <span t-if="record.is_overdue.raw_value"
+                                        class="badge bg-danger text-white">Quá hạn</span> -->
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div><i class="fa fa-user"/> <field name="partner_id"/></div>
+                                    <div><i class="fa fa-calendar"/> Hạn: <field name="date_return"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_trial_delivery" model="ir.actions.act_window">
+        <field name="name">Phiếu Giao Hàng Thử</field>
+        <field name="res_model">trial.delivery</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_trial_delivery_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tạo phiếu giao hàng thử đầu tiên!
+            </p>
+            <p>
+                Phiếu giao hàng thử giúp bạn gửi sản phẩm từ lệnh sản xuất
+                cho khách hàng dùng thử trước khi quyết định mua chính thức.
+            </p>
+        </field>
+    </record>
+</odoo>

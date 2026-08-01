@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_trial_delivery"
+        name="Giao Hàng Thử"
+        action="action_trial_delivery"
+        parent="mrp.menu_mrp_root"
+        sequence="60"/>
+</odoo>
