@@ -36,6 +36,8 @@ class ResPartner(models.Model):
         string='Loại đối tác',
         default='pre_customer',
     )
+    social = fields.Char(string='Social')
+    personal_contact = fields.Char(string='Người liên hệ')
 
     def _ensure_partner_sequence_range(self):
         """Tạo date range cho năm hiện tại nếu chưa tồn tại"""
