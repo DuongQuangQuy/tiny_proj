@@ -7,7 +7,7 @@
         <field name="priority" eval="5"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='parent_id']" position="before">
-                <field name="code"/>
+                <field name="code" readonly="1"/>
                 <field name="code_old"/>
                 <field name="partner_type"/>
             </xpath>

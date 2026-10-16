@@ -9,7 +9,6 @@ class ResPartner(models.Model):
 
     code = fields.Char(
         string="Mã",
-        readonly=True,
         copy=False,
         index=True,
     )
