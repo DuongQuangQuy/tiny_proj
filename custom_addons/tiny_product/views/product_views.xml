@@ -7,10 +7,36 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='default_code']" position="after">
                 <field name="code_fabric" />
+                <field name="fabric_name_standard" />
+                <field name="fabric_name_vendor" />
             </xpath>
 
             <xpath expr="//field[@name='description']" position="replace">
                 <field name="note" nolabel="1" colspan="2"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_normal_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.view.inherit</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="fabric_name_standard" />
+                <field name="fabric_name_vendor" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.view.form.easy.inherit</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="fabric_name_standard" />
+                <field name="fabric_name_vendor" />
             </xpath>
         </field>
     </record>

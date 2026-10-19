@@ -14,10 +14,11 @@ class SaleOrderLine(models.Model):
 
     product_size = fields.Char(string='Số đo')
     note = fields.Text(string='Ghi chú')
-    default_code = fields.Char(string='Mã vải')
+    default_code = fields.Char(string='Mã tham chiếu')
     product_pattern_id = fields.Many2one('product.product', string='Mã họa tiết')
     product_pattern_image = fields.Binary(string='Ảnh họa tiết')
     note_pattern = fields.Text(string='Ghi chú họa tiết')
+    code_fabric = fields.Char(string='Mã vải')
 
     @api.onchange('product_pattern_id')
     def onchange_sale_product_pattern_image(self):
@@ -31,7 +32,7 @@ class SaleOrderLine(models.Model):
     def _onchange_product(self):
         for rec in self:
             if rec.product_id:
-                rec.default_code = rec.product_id.default_code
+                rec.code_fabric = rec.product_id.code_fabric
             else:
-                rec.default_code = ''
+                rec.code_fabric = ''
 

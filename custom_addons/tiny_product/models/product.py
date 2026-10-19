@@ -14,6 +14,10 @@ class ProductTemplate(models.Model):
 
     code_fabric = fields.Char(string='Mã vải')
     note = fields.Text(string='Ghi chú')
+    # Khai báo trên template: product.product kế thừa qua _inherits (product_tmpl_id)
+    # nên đọc/ghi ở variant sẽ đồng bộ với template và ngược lại.
+    fabric_name_standard = fields.Char(string='Tên vải theo chuẩn kho')
+    fabric_name_vendor = fields.Char(string='Tên vải theo cách gọi của NCC')
 
 
 class ProductProduct(models.Model):

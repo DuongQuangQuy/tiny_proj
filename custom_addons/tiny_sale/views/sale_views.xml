@@ -14,7 +14,7 @@
                 <field name="product_size" required="product_type == 'consu'"/>
 <!--                <field name="product_type" required="product_type == 'consu'"/>-->
                 <field name="note" required="product_type == 'consu'"/>
-                <field name="default_code" required="product_type == 'consu'"/>
+                <field name="code_fabric" required="product_type == 'consu'"/>
                 <field name="product_pattern_id" />
                 <field name="product_pattern_image" widget="image" class="oe_avatar w-auto float-start" force_save="1" readonly="1"/>
                 <field name="note_pattern"  required="product_pattern_id"/>
