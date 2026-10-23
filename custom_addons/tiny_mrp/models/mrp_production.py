@@ -61,7 +61,35 @@ class MrpProduction(models.Model):
                 raise UserError(_('Lệnh sản xuất đã hoàn thành hoặc bị hủy.'))
             production.with_context(skip_immediate=True, skip_backorder=True).button_mark_done()
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        productions = super().create(vals_list)
+        productions._apply_matching_zipper()
+        return productions
+
+    def write(self, vals):
+        res = super().write(vals)
+        if {'move_raw_ids', 'bom_id', 'product_id'} & set(vals):
+            self._apply_matching_zipper()
+        return res
+
+    def _apply_matching_zipper(self):
+        """Thay NVL dây kéo theo màu dây kéo liên kết với vải, giữ biến thể (ngắn/dài) theo BOM."""
+        for production in self.filtered(lambda p: p.state == 'draft'):
+            raws = production.move_raw_ids.filtered(lambda m: m.state == 'draft')
+            fabric = raws.product_id.filtered('matching_zipper_tmpl_id')[:1]
+            if not fabric:
+                continue
+            variants = fabric.matching_zipper_tmpl_id.product_variant_ids
+            for move in raws.filtered(lambda m: m.product_id.is_zipper):
+                attr_values = move.product_id.product_template_attribute_value_ids.product_attribute_value_id
+                new_zipper = variants.filtered(
+                    lambda p: p.product_template_attribute_value_ids.product_attribute_value_id == attr_values)[:1]
+                if new_zipper and new_zipper != move.product_id:
+                    move.product_id = new_zipper
+
     def action_confirm(self):
+        self._apply_matching_zipper()
         productions = super().action_confirm()
         for production in self:
             mrp_production_childs = production._get_children()

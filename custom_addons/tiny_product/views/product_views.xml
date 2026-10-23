@@ -9,6 +9,8 @@
                 <field name="code_fabric" />
                 <field name="fabric_name_standard" />
                 <field name="fabric_name_vendor" />
+                <field name="is_zipper" />
+                <field name="matching_zipper_tmpl_id" invisible="is_zipper" domain="[('is_zipper', '=', True)]" />
             </xpath>
 
             <xpath expr="//field[@name='description']" position="replace">

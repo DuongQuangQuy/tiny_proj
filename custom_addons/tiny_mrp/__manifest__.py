@@ -10,7 +10,7 @@
     'version': '19.0.0.1',
     'license': 'LGPL-3',
     'depends': [
-        'base', 'mrp', 'portal', 'website'
+        'base', 'mrp', 'portal', 'website', 'tiny_product'
     ],
     'data': [
         'security/ir.model.access.csv',
