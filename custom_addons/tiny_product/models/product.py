@@ -21,6 +21,10 @@ class ProductTemplate(models.Model):
     is_zipper = fields.Boolean(string='Là NVL dây kéo', default=False)
     # Matching Zipper Color: nhiều mã vải có thể dùng chung một mã dây kéo
     matching_zipper_tmpl_id = fields.Many2one('product.template', string='Dây kéo cùng màu')
+    # Vải lót: chỉ chọn sản phẩm thuộc danh mục được đánh dấu NVL vải lót
+    lining_tmpl_ids = fields.Many2many(
+        'product.template', 'product_template_lining_rel', 'product_tmpl_id', 'lining_tmpl_id',
+        string='Vải lót', domain="[('categ_id.is_lining', '=', True)]")
 
 
 class ProductProduct(models.Model):
@@ -28,3 +32,9 @@ class ProductProduct(models.Model):
 
     code_fabric = fields.Char(string='Mã vải')
     note = fields.Text(string='Ghi chú')
+
+
+class ProductCategory(models.Model):
+    _inherit = "product.category"
+
+    is_lining = fields.Boolean(string='NVL vải lót', default=False)

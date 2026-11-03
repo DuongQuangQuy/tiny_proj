@@ -5,3 +5,4 @@ from . import mrp_production
 from . import mrp_workcenter_productivity
 from . import mrp_pause_reason
 from . import mrp_reason
+from . import stock_move

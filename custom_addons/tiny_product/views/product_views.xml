@@ -11,6 +11,7 @@
                 <field name="fabric_name_vendor" />
                 <field name="is_zipper" />
                 <field name="matching_zipper_tmpl_id" invisible="is_zipper" domain="[('is_zipper', '=', True)]" />
+                <field name="lining_tmpl_ids" widget="many2many_tags" />
             </xpath>
 
             <xpath expr="//field[@name='description']" position="replace">
@@ -39,6 +40,17 @@
             <xpath expr="//field[@name='default_code']" position="after">
                 <field name="fabric_name_standard" />
                 <field name="fabric_name_vendor" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_category_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.inherit</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="model">product.category</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="is_lining" />
             </xpath>
         </field>
     </record>

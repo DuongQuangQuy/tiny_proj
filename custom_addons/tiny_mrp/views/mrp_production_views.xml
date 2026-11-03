@@ -13,6 +13,15 @@
             <xpath expr="//field[@name='user_id']" position="after" >
                 <field name="user_mrp_stock_ids" widget="many2many_tags"/>
             </xpath>
+            <xpath expr="//field[@name='move_raw_ids']" position="before">
+                <field name="lining_product_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='move_raw_ids']/list/field[@name='product_id']" position="attributes">
+                <attribute name="domain">[('id', 'in', parent.lining_product_ids)] if is_lining else [('type', '=', 'consu')]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='move_raw_ids']/list/field[@name='product_id']" position="after">
+                <field name="is_lining" readonly="state != 'draft'"/>
+            </xpath>
 
         </field>
     </record>

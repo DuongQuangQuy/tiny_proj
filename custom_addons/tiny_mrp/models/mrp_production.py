@@ -12,6 +12,20 @@ _logger = logging.getLogger(__name__)
 class MrpProduction(models.Model):
     _inherit = "mrp.production"
 
+    # Danh sách vải lót được phép chọn trên dòng NVL vải lót (theo vải có setup Vải lót)
+    lining_product_ids = fields.Many2many('product.product', compute='_compute_lining_product_ids',
+                                          string='Vải lót được phép')
+
+    @api.depends('move_raw_ids.product_id')
+    def _compute_lining_product_ids(self):
+        for production in self:
+            lining_tmpls = production.move_raw_ids.product_id.product_tmpl_id.lining_tmpl_ids
+            if lining_tmpls:
+                production.lining_product_ids = lining_tmpls.product_variant_ids
+            else:
+                production.lining_product_ids = self.env['product.product'].search(
+                    [('categ_id.is_lining', '=', True)])
+
     def _default_user_stock(self):
         user_stock = self.env['res.users'].search([('is_mrp_stock', '=', True)])
         user_pattern = self.env['res.users'].search([('is_mrp_pattern', '=', True)])
