@@ -16,6 +16,7 @@
         'security/ir.model.access.csv',
         'views/res_users_views.xml',
         'views/mrp_workcenter_views.xml',
+        'views/mrp_routing_workcenter_views.xml',
         'views/mrp_workorder_views.xml',
         'views/mrp_reason_views.xml',
         'views/mrp_workorder_portal_template.xml',
