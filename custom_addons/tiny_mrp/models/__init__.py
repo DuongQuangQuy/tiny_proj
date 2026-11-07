@@ -1,3 +1,4 @@
+from . import mrp_routing_workcenter
 from . import mrp_workorder
 from . import res_users
 from . import mrp_workcenter

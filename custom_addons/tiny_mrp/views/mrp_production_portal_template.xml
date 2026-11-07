@@ -67,9 +67,9 @@
             </t>
 
             <!-- ── Lệnh phụ (chỉ nhân viên is_mrp_pattern mới thấy) ── -->
-            <t t-if="user_is_mrp">
+            <t t-if="user_is_mrp and productions_sub">
                 <h6 class="mt-4 mb-2 text-muted text-uppercase fw-semibold" style="font-size:0.75rem; letter-spacing:.05em;">
-                    <i class="fa fa-puzzle-piece me-1"/>Lệnh phụ
+                    <i class="fa fa-puzzle-piece me-1"/>Lệnh phụ (quy trình cũ)
                 </h6>
                 <t t-if="not productions_sub">
                     <div class="alert alert-info" role="alert">
@@ -187,8 +187,28 @@
                             </h6>
                         </div>
                         <div class="card-body">
+                            <t t-set="can_done_pattern" t-value="user_is_mrp and production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel')"/>
+                            <t t-set="can_confirm_pattern" t-value="user_is_mrp and not production.is_mrp_pattern and production.state in ('confirmed', 'progress') and production.state_pattern == 'draft' and production.pattern_workorders_done"/>
+                            <t t-set="can_confirm_stock" t-value="user_is_mrp_stock and not production.is_mrp_pattern and production.state_pattern == 'confirmed' and production.state_stock == 'draft'"/>
+                            <t t-set="can_confirm" t-value="user_is_mrp and production.state == 'draft'"/>
+
+                            <!-- Tiến trình: Rập -> Xác nhận NVL rập -> Kho xác nhận -> các công đoạn sau -->
+                            <ul t-if="not production.is_mrp_pattern and production.state != 'draft'" class="list-unstyled small mb-3">
+                                <li t-if="production.has_pattern_workorder">
+                                    <i t-att-class="'fa me-1 ' + ('fa-check-circle text-success' if production.pattern_workorders_done else 'fa-circle-o text-muted')"/>
+                                    Công đoạn rập
+                                </li>
+                                <li>
+                                    <i t-att-class="'fa me-1 ' + ('fa-check-circle text-success' if production.state_pattern == 'confirmed' else 'fa-circle-o text-muted')"/>
+                                    Xác nhận NVL rập
+                                </li>
+                                <li>
+                                    <i t-att-class="'fa me-1 ' + ('fa-check-circle text-success' if production.state_stock == 'confirmed' else 'fa-circle-o text-muted')"/>
+                                    Kho xác nhận
+                                </li>
+                            </ul>
                             <!-- Hoàn thành rập: chỉ hiện với nhân viên is_mrp_pattern khi là lệnh rập và chưa done/cancel và không còn draft -->
-                            <t t-if="user_is_mrp and production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel')">
+                            <t t-if="can_done_pattern">
                                 <form t-attf-action="/my/productions/#{production.id}/action"
                                       method="POST" class="mb-2">
                                     <input type="hidden" name="csrf_token"
@@ -201,20 +221,20 @@
                             </t>
 
                             <!-- Xác nhận rập: chỉ hiện với nhân viên is_mrp khi production đã confirmed và state_pattern còn draft và không phải lệnh phụ -->
-                            <t t-if="user_is_mrp and not production.is_mrp_pattern and production.state == 'confirmed' and production.state_pattern == 'draft'">
+                            <t t-if="can_confirm_pattern">
                                 <form t-attf-action="/my/productions/#{production.id}/action"
                                       method="POST" class="mb-2">
                                     <input type="hidden" name="csrf_token"
                                            t-att-value="request.csrf_token()"/>
                                     <button name="action" value="confirm_pattern" type="submit"
                                             class="btn btn-warning w-100">
-                                        <i class="fa fa-check me-1"/> Xác nhận rập
+                                        <i class="fa fa-check me-1"/> Xác nhận NVL rập
                                     </button>
                                 </form>
                             </t>
 
                             <!-- Xác nhận kho: chỉ hiện với nhân viên is_mrp_stock khi state_stock còn draft và không phải lệnh phụ -->
-                            <t t-if="user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'draft'">
+                            <t t-if="can_confirm_stock">
                                 <form t-attf-action="/my/productions/#{production.id}/action"
                                       method="POST" class="mb-2">
                                     <input type="hidden" name="csrf_token"
@@ -227,7 +247,7 @@
                             </t>
 
                             <!-- Xác nhận lệnh: chỉ hiện với nhân viên is_mrp khi production còn draft -->
-                            <t t-if="user_is_mrp and production.state == 'draft'">
+                            <t t-if="can_confirm">
                                 <form t-attf-action="/my/productions/#{production.id}/action"
                                       method="POST">
                                     <input type="hidden" name="csrf_token"
@@ -239,12 +259,7 @@
                                 </form>
                             </t>
 
-                            <t t-if="not (
-                                (user_is_mrp and production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel')) or
-                                (user_is_mrp and not production.is_mrp_pattern and production.state == 'confirmed' and production.state_pattern == 'draft') or
-                                (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'draft') or
-                                (user_is_mrp and production.state == 'draft')
-                            )">
+                            <t t-if="not (can_done_pattern or can_confirm_pattern or can_confirm_stock or can_confirm)">
                                 <p class="text-muted text-center mb-0 small">
                                     <i class="fa fa-info-circle me-1"/>
                                     Không có thao tác khả dụng.

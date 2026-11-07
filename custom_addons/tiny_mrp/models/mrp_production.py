@@ -1,10 +1,7 @@
 import logging
-from datetime import datetime
-from pytz import timezone, UTC
 
 from odoo import api, fields, models, _
-from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tools.date_utils import float_to_time
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -27,14 +24,12 @@ class MrpProduction(models.Model):
                     [('categ_id.is_lining', '=', True)])
 
     def _default_user_stock(self):
-        user_stock = self.env['res.users'].search([('is_mrp_stock', '=', True)])
-        user_pattern = self.env['res.users'].search([('is_mrp_pattern', '=', True)])
-        user = user_stock | user_pattern
-        return user
+        return self.env['res.users'].search(['|', ('is_mrp_stock', '=', True), ('is_mrp_pattern', '=', True)])
 
     user_mrp_stock_ids = fields.Many2many('res.users', 'user_mrp_stock_production_rel', string='Nhân viên kho',
                                            default=_default_user_stock)
 
+    # Lệnh rập phụ kiểu cũ (MO con). Quy trình mới dùng công đoạn rập, trường này chỉ giữ cho dữ liệu cũ.
     is_mrp_pattern = fields.Boolean(string='Là MRP rập', default=False)
     state_stock = fields.Selection([('draft', 'Nháp'),
         ('confirmed', 'Xác nhận'),
@@ -43,28 +38,30 @@ class MrpProduction(models.Model):
     state_pattern = fields.Selection([('draft', 'Nháp'),
         ('confirmed', 'Xác nhận'),
         ('cancel', 'Đã hủy')
-    ], string='Trạng thái MRP rập', default='draft')    
+    ], string='Trạng thái MRP rập', default='draft')
+    has_pattern_workorder = fields.Boolean(string='Có công đoạn rập', compute='_compute_pattern_workorders')
+    pattern_workorders_done = fields.Boolean(string='Rập đã xong', compute='_compute_pattern_workorders')
 
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     productions = super().create(vals_list)
-    #     mrp_production_ids = self._get_sources()
-    #
-    #     return productions
+    @api.depends('workorder_ids.is_pattern', 'workorder_ids.state')
+    def _compute_pattern_workorders(self):
+        for production in self:
+            pattern_wos = production.workorder_ids.filtered('is_pattern')
+            production.has_pattern_workorder = bool(pattern_wos)
+            production.pattern_workorders_done = all(wo.state in ('done', 'cancel') for wo in pattern_wos)
 
     def action_confirm_pattern(self):
+        """Nhân viên rập xác nhận đã nhập xong số lượng NVL sau khi công đoạn rập hoàn thành."""
         for production in self:
-            mrp_production_childs = production._get_children()
-            if mrp_production_childs:
-                childs_not_done = mrp_production_childs.filtered(lambda p: p.state != 'done')
-                if childs_not_done:
-                    raise UserError(_('Các lệnh sản xuất con chưa hoàn thành.'))
+            if production.state not in ('confirmed', 'progress'):
+                raise UserError(_('Lệnh sản xuất chưa được xác nhận, không thể xác nhận rập.'))
+            if not production.pattern_workorders_done:
+                raise UserError(_('Công đoạn rập chưa hoàn thành.'))
             production.state_pattern = 'confirmed'
-    
+
     def action_confirm_stock(self):
         for production in self:
             if production.state_pattern != 'confirmed':
-                raise UserError(_('Chỉ có thể xác nhận lệnh sản xuất kho khi lệnh rập đã được xác nhận.'))
+                raise UserError(_('Chỉ có thể xác nhận kho khi rập và số lượng NVL đã được xác nhận.'))
             production.state_stock = 'confirmed'
 
     def action_done_pattern(self):
@@ -104,12 +101,4 @@ class MrpProduction(models.Model):
 
     def action_confirm(self):
         self._apply_matching_zipper()
-        productions = super().action_confirm()
-        for production in self:
-            mrp_production_childs = production._get_children()
-            if mrp_production_childs:
-                for mrp_production_child in mrp_production_childs:
-                    mrp_production_child.is_mrp_pattern = True
-                    user_pattern = self.env['res.users'].search([('is_mrp_pattern', '=', True)])
-                    mrp_production_child.user_mrp_stock_ids = [(6, 0, user_pattern.ids)]
-        return productions
+        return super().action_confirm()

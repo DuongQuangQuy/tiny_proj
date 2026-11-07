@@ -65,7 +65,7 @@ class MrpPortal(CustomerPortal):
             user = request.env.user
             values['production_count'] = request.env['mrp.production'].sudo().search_count([
                 ('user_mrp_stock_ids', 'in', user.id),
-                ('state', 'in', ('draft', 'confirmed')),
+                ('state', 'in', ('draft', 'confirmed', 'progress')),
             ])
         return values
 
@@ -76,11 +76,14 @@ class MrpPortal(CustomerPortal):
             ('user_mrp_ids', 'in', user.id),
             ('state', 'not in', ('done', 'cancel')),
             ('production_id.date_start', '<=', fields.Datetime.now()),
-            '|',
+            # Công đoạn rập luôn hiện; công đoạn khác chỉ hiện khi kho đã xác nhận (lệnh rập phụ cũ vẫn hiện như trước)
+            '|', '|',
+            ('is_pattern', '=', True),
             ('production_id.is_mrp_pattern', '=', True),
             ('production_id.state_stock', '=', 'confirmed'),
         ])
-        workorders = workorders.sorted(key=lambda wo: (wo.production_id.date_start or fields.Datetime.max, wo.id))
+        workorders = workorders.sorted(key=lambda wo: (
+            wo.production_id.date_start or fields.Datetime.max, not wo.is_pattern, wo.id))
         active_times = request.env['mrp.workcenter.productivity'].sudo().search([
             ('user_mrp_id', '=', user.id),
             ('date_end', '=', False),
@@ -111,28 +114,33 @@ class MrpPortal(CustomerPortal):
             ('workorder_id', '!=', exclude_workorder_id),
         ], limit=1)
 
+    def _workorder_detail_values(self, workorder, user, **extra):
+        has_open_time = bool(workorder.time_ids.filtered(lambda t: not t.date_end))
+        other_active = self._get_user_other_active_workorder(user, workorder.id)
+        product = workorder.production_id.product_id
+        vals = {
+            'workorder': workorder,
+            'has_open_time': has_open_time,
+            'has_other_active': bool(other_active),
+            'other_active_name': other_active.workorder_id.name if other_active else '',
+            'flow_block_reason': workorder._get_flow_block_reason(),
+            'product_image_src': self._get_product_image_src(product),
+            'fmt_dt': _make_fmt_dt(request.env),
+            'page_name': 'workorder',
+            'state_label': _STATE_LABEL,
+            'state_color': _STATE_COLOR,
+            'mrp_reasons': request.env['mrp.reason'].sudo().search([]),
+        }
+        vals.update(extra)
+        return vals
+
     @http.route('/my/workorders/<int:workorder_id>', auth='user', website=True, type='http')
     def portal_workorder_detail(self, workorder_id, **kw):
         user = request.env.user
         workorder = request.env['mrp.workorder'].sudo().browse(workorder_id)
         if not workorder.exists() or user not in workorder.user_mrp_ids:
             return request.not_found()
-        has_open_time = bool(workorder.time_ids.filtered(lambda t: not t.date_end))
-        other_active = self._get_user_other_active_workorder(user, workorder.id)
-        product = workorder.production_id.product_id
-        mrp_reasons = request.env['mrp.reason'].sudo().search([])
-        return request.render('tiny_mrp.portal_workorder_detail', {
-            'workorder': workorder,
-            'has_open_time': has_open_time,
-            'has_other_active': bool(other_active),
-            'other_active_name': other_active.workorder_id.name if other_active else '',
-            'product_image_src': self._get_product_image_src(product),
-            'fmt_dt': _make_fmt_dt(request.env),
-            'page_name': 'workorder',
-            'state_label': _STATE_LABEL,
-            'state_color': _STATE_COLOR,
-            'mrp_reasons': mrp_reasons,
-        })
+        return request.render('tiny_mrp.portal_workorder_detail', self._workorder_detail_values(workorder, user))
 
     @http.route('/my/workorders/<int:workorder_id>/action', auth='user', website=True, type='http', methods=['POST'])
     def portal_workorder_action(self, workorder_id, action=None, **kw):
@@ -157,7 +165,11 @@ class MrpPortal(CustomerPortal):
                     raise UserError(_('Lệnh công việc đang có phiên làm việc chưa kết thúc, hãy tạm dừng trước.'))
                 other_active = self._get_user_other_active_workorder(user, workorder.id)
                 if other_active:
-                    raise UserError(_('Bạn đang thực hiện công đoạn "%s". Hãy tạm dừng trước khi bắt đầu công đoạn mới.' % other_active.workorder_id.name))
+                    raise UserError(_('Bạn đang thực hiện công đoạn "%s". Hãy tạm dừng trước khi bắt đầu công đoạn mới.',
+                                      other_active.workorder_id.name))
+                flow_block_reason = workorder._get_flow_block_reason()
+                if flow_block_reason:
+                    raise UserError(flow_block_reason)
                 workorder.with_context(portal_user_id=user.id).button_start(bypass=True)
             elif action == 'pending':
                 reason_id = kw.get('reason_id', '').strip()
@@ -191,23 +203,8 @@ class MrpPortal(CustomerPortal):
             error = str(e)
 
         if error:
-            has_open_time = bool(workorder.time_ids.filtered(lambda t: not t.date_end))
-            other_active = self._get_user_other_active_workorder(user, workorder.id)
-            product = workorder.production_id.product_id
-            mrp_reasons = request.env['mrp.reason'].sudo().search([])
-            return request.render('tiny_mrp.portal_workorder_detail', {
-                'workorder': workorder,
-                'has_open_time': has_open_time,
-                'has_other_active': bool(other_active),
-                'other_active_name': other_active.workorder_id.name if other_active else '',
-                'product_image_src': self._get_product_image_src(product),
-                'fmt_dt': _make_fmt_dt(request.env),
-                'page_name': 'workorder',
-                'state_label': _STATE_LABEL,
-                'state_color': _STATE_COLOR,
-                'mrp_reasons': mrp_reasons,
-                'error': error,
-            })
+            return request.render('tiny_mrp.portal_workorder_detail',
+                                  self._workorder_detail_values(workorder, user, error=error))
 
         return request.redirect('/my/workorders/%d' % workorder_id)
 
@@ -270,8 +267,6 @@ class MrpPortal(CustomerPortal):
             elif action == 'confirm_pattern':
                 if not user.is_mrp_pattern:
                     raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
-                if production.state != 'confirmed':
-                    raise UserError(_('Lệnh sản xuất chưa được xác nhận, không thể xác nhận rập.'))
                 if production.state_pattern != 'draft':
                     raise UserError(_('Trạng thái rập đã được xác nhận.'))
                 production.action_confirm_pattern()
@@ -319,7 +314,8 @@ class MrpPortal(CustomerPortal):
             'production_state_label': _PRODUCTION_STATE_LABEL,
             'production_state_color': _PRODUCTION_STATE_COLOR,
             'user_is_mrp_stock': user.is_mrp_stock,
-            'user_can_edit_move': user.is_mrp_stock or user.is_mrp_pattern,
+            # Nhân viên rập chỉ nhập số lượng NVL khi kho chưa xác nhận
+            'user_can_edit_move': user.is_mrp_stock or (user.is_mrp_pattern and production.state_stock == 'draft'),
             **extra,
         }
 
@@ -362,6 +358,8 @@ class MrpPortal(CustomerPortal):
         try:
             if production.state not in ('draft', 'confirmed', 'progress'):
                 raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
+            if not user.is_mrp_stock and production.state_stock != 'draft':
+                raise UserError(_('Kho đã xác nhận, nhân viên rập không thể sửa số lượng NVL.'))
             qty = float(product_uom_qty or 0)
             if qty <= 0:
                 raise UserError(_('Số lượng phải lớn hơn 0.'))

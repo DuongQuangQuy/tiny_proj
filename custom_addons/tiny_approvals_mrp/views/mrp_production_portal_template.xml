@@ -153,10 +153,7 @@
         <!-- Cập nhật điều kiện "Không có thao tác" để tính thêm nút mới -->
         <xpath expr="//t[@t-if][p[@class='text-muted text-center mb-0 small']]" position="replace">
             <t t-if="not (
-                (user_is_mrp and production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel')) or
-                (user_is_mrp and not production.is_mrp_pattern and production.state == 'confirmed' and production.state_pattern == 'draft') or
-                (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'draft') or
-                (user_is_mrp and production.state == 'draft') or
+                can_done_pattern or can_confirm_pattern or can_confirm_stock or can_confirm or
                 (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock in ('confirmed', 'done'))
             )">
                 <p class="text-muted text-center mb-0 small">
