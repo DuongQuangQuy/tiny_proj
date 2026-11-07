@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='resource_calendar_id']" position="after" >
                 <field name="user_mrp_ids" widget="many2many_tags"/>
+                <field name="is_pattern"/>
             </xpath>
 
         </field>

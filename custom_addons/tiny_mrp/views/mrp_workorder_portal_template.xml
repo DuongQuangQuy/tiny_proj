@@ -47,6 +47,7 @@
                                     style="cursor: pointer;">
                                     <td class="fw-semibold">
                                         <t t-esc="wo.name"/>
+                                        <span t-if="wo.is_pattern" class="badge bg-warning text-dark ms-1">Rập</span>
                                         <t t-if="wo.id in active_wo_ids">
                                             <span class="badge bg-success ms-1">
                                                 <i class="fa fa-play me-1"/>Đang chạy
@@ -207,7 +208,14 @@
 
                             <!-- Start: hiện khi không có open time record (giống backend: not is_user_working) -->
                             <t t-if="can_act and not has_open_time">
-                                <t t-if="has_other_active">
+                                <t t-if="flow_block_reason">
+                                    <div class="alert alert-info p-2 mb-0 small">
+                                        <i class="fa fa-lock me-1"/>
+                                        <strong>Chưa thể bắt đầu.</strong><br/>
+                                        <t t-esc="flow_block_reason"/>
+                                    </div>
+                                </t>
+                                <t t-elif="has_other_active">
                                     <div class="alert alert-warning p-2 mb-0 small">
                                         <i class="fa fa-exclamation-triangle me-1"/>
                                         <strong>Không thể bắt đầu.</strong><br/>
