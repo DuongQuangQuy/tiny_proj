@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_estimate_list" model="ir.ui.view">
+        <field name="name">sale.estimate.list</field>
+        <field name="model">sale.estimate</field>
+        <field name="arch" type="xml">
+            <list string="Phiếu dự toán">
+                <field name="name"/>
+                <field name="date_estimate"/>
+                <field name="partner_id"/>
+                <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                <field name="sale_order_id" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="amount_cost" sum="Tổng giá vốn"/>
+                <field name="amount_total" sum="Tổng giá bán"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'ordered'"
+                       decoration-muted="state == 'cancel'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sale_estimate_search" model="ir.ui.view">
+        <field name="name">sale.estimate.search</field>
+        <field name="model">sale.estimate</field>
+        <field name="arch" type="xml">
+            <search string="Phiếu dự toán">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <filter name="my_estimates" string="Của tôi" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="draft" string="Nháp" domain="[('state', '=', 'draft')]"/>
+                <filter name="ordered" string="Đã tạo đơn hàng" domain="[('state', '=', 'ordered')]"/>
+                <group>
+                    <filter name="group_partner" string="Khách hàng" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_state" string="Trạng thái" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_sale_estimate_form" model="ir.ui.view">
+        <field name="name">sale.estimate.form</field>
+        <field name="model">sale.estimate</field>
+        <field name="arch" type="xml">
+            <form string="Phiếu dự toán">
+                <header>
+                    <button name="action_create_sale_order" type="object" string="Tạo đơn hàng"
+                            class="btn-primary" invisible="state != 'draft'"
+                            confirm="Tạo sản phẩm, BOM ở công ty sản xuất và đơn bán hàng từ phiếu này?"/>
+                    <button name="action_reset_draft" type="object" string="Đưa về nháp"
+                            invisible="state == 'draft' or (sale_order_id and sale_order_state != 'cancel')"/>
+                    <button name="action_cancel" type="object" string="Hủy"
+                            invisible="state == 'cancel' or (sale_order_id and sale_order_state != 'cancel')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ordered"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_sale_order" type="object" class="oe_stat_button"
+                                icon="fa-dollar" string="Đơn hàng" invisible="not sale_order_id"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="state != 'draft'"/>
+                            <field name="user_id" readonly="state != 'draft'"/>
+                            <field name="sale_order_id" invisible="not sale_order_id"/>
+                        </group>
+                        <group>
+                            <field name="date_estimate" readonly="state != 'draft'"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="sale_order_state" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Sản phẩm yêu cầu" name="lines">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="product_size" optional="show"/>
+                                    <field name="code_fabric" optional="show"/>
+                                    <field name="product_qty"/>
+                                    <field name="uom_id"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <field name="cost_unit"/>
+                                    <field name="markup_factor" optional="show"/>
+                                    <field name="price_unit"/>
+                                    <field name="subtotal_price" sum="Tổng giá bán"/>
+                                    <field name="product_id" optional="hide"/>
+                                    <field name="bom_id" optional="hide"/>
+                                </list>
+                                <form string="Sản phẩm yêu cầu">
+                                    <sheet>
+                                        <field name="image_1920" widget="image" class="oe_avatar"/>
+                                        <div class="oe_title">
+                                            <label for="name"/>
+                                            <h2><field name="name" placeholder="Tên sản phẩm theo yêu cầu"/></h2>
+                                        </div>
+                                        <group>
+                                            <group string="Yêu cầu của khách">
+                                                <field name="categ_id"/>
+                                                <field name="product_qty"/>
+                                                <field name="uom_id"/>
+                                                <field name="product_size"/>
+                                                <field name="code_fabric"/>
+                                                <field name="note"/>
+                                                <field name="product_pattern_id"/>
+                                                <field name="note_pattern"/>
+                                            </group>
+                                            <group string="Giá dự toán">
+                                                <field name="currency_id" invisible="1"/>
+                                                <field name="material_cost"/>
+                                                <field name="operation_cost"/>
+                                                <field name="extra_cost"/>
+                                                <field name="cost_unit"/>
+                                                <field name="markup_factor"/>
+                                                <field name="price_unit"/>
+                                                <field name="subtotal_price"/>
+                                            </group>
+                                        </group>
+                                        <group string="Đã tạo" invisible="not product_id">
+                                            <field name="product_id"/>
+                                            <field name="bom_id"/>
+                                        </group>
+                                        <notebook>
+                                            <page string="Nguyên vật liệu" name="components">
+                                        <field name="bom_line_ids">
+                                            <list editable="bottom">
+                                                <field name="sequence" widget="handle"/>
+                                                <field name="product_id"/>
+                                                <field name="product_qty"/>
+                                                <field name="product_uom_id"/>
+                                                <field name="currency_id" column_invisible="1"/>
+                                                <field name="cost_unit"/>
+                                                <field name="subtotal" sum="Chi phí NVL"/>
+                                            </list>
+                                        </field>
+                                            </page>
+                                            <page string="Hoạt động" name="operations">
+                                                <div invisible="operation_ids.length != 0">
+                                                    <div class="o_mrp_routing_image bill_of_material position-relative">
+                                                        <img class="position-absolute" src="/mrp/static/img/routing_shopfloor.png" alt="Xưởng sản xuất"/>
+                                                        <div class="separator position-relative"/>
+                                                        <span class="o_annotation o_annotation_1 o_annotation_end position-absolute">Đồng hồ tính giờ</span>
+                                                        <span class="o_annotation o_annotation_2 o_annotation_end position-absolute">Kiểm soát chất lượng</span>
+                                                        <span class="o_annotation o_annotation_3 o_annotation_start position-absolute">Vòng phản hồi</span>
+                                                        <span class="o_annotation o_annotation_4 o_annotation_start position-absolute">Ghi nhận nguyên vật liệu</span>
+                                                        <span class="o_annotation o_annotation_5 o_annotation_start position-absolute">Chọn người vận hành</span>
+                                                        <div class="o_text position-absolute">
+                                                            <p>Chưa có hoạt động nào!</p>
+                                                            <p>Thêm các hoạt động để tính chi phí sản xuất vào giá vốn dự toán.</p>
+                                                            <p>BOM tạo từ phiếu sẽ dùng các hoạt động này.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <field name="operation_ids">
+                                                    <list>
+                                                        <control>
+                                                            <create string="Thêm hoạt động"/>
+                                                        </control>
+                                                        <field name="sequence" widget="handle"/>
+                                                        <field name="name"/>
+                                                        <field name="workcenter_id"/>
+                                                        <field name="time_cycle_manual" widget="float_time"/>
+                                                        <field name="currency_id" column_invisible="1"/>
+                                                        <field name="costs_hour"/>
+                                                        <field name="subtotal" sum="Chi phí hoạt động"/>
+                                                    </list>
+                                                    <form string="Hoạt động" class="o_mrp_routing_form">
+                                                        <sheet>
+                                                            <div class="d-flex">
+                                                                <h1 class="d-flex w-100">
+                                                                    <field name="name" options="{'line_breaks': False}" widget="text"
+                                                                           class="o_task_name text-truncate w-md-75 w-100 pe-2" placeholder="Hoạt động..."/>
+                                                                </h1>
+                                                            </div>
+                                                            <group>
+                                                                <group name="description">
+                                                                    <field name="workcenter_id" context="{'sale_estimate_workcenter': True}"
+                                                                           options="{'no_create': True, 'no_open': True}"/>
+                                                                    <field name="cost_mode" widget="radio" options="{'horizontal': true}"/>
+                                                                    <field name="currency_id" invisible="1"/>
+                                                                    <field name="costs_hour"/>
+                                                                    <field name="employee_costs_hour"/>
+                                                                    <field name="subtotal"/>
+                                                                </group>
+                                                                <group name="workorder">
+                                                                    <field name="time_mode" widget="radio" options="{'horizontal': true}"/>
+                                                                    <label for="time_cycle_manual" string="Thời lượng mặc định"/>
+                                                                    <div>
+                                                                        <field name="time_cycle_manual" widget="float_time" class="oe_inline"/>
+                                                                        <span> phút</span>
+                                                                        <span invisible="time_mode == 'manual'"> / </span>
+                                                                        <field name="time_mode_batch" class="oe_inline o_small_integer" invisible="time_mode == 'manual'"/>
+                                                                        <span invisible="time_mode == 'manual'"> lệnh gần nhất</span>
+                                                                    </div>
+                                                                    <field name="employee_ratio"/>
+                                                                    <field name="company_id" groups="base.group_multi_company"/>
+                                                                </group>
+                                                            </group>
+                                                            <notebook>
+                                                                <page string="Hướng dẫn" name="checks">
+                                                                    <field name="instruction_ids">
+                                                                        <list>
+                                                                            <field name="sequence" widget="handle"/>
+                                                                            <field name="title"/>
+                                                                            <field name="test_type"/>
+                                                                        </list>
+                                                                        <form string="Hướng dẫn">
+                                                                            <sheet>
+                                                                                <group>
+                                                                                    <field name="title"/>
+                                                                                    <field name="test_type"/>
+                                                                                </group>
+                                                                                <field name="note" placeholder="Nội dung hướng dẫn..."/>
+                                                                            </sheet>
+                                                                        </form>
+                                                                    </field>
+                                                                </page>
+                                                            </notebook>
+                                                        </sheet>
+                                                    </form>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="amount_cost"/>
+                                <field name="amount_total"/>
+                                <field name="amount_margin"/>
+                            </group>
+                        </page>
+                        <page string="Ghi chú" name="note">
+                            <field name="note" readonly="state != 'draft'"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_estimate" model="ir.actions.act_window">
+        <field name="name">Phiếu dự toán</field>
+        <field name="res_model">sale.estimate</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Tạo phiếu dự toán đầu tiên</p>
+            <p>Lập định mức NVL để tính giá cho sản phẩm làm theo yêu cầu khách hàng.</p>
+        </field>
+    </record>
+</odoo>

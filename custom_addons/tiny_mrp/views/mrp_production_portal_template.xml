@@ -188,8 +188,8 @@
                         </div>
                         <div class="card-body">
                             <t t-set="can_done_pattern" t-value="user_is_mrp and production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel')"/>
-                            <t t-set="can_confirm_pattern" t-value="user_is_mrp and not production.is_mrp_pattern and production.state in ('confirmed', 'progress') and production.state_pattern == 'draft' and production.pattern_workorders_done"/>
-                            <t t-set="can_confirm_stock" t-value="user_is_mrp_stock and not production.is_mrp_pattern and production.state_pattern == 'confirmed' and production.state_stock == 'draft'"/>
+                            <t t-set="can_confirm_pattern" t-value="user_is_mrp and not production.is_mrp_pattern and production.state in ('confirmed', 'progress') and production.state_pattern == 'draft' and production.need_pattern_confirm and production.pattern_workorders_done"/>
+                            <t t-set="can_confirm_stock" t-value="user_is_mrp_stock and not production.is_mrp_pattern and production.state not in ('draft', 'done', 'cancel') and (production.state_pattern == 'confirmed' or not production.need_pattern_confirm) and production.state_stock == 'draft'"/>
                             <t t-set="can_confirm" t-value="user_is_mrp and production.state == 'draft'"/>
 
                             <!-- Tiến trình: Rập -> Xác nhận NVL rập -> Kho xác nhận -> các công đoạn sau -->
@@ -198,7 +198,7 @@
                                     <i t-att-class="'fa me-1 ' + ('fa-check-circle text-success' if production.pattern_workorders_done else 'fa-circle-o text-muted')"/>
                                     Công đoạn rập
                                 </li>
-                                <li>
+                                <li t-if="production.need_pattern_confirm">
                                     <i t-att-class="'fa me-1 ' + ('fa-check-circle text-success' if production.state_pattern == 'confirmed' else 'fa-circle-o text-muted')"/>
                                     Xác nhận NVL rập
                                 </li>

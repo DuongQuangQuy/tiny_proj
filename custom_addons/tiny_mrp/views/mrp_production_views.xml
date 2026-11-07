@@ -7,8 +7,9 @@
         <field name="arch" type="xml">
             <xpath expr="header" position="inside">
                 <field name="pattern_workorders_done" invisible="1"/>
-                <button name="action_confirm_pattern" string="Xác nhận rập (NVL)" type="object" invisible="state_pattern != 'draft' or state not in ('confirmed', 'progress') or is_mrp_pattern or not pattern_workorders_done"/>
-                <button name="action_confirm_stock" string="Xác nhận kho" type="object" invisible="state_stock != 'draft' or state_pattern != 'confirmed' or state not in ('confirmed', 'progress') or is_mrp_pattern"/>
+                <field name="need_pattern_confirm" invisible="1"/>
+                <button name="action_confirm_pattern" string="Xác nhận rập (NVL)" type="object" invisible="state_pattern != 'draft' or state not in ('confirmed', 'progress') or is_mrp_pattern or not need_pattern_confirm or not pattern_workorders_done"/>
+                <button name="action_confirm_stock" string="Xác nhận kho" type="object" invisible="state_stock != 'draft' or (need_pattern_confirm and state_pattern != 'confirmed') or state not in ('confirmed', 'progress') or is_mrp_pattern"/>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="after" >
                 <field name="user_mrp_stock_ids" widget="many2many_tags"/>

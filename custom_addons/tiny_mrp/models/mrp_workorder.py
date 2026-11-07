@@ -35,7 +35,7 @@ class MrpWorkorder(models.Model):
             return False
         if not production.pattern_workorders_done:
             return _('Công đoạn rập chưa hoàn thành.')
-        if production.state_pattern != 'confirmed':
+        if production.need_pattern_confirm and production.state_pattern != 'confirmed':
             return _('Chưa xác nhận số lượng NVL sau rập.')
         if production.state_stock != 'confirmed':
             return _('Kho chưa xác nhận.')

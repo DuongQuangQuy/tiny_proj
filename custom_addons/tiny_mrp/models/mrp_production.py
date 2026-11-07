@@ -41,6 +41,7 @@ class MrpProduction(models.Model):
     ], string='Trạng thái MRP rập', default='draft')
     has_pattern_workorder = fields.Boolean(string='Có công đoạn rập', compute='_compute_pattern_workorders')
     pattern_workorders_done = fields.Boolean(string='Rập đã xong', compute='_compute_pattern_workorders')
+    need_pattern_confirm = fields.Boolean(string='Cần xác nhận rập', compute='_compute_pattern_workorders')
 
     @api.depends('workorder_ids.is_pattern', 'workorder_ids.state')
     def _compute_pattern_workorders(self):
@@ -48,6 +49,7 @@ class MrpProduction(models.Model):
             pattern_wos = production.workorder_ids.filtered('is_pattern')
             production.has_pattern_workorder = bool(pattern_wos)
             production.pattern_workorders_done = all(wo.state in ('done', 'cancel') for wo in pattern_wos)
+            production.need_pattern_confirm = bool(pattern_wos) or bool(production._get_children())
 
     def action_confirm_pattern(self):
         """Nhân viên rập xác nhận đã nhập xong số lượng NVL sau khi công đoạn rập hoàn thành."""
@@ -60,7 +62,10 @@ class MrpProduction(models.Model):
 
     def action_confirm_stock(self):
         for production in self:
-            if production.state_pattern != 'confirmed':
+            if production.state == 'draft':
+                raise UserError(_('Lệnh sản xuất chưa được xác nhận, không thể xác nhận kho.'))
+            # Lệnh không có công đoạn rập (hay lệnh rập con kiểu cũ) thì không có bước xác nhận rập
+            if production.need_pattern_confirm and production.state_pattern != 'confirmed':
                 raise UserError(_('Chỉ có thể xác nhận kho khi rập và số lượng NVL đã được xác nhận.'))
             production.state_stock = 'confirmed'
 
