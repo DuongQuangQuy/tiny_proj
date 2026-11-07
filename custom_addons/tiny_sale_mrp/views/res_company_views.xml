@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_inherit_tiny_sale_mrp" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.tiny.sale.mrp</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="tiny_contacts.res_company_view_inherit_tiny_contacts"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_service']" position="after">
+                <field name="estimate_route_ids" widget="many2many_tags" invisible="not is_service"/>
+                <field name="estimate_categ_id" invisible="not is_service"/>
+                <field name="estimate_markup_factor" invisible="not is_service"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
