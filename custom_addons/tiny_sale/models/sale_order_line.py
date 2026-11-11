@@ -18,7 +18,8 @@ class SaleOrderLine(models.Model):
     product_pattern_id = fields.Many2one('product.product', string='Mã họa tiết')
     product_pattern_image = fields.Binary(string='Ảnh họa tiết')
     note_pattern = fields.Text(string='Ghi chú họa tiết')
-    code_fabric = fields.Char(string='Mã vải')
+    code_fabric = fields.Char(
+        string='Mã vải', compute='_compute_code_fabric', store=True, readonly=False, precompute=True)
 
     @api.onchange('product_pattern_id')
     def onchange_sale_product_pattern_image(self):
@@ -28,11 +29,11 @@ class SaleOrderLine(models.Model):
             else:
                 line.product_pattern_image = False
 
-    @api.onchange('product_id')
-    def _onchange_product(self):
+    @api.depends('product_id')
+    def _compute_code_fabric(self):
+        # code_fabric khai báo riêng trên cả product.product và product.template:
+        # ưu tiên biến thể, nếu trống thì lấy từ template (nơi người dùng nhập trên form sản phẩm)
         for rec in self:
-            if rec.product_id:
-                rec.code_fabric = rec.product_id.code_fabric
-            else:
-                rec.code_fabric = ''
+            product = rec.product_id
+            rec.code_fabric = (product.code_fabric or product.product_tmpl_id.code_fabric) if product else False
 
