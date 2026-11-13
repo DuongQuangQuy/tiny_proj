@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_workorder_review_user,mrp.workorder.review user,model_mrp_workorder_review,base.group_user,1,1,1,0
+access_mrp_workorder_review_manager,mrp.workorder.review manager,model_mrp_workorder_review,mrp.group_mrp_manager,1,1,1,1
+access_mrp_workorder_return_user,mrp.workorder.return user,model_mrp_workorder_return,base.group_user,1,1,1,0
+access_mrp_workorder_return_manager,mrp.workorder.return manager,model_mrp_workorder_return,mrp.group_mrp_manager,1,1,1,1
+access_mrp_workorder_return_wizard_user,mrp.workorder.return.wizard user,model_mrp_workorder_return_wizard,base.group_user,1,1,1,0
+access_mrp_workorder_return_wizard_manager,mrp.workorder.return.wizard manager,model_mrp_workorder_return_wizard,mrp.group_mrp_manager,1,1,1,1

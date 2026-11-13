@@ -6,4 +6,10 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">60</field>
         </record>
+    <record id="website_menu_mrp_reviews" model="website.menu">
+        <field name="name">Duyệt công đoạn</field>
+        <field name="url">/my/reviews</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">65</field>
+    </record>
 </odoo>

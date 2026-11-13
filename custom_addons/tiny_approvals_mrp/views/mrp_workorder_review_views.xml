@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== YÊU CẦU DUYỆT ===================== -->
+    <record id="mrp_workorder_review_list" model="ir.ui.view">
+        <field name="name">mrp.workorder.review.list</field>
+        <field name="model">mrp.workorder.review</field>
+        <field name="arch" type="xml">
+            <list create="0">
+                <field name="production_id"/>
+                <field name="workorder_id"/>
+                <field name="workcenter_id" optional="show"/>
+                <field name="round_no"/>
+                <field name="mode"/>
+                <field name="reviewer_id"/>
+                <field name="date_request"/>
+                <field name="date_done" optional="show"/>
+                <field name="review_duration" widget="float_time" sum="Giờ duyệt"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'passed'" decoration-danger="state == 'failed'"
+                       decoration-warning="state in ('waiting', 'paused')" decoration-info="state == 'reviewing'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="mrp_workorder_review_form" model="ir.ui.view">
+        <field name="name">mrp.workorder.review.form</field>
+        <field name="model">mrp.workorder.review</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <header>
+                    <button name="action_start_review" type="object" string="Nhận duyệt" class="oe_highlight"
+                            invisible="state != 'waiting'"/>
+                    <button name="action_start_review" type="object" string="Tiếp tục" class="oe_highlight"
+                            invisible="state != 'paused'"/>
+                    <button name="action_pause_review" type="object" string="Tạm dừng" invisible="state != 'reviewing'"/>
+                    <button name="action_pass" type="object" string="Đạt" class="btn-success"
+                            invisible="state != 'reviewing'"/>
+                    <button name="action_fail" type="object" string="Chưa đạt" class="btn-danger"
+                            invisible="state != 'reviewing'"
+                            confirm="Mở lượt chỉnh trên công đoạn phải chỉnh theo lỗi và người phụ trách đã chọn?"/>
+                    <button name="action_open_return_wizard" type="object" string="Trả lại công đoạn"
+                            invisible="state != 'failed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="waiting,reviewing,passed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="production_id"/>
+                            <field name="workorder_id" readonly="1"/>
+                            <field name="workcenter_id"/>
+                            <field name="product_id"/>
+                            <field name="worker_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="round_no" readonly="1"/>
+                            <field name="mode" readonly="1"/>
+                            <field name="user_review_ids" widget="many2many_tags"/>
+                            <field name="reviewer_id" readonly="1"/>
+                            <field name="date_request"/>
+                            <field name="date_start"/>
+                            <field name="date_done"/>
+                            <field name="review_duration" widget="float_time"/>
+                        </group>
+                    </group>
+                    <group string="Chưa đạt" invisible="state not in ('reviewing', 'failed')">
+                        <field name="defect_reason_ids" widget="many2many_tags" readonly="state != 'reviewing'"
+                               options="{'no_create': True}"/>
+                        <field name="note" readonly="state != 'reviewing'"/>
+                        <field name="return_workorder_id" readonly="state != 'reviewing'"
+                               options="{'no_create': True}"/>
+                        <field name="assign_user_ids" widget="many2many_tags" readonly="state != 'reviewing'"
+                               options="{'no_create': True}"/>
+                        <field name="return_id" invisible="not return_id"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_workorder_review_search" model="ir.ui.view">
+        <field name="name">mrp.workorder.review.search</field>
+        <field name="model">mrp.workorder.review</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="production_id"/>
+                <field name="workorder_id"/>
+                <field name="workcenter_id"/>
+                <field name="reviewer_id"/>
+                <filter name="to_review" string="Chờ duyệt"
+                        domain="[('state', 'in', ('waiting', 'reviewing', 'paused'))]"/>
+                <filter name="my_review" string="Của tôi" domain="[('user_review_ids', 'in', uid)]"/>
+                <separator/>
+                <filter name="passed" string="Đạt" domain="[('state', '=', 'passed')]"/>
+                <filter name="failed" string="Chưa đạt" domain="[('state', '=', 'failed')]"/>
+                <separator/>
+                <filter name="group_state" string="Trạng thái" context="{'group_by': 'state'}"/>
+                <filter name="group_workcenter" string="Khu vực" context="{'group_by': 'workcenter_id'}"/>
+                <filter name="group_production" string="Lệnh sản xuất" context="{'group_by': 'production_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mrp_workorder_review" model="ir.actions.act_window">
+        <field name="name">Duyệt công đoạn</field>
+        <field name="res_model">mrp.workorder.review</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_to_review': 1, 'search_default_my_review': 1}</field>
+    </record>
+
+    <!-- ===================== LỊCH SỬ TRẢ LẠI ===================== -->
+    <record id="mrp_workorder_return_list" model="ir.ui.view">
+        <field name="name">mrp.workorder.return.list</field>
+        <field name="model">mrp.workorder.return</field>
+        <field name="arch" type="xml">
+            <list create="0">
+                <field name="production_id"/>
+                <field name="from_workorder_id"/>
+                <field name="workorder_id"/>
+                <field name="reason_ids" widget="many2many_tags"/>
+                <field name="user_id"/>
+                <field name="assign_user_ids" widget="many2many_tags" optional="show"/>
+                <field name="date"/>
+                <field name="date_resolved"/>
+                <field name="rework_duration" widget="float_time" sum="Giờ sửa"/>
+                <field name="state" widget="badge" decoration-warning="state == 'open'"
+                       decoration-success="state == 'done'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="mrp_workorder_return_form" model="ir.ui.view">
+        <field name="name">mrp.workorder.return.form</field>
+        <field name="model">mrp.workorder.return</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="production_id"/>
+                            <field name="from_workorder_id"/>
+                            <field name="workorder_id"/>
+                            <field name="review_id"/>
+                            <field name="reason_ids" widget="many2many_tags"/>
+                            <field name="note"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="assign_user_ids" widget="many2many_tags"/>
+                            <field name="date"/>
+                            <field name="date_resolved"/>
+                            <field name="rework_duration" widget="float_time"/>
+                        </group>
+                    </group>
+                    <field name="time_ids">
+                        <list>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="user_id"/>
+                            <field name="duration" widget="float_time" sum="Tổng"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_workorder_return_search" model="ir.ui.view">
+        <field name="name">mrp.workorder.return.search</field>
+        <field name="model">mrp.workorder.return</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="production_id"/>
+                <field name="workorder_id"/>
+                <field name="from_workorder_id"/>
+                <filter name="open" string="Đang chỉnh" domain="[('state', '=', 'open')]"/>
+                <filter name="done" string="Đã chỉnh xong" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="group_workcenter" string="Khu vực" context="{'group_by': 'workcenter_id'}"/>
+                <filter name="group_production" string="Lệnh sản xuất" context="{'group_by': 'production_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mrp_workorder_return" model="ir.actions.act_window">
+        <field name="name">Lịch sử trả lại</field>
+        <field name="res_model">mrp.workorder.return</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===================== WIZARD TRẢ LẠI ===================== -->
+    <record id="mrp_workorder_return_wizard_form" model="ir.ui.view">
+        <field name="name">mrp.workorder.return.wizard.form</field>
+        <field name="model">mrp.workorder.return.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="workorder_id"/>
+                    <field name="review_id" invisible="not review_id"/>
+                    <field name="allowed_workorder_ids" invisible="1"/>
+                    <field name="target_workorder_id" options="{'no_create': True}"/>
+                    <field name="reason_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    <field name="note"/>
+                    <field name="assign_user_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Trả lại" class="btn-primary"/>
+                    <button special="cancel" string="Hủy"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- ===================== MENU ===================== -->
+    <menuitem id="menu_mrp_workorder_review" name="Duyệt công đoạn" parent="mrp.menu_mrp_manufacturing"
+              action="action_mrp_workorder_review" sequence="25"/>
+    <menuitem id="menu_mrp_workorder_return" name="Lịch sử trả lại" parent="mrp.menu_mrp_manufacturing"
+              action="action_mrp_workorder_return" sequence="26"/>
+    <menuitem id="menu_mrp_productivity_work_type" name="Thời gian làm mới / sửa" parent="mrp.menu_mrp_reporting"
+              action="action_mrp_productivity_work_type" sequence="30"/>
+
+</odoo>

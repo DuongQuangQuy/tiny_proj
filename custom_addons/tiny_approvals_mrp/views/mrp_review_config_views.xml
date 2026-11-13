@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== KHU VỰC SẢN XUẤT ===================== -->
+    <record id="view_mrp_workcenter_form_review" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form.review</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_pattern']" position="after">
+                <field name="review_policy"/>
+                <field name="default_review_mode" invisible="review_policy != 'optional'"/>
+                <field name="user_review_ids" widget="many2many_tags" invisible="review_policy == 'none'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ===================== CÔNG ĐOẠN BOM ===================== -->
+    <record id="view_mrp_routing_workcenter_form_review" model="ir.ui.view">
+        <field name="name">mrp.routing.workcenter.form.review</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_pattern']" position="after">
+                <field name="review_policy"/>
+                <field name="default_review_mode" invisible="review_policy != 'optional'"/>
+                <field name="user_review_ids" widget="many2many_tags" invisible="review_policy == 'none'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mrp_routing_workcenter_list_review" model="ir.ui.view">
+        <field name="name">mrp.routing.workcenter.list.review</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_pattern']" position="after">
+                <field name="review_policy" optional="show"/>
+                <field name="default_review_mode" optional="hide" invisible="review_policy != 'optional'"/>
+                <field name="user_review_ids" widget="many2many_tags" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ===================== LÝ DO ===================== -->
+    <record id="mrp_reason_form_review" model="ir.ui.view">
+        <field name="name">mrp.reason.form.review</field>
+        <field name="model">mrp.reason</field>
+        <field name="inherit_id" ref="tiny_mrp.mrp_reason_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="reason_type"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="mrp_reason_list_review" model="ir.ui.view">
+        <field name="name">mrp.reason.list.review</field>
+        <field name="model">mrp.reason</field>
+        <field name="inherit_id" ref="tiny_mrp.mrp_reason_list"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="reason_type"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="mrp_reason_search_review" model="ir.ui.view">
+        <field name="name">mrp.reason.search.review</field>
+        <field name="model">mrp.reason</field>
+        <field name="inherit_id" ref="tiny_mrp.mrp_reason_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="reason_type"/>
+                <filter name="type_pause" string="Tạm dừng" domain="[('reason_type', '=', 'pause')]"/>
+                <filter name="type_defect" string="Lỗi" domain="[('reason_type', '=', 'defect')]"/>
+                <filter name="type_return" string="Trả lại" domain="[('reason_type', '=', 'return')]"/>
+                <filter name="group_type" string="Loại" context="{'group_by': 'reason_type'}"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- ===================== CÔNG ĐOẠN (WORK ORDER) ===================== -->
+    <record id="view_mrp_workorder_list_mo_review" model="ir.ui.view">
+        <field name="name">mrp.workorder.list.mo.review</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view_mo_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/field[@name='state']" position="before">
+                <field name="review_policy" column_invisible="True"/>
+                <field name="can_edit_review_mode" column_invisible="True"/>
+                <field name="review_mode" optional="show" readonly="not can_edit_review_mode"/>
+                <field name="review_state" widget="badge" optional="show"
+                       decoration-success="review_state == 'passed'"
+                       decoration-danger="review_state == 'failed'"
+                       decoration-warning="review_state in ('waiting', 'paused')"
+                       decoration-info="review_state == 'reviewing'"
+                       invisible="review_state == 'no'"/>
+                <field name="duration_new" widget="float_time" optional="show" sum="Giờ làm mới"/>
+                <field name="duration_rework" widget="float_time" optional="show" sum="Giờ sửa"/>
+                <field name="rework_count" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mrp_workorder_form_review" model="ir.ui.view">
+        <field name="name">mrp.workorder.form.review</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_open_return_wizard" type="object" string="Trả lại công đoạn"
+                        invisible="production_state in ('draft', 'done', 'cancel') or state == 'cancel'"
+                        groups="base.group_user"/>
+            </xpath>
+            <xpath expr="//page[@name='reason']" position="after">
+                <page name="review" string="Duyệt &amp; chỉnh">
+                    <group>
+                        <group string="Điểm duyệt">
+                            <field name="review_policy"/>
+                            <field name="can_edit_review_mode" invisible="1"/>
+                            <field name="review_mode" readonly="not can_edit_review_mode"/>
+                            <field name="review_mode_user_id"/>
+                            <field name="review_mode_date"/>
+                            <field name="user_review_ids" widget="many2many_tags"/>
+                            <field name="review_state"/>
+                        </group>
+                        <group string="Thời gian">
+                            <field name="rework_return_id"/>
+                            <field name="rework_count"/>
+                            <field name="duration_new" widget="float_time"/>
+                            <field name="duration_rework" widget="float_time"/>
+                        </group>
+                    </group>
+                    <field name="review_ids" readonly="1">
+                        <list>
+                            <field name="round_no"/>
+                            <field name="mode"/>
+                            <field name="state" widget="badge"/>
+                            <field name="reviewer_id"/>
+                            <field name="date_request"/>
+                            <field name="date_done"/>
+                            <field name="review_duration" widget="float_time"/>
+                            <field name="defect_reason_ids" widget="many2many_tags"/>
+                        </list>
+                    </field>
+                    <field name="return_ids" readonly="1">
+                        <list>
+                            <field name="from_workorder_id"/>
+                            <field name="reason_ids" widget="many2many_tags"/>
+                            <field name="user_id"/>
+                            <field name="date"/>
+                            <field name="date_resolved"/>
+                            <field name="state" widget="badge"/>
+                            <field name="rework_duration" widget="float_time"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ===================== LỆNH SẢN XUẤT ===================== -->
+    <record id="view_mrp_production_form_review" model="ir.ui.view">
+        <field name="name">mrp.production.form.review</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='operations']" position="after">
+                <page name="review_rework" string="Duyệt &amp; chỉnh" invisible="not workorder_ids">
+                    <group>
+                        <group>
+                            <field name="duration_new" widget="float_time"/>
+                            <field name="duration_rework" widget="float_time"/>
+                            <field name="review_duration_total" widget="float_time"/>
+                        </group>
+                        <group>
+                            <field name="rework_count"/>
+                            <field name="open_review_count"/>
+                            <field name="rework_open_count"/>
+                        </group>
+                    </group>
+                    <separator string="Lượt duyệt"/>
+                    <field name="review_ids" readonly="1">
+                        <list>
+                            <field name="workorder_id"/>
+                            <field name="round_no"/>
+                            <field name="mode"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'passed'" decoration-danger="state == 'failed'"
+                                   decoration-warning="state in ('waiting', 'paused')" decoration-info="state == 'reviewing'"/>
+                            <field name="reviewer_id"/>
+                            <field name="date_request"/>
+                            <field name="date_done"/>
+                            <field name="review_duration" widget="float_time"/>
+                            <field name="defect_reason_ids" widget="many2many_tags"/>
+                        </list>
+                    </field>
+                    <separator string="Lượt trả lại / chỉnh"/>
+                    <field name="return_ids" readonly="1">
+                        <list>
+                            <field name="from_workorder_id"/>
+                            <field name="workorder_id"/>
+                            <field name="reason_ids" widget="many2many_tags"/>
+                            <field name="note"/>
+                            <field name="user_id"/>
+                            <field name="date"/>
+                            <field name="date_resolved"/>
+                            <field name="state" widget="badge"/>
+                            <field name="rework_duration" widget="float_time"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ===================== PHIÊN GIỜ ===================== -->
+    <record id="oee_tree_view_review" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.list.review</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="inherit_id" ref="mrp.oee_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="loss_id" position="after">
+                <field name="work_type" optional="show"/>
+                <field name="return_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="oee_form_view_review" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.form.review</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="inherit_id" ref="mrp.oee_form_view"/>
+        <field name="arch" type="xml">
+            <field name="loss_id" position="after">
+                <field name="work_type"/>
+                <field name="return_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="oee_search_view_review" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.search.review</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="inherit_id" ref="mrp.oee_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="productive" position="after">
+                <separator/>
+                <filter name="work_new" string="Làm mới" domain="[('work_type', '=', 'new')]"/>
+                <filter name="work_rework" string="Sửa" domain="[('work_type', '=', 'rework')]"/>
+            </filter>
+            <filter name="loss_group" position="after">
+                <filter name="work_type_group" string="Loại giờ" context="{'group_by': 'work_type'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="oee_graph_view_review" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.graph.review</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="inherit_id" ref="mrp.oee_graph_view"/>
+        <field name="arch" type="xml">
+            <field name="loss_id" position="after">
+                <field name="work_type"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="oee_pivot_view_work_type" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.pivot.work.type</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="arch" type="xml">
+            <pivot string="Thời gian làm mới / sửa" sample="1">
+                <field name="workcenter_id" type="row"/>
+                <field name="work_type" type="col"/>
+                <field name="duration" type="measure" string="Thời lượng (phút)"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_mrp_productivity_work_type" model="ir.actions.act_window">
+        <field name="name">Thời gian làm mới / sửa</field>
+        <field name="res_model">mrp.workcenter.productivity</field>
+        <field name="view_mode">pivot,graph,list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('oee_pivot_view_work_type')})]"/>
+        <field name="context">{'create': False}</field>
+    </record>
+
+</odoo>

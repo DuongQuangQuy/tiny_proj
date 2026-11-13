@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mrp_reason_wait_previous_rework" model="mrp.reason">
+            <field name="name">Chờ công đoạn trước chỉnh</field>
+            <field name="reason_type">pause</field>
+        </record>
+        <record id="mrp_reason_wait_painting" model="mrp.reason">
+            <field name="name">Chờ Vẽ</field>
+            <field name="reason_type">pause</field>
+        </record>
+        <record id="mrp_reason_defect_pattern" model="mrp.reason">
+            <field name="name">Sai họa tiết</field>
+            <field name="reason_type">defect</field>
+        </record>
+        <record id="mrp_reason_defect_seam" model="mrp.reason">
+            <field name="name">Lỗi đường may</field>
+            <field name="reason_type">defect</field>
+        </record>
+        <record id="mrp_reason_defect_size" model="mrp.reason">
+            <field name="name">Sai kích thước</field>
+            <field name="reason_type">defect</field>
+        </record>
+    </data>
+</odoo>

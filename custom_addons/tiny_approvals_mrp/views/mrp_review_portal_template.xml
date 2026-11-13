@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== PORTAL HOME ENTRY ===================== -->
+    <template id="portal_my_home_reviews" inherit_id="portal.portal_my_home"
+              customize_show="True" name="Duyệt công đoạn">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Duyệt công đoạn</t>
+                <t t-set="url" t-value="'/my/reviews'"/>
+                <t t-set="count" t-value="review_count"/>
+                <t t-set="placeholder_count">yêu cầu</t>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- ===================== LỆNH CÔNG VIỆC: BADGE ĐANG SỬA / BỊ CHẶN ===================== -->
+    <template id="portal_my_workorders_review" inherit_id="tiny_mrp.portal_my_workorders"
+              name="Lệnh công việc: duyệt và chỉnh">
+        <xpath expr="//span[@t-if='wo.is_pattern']" position="after">
+            <span t-if="wo.rework_return_id" class="badge bg-danger ms-1">
+                <i class="fa fa-wrench me-1"/>Đang sửa (lượt <t t-esc="wo.rework_count"/>)
+            </span>
+            <t t-set="wo_block" t-value="flow_block_reasons and flow_block_reasons.get(wo.id)"/>
+            <span t-if="wo_block" class="badge bg-light text-dark border ms-1 text-wrap text-start">
+                <i class="fa fa-lock me-1"/><t t-esc="wo_block"/>
+            </span>
+        </xpath>
+    </template>
+
+    <!-- ===================== CHI TIẾT LỆNH CÔNG VIỆC ===================== -->
+    <template id="portal_workorder_detail_review" inherit_id="tiny_mrp.portal_workorder_detail"
+              name="Chi tiết lệnh công việc: duyệt và chỉnh">
+        <xpath expr="//div[hasclass('o_portal_workorder_detail')]/div[hasclass('row')]" position="before">
+            <div t-if="rework" class="alert alert-danger mb-3">
+                <h6 class="alert-heading mb-2">
+                    <i class="fa fa-wrench me-1"/>Đang sửa (lượt <t t-esc="workorder.rework_count"/>)
+                </h6>
+                <dl class="row mb-0 small">
+                    <dt class="col-sm-3">Từ công đoạn</dt>
+                    <dd class="col-sm-9"><t t-esc="rework.from_workorder_id.name or '—'"/></dd>
+                    <dt class="col-sm-3">Lý do</dt>
+                    <dd class="col-sm-9"><t t-esc="', '.join(rework.reason_ids.mapped('name')) or '—'"/></dd>
+                    <dt class="col-sm-3">Ghi chú</dt>
+                    <dd class="col-sm-9"><t t-esc="rework.note or '—'"/></dd>
+                    <dt class="col-sm-3">Người trả</dt>
+                    <dd class="col-sm-9"><t t-esc="rework.user_id.name or '—'"/></dd>
+                    <dt class="col-sm-3">Ngày trả</dt>
+                    <dd class="col-sm-9"><t t-esc="fmt_dt(rework.date)"/></dd>
+                </dl>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('o_portal_workorder_detail')]/div[hasclass('row')]" position="after">
+            <div class="row g-4 mt-1">
+                <div class="col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-header"><h6 class="mb-0"><i class="fa fa-clock-o me-1"/>Thời gian</h6></div>
+                        <div class="card-body">
+                            <dl class="row mb-0">
+                                <dt class="col-7 text-muted">Giờ làm mới</dt>
+                                <dd class="col-5 text-end"><t t-esc="fmt_minutes(workorder.duration_new)"/></dd>
+                                <dt class="col-7 text-muted">Giờ sửa</dt>
+                                <dd class="col-5 text-end"><t t-esc="fmt_minutes(workorder.duration_rework)"/></dd>
+                                <dt class="col-7 text-muted">Số lượt chỉnh</dt>
+                                <dd class="col-5 text-end"><t t-esc="workorder.rework_count"/></dd>
+                                <dt class="col-7 text-muted">Chế độ kiểm</dt>
+                                <dd class="col-5 text-end"><t t-esc="review_mode_label.get(workorder.review_mode, '—')"/></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card h-100">
+                        <div class="card-header"><h6 class="mb-0"><i class="fa fa-check-square-o me-1"/>Lịch sử duyệt</h6></div>
+                        <div class="card-body p-0">
+                            <p t-if="not review_history" class="text-muted text-center p-3 mb-0 small">Chưa có lượt duyệt.</p>
+                            <div t-else="" class="table-responsive">
+                                <table class="table table-sm mb-0">
+                                    <thead class="table-light">
+                                        <tr><th>Lượt</th><th>Chế độ</th><th>Trạng thái</th><th>Người duyệt</th><th>Lỗi</th><th>Kết thúc</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="review_history" t-as="r">
+                                            <td><t t-esc="r.round_no"/></td>
+                                            <td><t t-esc="review_mode_label.get(r.mode, '')"/></td>
+                                            <td><span t-att-class="'badge ' + review_state_color.get(r.state, 'bg-secondary')"><t t-esc="review_state_label.get(r.state, r.state)"/></span></td>
+                                            <td><t t-esc="r.reviewer_id.name or '—'"/></td>
+                                            <td><t t-esc="', '.join(r.defect_reason_ids.mapped('name')) or (r.note or '')"/></td>
+                                            <td><t t-esc="fmt_dt(r.date_done)"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- ===================== DANH SÁCH YÊU CẦU DUYỆT ===================== -->
+    <template id="portal_my_reviews" name="Duyệt công đoạn">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_my_reviews">
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">Duyệt công đoạn</t>
+                </t>
+                <div t-if="not reviews" class="alert alert-info mt-4" role="alert">
+                    <i class="fa fa-info-circle me-1"/>Không có yêu cầu duyệt nào đang chờ.
+                </div>
+                <div t-else="" class="card mt-4">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Lệnh sản xuất</th>
+                                        <th>Công đoạn</th>
+                                        <th class="text-center">Lượt</th>
+                                        <th>Chế độ</th>
+                                        <th>Ngày yêu cầu</th>
+                                        <th class="text-center">Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="reviews" t-as="r" style="cursor: pointer;"
+                                        t-attf-onclick="window.location='/my/reviews/#{r.id}'">
+                                        <td><t t-esc="r.production_id.name"/></td>
+                                        <td class="fw-semibold"><t t-esc="r.workorder_id.name"/></td>
+                                        <td class="text-center"><t t-esc="r.round_no"/></td>
+                                        <td><t t-esc="review_mode_label.get(r.mode, '')"/></td>
+                                        <td><t t-esc="fmt_dt(r.date_request)"/></td>
+                                        <td class="text-center">
+                                            <span t-att-class="'badge ' + review_state_color.get(r.state, 'bg-secondary')">
+                                                <t t-esc="review_state_label.get(r.state, r.state)"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== CHI TIẾT YÊU CẦU DUYỆT ===================== -->
+    <template id="portal_review_detail" name="Chi tiết yêu cầu duyệt">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_review_detail">
+                <div t-if="error" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <i class="fa fa-exclamation-triangle me-1"/>
+                    <strong>Lỗi:</strong> <t t-esc="error"/>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"/>
+                </div>
+                <div class="mt-3 mb-3">
+                    <a href="/my/reviews" class="btn btn-sm btn-outline-secondary">
+                        <i class="fa fa-arrow-left me-1"/> Danh sách yêu cầu duyệt
+                    </a>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card h-100">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h5 class="mb-0"><i class="fa fa-check-square-o me-1 text-muted"/><t t-esc="review.name"/></h5>
+                                <span t-att-class="'badge fs-6 ' + review_state_color.get(review.state, 'bg-secondary')">
+                                    <t t-esc="review_state_label.get(review.state, review.state)"/>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <img t-if="product_image_src" t-att-src="product_image_src" class="rounded border"
+                                         style="width:130px;height:130px;object-fit:contain;"/>
+                                    <div>
+                                        <div class="fw-semibold fs-5"><t t-esc="production.product_id.display_name or '—'"/></div>
+                                        <div class="text-muted small">
+                                            <a t-attf-href="/my/productions/#{production.id}"><t t-esc="production.name"/></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-5 text-muted">Công đoạn</dt>
+                                    <dd class="col-sm-7"><t t-esc="workorder.name"/> (<t t-esc="workorder.workcenter_id.name"/>)</dd>
+                                    <dt class="col-sm-5 text-muted">Trạng thái công đoạn</dt>
+                                    <dd class="col-sm-7"><t t-esc="state_label.get(workorder.state, workorder.state)"/></dd>
+                                    <dt class="col-sm-5 text-muted">Người làm</dt>
+                                    <dd class="col-sm-7"><t t-esc="', '.join(workorder.user_mrp_ids.mapped('name')) or '—'"/></dd>
+                                    <dt class="col-sm-5 text-muted">Chế độ kiểm</dt>
+                                    <dd class="col-sm-7"><t t-esc="review_mode_label.get(review.mode, '')"/></dd>
+                                    <dt class="col-sm-5 text-muted">Giờ làm mới / giờ sửa</dt>
+                                    <dd class="col-sm-7"><t t-esc="fmt_minutes(workorder.duration_new)"/> / <t t-esc="fmt_minutes(workorder.duration_rework)"/></dd>
+                                    <dt class="col-sm-5 text-muted">Ngày yêu cầu</dt>
+                                    <dd class="col-sm-7"><t t-esc="fmt_dt(review.date_request)"/></dd>
+                                    <dt class="col-sm-5 text-muted">Người nhận duyệt</dt>
+                                    <dd class="col-sm-7"><t t-esc="review.reviewer_id.name or '—'"/></dd>
+                                    <dt class="col-sm-5 text-muted">Thời gian duyệt</dt>
+                                    <dd class="col-sm-7"><t t-esc="fmt_minutes(review.review_duration)"/></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card mb-3">
+                            <div class="card-header"><h6 class="mb-0"><i class="fa fa-hand-pointer-o me-1"/>Thao tác</h6></div>
+                            <div class="card-body">
+                                <form t-if="review.state in ('waiting', 'paused')" t-attf-action="/my/reviews/#{review.id}/action" method="POST">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <button name="action" t-att-value="'start' if review.state == 'waiting' else 'resume'"
+                                            type="submit" class="btn btn-primary w-100">
+                                        <i class="fa fa-play me-1"/>
+                                        <t t-if="review.state == 'waiting'">Nhận duyệt</t><t t-else="">Tiếp tục</t>
+                                    </button>
+                                </form>
+                                <t t-if="review.state == 'reviewing'">
+                                    <form t-attf-action="/my/reviews/#{review.id}/action" method="POST" class="mb-2">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <button name="action" value="pass" type="submit" class="btn btn-success w-100 mb-2">
+                                            <i class="fa fa-check me-1"/> Đạt
+                                        </button>
+                                        <button name="action" value="pause" type="submit" class="btn btn-warning w-100">
+                                            <i class="fa fa-pause me-1"/> Tạm dừng
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-danger w-100" data-bs-toggle="collapse"
+                                            data-bs-target="#reviewFailForm">
+                                        <i class="fa fa-times me-1"/> Chưa đạt
+                                    </button>
+                                    <form id="reviewFailForm" class="collapse mt-3" t-attf-action="/my/reviews/#{review.id}/action" method="POST">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-semibold">Lỗi</label>
+                                            <div t-foreach="defect_reasons" t-as="reason" class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="defect_reason_ids"
+                                                       t-att-value="reason.id" t-attf-id="defect_#{reason.id}"/>
+                                                <label class="form-check-label" t-attf-for="defect_#{reason.id}"><t t-esc="reason.name"/></label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-semibold">Ghi chú</label>
+                                            <textarea name="note" class="form-control form-control-sm" rows="2"/>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-semibold">Công đoạn trả về</label>
+                                            <select name="return_workorder_id" class="form-select form-select-sm">
+                                                <t t-foreach="return_targets" t-as="target">
+                                                    <option t-att-value="target.id" t-att-selected="target == workorder">
+                                                        <t t-esc="target.name"/><t t-if="target == workorder"> (chính công đoạn này)</t>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small fw-semibold">Người phụ trách chỉnh</label>
+                                            <select name="assign_user_ids" class="form-select form-select-sm" multiple="multiple" size="4">
+                                                <t t-foreach="assignable_users" t-as="u">
+                                                    <option t-att-value="u.id"><t t-esc="u.name"/></option>
+                                                </t>
+                                            </select>
+                                            <div class="form-text">Để trống: giao cho nhân viên thực hiện của công đoạn trả về.</div>
+                                        </div>
+                                        <button name="action" value="fail" type="submit" class="btn btn-danger w-100">
+                                            Xác nhận chưa đạt
+                                        </button>
+                                    </form>
+                                </t>
+                                <div t-if="review.state not in ('waiting', 'paused', 'reviewing')" class="text-muted text-center small">
+                                    <i class="fa fa-info-circle me-1"/>Yêu cầu duyệt đã kết thúc.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header"><h6 class="mb-0"><i class="fa fa-history me-1"/>Các lượt duyệt trước</h6></div>
+                    <div class="card-body p-0">
+                        <p t-if="not previous_reviews" class="text-muted text-center p-3 mb-0 small">Chưa có lượt trước.</p>
+                        <div t-else="" class="table-responsive">
+                            <table class="table table-sm mb-0">
+                                <thead class="table-light">
+                                    <tr><th>Lượt</th><th>Trạng thái</th><th>Người duyệt</th><th>Lỗi / ghi chú</th><th>Trả về</th><th>Kết thúc</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="previous_reviews" t-as="r">
+                                        <td><t t-esc="r.round_no"/></td>
+                                        <td><span t-att-class="'badge ' + review_state_color.get(r.state, 'bg-secondary')"><t t-esc="review_state_label.get(r.state, r.state)"/></span></td>
+                                        <td><t t-esc="r.reviewer_id.name or '—'"/></td>
+                                        <td><t t-esc="', '.join(r.defect_reason_ids.mapped('name'))"/> <t t-esc="r.note or ''"/></td>
+                                        <td><t t-esc="r.return_workorder_id.name or ''"/></td>
+                                        <td><t t-esc="fmt_dt(r.date_done)"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== CHI TIẾT LỆNH SX: TAB CÔNG ĐOẠN ===================== -->
+    <template id="portal_production_detail_review" inherit_id="tiny_mrp.portal_production_detail"
+              name="Lệnh sản xuất: công đoạn, duyệt và chỉnh">
+        <xpath expr="//ul[@id='productionTab']" position="inside">
+            <li class="nav-item" role="presentation" t-if="production.workorder_ids and review_state_label">
+                <button class="nav-link" id="workorders-tab" data-bs-toggle="tab" data-bs-target="#production_workorders"
+                        type="button" role="tab">
+                    <i class="fa fa-cogs me-1"/> Công đoạn
+                    <span class="badge bg-light text-dark border ms-1"><t t-esc="len(production.workorder_ids)"/></span>
+                </button>
+            </li>
+        </xpath>
+        <xpath expr="//div[@id='productionTabContent']" position="inside">
+            <div class="tab-pane fade p-0" id="production_workorders" role="tabpanel" t-if="production.workorder_ids and review_state_label">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Công đoạn</th>
+                                <th>Khu vực</th>
+                                <th>Trạng thái</th>
+                                <th>Chế độ kiểm</th>
+                                <th>Duyệt</th>
+                                <th class="text-center">Lượt chỉnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="production.workorder_ids" t-as="wo">
+                                <td class="fw-semibold">
+                                    <t t-esc="wo.name"/>
+                                    <span t-if="wo.rework_return_id" class="badge bg-danger ms-1">Đang sửa</span>
+                                </td>
+                                <td><t t-esc="wo.workcenter_id.name"/></td>
+                                <td><t t-esc="wo.state"/></td>
+                                <td>
+                                    <t t-if="wo.can_edit_review_mode">
+                                        <form t-attf-action="/my/productions/#{production.id}/action" method="POST" class="d-flex gap-1">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <input type="hidden" name="action" value="set_review_mode"/>
+                                            <input type="hidden" name="workorder_id" t-att-value="wo.id"/>
+                                            <select name="review_mode" class="form-select form-select-sm" onchange="this.form.submit()">
+                                                <t t-foreach="review_mode_label.items()" t-as="mode">
+                                                    <option t-att-value="mode[0]" t-att-selected="wo.review_mode == mode[0]"><t t-esc="mode[1]"/></option>
+                                                </t>
+                                            </select>
+                                        </form>
+                                        <div t-if="wo.review_mode_user_id" class="text-muted small">
+                                            <t t-esc="wo.review_mode_user_id.name"/> - <t t-esc="fmt_dt(wo.review_mode_date)"/>
+                                        </div>
+                                    </t>
+                                    <t t-else=""><t t-esc="review_mode_label.get(wo.review_mode, '—')"/></t>
+                                </td>
+                                <td>
+                                    <span t-att-class="'badge ' + review_state_color.get(wo.review_state, 'bg-secondary')">
+                                        <t t-esc="review_state_label.get(wo.review_state, wo.review_state)"/>
+                                    </span>
+                                </td>
+                                <td class="text-center"><t t-esc="wo.rework_count"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
