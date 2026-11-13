@@ -16,7 +16,9 @@
         'data/sequence.xml',
         'security/ir.model.access.csv',
 
-        # 'views/sale_views.xml',
+        'views/sale_trial_views.xml',
+        'views/sale_views.xml',
+        'report/sale_order_report_templates.xml',
         'views/trial_delivery_views.xml',
         'views/mrp_production_views.xml',
         'views/menus.xml',

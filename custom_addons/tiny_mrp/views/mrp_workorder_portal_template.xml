@@ -104,6 +104,7 @@
                             <span t-att-class="'badge fs-6 ' + state_color.get(workorder.state, 'bg-secondary')">
                                 <t t-esc="state_label.get(workorder.state, workorder.state)"/>
                             </span>
+                            <span t-if="workorder.is_passed" class="badge fs-6 bg-secondary ms-1">Pass</span>
                         </div>
                         <div class="card-body">
                             <div class="d-flex align-items-center gap-3 mb-3">
@@ -234,6 +235,16 @@
                                         </button>
                                     </form>
                                 </t>
+                                <!-- Pass: công đoạn đã có sẵn, hoàn thành ngay và không tính KPI -->
+                                <form t-if="not flow_block_reason" t-attf-action="/my/workorders/#{workorder.id}/action"
+                                      method="POST" class="mt-2"
+                                      onsubmit="return confirm('Pass công đoạn này vì đã có sẵn? Công đoạn sẽ hoàn thành ngay và không tính KPI.');">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <button name="action" value="pass" type="submit"
+                                            class="btn btn-outline-secondary w-100">
+                                        <i class="fa fa-forward me-1"/> Pass (có sẵn)
+                                    </button>
+                                </form>
                             </t>
                             <!-- Pause/Finish: hiện khi có open time record và đang progress -->
                             <t t-elif="can_act and has_open_time and workorder.state == 'progress'">

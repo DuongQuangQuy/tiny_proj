@@ -6,6 +6,12 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
 
+            <!-- Dời ngày giao hàng từ tab Thông tin khác lên đầu SO, ngay sau ngày đặt hàng -->
+            <xpath expr="//group[@name='order_details']/field[@name='date_order'][last()]" position="after">
+                <xpath expr="//group[@name='sale_shipping']/label[@for='commitment_date']" position="move"/>
+                <xpath expr="//group[@name='sale_shipping']/div[field[@name='commitment_date']]" position="move"/>
+            </xpath>
+
             <xpath expr="//field[@name='payment_term_id']" position="after" >
                 <field name="ship_to" />
             </xpath>

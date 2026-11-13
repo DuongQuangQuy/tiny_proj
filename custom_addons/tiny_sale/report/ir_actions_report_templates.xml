@@ -49,10 +49,8 @@
                             <tr>
                                 <td style="width: 40%; vertical-align: top;">
                                     <!-- Logo -->
-                                    <img t-attf-src="{{base_url}}/tiny_sale/static/description/LOGO.png" style="max-height: 200px; max-width: 270px;"/>
-                                    <div style="font-size: 10pt; margin-top: 10px; font-weight: bold; letter-spacing: 1px;-webkit-text-stroke: 1px;">
-                                        WEARABLE ART TAILORED FOR EXCLUSIVE SOUL
-                                    </div>
+                                    <!-- Logo đã gồm dòng "WEARABLE ART TAILORED FOR EXCLUSIVE SOUL" -->
+                                    <img t-attf-src="{{base_url}}/tiny_sale/static/description/LOGO.png" style="display: block; width: 340px; max-width: 100%; height: auto;"/>
                                 </td>
                                 <td style="width: 30%; vertical-align: top; padding-left: 20px;">
                                     <div style="font-size: 9pt; line-height: 1.6;">
@@ -196,7 +194,7 @@
                                             <!-- HÌNH HOA TIẾT -->
                                             <td style="border: 1px solid #ddd; padding: 8px; text-align: center; vertical-align: top;">
                                                 <t t-if="line.product_pattern_image">
-                                                    <img t-att-src="image_data_uri(line.product_pattern_image)" style="max-width: 50px; max-height: 50px;"/>
+                                                    <img t-att-src="image_data_uri(line.product_pattern_image)" style="max-width: 60px; max-height: 80px;"/>
                                                 </t>
                                             </td>
                                             <!-- GIÁ -->
@@ -228,7 +226,7 @@
                                                     <div style="font-size: 9pt; margin-bottom: 6px;">* Quét mã QR để thanh toán</div>
                                                 </td>
                                                 <td style="vertical-align: top; width: 140px; padding-left: 0;">
-                                                    <img t-attf-src="{{base_url}}/tiny_sale/static/description/qr_payment.png" style="width: 180px; height: 170px;"/>
+                                                    <img t-attf-src="{{base_url}}/tiny_sale/static/description/qr_payment.png" style="width: 100px; height: auto;"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -288,7 +286,10 @@
                                         </table>
                                         <div style="margin-top: 70px; text-align: center; font-weight: bold;">
                                             <div style="font-style: italic; margin-bottom: 80px;font-weight: bold !important;">Khách hàng</div>
-                                            <div style="border-bottom: 1px dotted #000; width: 180px; margin: 0 auto;"></div>
+                                            <!-- Điền sẵn tên khách hàng trên dòng ký tên -->
+                                            <div style="border-bottom: 1px dotted #000; width: 180px; margin: 0 auto; padding-bottom: 2px; text-align: center;">
+                                                <t t-esc="doc.partner_id.name or ''"/>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -301,7 +302,7 @@
                                 Hành trình may đo của bạn cùng <strong>Tiny Ink</strong> bắt đầu từ đây. Chúng tôi trân trọng từng chi tiết để tạo nên những thiết kế phản
                                 chiếu phong cách riêng của bạn. Cảm ơn bạn đã đồng hành cùng <strong>Tiny Ink</strong>.
                             </div>
-                            <div style="font-weight: bold; font-size: 10pt;-webkit-text-stroke: 0.5px;letter-spacing: 0.5px">
+                            <div style="font-weight: bold; font-size: 10pt;-webkit-text-stroke: 1.2px black;letter-spacing: 1px">
                                 TINYINK.VN
                             </div>
                         </div>

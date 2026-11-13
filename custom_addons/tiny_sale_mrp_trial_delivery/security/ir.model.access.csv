@@ -2,3 +2,5 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_trial_delivery_group_user,trial.delivery group_user,model_trial_delivery,base.group_user,1,1,1,1
 access_trial_delivery_line_group_user,trial.delivery.line group_user,model_trial_delivery_line,base.group_user,1,1,1,1
 
+access_sale_trial_group_user,sale.trial group_user,model_sale_trial,base.group_user,1,0,0,0
+access_sale_trial_group_sale_manager,sale.trial group_sale_manager,model_sale_trial,sales_team.group_sale_manager,1,1,1,1

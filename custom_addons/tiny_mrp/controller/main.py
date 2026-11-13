@@ -186,10 +186,13 @@ class MrpPortal(CustomerPortal):
                     'user_id': user.id,
                     'workorder_id': workorder.id,
                 })
-            elif action == 'finish':
-                if workorder.state != 'progress':
-                    raise UserError(_('Thao tác không hợp lệ. Lệnh công việc không đang trong trạng thái thực hiện.'))
-                workorder.with_context(portal_user_id=user.id).button_finish()
+            elif action in ('finish', 'pass'):
+                if action == 'pass':
+                    workorder.with_context(portal_user_id=user.id).action_pass()
+                else:
+                    if workorder.state != 'progress':
+                        raise UserError(_('Thao tác không hợp lệ. Lệnh công việc không đang trong trạng thái thực hiện.'))
+                    workorder.with_context(portal_user_id=user.id).button_finish()
                 production = workorder.production_id
                 if (production.is_mrp_pattern
                         and production.state not in ('done', 'cancel')

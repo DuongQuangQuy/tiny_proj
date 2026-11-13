@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Thêm dòng "Thử hàng" dưới dòng "Giao hàng" trên mẫu in và trang xem trước của SO -->
+    <template id="report_saleorder_document_trial" inherit_id="tiny_sale.report_saleorder_document">
+        <xpath expr="//td[@t-esc=&quot;doc.carrier_id.name or ''&quot;]/.." position="after">
+            <tr t-if="doc.trial_id">
+                <td colspan="2" style="padding: 5px 8px; font-weight: bold; font-style: italic; text-align: left;-webkit-text-stroke: 0.9px black;letter-spacing: 1.3px">
+                    <t t-esc="doc.trial_id.name"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+
+    <template id="report_saleorder_preview_document_trial" inherit_id="tiny_sale.report_saleorder_preview_document">
+        <xpath expr="//td[@t-esc=&quot;doc.carrier_id.name or ''&quot;]/.." position="after">
+            <tr t-if="doc.trial_id">
+                <td colspan="2" style="padding: 5px 8px; font-weight: bold; font-style: italic; text-align: left;-webkit-text-stroke: 0.9px black;letter-spacing: 1.3px">
+                    <t t-esc="doc.trial_id.name"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

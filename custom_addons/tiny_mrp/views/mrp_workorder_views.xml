@@ -10,6 +10,7 @@
             </xpath>
             <xpath expr="//field[@name='workcenter_id']" position="after">
                 <field name="is_pattern" optional="show"/>
+                <field name="is_passed" optional="show"/>
             </xpath>
 
         </field>
@@ -22,6 +23,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='loss_id']" position="after" >
                 <field name="user_mrp_id" />
+                <field name="is_passed"/>
             </xpath>
             <xpath expr="//page[@ name='dependencies']" position="after" >
                 <page name="reason" string="Lý do">

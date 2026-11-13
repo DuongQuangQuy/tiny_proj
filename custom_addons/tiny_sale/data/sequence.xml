@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Mã SO công ty thương mại: YYMMDD-OR-01, đánh lại số mỗi ngày -->
+    <record id="seq_sale_order_service" model="ir.sequence">
+        <field name="name">Đơn bán hàng - Công ty thương mại</field>
+        <field name="code">tiny.sale.order.service</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-OR-</field>
+        <field name="padding">2</field>
+        <field name="implementation">no_gap</field>
+        <field name="use_date_range" eval="True"/>
+        <field name="daily_reset" eval="True"/>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Mã SO công ty sản xuất: YYMMDD-PO-01, bộ số riêng để không nhảy số với công ty thương mại -->
+    <record id="seq_sale_order_mrp" model="ir.sequence">
+        <field name="name">Đơn bán hàng - Công ty sản xuất</field>
+        <field name="code">tiny.sale.order.mrp</field>
+        <field name="prefix">%(y)s%(month)s%(day)s-PO-</field>
+        <field name="padding">2</field>
+        <field name="implementation">no_gap</field>
+        <field name="use_date_range" eval="True"/>
+        <field name="daily_reset" eval="True"/>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

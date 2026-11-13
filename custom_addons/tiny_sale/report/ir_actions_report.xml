@@ -25,4 +25,15 @@
     <record id="sale_pdf_quote_builder.action_report_saleorder_raw" model="ir.actions.report">
         <field name="paperformat_id" ref="paperformat_tiny_sale"/>
     </record>
+
+    <!-- Mẫu xem trước dạng HTML, gọi từ nút "Xem trước" trên đơn hàng -->
+    <record id="action_report_saleorder_preview" model="ir.actions.report">
+        <field name="name">Xem trước đơn hàng</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">tiny_sale.report_saleorder_preview</field>
+        <field name="report_file">tiny_sale.report_saleorder_preview</field>
+        <field name="print_report_name">object.name</field>
+        <field name="paperformat_id" ref="paperformat_tiny_sale"/>
+    </record>
 </odoo>

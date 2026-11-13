@@ -301,6 +301,7 @@
                                         <tr>
                                             <th>Thành phần</th>
                                             <th class="text-end">Cần sử dụng</th>
+                                            <th class="text-end">Tồn kho thực tế</th>
                                             <th class="text-end">Dự báo tồn</th>
                                             <th>Vị trí nguồn</th>
                                             <th></th>
@@ -315,6 +316,17 @@
                                                 <t t-esc="move.product_uom_qty"/>
                                                 <span class="text-muted ms-1 small">
                                                     <t t-esc="move.product_uom.name or ''"/>
+                                                </span>
+                                            </td>
+                                            <!-- Tồn kho thực tế (on hand) trong kho của lệnh sản xuất, theo đơn vị của sản phẩm -->
+                                            <td class="text-end text-nowrap">
+                                                <t t-set="warehouse" t-value="production.picking_type_id.warehouse_id"/>
+                                                <t t-set="qty_on_hand" t-value="move.product_id.with_company(production.company_id).with_context(warehouse_id=warehouse.id or False).qty_available"/>
+                                                <span t-att-class="'fw-semibold ' + ('text-success' if qty_on_hand &gt;= move.product_qty else 'text-danger')">
+                                                    <t t-esc="'%.2f' % qty_on_hand"/>
+                                                </span>
+                                                <span class="text-muted ms-1 small">
+                                                    <t t-esc="move.product_id.uom_id.name or ''"/>
                                                 </span>
                                             </td>
                                             <td class="text-end text-nowrap">
