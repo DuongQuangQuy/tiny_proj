@@ -6,4 +6,19 @@
         parent="sale.sale_order_menu"
         groups="sales_team.group_sale_salesman"
         sequence="5"/>
+
+    <menuitem id="menu_sale_estimate_pricing_root"
+        name="Tính giá"
+        parent="sale.sale_menu_root"
+        groups="sales_team.group_sale_salesman"
+        sequence="15">
+        <menuitem id="menu_sale_estimate_price"
+            name="Phiếu tính giá"
+            action="action_sale_estimate_price"
+            sequence="10"/>
+        <menuitem id="menu_sale_estimate_line_pricing"
+            name="Bảng tính giá"
+            action="action_sale_estimate_line_pricing"
+            sequence="20"/>
+    </menuitem>
 </odoo>

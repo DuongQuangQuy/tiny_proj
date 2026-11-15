@@ -8,15 +8,18 @@
                 <field name="name"/>
                 <field name="date_estimate"/>
                 <field name="partner_id"/>
+                <field name="estimate_type" optional="hide"/>
                 <field name="user_id" optional="show" widget="many2one_avatar_user"/>
                 <field name="sale_order_id" optional="show"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
                 <field name="currency_id" column_invisible="1"/>
+                <field name="usd_currency_id" column_invisible="1"/>
                 <field name="amount_cost" sum="Tổng giá vốn"/>
                 <field name="amount_total" sum="Tổng giá bán"/>
+                <field name="amount_total_usd" optional="hide"/>
                 <field name="state" widget="badge"
                        decoration-info="state == 'draft'"
-                       decoration-success="state == 'ordered'"
+                       decoration-success="state in ('ordered', 'done')"
                        decoration-muted="state == 'cancel'"/>
             </list>
         </field>
@@ -33,9 +36,14 @@
                 <filter name="my_estimates" string="Của tôi" domain="[('user_id', '=', uid)]"/>
                 <separator/>
                 <filter name="draft" string="Nháp" domain="[('state', '=', 'draft')]"/>
+                <filter name="done" string="Đã chốt giá" domain="[('state', '=', 'done')]"/>
                 <filter name="ordered" string="Đã tạo đơn hàng" domain="[('state', '=', 'ordered')]"/>
+                <separator/>
+                <filter name="type_order" string="Dự toán đơn hàng" domain="[('estimate_type', '=', 'order')]"/>
+                <filter name="type_price" string="Tính giá sản phẩm" domain="[('estimate_type', '=', 'price')]"/>
                 <group>
                     <filter name="group_partner" string="Khách hàng" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_type" string="Loại phiếu" context="{'group_by': 'estimate_type'}"/>
                     <filter name="group_state" string="Trạng thái" context="{'group_by': 'state'}"/>
                 </group>
             </search>
@@ -49,13 +57,21 @@
             <form string="Phiếu dự toán">
                 <header>
                     <button name="action_create_sale_order" type="object" string="Tạo đơn hàng"
-                            class="btn-primary" invisible="state != 'draft'"
+                            class="btn-primary" invisible="estimate_type != 'order' or state != 'draft'"
                             confirm="Tạo sản phẩm, BOM ở công ty sản xuất và đơn bán hàng từ phiếu này?"/>
+                    <button name="action_done" type="object" string="Chốt giá"
+                            class="btn-primary" invisible="estimate_type != 'price' or state != 'draft'"/>
+                    <button name="action_convert_to_order" type="object" string="Chuyển thành dự toán đơn hàng"
+                            invisible="estimate_type != 'price' or state not in ('draft', 'done')"
+                            confirm="Tạo phiếu dự toán đơn hàng mới từ phiếu tính giá này? Phiếu gốc giữ nguyên."/>
                     <button name="action_reset_draft" type="object" string="Đưa về nháp"
                             invisible="state == 'draft' or (sale_order_id and sale_order_state != 'cancel')"/>
                     <button name="action_cancel" type="object" string="Hủy"
                             invisible="state == 'cancel' or (sale_order_id and sale_order_state != 'cancel')"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,ordered"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ordered"
+                           invisible="estimate_type != 'order'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"
+                           invisible="estimate_type != 'price'"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -63,11 +79,19 @@
                                 icon="fa-dollar" string="Đơn hàng" invisible="not sale_order_id"/>
                     </div>
                     <div class="oe_title">
-                        <h1><field name="name" readonly="1"/></h1>
+                        <h1 class="d-flex align-items-center gap-2">
+                            <field name="name" readonly="1"/>
+                            <span class="badge rounded-pill text-bg-info fs-6"
+                                  invisible="estimate_type != 'order'">Dự toán đơn hàng</span>
+                            <span class="badge rounded-pill text-bg-primary fs-6"
+                                  invisible="estimate_type != 'price'">Tính giá sản phẩm</span>
+                        </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" readonly="state != 'draft'"/>
+                            <field name="estimate_type" widget="radio" options="{'horizontal': true}"
+                                   readonly="sale_order_id or state != 'draft'"/>
+                            <field name="partner_id" readonly="state != 'draft'" required="estimate_type == 'order'"/>
                             <field name="user_id" readonly="state != 'draft'"/>
                             <field name="sale_order_id" invisible="not sale_order_id"/>
                         </group>
@@ -89,9 +113,12 @@
                                     <field name="product_qty"/>
                                     <field name="uom_id"/>
                                     <field name="currency_id" column_invisible="1"/>
+                                    <field name="usd_currency_id" column_invisible="1"/>
                                     <field name="cost_unit"/>
-                                    <field name="markup_factor" optional="show"/>
+                                    <field name="total_cost_lv2" optional="show"/>
+                                    <field name="suggested_price" optional="show"/>
                                     <field name="price_unit"/>
+                                    <field name="price_unit_usd" optional="show"/>
                                     <field name="subtotal_price" sum="Tổng giá bán"/>
                                     <field name="product_id" optional="hide"/>
                                     <field name="bom_id" optional="hide"/>
@@ -114,14 +141,14 @@
                                                 <field name="product_pattern_id"/>
                                                 <field name="note_pattern"/>
                                             </group>
-                                            <group string="Giá dự toán">
+                                            <group string="Tóm tắt giá">
                                                 <field name="currency_id" invisible="1"/>
-                                                <field name="material_cost"/>
-                                                <field name="operation_cost"/>
-                                                <field name="extra_cost"/>
-                                                <field name="cost_unit"/>
-                                                <field name="markup_factor"/>
-                                                <field name="price_unit"/>
+                                                <field name="usd_currency_id" invisible="1"/>
+                                                <field name="state" invisible="1"/>
+                                                <field name="cost_unit" string="Giá vốn"/>
+                                                <field name="total_cost_lv2" string="Giá thành LV2"/>
+                                                <field name="price_unit" string="Giá chốt" readonly="1" class="fw-bold"/>
+                                                <field name="price_unit_usd" string="Giá USD"/>
                                                 <field name="subtotal_price"/>
                                             </group>
                                         </group>
@@ -130,6 +157,176 @@
                                             <field name="bom_id"/>
                                         </group>
                                         <notebook>
+                                            <page string="Tính giá" name="pricing">
+                                                <group string="1. Giá vốn (COST OF GOOD)" name="pricing_cost">
+                                                    <group>
+                                                        <field name="material_cost"/>
+                                                        <field name="operation_cost" string="Chi phí nhân công"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="extra_cost" readonly="state != 'draft'"/>
+                                                        <field name="cost_unit" string="GIÁ VỐN" class="fw-bold"/>
+                                                    </group>
+                                                </group>
+                                                <group string="2. Giá thành" name="pricing_total_cost">
+                                                    <group>
+                                                        <field name="studio_rate" widget="percentage" readonly="state != 'draft'"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="studio_cost"/>
+                                                    </group>
+                                                    <group string="LV1">
+                                                        <label for="profit_rate_lv1" string="Lợi nhuận"/>
+                                                        <div class="o_row">
+                                                            <field name="profit_rate_lv1" widget="percentage" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="profit_lv1"/>
+                                                        </div>
+                                                        <field name="total_cost_lv1" string="Total cost" class="fw-bold"/>
+                                                    </group>
+                                                    <group string="LV2">
+                                                        <label for="profit_rate_lv2" string="Lợi nhuận"/>
+                                                        <div class="o_row">
+                                                            <field name="profit_rate_lv2" widget="percentage" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="profit_lv2"/>
+                                                        </div>
+                                                        <field name="total_cost_lv2" string="Total cost" class="fw-bold"/>
+                                                    </group>
+                                                </group>
+                                                <group string="3. Giá bán đề xuất (local)" name="pricing_price">
+                                                    <group string="LV1">
+                                                        <label for="markup_lv1_1" string="Hệ số 1"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="markup_lv1_1" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="price_lv1_1"
+                                                                   decoration-bf="price_level == 'lv1' and price_option == '1'"/>
+                                                        </div>
+                                                        <label for="markup_lv1_2" string="Hệ số 2"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="markup_lv1_2" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="price_lv1_2"
+                                                                   decoration-bf="price_level == 'lv1' and price_option == '2'"/>
+                                                        </div>
+                                                        <label for="markup_lv1_3" string="Hệ số 3"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="markup_lv1_3" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="price_lv1_3"
+                                                                   decoration-bf="price_level == 'lv1' and price_option == '3'"/>
+                                                        </div>
+                                                    </group>
+                                                    <group string="LV2">
+                                                        <label for="markup_lv2_1" string="Hệ số 1"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="markup_lv2_1" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="price_lv2_1"
+                                                                   decoration-bf="price_level == 'lv2' and price_option == '1'"/>
+                                                        </div>
+                                                        <label for="markup_lv2_2" string="Hệ số 2"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="markup_lv2_2" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="price_lv2_2"
+                                                                   decoration-bf="price_level == 'lv2' and price_option == '2'"/>
+                                                        </div>
+                                                        <label for="markup_lv2_3" string="Hệ số 3"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="markup_lv2_3" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="price_lv2_3"
+                                                                   decoration-bf="price_level == 'lv2' and price_option == '3'"/>
+                                                        </div>
+                                                    </group>
+                                                    <group>
+                                                        <field name="price_level" widget="radio" options="{'horizontal': true}"
+                                                               readonly="state != 'draft'"/>
+                                                        <label for="price_option"/>
+                                                        <div class="o_row">
+                                                            <field name="price_option" widget="radio" options="{'horizontal': true}"
+                                                                   readonly="state != 'draft'"/>
+                                                            <field name="price_factor_label" class="text-muted"/>
+                                                        </div>
+                                                        <field name="suggested_price"/>
+                                                    </group>
+                                                    <group>
+                                                        <label for="price_unit" string="GIÁ CHỐT"/>
+                                                        <div class="o_row">
+                                                            <field name="price_unit" class="fs-4 fw-bold" readonly="state != 'draft'"/>
+                                                            <span class="badge text-bg-warning" invisible="not price_manual">Giá tự định</span>
+                                                        </div>
+                                                        <field name="price_manual" invisible="1"/>
+                                                        <field name="price_unit_usd" string="≈ USD"/>
+                                                        <field name="price_rounding" readonly="state != 'draft'"/>
+                                                    </group>
+                                                </group>
+                                                <group string="4. Bao bì (chỉ tham khảo, không cộng vào giá)" name="pricing_packaging">
+                                                    <group>
+                                                        <field name="packaging_garment_bag" readonly="state != 'draft'"/>
+                                                        <field name="packaging_price_tag" readonly="state != 'draft'"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="packaging_box" readonly="state != 'draft'"/>
+                                                        <field name="packaging_total" class="fw-bold"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                            <page string="Kênh khác" name="channels">
+                                                <group string="5. Kênh quốc tế / showroom / sỉ / ecommerce">
+                                                    <group string="Quốc tế và showroom">
+                                                        <field name="rrp_intl" readonly="state != 'draft'"/>
+                                                        <field name="rrp_intl_usd" string="≈ USD"/>
+                                                        <label for="showroom_markup_1"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="showroom_factor_1" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="showroom_markup_1"/>
+                                                        </div>
+                                                        <label for="showroom_markup_2"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="showroom_factor_2" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="showroom_markup_2"/>
+                                                        </div>
+                                                        <label for="showroom_markup_3"/>
+                                                        <div class="o_row">
+                                                            <span>×</span>
+                                                            <field name="showroom_factor_3" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="showroom_markup_3"/>
+                                                        </div>
+                                                        <field name="rrp_showroom" class="fw-bold" readonly="state != 'draft'"/>
+                                                        <field name="rrp_showroom_usd" string="≈ USD"/>
+                                                    </group>
+                                                    <group string="Sỉ và ecommerce">
+                                                        <label for="wsp_price"/>
+                                                        <div class="o_row">
+                                                            <field name="wsp_rate" widget="percentage" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="wsp_price"/>
+                                                            <field name="wsp_price_usd"/>
+                                                        </div>
+                                                        <label for="ecom_price"/>
+                                                        <div class="o_row">
+                                                            <field name="ecom_rate" widget="percentage" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="ecom_price"/>
+                                                            <field name="ecom_price_usd"/>
+                                                        </div>
+                                                        <label for="wsp2_price"/>
+                                                        <div class="o_row">
+                                                            <field name="wsp2_rate" widget="percentage" class="oe_inline" readonly="state != 'draft'"/>
+                                                            <field name="wsp2_price"/>
+                                                            <field name="wsp2_price_usd"/>
+                                                        </div>
+                                                        <field name="profit_ecom_pct" widget="percentage"
+                                                               decoration-danger="profit_ecom_pct &lt; 0" decoration-success="profit_ecom_pct &gt;= 0"/>
+                                                        <field name="profit_wsp_pct" widget="percentage"
+                                                               decoration-danger="profit_wsp_pct &lt; 0" decoration-success="profit_wsp_pct &gt;= 0"/>
+                                                        <field name="compare_vn_pct" widget="percentage"
+                                                               decoration-danger="compare_vn_pct &lt; 0" decoration-success="compare_vn_pct &gt;= 0"/>
+                                                        <field name="usd_currency_id" readonly="state != 'draft'" options="{'no_create': True}"/>
+                                                    </group>
+                                                </group>
+                                            </page>
                                             <page string="Nguyên vật liệu" name="components">
                                         <field name="bom_line_ids">
                                             <list editable="bottom">
@@ -237,6 +434,8 @@
                                 <field name="amount_cost"/>
                                 <field name="amount_total"/>
                                 <field name="amount_margin"/>
+                                <field name="usd_currency_id" invisible="1"/>
+                                <field name="amount_total_usd"/>
                             </group>
                         </page>
                         <page string="Ghi chú" name="note">
@@ -253,9 +452,24 @@
         <field name="name">Phiếu dự toán</field>
         <field name="res_model">sale.estimate</field>
         <field name="view_mode">list,form</field>
+        <field name="domain">[('estimate_type', '=', 'order')]</field>
+        <field name="context">{'default_estimate_type': 'order'}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Tạo phiếu dự toán đầu tiên</p>
             <p>Lập định mức NVL để tính giá cho sản phẩm làm theo yêu cầu khách hàng.</p>
+        </field>
+    </record>
+
+    <record id="action_sale_estimate_price" model="ir.actions.act_window">
+        <field name="name">Phiếu tính giá</field>
+        <field name="res_model">sale.estimate</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('estimate_type', '=', 'price')]</field>
+        <field name="context">{'default_estimate_type': 'price'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Tạo phiếu tính giá đầu tiên</p>
+            <p>Tính giá sản phẩm theo công thức báo giá, không cần khách hàng và không tạo đơn hàng.
+               Khi khách đồng ý, chuyển phiếu thành dự toán đơn hàng.</p>
         </field>
     </record>
 </odoo>

@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_compare, float_round
 
 
 class SaleEstimate(models.Model):
@@ -10,12 +11,19 @@ class SaleEstimate(models.Model):
     _check_company_auto = True
 
     name = fields.Char(string='Số phiếu', required=True, copy=False, readonly=True, default=lambda self: _('Mới'))
+    estimate_type = fields.Selection([
+        ('order', 'Dự toán đơn hàng'),
+        ('price', 'Tính giá sản phẩm'),
+    ], string='Loại phiếu', required=True, index=True, tracking=True,
+        default=lambda self: self.env.context.get('default_estimate_type') or 'order',
+        help="Phiếu tính giá chỉ để tính giá, không tạo đơn hàng.")
     state = fields.Selection([
         ('draft', 'Nháp'),
+        ('done', 'Đã chốt giá'),
         ('ordered', 'Đã tạo đơn hàng'),
         ('cancel', 'Đã hủy'),
     ], string='Trạng thái', default='draft', required=True, copy=False, tracking=True, index=True)
-    partner_id = fields.Many2one('res.partner', string='Khách hàng', required=True, tracking=True, check_company=True)
+    partner_id = fields.Many2one('res.partner', string='Khách hàng', tracking=True, check_company=True)
     company_id = fields.Many2one(
         'res.company', string='Công ty', required=True, default=lambda self: self.env.company, index=True)
     currency_id = fields.Many2one(related='company_id.currency_id', string='Tiền tệ')
@@ -29,13 +37,46 @@ class SaleEstimate(models.Model):
     amount_cost = fields.Monetary(string='Tổng giá vốn', compute='_compute_amounts', store=True)
     amount_total = fields.Monetary(string='Tổng giá bán', compute='_compute_amounts', store=True, tracking=True)
     amount_margin = fields.Monetary(string='Lợi nhuận dự kiến', compute='_compute_amounts', store=True)
+    usd_currency_id = fields.Many2one(related='company_id.estimate_usd_currency_id', string='Tiền tệ USD')
+    amount_total_usd = fields.Monetary(
+        string='Tổng giá bán (USD)', compute='_compute_amounts', store=True, currency_field='usd_currency_id')
 
-    @api.depends('line_ids.subtotal_cost', 'line_ids.subtotal_price')
+    @api.depends('line_ids.subtotal_cost', 'line_ids.subtotal_price', 'date_estimate',
+                 'company_id.estimate_usd_currency_id')
     def _compute_amounts(self):
         for estimate in self:
             estimate.amount_cost = sum(estimate.line_ids.mapped('subtotal_cost'))
             estimate.amount_total = sum(estimate.line_ids.mapped('subtotal_price'))
             estimate.amount_margin = estimate.amount_total - estimate.amount_cost
+            estimate.amount_total_usd = self._convert_to_usd(
+                estimate.amount_total, estimate.company_id, estimate.company_id.estimate_usd_currency_id,
+                estimate.date_estimate)
+
+    @api.model
+    def _convert_to_usd(self, amount, company, usd, date):
+        """Quy đổi theo tỷ giá Odoo. USD chưa bật hoặc chưa có tỷ giá thì trả 0, không báo lỗi."""
+        if not amount or not company or not usd:
+            return 0.0
+        usd = usd.sudo()
+        currency = company.currency_id
+        if usd == currency:
+            return amount
+        if not usd.active:
+            return 0.0
+        # _convert dùng tỷ giá 1 khi chưa có tỷ giá nào, nên phải tự kiểm tra trước
+        has_rate = self.env['res.currency.rate'].sudo().search_count([
+            ('currency_id', '=', usd.id),
+            ('company_id', 'in', (False, company.root_id.id)),
+        ], limit=1)
+        if not has_rate:
+            return 0.0
+        return currency._convert(amount, usd, company, date or fields.Date.context_today(self))
+
+    @api.constrains('estimate_type', 'partner_id')
+    def _check_partner_required(self):
+        for estimate in self:
+            if estimate.estimate_type == 'order' and not estimate.partner_id:
+                raise ValidationError(_('Phiếu dự toán đơn hàng %s phải có khách hàng.', estimate.name))
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -43,6 +84,12 @@ class SaleEstimate(models.Model):
             if vals.get('name', _('Mới')) == _('Mới'):
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale.estimate') or _('Mới')
         return super().create(vals_list)
+
+    def write(self, vals):
+        if 'estimate_type' in vals and any(
+                estimate.sale_order_id and estimate.estimate_type != vals['estimate_type'] for estimate in self):
+            raise UserError(_('Không thể đổi loại phiếu khi phiếu đã có đơn bán hàng.'))
+        return super().write(vals)
 
     @api.ondelete(at_uninstall=False)
     def _unlink_only_without_order(self):
@@ -54,6 +101,8 @@ class SaleEstimate(models.Model):
 
     def _check_can_create_order(self, mrp_company):
         self.ensure_one()
+        if self.estimate_type != 'order':
+            raise UserError(_('Phiếu tính giá không tạo được đơn hàng. Hãy chuyển thành dự toán đơn hàng trước.'))
         if self.state != 'draft':
             raise UserError(_('Chỉ tạo đơn hàng từ phiếu dự toán ở trạng thái nháp.'))
         if not self.company_id.is_service:
@@ -120,6 +169,39 @@ class SaleEstimate(models.Model):
         self._check_order_cancelled()
         self.write({'state': 'draft', 'sale_order_id': False})
 
+    def action_done(self):
+        """Chốt giá phiếu tính giá."""
+        for estimate in self:
+            if estimate.estimate_type != 'price':
+                raise UserError(_('Chỉ phiếu tính giá mới chốt giá được.'))
+            if estimate.state != 'draft':
+                raise UserError(_('Chỉ chốt giá phiếu ở trạng thái nháp.'))
+            if not estimate.line_ids:
+                raise UserError(_('Phiếu tính giá chưa có sản phẩm.'))
+        self.write({'state': 'done'})
+
+    def action_convert_to_order(self):
+        """Chép phiếu tính giá sang phiếu dự toán đơn hàng mới, phiếu gốc giữ nguyên để tra cứu."""
+        self.ensure_one()
+        if self.estimate_type != 'price' or self.state not in ('draft', 'done'):
+            raise UserError(_('Chỉ chuyển phiếu tính giá ở trạng thái nháp hoặc đã chốt giá.'))
+        if not self.partner_id:
+            raise UserError(_('Hãy chọn khách hàng trên phiếu tính giá trước khi chuyển thành dự toán đơn hàng.'))
+        new_estimate = self.copy({
+            'estimate_type': 'order',
+            'note': self.note,
+        })
+        self.message_post(body=_('Đã chuyển thành phiếu dự toán đơn hàng %s.', new_estimate._get_html_link()))
+        new_estimate.message_post(body=_('Tạo từ phiếu tính giá %s.', self._get_html_link()))
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Phiếu dự toán'),
+            'res_model': 'sale.estimate',
+            'view_mode': 'form',
+            'res_id': new_estimate.id,
+            'context': {'default_estimate_type': 'order'},
+        }
+
 
 class SaleEstimateLine(models.Model):
     _name = 'sale.estimate.line'
@@ -154,13 +236,106 @@ class SaleEstimateLine(models.Model):
     material_cost = fields.Monetary(string='Chi phí NVL', compute='_compute_cost', store=True)
     operation_cost = fields.Monetary(string='Chi phí hoạt động', compute='_compute_cost', store=True)
     extra_cost = fields.Monetary(string='Chi phí khác', help="Tính trên 1 đơn vị sản phẩm.")
-    cost_unit = fields.Monetary(string='Giá vốn đơn vị', compute='_compute_cost', store=True)
-    markup_factor = fields.Float(
-        string='Hệ số giá bán', default=lambda self: self.env.company.estimate_markup_factor or 1,
-        help="Giá bán đơn vị = Giá vốn đơn vị x hệ số này.")
-    price_unit = fields.Monetary(string='Giá bán đơn vị', compute='_compute_price_unit', store=True, readonly=False)
+    cost_unit = fields.Monetary(
+        string='Giá vốn đơn vị', compute='_compute_cost', store=True, help="COST OF GOOD = NVL + hoạt động + chi phí khác.")
+
+    # ---- Tham số tính giá: mặc định theo công ty, sửa được trên từng dòng ----
+    studio_rate = fields.Float(string='Tỷ lệ studio', default=lambda self: self.env.company.estimate_studio_rate)
+    profit_rate_lv1 = fields.Float(
+        string='Tỷ lệ lợi nhuận LV1', default=lambda self: self.env.company.estimate_profit_rate_lv1)
+    profit_rate_lv2 = fields.Float(
+        string='Tỷ lệ lợi nhuận LV2', default=lambda self: self.env.company.estimate_profit_rate_lv2)
+    markup_lv1_1 = fields.Float(string='Hệ số LV1 (1)', default=lambda self: self.env.company.estimate_markup_lv1_1)
+    markup_lv1_2 = fields.Float(string='Hệ số LV1 (2)', default=lambda self: self.env.company.estimate_markup_lv1_2)
+    markup_lv1_3 = fields.Float(string='Hệ số LV1 (3)', default=lambda self: self.env.company.estimate_markup_lv1_3)
+    markup_lv2_1 = fields.Float(string='Hệ số LV2 (1)', default=lambda self: self.env.company.estimate_markup_lv2_1)
+    markup_lv2_2 = fields.Float(string='Hệ số LV2 (2)', default=lambda self: self.env.company.estimate_markup_lv2_2)
+    markup_lv2_3 = fields.Float(string='Hệ số LV2 (3)', default=lambda self: self.env.company.estimate_markup_lv2_3)
+    price_rounding = fields.Monetary(
+        string='Làm tròn giá chốt', default=lambda self: self.env.company.estimate_price_rounding)
+    showroom_factor_1 = fields.Float(
+        string='Hệ số mark up 1', default=lambda self: self.env.company.estimate_showroom_factor_1)
+    showroom_factor_2 = fields.Float(
+        string='Hệ số mark up 2', default=lambda self: self.env.company.estimate_showroom_factor_2)
+    showroom_factor_3 = fields.Float(
+        string='Hệ số mark up 2 (LV2)', default=lambda self: self.env.company.estimate_showroom_factor_3)
+    wsp_rate = fields.Float(string='Tỷ lệ giá sỉ', default=lambda self: self.env.company.estimate_wsp_rate)
+    ecom_rate = fields.Float(string='Tỷ lệ ecommerce', default=lambda self: self.env.company.estimate_ecom_rate)
+    wsp2_rate = fields.Float(string='Tỷ lệ giá sỉ 2', default=lambda self: self.env.company.estimate_wsp2_rate)
+    usd_currency_id = fields.Many2one(
+        'res.currency', string='Tiền tệ USD', default=lambda self: self.env.company.estimate_usd_currency_id)
+
+    # ---- AH..AR: giá thành và giá bán đề xuất ----
+    studio_cost = fields.Monetary(string='Studio cost', compute='_compute_price_levels', store=True)
+    profit_lv1 = fields.Monetary(string='Lợi nhuận LV1', compute='_compute_price_levels', store=True)
+    profit_lv2 = fields.Monetary(string='Lợi nhuận LV2', compute='_compute_price_levels', store=True)
+    total_cost_lv1 = fields.Monetary(string='Total cost LV1', compute='_compute_price_levels', store=True)
+    total_cost_lv2 = fields.Monetary(string='Total cost LV2', compute='_compute_price_levels', store=True)
+    price_lv1_1 = fields.Monetary(string='Giá LV1 (1)', compute='_compute_price_levels', store=True)
+    price_lv1_2 = fields.Monetary(string='Giá LV1 (2)', compute='_compute_price_levels', store=True)
+    price_lv1_3 = fields.Monetary(string='Giá LV1 (3)', compute='_compute_price_levels', store=True)
+    price_lv2_1 = fields.Monetary(string='Giá LV2 (1)', compute='_compute_price_levels', store=True)
+    price_lv2_2 = fields.Monetary(string='Giá LV2 (2)', compute='_compute_price_levels', store=True)
+    price_lv2_3 = fields.Monetary(string='Giá LV2 (3)', compute='_compute_price_levels', store=True)
+
+    # ---- AS..AU: bao bì, chỉ tham khảo, không cộng vào giá ----
+    packaging_garment_bag = fields.Monetary(
+        string='Garment bag', default=lambda self: self.env.company.estimate_packaging_garment_bag)
+    packaging_price_tag = fields.Monetary(
+        string='Price tag', default=lambda self: self.env.company.estimate_packaging_price_tag)
+    packaging_box = fields.Monetary(
+        string='Túi giấy / hộp', default=lambda self: self.env.company.estimate_packaging_box)
+    packaging_total = fields.Monetary(
+        string='Bao bì', compute='_compute_packaging_total', store=True, help="Chỉ tham khảo, không cộng vào giá.")
+
+    # ---- AV..AY: giá chốt ----
+    price_level = fields.Selection(
+        [('lv1', 'LV1'), ('lv2', 'LV2')], string='Mức giá', default='lv2', required=True)
+    price_option = fields.Selection(
+        [('1', 'Hệ số 1'), ('2', 'Hệ số 2'), ('3', 'Hệ số 3')], string='Hệ số', default='1', required=True)
+    price_factor_label = fields.Char(string='Hệ số đã chọn', compute='_compute_price_factor_label')
+    suggested_price = fields.Monetary(string='Giá đề xuất', compute='_compute_suggested_price', store=True)
+    price_unit = fields.Monetary(
+        string='Giá chốt', compute='_compute_price_unit', store=True, readonly=False, copy=True,
+        help="Giá đề xuất làm tròn theo cấu hình công ty, sửa tay được. Giá này đưa lên đơn bán hàng.")
+    price_manual = fields.Boolean(string='Giá tự định', compute='_compute_price_manual')
+    rrp_intl = fields.Monetary(string='RRP quốc tế')
+
+    # ---- BA..BR: showroom, sỉ, ecommerce ----
+    showroom_markup_1 = fields.Monetary(string='Mark up 1', compute='_compute_showroom_markup', store=True)
+    showroom_markup_2 = fields.Monetary(string='Mark up 2', compute='_compute_showroom_markup', store=True)
+    showroom_markup_3 = fields.Monetary(string='Mark up 2 (LV2)', compute='_compute_showroom_markup', store=True)
+    rrp_showroom = fields.Monetary(
+        string='RRP showroom', compute='_compute_rrp_showroom', store=True, readonly=False, copy=True,
+        help="Mặc định = Mark up 2 làm tròn, sửa tay được.")
+    wsp_price = fields.Monetary(string='Giá sỉ', compute='_compute_channel_prices', store=True)
+    ecom_price = fields.Monetary(string='Giá ecommerce', compute='_compute_channel_prices', store=True)
+    wsp2_price = fields.Monetary(string='Giá sỉ 2', compute='_compute_channel_prices', store=True)
+    profit_ecom_pct = fields.Float(string='LN ecom', compute='_compute_channel_prices', store=True)
+    profit_wsp_pct = fields.Float(string='LN sỉ', compute='_compute_channel_prices', store=True)
+    compare_vn_pct = fields.Float(string='So với VN', compute='_compute_channel_prices', store=True)
+
+    # ---- Quy đổi USD theo tỷ giá Odoo ----
+    price_unit_usd = fields.Monetary(
+        string='Giá chốt (USD)', compute='_compute_usd', store=True, currency_field='usd_currency_id')
+    rrp_intl_usd = fields.Monetary(
+        string='RRP quốc tế (USD)', compute='_compute_usd', store=True, currency_field='usd_currency_id')
+    rrp_showroom_usd = fields.Monetary(
+        string='RRP showroom (USD)', compute='_compute_usd', store=True, currency_field='usd_currency_id')
+    wsp_price_usd = fields.Monetary(
+        string='Giá sỉ (USD)', compute='_compute_usd', store=True, currency_field='usd_currency_id')
+    ecom_price_usd = fields.Monetary(
+        string='Giá ecommerce (USD)', compute='_compute_usd', store=True, currency_field='usd_currency_id')
+    wsp2_price_usd = fields.Monetary(
+        string='Giá sỉ 2 (USD)', compute='_compute_usd', store=True, currency_field='usd_currency_id')
+
     subtotal_cost = fields.Monetary(string='Tổng giá vốn', compute='_compute_subtotals', store=True)
     subtotal_price = fields.Monetary(string='Tổng giá bán', compute='_compute_subtotals', store=True)
+
+    # Lọc trong bảng tính giá
+    estimate_type = fields.Selection(related='estimate_id.estimate_type', store=True, string='Loại phiếu')
+    partner_id = fields.Many2one(related='estimate_id.partner_id', store=True, string='Khách hàng')
+    date_estimate = fields.Date(related='estimate_id.date_estimate', store=True, string='Ngày dự toán')
 
     product_id = fields.Many2one('product.product', string='Sản phẩm đã tạo', copy=False, readonly=True)
     bom_id = fields.Many2one('mrp.bom', string='BOM đã tạo', copy=False, readonly=True)
@@ -172,16 +347,111 @@ class SaleEstimateLine(models.Model):
             line.operation_cost = sum(line.operation_ids.mapped('subtotal'))
             line.cost_unit = line.material_cost + line.operation_cost + line.extra_cost
 
-    @api.depends('cost_unit', 'markup_factor')
-    def _compute_price_unit(self):
+    @api.depends('cost_unit', 'studio_rate', 'profit_rate_lv1', 'profit_rate_lv2',
+                 'markup_lv1_1', 'markup_lv1_2', 'markup_lv1_3', 'markup_lv2_1', 'markup_lv2_2', 'markup_lv2_3')
+    def _compute_price_levels(self):
+        """Cột AH..AR của sheet bespoke."""
         for line in self:
-            line.price_unit = line.currency_id.round(line.cost_unit * line.markup_factor)
+            line.studio_cost = line.cost_unit * line.studio_rate
+            base = line.cost_unit + line.studio_cost
+            line.profit_lv1 = base * line.profit_rate_lv1
+            line.profit_lv2 = base * line.profit_rate_lv2
+            line.total_cost_lv1 = base + line.profit_lv1
+            line.total_cost_lv2 = base + line.profit_lv2
+            for level in ('lv1', 'lv2'):
+                for option in ('1', '2', '3'):
+                    line[f'price_{level}_{option}'] = line[f'total_cost_{level}'] * line[f'markup_{level}_{option}']
+
+    @api.depends('packaging_garment_bag', 'packaging_price_tag', 'packaging_box')
+    def _compute_packaging_total(self):
+        for line in self:
+            line.packaging_total = line.packaging_garment_bag + line.packaging_price_tag + line.packaging_box
+
+    @api.depends('price_level', 'price_option', 'price_lv1_1', 'price_lv1_2', 'price_lv1_3',
+                 'price_lv2_1', 'price_lv2_2', 'price_lv2_3')
+    def _compute_suggested_price(self):
+        for line in self:
+            level, option = line.price_level or 'lv2', line.price_option or '1'
+            line.suggested_price = line[f'price_{level}_{option}']
+
+    @api.depends('price_level', 'price_option', 'markup_lv1_1', 'markup_lv1_2', 'markup_lv1_3',
+                 'markup_lv2_1', 'markup_lv2_2', 'markup_lv2_3')
+    def _compute_price_factor_label(self):
+        for line in self:
+            factor = line[f'markup_{line.price_level or "lv2"}_{line.price_option or "1"}']
+            line.price_factor_label = '× %s' % ('%g' % factor).replace('.', ',')
+
+    def _round_price(self, amount):
+        self.ensure_one()
+        if self.price_rounding > 0:
+            return float_round(amount, precision_rounding=self.price_rounding)
+        return self.currency_id.round(amount) if self.currency_id else amount
+
+    @api.depends('suggested_price', 'price_rounding')
+    def _compute_price_unit(self):
+        """Cột AV: giá đề xuất làm tròn (Excel: 10.506 -> 10.500)."""
+        for line in self:
+            line.price_unit = line._round_price(line.suggested_price)
+
+    @api.depends('price_unit', 'suggested_price', 'price_rounding')
+    def _compute_price_manual(self):
+        for line in self:
+            rounding = line.currency_id.rounding if line.currency_id else 0.01
+            line.price_manual = float_compare(
+                line.price_unit, line._round_price(line.suggested_price), precision_rounding=rounding) != 0
+
+    @api.depends('price_unit', 'total_cost_lv2', 'showroom_factor_1', 'showroom_factor_2', 'showroom_factor_3')
+    def _compute_showroom_markup(self):
+        for line in self:
+            line.showroom_markup_1 = line.price_unit * line.showroom_factor_1
+            line.showroom_markup_2 = line.showroom_markup_1 * line.showroom_factor_2
+            line.showroom_markup_3 = line.total_cost_lv2 * line.showroom_factor_3
+
+    @api.depends('showroom_markup_2', 'price_rounding')
+    def _compute_rrp_showroom(self):
+        for line in self:
+            line.rrp_showroom = line._round_price(line.showroom_markup_2)
+
+    @api.depends('rrp_showroom', 'wsp_rate', 'ecom_rate', 'wsp2_rate', 'total_cost_lv1', 'price_unit')
+    def _compute_channel_prices(self):
+        def ratio(value, base):
+            return (value - base) / base if base else 0.0
+
+        for line in self:
+            line.wsp_price = line.rrp_showroom * line.wsp_rate
+            line.ecom_price = line.rrp_showroom * line.ecom_rate
+            line.wsp2_price = line.rrp_showroom * line.wsp2_rate
+            line.profit_ecom_pct = ratio(line.ecom_price, line.total_cost_lv1)
+            line.profit_wsp_pct = ratio(line.wsp_price, line.total_cost_lv1)
+            line.compare_vn_pct = ratio(line.rrp_showroom, line.price_unit)
+
+    @api.depends('price_unit', 'rrp_intl', 'rrp_showroom', 'wsp_price', 'ecom_price', 'wsp2_price',
+                 'usd_currency_id', 'estimate_id.date_estimate', 'estimate_id.company_id')
+    def _compute_usd(self):
+        Estimate = self.env['sale.estimate']
+        for line in self:
+            company = line.estimate_id.company_id or self.env.company
+            date = line.estimate_id.date_estimate
+            for field in ('price_unit', 'rrp_intl', 'rrp_showroom', 'wsp_price', 'ecom_price', 'wsp2_price'):
+                line[f'{field}_usd'] = Estimate._convert_to_usd(line[field], company, line.usd_currency_id, date)
 
     @api.depends('product_qty', 'cost_unit', 'price_unit')
     def _compute_subtotals(self):
         for line in self:
             line.subtotal_cost = line.product_qty * line.cost_unit
             line.subtotal_price = line.product_qty * line.price_unit
+
+    def action_open_estimate(self):
+        """Bảng tính giá: bấm dòng mở phiếu cha."""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Phiếu dự toán'),
+            'res_model': 'sale.estimate',
+            'view_mode': 'form',
+            'res_id': self.estimate_id.id,
+            'context': {'default_estimate_type': self.estimate_type},
+        }
 
     def _create_or_update_product(self, index, mrp_company):
         """Tạo sản phẩm dùng chung 2 công ty. Sudo vì nhân viên bán hàng không có quyền tạo sản phẩm."""

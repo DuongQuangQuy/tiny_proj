@@ -42,7 +42,17 @@ Dành cho sản phẩm làm theo yêu cầu khách, chưa tồn tại lúc báo 
   `sale.estimate.bom.line` (NVL) và `sale.estimate.operation` (hoạt động).
 - Chi phí hoạt động = phút/60 × (chi phí giờ + chi phí nhân công × `employee_ratio`), khớp `mrp_workorder`.
   `sale.estimate.instruction` (tab Hướng dẫn) thành `quality.point` trên hoạt động của BOM khi tạo đơn.
-- Giá vốn đơn vị = NVL + hoạt động + chi phí khác. Giá bán = giá vốn × hệ số giá bán (`markup_factor`), sửa được.
+- Giá vốn đơn vị `cost_unit` = NVL + hoạt động + chi phí khác (cột AG sheet `bespoke` file báo giá). Sau đó tính đúng như Excel:
+  studio = AG × `studio_rate`, LN = (AG + studio) × `profit_rate_lv1/2`, `total_cost_lv1/2` = AG + studio + LN,
+  6 giá `price_lv{1,2}_{1,2,3}` = total cost × `markup_lv*`. `price_level` (mặc định lv2) + `price_option` chọn `suggested_price`;
+  `price_unit` (giá chốt, lên SO và `list_price`) = `suggested_price` làm tròn `price_rounding`, sửa tay được (`price_manual`).
+  Bao bì chỉ hiển thị, không cộng vào giá. Kênh showroom/sỉ/ecom tính từ `price_unit` và `rrp_showroom`.
+  Đã bỏ `markup_factor` và `estimate_markup_factor`.
+- Tham số tính giá cấu hình trên công ty (`estimate_*`, trang "Tính giá dự toán"), chép sang từng dòng qua `default=` và sửa được.
+  USD quy đổi theo tỷ giá Odoo (`sale.estimate._convert_to_usd`), USD chưa bật hoặc chưa có tỷ giá thì trả 0.
+- `estimate_type`: `order` (dự toán đơn hàng, bắt buộc khách) / `price` (phiếu tính giá, menu Bán hàng > Tính giá, không tạo SO,
+  trạng thái `done` = đã chốt giá, `action_convert_to_order` chép sang phiếu `order` mới). Bảng tính giá là list chỉ đọc
+  của `sale.estimate.line`, bấm dòng gọi `action_open_estimate` (thuộc tính `action`/`type` trên `<list>`).
 - `action_create_sale_order` tạo sản phẩm dùng chung (`company_id = False`), nhà cung cấp là công ty sản xuất,
   BOM của công ty sản xuất và SO nháp. Sau đó luồng liên công ty giữ nguyên: MO tự tìm thấy BOM vì sản phẩm chỉ có một BOM.
 - Đưa phiếu về nháp rồi tạo đơn lại sẽ dùng lại sản phẩm, lưu trữ BOM cũ và tạo BOM mới.

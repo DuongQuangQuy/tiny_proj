@@ -91,13 +91,33 @@ Quy tắc này là điều kiện để sinh MO. Thiếu nó, SO công ty sản 
 
 ### 2.6. Cấu hình phiếu dự toán trên công ty thương mại
 
-Mở lại form **công ty thương mại**. Ba trường này chỉ hiện khi đã bật **Công ty thương mại**.
+Mở lại form **công ty thương mại**. Các trường này chỉ hiện khi đã bật **Công ty thương mại**.
 
 | Trường | Giá trị | Bắt buộc |
 |---|---|---|
 | Tuyến cho sản phẩm dự toán | **MTO** và **Mua** (Buy) | Có |
 | Danh mục sản phẩm dự toán | Danh mục mặc định trên dòng dự toán | Không |
-| Hệ số giá bán mặc định | Ví dụ `2` là bán gấp đôi giá vốn | Không |
+
+### 2.6b. Tham số tính giá (trang "Tính giá dự toán" trên form công ty thương mại)
+
+Đây là giá trị **mặc định cho dòng dự toán mới**. Mỗi dòng có bản sao riêng các tham số này và sửa được khi phiếu ở nháp, nên
+đổi cấu hình công ty không làm đổi giá của phiếu đã lập.
+
+| Tham số | Mặc định | Cột Excel |
+|---|---|---|
+| Tỷ lệ studio | 100% | AH |
+| Lợi nhuận LV1 / LV2 | 20% / 25% | AI / AJ |
+| Hệ số LV1 (1, 2, 3) | 1,8 / 2,2 / 2,5 | AM..AO |
+| Hệ số LV2 (1, 2, 3) | 1,9 / 2,2 / 2,5 | AP..AR |
+| Làm tròn giá chốt | 100.000 | AV |
+| Garment bag / Price tag / Túi giấy, hộp | 42.000 / 5.500 / 40.000 | AS..AU |
+| Hệ số mark up 1 / 2 / 2 (LV2) | 0,7 / 2,5 / 2,8 | BA..BC |
+| Tỷ lệ giá sỉ / ecommerce / giá sỉ 2 | 40% / 50% / 42% | BG / BJ / BQ |
+| Tiền tệ quy đổi USD | USD | AW, BE.. |
+
+Giá USD quy đổi theo **tỷ giá trong Odoo** (Kế toán > Cấu hình > Tiền tệ), không dùng tỷ giá cố định 24.000 của file
+Excel. Nếu USD chưa bật hoặc chưa có tỷ giá cho công ty thương mại, các ô USD bằng 0. Giá USD được lưu theo tỷ giá lúc lập
+hoặc sửa dòng: thêm tỷ giá sau đó thì phải sửa lại dòng (ví dụ đổi hệ số rồi đổi lại) để tính lại.
 
 ### 2.7. Tạo dữ liệu mẫu
 
@@ -142,17 +162,18 @@ Mã không được trùng trong cùng một công ty.
 5. Tab **Hoạt động**: nhấn **Thêm hoạt động**, nhập tên hoạt động, chọn khu vực của công ty thương mại và thời lượng cho
    1 sản phẩm. Nếu để trống tên, hệ thống lấy theo tên khu vực. Chi phí theo giờ tự lấy từ
    khu vực cùng mã ở công ty sản xuất, sửa được. BOM tạo ra dùng khu vực của công ty sản xuất.
-6. Nhập **Chi phí khác** (tính trên 1 sản phẩm) và **Hệ số giá bán**, ví dụ `2` là nhân 2, `3` là nhân 3, `1,5` là nhân 1,5.
-7. Lưu phiếu, nhấn **Tạo đơn hàng**.
+6. Nhập **Chi phí khác** (tính trên 1 sản phẩm), xem trang **Tính giá** (mục 3.1), chọn mức giá và hệ số.
+7. Lưu phiếu, nhấn **Tạo đơn hàng**. Đơn hàng dùng **Giá chốt**.
 
 Cách tính giá:
 
 ```
 Chi phí NVL       = Tổng (định mức x đơn giá NVL)
 Chi phí hoạt động = Tổng (số phút / 60 x (chi phí theo giờ + chi phí nhân công theo giờ x khả năng nhân viên))
-Giá vốn đơn vị    = Chi phí NVL + Chi phí hoạt động + Chi phí khác
-Giá bán đơn vị    = Giá vốn đơn vị x hệ số giá bán
+Giá vốn đơn vị    = Chi phí NVL + Chi phí hoạt động + Chi phí khác     (COST OF GOOD, cột AG)
 ```
+
+Phần sau giá vốn tính theo sheet `bespoke` của file báo giá, xem mục 3.1.
 
 Công thức chi phí hoạt động giống BOM Enterprise. Chi phí nhân công lấy từ khu vực cùng mã ở công ty sản xuất.
 
@@ -167,7 +188,55 @@ Popup hoạt động có thêm 2 trường chuyển sang BOM, không làm đổi
 Lưu ý khi nhập:
 
 - **Thời lượng/1 SP** tính bằng phút và hiển thị dạng `phút:giây`. Nhập `30:00` là 30 phút, còn `00:30` chỉ là 30 giây.
-- **Giá bán đơn vị** sửa tay được, nhưng sẽ bị tính lại khi giá vốn hoặc hệ số giá bán đổi. Hãy sửa giá bán sau cùng.
+- **Giá chốt** sửa tay được, nhưng sẽ bị tính lại khi giá vốn, tham số hoặc mức giá đổi. Hãy sửa giá chốt sau cùng.
+
+### 3.1. Trang "Tính giá" trên dòng dự toán
+
+Trang đầu tiên của form dòng, đọc từ trên xuống theo đúng thứ tự cột của file Excel. Ô có khung nhập là tham số (sửa được
+khi phiếu ở nháp), ô còn lại là kết quả.
+
+| Khối | Nội dung | Công thức |
+|---|---|---|
+| 1. Giá vốn | Chi phí NVL, nhân công (tab Hoạt động), chi phí khác | Giá vốn (AG) = tổng 3 ô |
+| 2. Giá thành | Studio cost, lợi nhuận, total cost | Studio = AG × tỷ lệ studio; LN = (AG + studio) × tỷ lệ LN; Total cost = AG + studio + LN |
+| 3. Giá bán đề xuất | 3 giá LV1, 3 giá LV2 | Total cost của mức × hệ số |
+| | Mức giá, Hệ số | Chọn 1 trong 6 giá trên làm **Giá đề xuất** (mặc định LV2 × hệ số 1) |
+| | **Giá chốt** | Giá đề xuất làm tròn 100.000, sửa tay được. Sửa tay thì hiện nhãn **Giá tự định** |
+| 4. Bao bì | Garment bag, price tag, túi giấy/hộp | Chỉ tham khảo, **không cộng vào giá** (giống Excel) |
+
+Trang **Kênh khác** (khối 5):
+
+```
+Mark up 1        = Giá chốt × 0,7
+Mark up 2        = Mark up 1 × 2,5
+Mark up 2 (LV2)  = Total cost LV2 × 2,8
+RRP showroom     = Mark up 2 làm tròn (sửa tay được)
+Giá sỉ / Ecom / Giá sỉ 2 = RRP showroom × 40% / 50% / 42%
+LN ecom   = (Giá ecom - Total cost LV1) / Total cost LV1
+LN sỉ     = (Giá sỉ - Total cost LV1) / Total cost LV1
+So với VN = (RRP showroom - Giá chốt) / Giá chốt
+```
+
+Phần trăm âm tô đỏ, dương tô xanh. Ví dụ dòng mẫu của Excel, giá vốn 2.432.000: Total cost LV1 5.836.800, LV2 6.080.000,
+LV2 × 1,9 = 11.552.000, giá chốt 11.600.000.
+
+Phiếu dự toán cũ (trước khi nâng cấp) giữ nguyên giá bán đã lưu làm Giá chốt, nên có thể hiện nhãn **Giá tự định**.
+
+### 3.2. Menu "Tính giá": phiếu chỉ tính giá
+
+**Bán hàng > Tính giá > Phiếu tính giá** dùng khi chỉ cần báo giá, chưa có đơn:
+
+- Không bắt buộc khách hàng, không có nút **Tạo đơn hàng**, không bắt buộc NVL hay khu vực cùng mã.
+- **Chốt giá**: chuyển phiếu sang **Đã chốt giá**. **Đưa về nháp** để sửa lại.
+- **Chuyển thành dự toán đơn hàng**: phải chọn khách trước. Hệ thống tạo phiếu dự toán đơn hàng mới (chép đủ dòng, NVL, hoạt
+  động, giá chốt) và mở phiếu đó. Phiếu tính giá gốc giữ nguyên để tra cứu.
+
+**Bán hàng > Tính giá > Bảng tính giá**: bảng chỉ đọc kiểu Excel, mỗi dòng là một sản phẩm, mặc định lọc phiếu nháp và đã
+chốt giá. Các cột in hoa (Giá vốn, Total cost LV1/LV2, Giá chốt) luôn hiện; cột chi phí thành phần, 6 giá mark up và kênh
+showroom/sỉ/ecom bật ở nút chọn cột bên phải. Bấm một dòng để mở phiếu. Chế độ **Pivot** tổng hợp giá vốn, total cost LV2 và
+giá chốt theo phiếu. Lọc và nhóm theo phiếu, khách, loại phiếu, trạng thái.
+
+Tham số tính giá cấu hình ở form công ty, xem mục 2.6b.
 
 ---
 
@@ -182,7 +251,7 @@ Mỗi kịch bản bắt đầu bằng một phiếu mới, trừ khi ghi khác.
 | Số lượng | 2 |
 | Số đo / Mã vải | 2m x 1m / V01 |
 | Chi phí khác | 50.000 |
-| Hệ số giá bán | 1,2 |
+| Mức giá / Hệ số | LV2 / Hệ số 1 (mặc định) |
 | Nguyên vật liệu | Vải A, định mức 3 |
 | Hoạt động | May, thời lượng `30:00` |
 
@@ -196,17 +265,19 @@ Nhập phiếu mẫu, lưu. Chưa nhấn Tạo đơn hàng.
 | Chi phí NVL | 300.000 |
 | Chi phí hoạt động | 30.000 |
 | Giá vốn đơn vị | 380.000 |
-| Giá bán đơn vị | 456.000 |
+| Total cost LV2 | 950.000 |
+| Giá đề xuất (LV2 × 1,9) | 1.805.000 |
+| Giá chốt | 1.800.000 |
 | Tổng giá vốn | 760.000 |
-| Tổng giá bán | 912.000 |
-| Lợi nhuận dự kiến | 152.000 |
+| Tổng giá bán | 3.600.000 |
+| Lợi nhuận dự kiến | 2.840.000 |
 
 ### TC2. Tạo đơn hàng
 
 Nhấn **Tạo đơn hàng** trên phiếu TC1.
 
 - Phiếu chuyển sang **Đã tạo đơn hàng**, có nút **Đơn hàng**.
-- SO ở trạng thái báo giá, `Nguồn` là số phiếu, đơn giá 456.000, số lượng 2, có số đo và mã vải.
+- SO ở trạng thái báo giá, `Nguồn` là số phiếu, đơn giá 1.800.000, số lượng 2, có số đo và mã vải.
 - Trên form dòng dự toán có mục **Đã tạo** với sản phẩm và BOM.
 - Sản phẩm có mã `<số phiếu>-01`, trường Công ty để trống, tuyến là MTO và Mua.
 - Tab mua hàng của sản phẩm có nhà cung cấp là công ty sản xuất, giá 380.000.
@@ -283,7 +354,7 @@ Tài khoản nhân viên chỉ có công ty thương mại.
 
 ## 5. Chạy test tự động
 
-Module có 15 test ở `tests/test_sale_estimate.py`. Bộ test tự dựng dữ liệu, nên chạy trên DB tạm, không dùng DB đang làm việc.
+Module có 23 test ở `tests/test_sale_estimate.py`. Bộ test tự dựng dữ liệu, nên chạy trên DB tạm, không dùng DB đang làm việc.
 
 Từ `D:\odoo19` trong Git Bash:
 
@@ -298,7 +369,7 @@ odoo-env/Scripts/python.exe odoo/odoo-bin -c odoo.conf --addons-path="$ADDONS" \
 Kết quả đúng, ở cuối log:
 
 ```
-odoo.tests.result: 0 failed, 0 error(s) of 15 tests when loading database 'tmp_tiny_test'
+odoo.tests.result: 0 failed, 0 error(s) of 23 tests when loading database 'tmp_tiny_test'
 ```
 
 Xóa DB tạm sau khi chạy:

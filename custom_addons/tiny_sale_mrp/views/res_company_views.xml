@@ -8,7 +8,49 @@
             <xpath expr="//field[@name='is_service']" position="after">
                 <field name="estimate_route_ids" widget="many2many_tags" invisible="not is_service"/>
                 <field name="estimate_categ_id" invisible="not is_service"/>
-                <field name="estimate_markup_factor" invisible="not is_service"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Tính giá dự toán" name="estimate_pricing" invisible="not is_service">
+                    <div class="text-muted mb-2">
+                        Mặc định cho dòng dự toán mới, sửa được trên từng dòng. Công thức theo sheet bespoke của file báo giá.
+                    </div>
+                    <group>
+                        <group string="Giá thành">
+                            <field name="estimate_studio_rate" widget="percentage"/>
+                            <field name="estimate_profit_rate_lv1" widget="percentage"/>
+                            <field name="estimate_profit_rate_lv2" widget="percentage"/>
+                        </group>
+                        <group string="Hệ số giá bán">
+                            <label for="estimate_markup_lv1_1" string="Hệ số LV1"/>
+                            <div class="o_row">
+                                <field name="estimate_markup_lv1_1"/>
+                                <field name="estimate_markup_lv1_2"/>
+                                <field name="estimate_markup_lv1_3"/>
+                            </div>
+                            <label for="estimate_markup_lv2_1" string="Hệ số LV2"/>
+                            <div class="o_row">
+                                <field name="estimate_markup_lv2_1"/>
+                                <field name="estimate_markup_lv2_2"/>
+                                <field name="estimate_markup_lv2_3"/>
+                            </div>
+                            <field name="estimate_price_rounding"/>
+                            <field name="estimate_usd_currency_id" options="{'no_create': True}"/>
+                        </group>
+                        <group string="Bao bì (chỉ tham khảo)">
+                            <field name="estimate_packaging_garment_bag"/>
+                            <field name="estimate_packaging_price_tag"/>
+                            <field name="estimate_packaging_box"/>
+                        </group>
+                        <group string="Showroom, sỉ, ecommerce">
+                            <field name="estimate_showroom_factor_1"/>
+                            <field name="estimate_showroom_factor_2"/>
+                            <field name="estimate_showroom_factor_3"/>
+                            <field name="estimate_wsp_rate" widget="percentage"/>
+                            <field name="estimate_ecom_rate" widget="percentage"/>
+                            <field name="estimate_wsp2_rate" widget="percentage"/>
+                        </group>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>

@@ -10,8 +10,15 @@ class TestSaleEstimate(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         env = cls.env
-        cls.service_company = env['res.company'].create({'name': 'Tiny Thuong Mai', 'is_service': True})
-        cls.mrp_company = env['res.company'].create({'name': 'Tiny San Xuat', 'is_mrp': True})
+        # Excel tính theo VND nên dùng VND cho 2 công ty để kiểm tra quy đổi USD
+        cls.vnd = env.ref('base.VND')
+        cls.vnd.active = True
+        cls.usd = env.ref('base.USD')
+        cls.usd.active = True
+        cls.service_company = env['res.company'].create({
+            'name': 'Tiny Thuong Mai', 'is_service': True, 'currency_id': cls.vnd.id})
+        cls.mrp_company = env['res.company'].create({
+            'name': 'Tiny San Xuat', 'is_mrp': True, 'currency_id': cls.vnd.id})
         env['res.company'].search([
             ('is_mrp', '=', True), ('id', '!=', cls.mrp_company.id)]).is_mrp = False
 
@@ -62,7 +69,6 @@ class TestSaleEstimate(TransactionCase):
                 'code_fabric': 'V01',
                 'note': 'Theo yeu cau',
                 'extra_cost': 50000,
-                'markup_factor': 1.2,
                 'bom_line_ids': [Command.create({'product_id': self.fabric.id, 'product_qty': 3})],
                 'operation_ids': [Command.create({'workcenter_id': self.service_workcenter.id, 'time_cycle_manual': 30})],
             })],
@@ -75,9 +81,10 @@ class TestSaleEstimate(TransactionCase):
         self.assertEqual(line.operation_ids.name, 'May TM')
         self.assertEqual(line.operation_cost, 30000)
         self.assertEqual(line.cost_unit, 380000)
-        self.assertEqual(line.price_unit, 456000)
-        self.assertEqual(estimate.amount_total, 912000)
-        self.assertEqual(estimate.amount_margin, 152000)
+        # Mặc định LV2 x 1,9: (380.000 x 2) x 1,25 x 1,9 = 1.805.000, làm tròn 100.000
+        self.assertEqual(line.price_unit, 1800000)
+        self.assertEqual(estimate.amount_total, 3600000)
+        self.assertEqual(estimate.amount_margin, 2840000)
 
     def test_02_create_order_builds_product_and_bom(self):
         estimate = self._create_estimate()
@@ -96,7 +103,7 @@ class TestSaleEstimate(TransactionCase):
         self.assertEqual(line.product_id.seller_ids.price, 380000)
         self.assertEqual(line.product_id.with_company(self.mrp_company).standard_price, 380000)
         order_line = estimate.sale_order_id.sudo().order_line
-        self.assertEqual(order_line.price_unit, 456000)
+        self.assertEqual(order_line.price_unit, 1800000)
         self.assertEqual(order_line.product_uom_qty, 2)
         self.assertEqual(order_line.product_size, '2m x 1m')
         self.assertEqual(order_line.code_fabric, 'V01')
@@ -167,7 +174,7 @@ class TestSaleEstimate(TransactionCase):
         with form.line_ids.new() as line:
             line.name = 'Ghe may do'
             line.extra_cost = 10000
-            line.markup_factor = 1.5
+            line.price_option = '2'
             with line.bom_line_ids.new() as bom_line:
                 bom_line.product_id = self.fabric
                 bom_line.product_qty = 2
@@ -179,7 +186,8 @@ class TestSaleEstimate(TransactionCase):
         estimate = form.save()
         self.assertEqual(estimate.line_ids.bom_line_ids.product_uom_id, self.fabric.uom_id)
         self.assertEqual(estimate.line_ids.cost_unit, 220000)
-        self.assertEqual(estimate.line_ids.price_unit, 330000)
+        # (220.000 x 2) x 1,25 x 2,2 = 1.210.000 -> 1.200.000
+        self.assertEqual(estimate.line_ids.price_unit, 1200000)
 
     def test_10_salesman_only_picks_linked_workcenters(self):
         env = self.env(user=self.salesman, context={'allowed_company_ids': self.service_company.ids})
@@ -252,3 +260,166 @@ class TestSaleEstimate(TransactionCase):
         self.service_company.estimate_route_ids = False
         with self.assertRaises(UserError):
             estimate.action_create_sale_order()
+
+    # ---------------- Tính giá theo sheet bespoke ----------------
+
+    def _create_price_estimate(self, user=None, **line_vals):
+        """Phiếu tính giá, giá vốn 2.432.000 như dòng mẫu trong file Excel."""
+        env = self.env(user=user or self.salesman, context={'allowed_company_ids': self.service_company.ids})
+        return env['sale.estimate'].with_company(self.service_company).with_context(
+            default_estimate_type='price').create({
+                'line_ids': [Command.create({'name': 'Dam may do', 'extra_cost': 2432000, **line_vals})],
+            })
+
+    def test_20_price_levels_match_excel(self):
+        line = self._create_price_estimate().line_ids
+        self.assertEqual(line.cost_unit, 2432000)
+        self.assertAlmostEqual(line.studio_cost, 2432000)
+        self.assertAlmostEqual(line.profit_lv1, 972800)
+        self.assertAlmostEqual(line.profit_lv2, 1216000)
+        self.assertAlmostEqual(line.total_cost_lv1, 5836800)
+        self.assertAlmostEqual(line.total_cost_lv2, 6080000)
+        self.assertAlmostEqual(line.price_lv1_1, 10506240)
+        self.assertAlmostEqual(line.price_lv1_2, 12840960)
+        self.assertAlmostEqual(line.price_lv1_3, 14592000)
+        self.assertAlmostEqual(line.price_lv2_1, 11552000)
+        self.assertAlmostEqual(line.price_lv2_2, 13376000)
+        self.assertAlmostEqual(line.price_lv2_3, 15200000)
+        self.assertEqual(line.packaging_total, 87500)
+
+    def test_21_final_price_rounding_and_manual(self):
+        line = self._create_price_estimate().line_ids
+        self.assertEqual((line.price_level, line.price_option), ('lv2', '1'))
+        self.assertAlmostEqual(line.suggested_price, 11552000)
+        self.assertEqual(line.price_unit, 11600000)
+        self.assertFalse(line.price_manual)
+        self.assertEqual(line.price_factor_label, '× 1,9')
+        line.price_option = '2'
+        self.assertEqual(line.price_unit, 13400000)
+        line.write({'price_level': 'lv1', 'price_option': '1'})
+        self.assertEqual(line.price_unit, 10500000)  # Excel: 10.506 -> 10.500
+        line.price_unit = 12000000
+        self.assertTrue(line.price_manual)
+        # Bao bì không cộng vào giá
+        line.packaging_box = 100000
+        self.assertEqual(line.price_unit, 12000000)
+
+        estimate = self._create_estimate()
+        estimate.line_ids.price_unit = 2500000
+        self.assertTrue(estimate.line_ids.price_manual)
+        estimate.action_create_sale_order()
+        self.assertEqual(estimate.sale_order_id.sudo().order_line.price_unit, 2500000)
+        self.assertEqual(estimate.line_ids.product_id.sudo().list_price, 2500000)
+
+    def test_22_channel_prices(self):
+        line = self._create_price_estimate().line_ids
+        self.assertAlmostEqual(line.showroom_markup_1, 8120000)
+        self.assertAlmostEqual(line.showroom_markup_2, 20300000)
+        self.assertAlmostEqual(line.showroom_markup_3, 17024000)
+        self.assertEqual(line.rrp_showroom, 20300000)
+        self.assertAlmostEqual(line.wsp_price, 8120000)
+        self.assertAlmostEqual(line.ecom_price, 10150000)
+        self.assertAlmostEqual(line.wsp2_price, 8526000)
+        self.assertAlmostEqual(line.profit_ecom_pct, (10150000 - 5836800) / 5836800, places=6)
+        self.assertAlmostEqual(line.profit_wsp_pct, (8120000 - 5836800) / 5836800, places=6)
+        self.assertAlmostEqual(line.compare_vn_pct, 0.75, places=6)
+        # RRP showroom sửa tay được, giá kênh tính theo giá sửa
+        line.rrp_showroom = 18450000
+        self.assertAlmostEqual(line.ecom_price, 9225000)
+        # Chia cho 0 trả 0
+        zero = self._create_price_estimate(extra_cost=0).line_ids
+        self.assertEqual((zero.profit_ecom_pct, zero.profit_wsp_pct, zero.compare_vn_pct), (0, 0, 0))
+
+    def test_23_usd_uses_odoo_rate(self):
+        self.usd.sudo().rate_ids.unlink()
+        line = self._create_price_estimate().line_ids
+        self.assertEqual(line.usd_currency_id, self.usd)
+        self.assertEqual(line.price_unit_usd, 0)  # chưa có tỷ giá thì không quy đổi, không báo lỗi
+
+        self.env['res.currency.rate'].create({
+            'currency_id': self.usd.id,
+            'company_id': self.service_company.id,
+            'name': line.estimate_id.date_estimate,
+            'rate': 1 / 25000,
+        })
+        estimate = self._create_price_estimate()
+        line = estimate.line_ids
+        self.assertAlmostEqual(line.price_unit_usd, 464, places=2)  # 11.600.000 / 25.000
+        self.assertAlmostEqual(line.rrp_showroom_usd, 812, places=2)
+        self.assertAlmostEqual(estimate.amount_total_usd, 464, places=2)
+
+    def test_24_pricing_uses_material_and_operation_tabs(self):
+        estimate = self._create_estimate()
+        line = estimate.line_ids
+        self.assertEqual(line.material_cost, 300000)
+        self.assertEqual(line.operation_cost, 30000)
+        self.assertEqual(line.cost_unit, 380000)
+        self.assertAlmostEqual(line.studio_cost, 380000)
+        self.assertAlmostEqual(line.total_cost_lv2, 950000)
+        line.bom_line_ids.product_qty = 4
+        self.assertEqual(line.cost_unit, 480000)
+        self.assertAlmostEqual(line.total_cost_lv2, 1200000)
+
+    def test_25_price_estimate_flow(self):
+        estimate = self._create_price_estimate()
+        self.assertEqual(estimate.estimate_type, 'price')
+        self.assertFalse(estimate.partner_id)
+        self.assertEqual(estimate.line_ids.estimate_type, 'price')
+        with self.assertRaises(UserError):
+            estimate.action_create_sale_order()
+        estimate.line_ids.write({
+            'bom_line_ids': [Command.create({'product_id': self.fabric.id, 'product_qty': 2})],
+            'operation_ids': [Command.create({'workcenter_id': self.service_workcenter.id, 'time_cycle_manual': 20})],
+        })
+        estimate.line_ids.price_unit = 12345000
+        estimate.action_done()
+        self.assertEqual(estimate.state, 'done')
+        with self.assertRaises(UserError):
+            estimate.action_convert_to_order()  # chưa có khách
+
+        estimate.partner_id = self.customer
+        action = estimate.action_convert_to_order()
+        order_estimate = estimate.browse(action['res_id'])
+        self.assertNotEqual(order_estimate, estimate)
+        self.assertEqual(order_estimate.estimate_type, 'order')
+        self.assertEqual(order_estimate.state, 'draft')
+        self.assertEqual(order_estimate.partner_id, self.customer)
+        self.assertEqual(order_estimate.line_ids.bom_line_ids.product_id, self.fabric)
+        self.assertEqual(order_estimate.line_ids.operation_ids.workcenter_id, self.service_workcenter)
+        self.assertEqual(order_estimate.line_ids.price_unit, 12345000)
+        self.assertEqual(estimate.state, 'done')  # phiếu gốc giữ nguyên
+
+        estimate.action_reset_draft()
+        self.assertEqual(estimate.state, 'draft')
+        order_estimate.action_create_sale_order()
+        self.assertEqual(order_estimate.state, 'ordered')
+        with self.assertRaises(UserError):
+            order_estimate.estimate_type = 'price'
+
+
+    def test_26_order_estimate_requires_partner(self):
+        env = self.env(user=self.salesman, context={'allowed_company_ids': self.service_company.ids})
+        with self.assertRaises(ValidationError):
+            env['sale.estimate'].with_company(self.service_company).create({
+                'line_ids': [Command.create({'name': 'Sofa'})]})
+        with self.assertRaises(UserError):
+            self._create_estimate().action_done()
+
+    def test_27_salesman_uses_pricing_menu(self):
+        estimate = self._create_price_estimate(user=self.salesman)
+        line = estimate.line_ids
+        line.write({'studio_rate': 0.5, 'price_option': '3'})
+        self.assertAlmostEqual(line.total_cost_lv2, 3648000 * 1.25)
+        Line = self.env['sale.estimate.line'].with_user(self.salesman).with_context(
+            allowed_company_ids=self.service_company.ids)
+        lines = Line.search([('estimate_type', '=', 'price'), ('state', 'in', ('draft', 'done'))])
+        self.assertIn(line, lines)
+        lines.read(['cost_unit', 'total_cost_lv2', 'price_unit', 'price_unit_usd', 'profit_ecom_pct'])
+        Line._read_group([('estimate_type', '=', 'price')], ['estimate_id'], ['price_unit:sum'])
+        action = line.with_user(self.salesman).action_open_estimate()
+        self.assertEqual((action['res_model'], action['res_id']), ('sale.estimate', estimate.id))
+        menus = self.env['ir.ui.menu'].with_user(self.salesman)._visible_menu_ids()
+        for xmlid in ('menu_sale_estimate_price', 'menu_sale_estimate_line_pricing', 'menu_sale_estimate'):
+            self.assertIn(self.env.ref('tiny_sale_mrp.%s' % xmlid).id, menus)
+        estimate.with_user(self.salesman).action_done()
+        self.assertEqual(estimate.state, 'done')

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Bảng tính giá: xem kết quả kiểu bảng Excel, cột theo thứ tự sheet bespoke -->
+    <record id="view_sale_estimate_line_pricing_list" model="ir.ui.view">
+        <field name="name">sale.estimate.line.pricing.list</field>
+        <field name="model">sale.estimate.line</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <list string="Bảng tính giá" create="0" edit="0" delete="0"
+                  action="action_open_estimate" type="object">
+                <field name="currency_id" column_invisible="1"/>
+                <field name="usd_currency_id" column_invisible="1"/>
+                <field name="estimate_id" string="Phiếu"/>
+                <field name="partner_id" string="Khách" optional="show"/>
+                <field name="estimate_type" optional="hide"/>
+                <field name="name" string="Tên SP"/>
+                <field name="image_1920" widget="image" options="{'size': [0, 32]}" string="Ảnh" optional="hide"/>
+                <field name="product_qty" optional="hide"/>
+                <!-- Giá vốn -->
+                <field name="material_cost" string="Chi phí NVL" optional="hide" sum="Tổng"/>
+                <field name="operation_cost" string="Chi phí hoạt động" optional="hide" sum="Tổng"/>
+                <field name="extra_cost" string="Chi phí khác" optional="hide" sum="Tổng"/>
+                <field name="cost_unit" string="GIÁ VỐN" class="fw-bold" sum="Tổng"/>
+                <!-- Giá thành -->
+                <field name="studio_cost" string="Studio" optional="hide" sum="Tổng"/>
+                <field name="profit_lv1" string="LN LV1" optional="hide" sum="Tổng"/>
+                <field name="profit_lv2" string="LN LV2" optional="hide" sum="Tổng"/>
+                <field name="total_cost_lv1" string="TOTAL COST LV1" class="fw-bold" sum="Tổng"/>
+                <field name="total_cost_lv2" string="TOTAL COST LV2" class="fw-bold" sum="Tổng"/>
+                <!-- Giá bán đề xuất -->
+                <field name="price_lv1_1" string="LV1 × hệ số 1" optional="hide" sum="Tổng"/>
+                <field name="price_lv1_2" string="LV1 × hệ số 2" optional="hide" sum="Tổng"/>
+                <field name="price_lv1_3" string="LV1 × hệ số 3" optional="hide" sum="Tổng"/>
+                <field name="price_lv2_1" string="LV2 × hệ số 1" optional="hide" sum="Tổng"/>
+                <field name="price_lv2_2" string="LV2 × hệ số 2" optional="hide" sum="Tổng"/>
+                <field name="price_lv2_3" string="LV2 × hệ số 3" optional="hide" sum="Tổng"/>
+                <field name="packaging_total" string="Bao bì" optional="hide" sum="Tổng"/>
+                <!-- Giá chốt -->
+                <field name="price_unit" string="GIÁ CHỐT" class="fw-bold" sum="Tổng"/>
+                <field name="price_unit_usd" string="Giá chốt USD" optional="show" sum="Tổng"/>
+                <!-- Kênh quốc tế / sỉ / ecom -->
+                <field name="rrp_showroom" string="RRP showroom" optional="hide" sum="Tổng"/>
+                <field name="wsp_price" string="Sỉ 40%" optional="hide" sum="Tổng"/>
+                <field name="ecom_price" string="Ecom 50%" optional="hide" sum="Tổng"/>
+                <field name="wsp2_price" string="Sỉ 42%" optional="hide" sum="Tổng"/>
+                <field name="profit_ecom_pct" string="LN ecom %" widget="percentage" optional="hide"
+                       decoration-danger="profit_ecom_pct &lt; 0" decoration-success="profit_ecom_pct &gt;= 0"/>
+                <field name="profit_wsp_pct" string="LN sỉ %" widget="percentage" optional="hide"
+                       decoration-danger="profit_wsp_pct &lt; 0" decoration-success="profit_wsp_pct &gt;= 0"/>
+                <field name="compare_vn_pct" string="So với VN %" widget="percentage" optional="hide"
+                       decoration-danger="compare_vn_pct &lt; 0" decoration-success="compare_vn_pct &gt;= 0"/>
+                <field name="state" widget="badge" optional="show"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state in ('ordered', 'done')"
+                       decoration-muted="state == 'cancel'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sale_estimate_line_pricing_pivot" model="ir.ui.view">
+        <field name="name">sale.estimate.line.pricing.pivot</field>
+        <field name="model">sale.estimate.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Bảng tính giá" sample="1">
+                <field name="estimate_id" type="row"/>
+                <field name="cost_unit" type="measure"/>
+                <field name="total_cost_lv2" type="measure"/>
+                <field name="price_unit" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_sale_estimate_line_pricing_search" model="ir.ui.view">
+        <field name="name">sale.estimate.line.pricing.search</field>
+        <field name="model">sale.estimate.line</field>
+        <field name="arch" type="xml">
+            <search string="Bảng tính giá">
+                <field name="name"/>
+                <field name="estimate_id"/>
+                <field name="partner_id"/>
+                <filter name="type_price" string="Tính giá sản phẩm" domain="[('estimate_type', '=', 'price')]"/>
+                <filter name="type_order" string="Dự toán đơn hàng" domain="[('estimate_type', '=', 'order')]"/>
+                <separator/>
+                <filter name="draft" string="Nháp" domain="[('state', '=', 'draft')]"/>
+                <filter name="done" string="Đã chốt giá" domain="[('state', '=', 'done')]"/>
+                <filter name="ordered" string="Đã tạo đơn hàng" domain="[('state', '=', 'ordered')]"/>
+                <filter name="cancel" string="Đã hủy" domain="[('state', '=', 'cancel')]"/>
+                <group>
+                    <filter name="group_estimate" string="Phiếu" context="{'group_by': 'estimate_id'}"/>
+                    <filter name="group_partner" string="Khách hàng" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_type" string="Loại phiếu" context="{'group_by': 'estimate_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_estimate_line_pricing" model="ir.actions.act_window">
+        <field name="name">Bảng tính giá</field>
+        <field name="res_model">sale.estimate.line</field>
+        <field name="view_mode">list,pivot</field>
+        <field name="search_view_id" ref="view_sale_estimate_line_pricing_search"/>
+        <field name="context">{'search_default_draft': 1, 'search_default_done': 1}</field>
+        <field name="view_ids" eval="[Command.clear(),
+            Command.create({'view_mode': 'list', 'view_id': ref('view_sale_estimate_line_pricing_list')}),
+            Command.create({'view_mode': 'pivot', 'view_id': ref('view_sale_estimate_line_pricing_pivot')})]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Chưa có sản phẩm nào được tính giá</p>
+            <p>Bảng tổng hợp giá của các dòng trên phiếu tính giá và phiếu dự toán. Bấm một dòng để mở phiếu.</p>
+        </field>
+    </record>
+</odoo>
