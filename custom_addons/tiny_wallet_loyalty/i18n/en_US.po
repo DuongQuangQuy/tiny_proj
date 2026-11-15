@@ -1,0 +1,509 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tiny_wallet_loyalty
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-15 16:55+0000\n"
+"PO-Revision-Date: 2026-11-15 16:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tiny_wallet_loyalty
+#. odoo-python
+#: code:addons/tiny_wallet_loyalty/wizard/wallet_payment_creation_wizard.py:0
+msgid "%s to wallet %s successful!"
+msgstr "%s to wallet %s successful!"
+
+#. module: tiny_wallet_loyalty
+#. odoo-python
+#: code:addons/tiny_wallet_loyalty/models/wallet_loyalty_rule.py:0
+msgid "'Valid From' date must be before 'Valid To' date!"
+msgstr "'Valid From' date must be before 'Valid To' date!"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_needaction
+msgid "Action Needed"
+msgstr "Action Needed"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__active
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_search
+msgid "Active"
+msgstr "Active"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_ids
+msgid "Activities"
+msgstr "Activities"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Activity Exception Decoration"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_state
+msgid "Activity State"
+msgstr "Activity State"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Activity Type Icon"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+msgid "All wallet types"
+msgstr "All wallet types"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__reward_value
+msgid "Amount (if Fixed) or Percentage % (if Percentage). E.g. 10 means 10%."
+msgstr "Amount (if Fixed) or Percentage % (if Percentage). E.g. 10 means 10%."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__wallet_type_id
+msgid "Apply To Wallet Type"
+msgstr "Apply To Wallet Type"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_search
+msgid "Archived"
+msgstr "Archived"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_attachment_count
+msgid "Attachment Count"
+msgstr "Attachment Count"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__company_id
+msgid "Company"
+msgstr "Company"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+msgid "Condition"
+msgstr "Condition"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__currency_id
+msgid "Currency"
+msgstr "Currency"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__description
+msgid "Description"
+msgstr "Description"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+msgid "Description..."
+msgstr "Description..."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_account_payment__display_name
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__display_name
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_payment_creation_wizard__display_name
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_type__display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_account_payment__loyalty_bonus_amount
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_payment_creation_wizard__loyalty_bonus_amount
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.account_payment_form_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_payment_creation_wizard_form_loyalty
+msgid "Estimated Bonus"
+msgstr "Estimated Bonus"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields.selection,name:tiny_wallet_loyalty.selection__wallet_loyalty_rule__reward_type__fixed
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_search
+msgid "Fixed Amount"
+msgstr "Fixed Amount"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_follower_ids
+msgid "Followers"
+msgstr "Followers"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Followers (Partners)"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome icon e.g. fa-tasks"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__has_message
+msgid "Has Message"
+msgstr "Has Message"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_account_payment__id
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__id
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_payment_creation_wizard__id
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_exception_icon
+msgid "Icon"
+msgstr "Icon"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icon to indicate an exception activity."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "If checked, new messages require your attention."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_has_error
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "If checked, some messages have a delivery error."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_is_follower
+msgid "Is Follower"
+msgstr "Is Follower"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__wallet_type_id
+msgid "Leave empty to apply to all wallet types."
+msgstr "Leave empty to apply to all wallet types."
+
+#. module: tiny_wallet_loyalty
+#. odoo-python
+#: code:addons/tiny_wallet_loyalty/models/account_payment.py:0
+msgid "Loyalty Bonus - %s"
+msgstr "Loyalty Bonus - %s"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_type__loyalty_bonus_account_id
+msgid "Loyalty Bonus Account"
+msgstr "Loyalty Bonus Account"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_type_form_loyalty
+msgid "Loyalty Bonus Accounting"
+msgstr "Loyalty Bonus Accounting"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_type__loyalty_bonus_journal_id
+msgid "Loyalty Bonus Journal"
+msgstr "Loyalty Bonus Journal"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_account_payment__loyalty_rule_id
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_payment_creation_wizard__loyalty_rule_id
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.account_payment_form_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_payment_creation_wizard_form_loyalty
+msgid "Loyalty Promotion"
+msgstr "Loyalty Promotion"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.actions.act_window,name:tiny_wallet_loyalty.action_wallet_loyalty_rules
+#: model:ir.ui.menu,name:tiny_wallet_loyalty.menu_wallet_loyalty_rules
+msgid "Loyalty Rules"
+msgstr "Loyalty Rules"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__max_reward_amount
+msgid "Max Reward Amount"
+msgstr "Max Reward Amount"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__max_reward_amount
+msgid "Maximum bonus cap when Percentage type. Leave 0 for no cap."
+msgstr "Maximum bonus cap when Percentage type. Leave 0 for no cap."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_has_error
+msgid "Message Delivery error"
+msgstr "Message Delivery error"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__min_amount
+msgid "Minimum Top-Up Amount"
+msgstr "Minimum Top-Up Amount"
+
+#. module: tiny_wallet_loyalty
+#. odoo-python
+#: code:addons/tiny_wallet_loyalty/models/wallet_loyalty_rule.py:0
+msgid "Minimum top-up amount must be greater than 0!"
+msgstr "Minimum top-up amount must be greater than 0!"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "My Activity Deadline"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__name
+msgid "Name"
+msgstr "Name"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Next Activity Calendar Event"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Next Activity Deadline"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_summary
+msgid "Next Activity Summary"
+msgstr "Next Activity Summary"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_type_id
+msgid "Next Activity Type"
+msgstr "Next Activity Type"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_type__loyalty_bonus_journal_id
+msgid ""
+"Nhật ký hỗn hợp (type=general) dùng để tạo bút toán khi cộng bonus khuyến "
+"mãi."
+msgstr ""
+"Miscellaneous journal (type=general) used to create the journal entry when "
+"the promotion bonus is credited."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Number of Actions"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_has_error_counter
+msgid "Number of errors"
+msgstr "Number of errors"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Number of messages requiring action"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Number of messages with delivery error"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model,name:tiny_wallet_loyalty.model_account_payment
+msgid "Payments"
+msgstr "Payments"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_search
+msgid "Percentage"
+msgstr "Percentage"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields.selection,name:tiny_wallet_loyalty.selection__wallet_loyalty_rule__reward_type__percent
+msgid "Percentage of Top-Up"
+msgstr "Percentage of Top-Up"
+
+#. module: tiny_wallet_loyalty
+#. odoo-python
+#: code:addons/tiny_wallet_loyalty/models/wallet_loyalty_rule.py:0
+msgid "Percentage reward cannot exceed 100%!"
+msgstr "Percentage reward cannot exceed 100%!"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__rating_ids
+msgid "Ratings"
+msgstr "Ratings"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_user_id
+msgid "Responsible User"
+msgstr "Responsible User"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+msgid "Reward"
+msgstr "Reward"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+msgid "Reward Amount"
+msgstr "Reward Amount"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+msgid "Reward Percentage (%)"
+msgstr "Reward Percentage (%)"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__reward_type
+msgid "Reward Type"
+msgstr "Reward Type"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__reward_value
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_list
+msgid "Reward Value"
+msgstr "Reward Value"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__reward_wallet_type_id
+msgid "Reward Wallet Type"
+msgstr "Reward Wallet Type"
+
+#. module: tiny_wallet_loyalty
+#. odoo-python
+#: code:addons/tiny_wallet_loyalty/models/wallet_loyalty_rule.py:0
+msgid "Reward value must be greater than 0!"
+msgstr "Reward value must be greater than 0!"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Delivery error"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__reward_wallet_type_id
+msgid ""
+"The wallet type where the bonus will be credited (usually "
+"allow_top_up=False, allow_withdraw=False)."
+msgstr ""
+"The wallet type where the bonus will be credited (usually "
+"allow_top_up=False, allow_withdraw=False)."
+
+#. module: tiny_wallet_loyalty
+#. odoo-python
+#: code:addons/tiny_wallet_loyalty/wizard/wallet_payment_creation_wizard.py:0
+msgid "Top-Up"
+msgstr "Top-Up"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type of the exception activity on record."
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_type__loyalty_bonus_account_id
+msgid ""
+"Tài khoản Nợ khi ghi nhận bonus khuyến mãi vào ví này. Ví chính (rút được): "
+"dùng TK 641 hoặc TK 521. Ví KM (không rút): dùng TK 3387."
+msgstr ""
+"Debit account when a promotion bonus is credited to this wallet. Main wallet"
+" (withdrawable): use account 641 or 521. Promotion wallet (not "
+"withdrawable): use account 3387."
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_type_form_loyalty
+msgid "VD: TK 641, TK 3387, TK 521"
+msgstr "e.g. 641, 3387, 521"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__date_from
+msgid "Valid From"
+msgstr "Valid From"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__date_to
+msgid "Valid To"
+msgstr "Valid To"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model,name:tiny_wallet_loyalty.model_wallet_loyalty_rule
+msgid "Wallet Loyalty Rule"
+msgstr "Wallet Loyalty Rule"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model,name:tiny_wallet_loyalty.model_wallet_payment_creation_wizard
+msgid "Wallet Payment Creation Wizard"
+msgstr "Wallet Payment Creation Wizard"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model,name:tiny_wallet_loyalty.model_wallet_type
+msgid "Wallet Type"
+msgstr "Wallet Type"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__website_message_ids
+msgid "Website Messages"
+msgstr "Website Messages"
+
+#. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_loyalty_rule__website_message_ids
+msgid "Website communication history"
+msgstr "Website communication history"
+
+#. module: tiny_wallet_loyalty
+#. odoo-python
+#: code:addons/tiny_wallet_loyalty/wizard/wallet_payment_creation_wizard.py:0
+msgid "Withdraw"
+msgstr "Withdraw"
+
+#. module: tiny_wallet_loyalty
+#: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_form
+msgid "e.g. Top-Up 500k Get 50k Bonus"
+msgstr "e.g. Top-Up 500k Get 50k Bonus"

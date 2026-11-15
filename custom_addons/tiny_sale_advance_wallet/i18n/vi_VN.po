@@ -1,0 +1,256 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tiny_sale_advance_wallet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-15 16:40+0000\n"
+"PO-Revision-Date: 2026-11-15 16:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model,name:tiny_sale_advance_wallet.model_account_voucher_wizard
+msgid "Account Voucher Wizard"
+msgstr "Trình hướng dẫn phiếu thanh toán"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_order__advance_line_ids
+#: model_terms:ir.ui.view,arch_db:tiny_sale_advance_wallet.view_sale_advance_line_tree
+msgid "Advance Lines"
+msgstr "Các khoản đặt cọc"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__amount
+msgid "Amount"
+msgstr "Số tiền"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields.selection,name:tiny_sale_advance_wallet.selection__sale_advance_line__advance_type__bank
+msgid "Bank"
+msgstr "Ngân hàng"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields.selection,name:tiny_sale_advance_wallet.selection__sale_advance_line__state__cancel
+msgid "Cancelled"
+msgstr "Đã hủy"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields.selection,name:tiny_sale_advance_wallet.selection__sale_advance_line__advance_type__cash
+msgid "Cash"
+msgstr "Tiền mặt"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__company_id
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__company_id
+msgid "Company"
+msgstr "Công ty"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__create_uid
+msgid "Created by"
+msgstr "Được tạo bởi"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__create_date
+msgid "Created on"
+msgstr "Được tạo vào"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__currency_id
+msgid "Currency"
+msgstr "Tiền tệ"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__partner_id
+msgid "Customer"
+msgstr "Khách hàng"
+
+#. module: tiny_sale_advance_wallet
+#: model_terms:ir.ui.view,arch_db:tiny_sale_advance_wallet.view_sale_order_form_advance_wallet
+msgid "Các khoản đặt cọc"
+msgstr "Các khoản đặt cọc"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__date
+msgid "Date"
+msgstr "Ngày"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields.selection,name:tiny_sale_advance_wallet.selection__sale_advance_line__transaction_type__deposit
+msgid "Deposit"
+msgstr "Đặt cọc"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_move__display_name
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__display_name
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__display_name
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_move__id
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__id
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__id
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_order__id
+msgid "ID"
+msgstr "Mã"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__journal_id
+msgid "Journal"
+msgstr "Sổ nhật ký"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model,name:tiny_sale_advance_wallet.model_account_move
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__move_id
+msgid "Journal Entry"
+msgstr "Bút toán"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Khoản đặt cọc bằng ví đã được áp dụng vào hóa đơn, không thể hoàn trả!"
+msgstr ""
+"Khoản đặt cọc bằng ví đã được áp dụng vào hóa đơn, không thể hoàn trả!"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Khách hàng chưa được cấu hình tài khoản phải thu!"
+msgstr "Khách hàng chưa được cấu hình tài khoản phải thu!"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Không có khoản đặt cọc nào còn lại để hoàn trả!"
+msgstr "Không có khoản đặt cọc nào còn lại để hoàn trả!"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid ""
+"Không tìm thấy tài khoản phù hợp để hoàn cọc!\n"
+"Vui lòng cấu hình 'Tài khoản mặc định' cho sổ '%s', hoặc đảm bảo hệ thống có ít nhất một sổ loại Tiền mặt/Ngân hàng."
+msgstr ""
+"Không tìm thấy tài khoản phù hợp để hoàn cọc!\n"
+"Vui lòng cấu hình 'Tài khoản mặc định' cho sổ '%s', hoặc đảm bảo hệ thống có ít nhất một sổ loại Tiền mặt/Ngân hàng."
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__write_uid
+msgid "Last Updated by"
+msgstr "Cập nhật lần cuối bởi"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__write_date
+msgid "Last Updated on"
+msgstr "Cập nhật lần cuối vào"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__partner_id
+msgid "Partner"
+msgstr "Đối tác"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__payment_id
+msgid "Payment"
+msgstr "Thanh toán"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__advance_type
+#: model_terms:ir.ui.view,arch_db:tiny_sale_advance_wallet.view_account_voucher_wizard_wallet
+msgid "Payment Method"
+msgstr "Phương thức thanh toán"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields.selection,name:tiny_sale_advance_wallet.selection__sale_advance_line__state__posted
+msgid "Posted"
+msgstr "Đã vào sổ"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields.selection,name:tiny_sale_advance_wallet.selection__sale_advance_line__transaction_type__refund
+msgid "Refund"
+msgstr "Hoàn cọc"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model,name:tiny_sale_advance_wallet.model_sale_advance_line
+msgid "Sale Advance Line"
+msgstr "Khoản đặt cọc đơn bán hàng"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__sale_id
+msgid "Sale Order"
+msgstr "Đơn bán hàng"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model,name:tiny_sale_advance_wallet.model_sale_order
+msgid "Sales Order"
+msgstr "Đơn bán hàng"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__state
+msgid "State"
+msgstr "Trạng thái"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Số dư ví không đủ! (Số dư hiện tại: %s %s)"
+msgstr "Số dư ví không đủ! (Số dư hiện tại: %s %s)"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__is_wallet
+msgid "Thanh toán qua Ví"
+msgstr "Thanh toán qua Ví"
+
+#. module: tiny_sale_advance_wallet
+#: model_terms:ir.ui.view,arch_db:tiny_sale_advance_wallet.view_sale_advance_line_tree
+msgid "Total"
+msgstr "Tổng"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__transaction_type
+msgid "Transaction Type"
+msgstr "Loại giao dịch"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Vui lòng chọn phương thức thanh toán (Journal)!"
+msgstr "Vui lòng chọn phương thức thanh toán (Journal)!"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Vui lòng chọn ví để hoàn cọc!"
+msgstr "Vui lòng chọn ví để hoàn cọc!"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Vui lòng chọn ví để đặt cọc!"
+msgstr "Vui lòng chọn ví để đặt cọc!"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__wallet_id
+#: model:ir.model.fields.selection,name:tiny_sale_advance_wallet.selection__sale_advance_line__advance_type__wallet
+msgid "Wallet"
+msgstr "Ví"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__wallet_history_id
+msgid "Wallet History"
+msgstr "Lịch sử ví"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__wallet_type_id
+msgid "Wallet Type"
+msgstr "Loại ví"

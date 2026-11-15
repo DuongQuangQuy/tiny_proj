@@ -1,0 +1,372 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tiny_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-15 16:26+0000\n"
+"PO-Revision-Date: 2026-11-15 16:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "* Hoặc chuyển khoản theo thông tin dưới đây"
+msgstr "* Or transfer to the account below"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "* Quét mã QR để thanh toán"
+msgstr "* Scan the QR code to pay"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid ""
+"*** Vui lòng đóng mẫu trong vòng 2 tháng kể từ ngày xác nhận hoàn thiện"
+msgstr ""
+"*** Please complete the order within 2 months from the date of finishing "
+"confirmation"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "11E Phan Kế Bính, Tân Định,"
+msgstr "11E Phan Ke Binh, Tan Dinh,"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "<strong>Bill To</strong>"
+msgstr "<strong>Bill To</strong>"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "<strong>Khách hàng</strong>"
+msgstr "<strong>Customer</strong>"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "<strong>Ship to</strong>"
+msgstr "<strong>Ship to</strong>"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "<strong>Điện thoại</strong>"
+msgstr "<strong>Phone</strong>"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "<strong>Địa chỉ</strong>"
+msgstr "<strong>Address</strong>"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Chủ TK"
+msgstr "Account Holder"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Còn lại"
+msgstr "Remaining"
+
+#. module: tiny_sale
+#: model:ir.model.fields.selection,name:tiny_sale.selection__sale_order__ship_to__shop
+msgid "Cửa hàng"
+msgstr "Store"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Delivery Date"
+msgstr "Delivery Date"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_account_move__display_name
+#: model:ir.model.fields,field_description:tiny_sale.field_ir_sequence__display_name
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order__display_name
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "GHI CHÚ"
+msgstr "NOTE"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "GIÁ"
+msgstr "PRICE"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__note
+msgid "Ghi chú"
+msgstr "Notes"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__note_pattern
+msgid "Ghi chú họa tiết"
+msgstr "Pattern Notes"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Giao hàng"
+msgstr "Delivery"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "HÌNH HOA TIẾT"
+msgstr "PATTERN IMAGE"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "HÌNH SP"
+msgstr "PRODUCT IMAGE"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid ""
+"Hành trình may đo của bạn cùng <strong>Tiny Ink</strong> bắt đầu từ đây. Chúng tôi trân trọng từng chi tiết để tạo nên những thiết kế phản\n"
+"                                chiếu phong cách riêng của bạn. Cảm ơn bạn đã đồng hành cùng <strong>Tiny Ink</strong>."
+msgstr ""
+"Your tailoring journey with <strong>Tiny Ink</strong> starts here. We value every detail to create designs that\n"
+"                                reflect your own style. Thank you for choosing <strong>Tiny Ink</strong>."
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Hồ Chí Minh, 700000"
+msgstr "Ho Chi Minh City, 700000"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_account_move__id
+#: model:ir.model.fields,field_description:tiny_sale.field_ir_sequence__id
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order__id
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.view_account_move_form_inherit
+msgid "In Phiếu Bán Hàng"
+msgstr "Print Sales Order"
+
+#. module: tiny_sale
+#: model:ir.model,name:tiny_sale.model_account_move
+msgid "Journal Entry"
+msgstr "Journal Entry"
+
+#. module: tiny_sale
+#: model:ir.model.fields,help:tiny_sale.field_ir_sequence__daily_reset
+msgid ""
+"Khi bật cùng \"Use subsequences per date_range\", mỗi ngày là một khoảng "
+"riêng và số thứ tự bắt đầu lại từ 1."
+msgstr ""
+"When used with \"Use subsequences per date_range\", each day is a separate "
+"range and the number restarts from 1."
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Khách hàng"
+msgstr "Customer"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "MÃ HOA TIẾT"
+msgstr "PATTERN CODE"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "MÃ SP"
+msgstr "PRODUCT CODE"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "MÃ VẢI"
+msgstr "FABRIC CODE"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_pattern_id
+msgid "Mã họa tiết"
+msgstr "Pattern Code"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order__partner_code
+msgid "Mã khách hàng"
+msgstr "Customer Code"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__default_code
+msgid "Mã tham chiếu"
+msgstr "Reference Code"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__code_fabric
+msgid "Mã vải"
+msgstr "Fabric Code"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "NO."
+msgstr "NO."
+
+#. module: tiny_sale
+#. odoo-python
+#: code:addons/tiny_sale/models/sale_order.py:0
+msgid "New"
+msgstr "New"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Ngân hàng"
+msgstr "Bank"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "No."
+msgstr "No."
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Order Date"
+msgstr "Order Date"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "PHƯƠNG THỨC THANH TOÁN"
+msgstr "PAYMENT METHOD"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Product Name"
+msgstr "Product Name"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_ir_sequence__daily_reset
+msgid "Reset theo ngày"
+msgstr "Reset Daily"
+
+#. module: tiny_sale
+#: model:ir.model,name:tiny_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Sales Order"
+
+#. module: tiny_sale
+#: model:ir.model,name:tiny_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Sales Order Line"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Sau chiết khấu"
+msgstr "After Discount"
+
+#. module: tiny_sale
+#: model:ir.model,name:tiny_sale.model_ir_sequence
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order__ship_to
+msgid "Ship to"
+msgstr "Ship to"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "SỐ ĐO"
+msgstr "MEASUREMENTS"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Số TK"
+msgstr "Account Number"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_size
+msgid "Số đo"
+msgstr "Measurements"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "TINYINK.VN"
+msgstr "TINYINK.VN"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Tổng tiền"
+msgstr "Total Amount"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Vietnam"
+msgstr "Vietnam"
+
+#. module: tiny_sale
+#: model:ir.actions.report,name:tiny_sale.action_report_saleorder_preview
+msgid "Xem trước đơn hàng"
+msgstr "Order Preview"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "customercare@tinyink.com.vn"
+msgstr "customercare@tinyink.com.vn"
+
+#. module: tiny_sale
+#: model:ir.actions.report,print_report_name:tiny_sale.action_report_saleorder_preview
+msgid "object.name"
+msgstr "object.name"
+
+#. module: tiny_sale
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
+msgid "Đặt cọc"
+msgstr "Deposit"
+
+#. module: tiny_sale
+#: model:ir.model.fields.selection,name:tiny_sale.selection__sale_order__ship_to__address_cus
+msgid "Địa chỉ KH"
+msgstr "Customer Address"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_pattern_image
+msgid "Ảnh họa tiết"
+msgstr "Pattern Image"

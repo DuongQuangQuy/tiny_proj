@@ -1,0 +1,1559 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tiny_approvals_mrp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-15 16:31+0000\n"
+"PO-Revision-Date: 2026-11-15 16:31+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "%(from)s bị trả về %(to)s: %(reason)s"
+msgstr "%(from)s returned to %(to)s: %(reason)s"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder_review.py:0
+msgid "%(mo)s - %(from)s → %(to)s"
+msgstr "%(mo)s - %(from)s → %(to)s"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder_review.py:0
+msgid "%(mo)s - %(wo)s - Lượt %(n)s"
+msgstr "%(mo)s - %(wo)s - Round %(n)s"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "(chính công đoạn này)"
+msgstr "(this work order)"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "<i class=\"fa fa-arrow-left me-1\"/> Danh sách yêu cầu duyệt"
+msgstr "<i class=\"fa fa-arrow-left me-1\"/> Review Requests"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "<i class=\"fa fa-arrow-left me-1\"/> Danh sách yêu cầu phê duyệt"
+msgstr "<i class=\"fa fa-arrow-left me-1\"/> Approval Requests"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "<i class=\"fa fa-check me-1\"/> Đạt"
+msgstr "<i class=\"fa fa-check me-1\"/> Pass"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid ""
+"<i class=\"fa fa-check-circle me-1\"/>\n"
+"                                        Yêu cầu đã được phê duyệt."
+msgstr ""
+"<i class=\"fa fa-check-circle me-1\"/>\n"
+"                                        The request has been approved."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "<i class=\"fa fa-check-square-o me-1\"/>Lịch sử duyệt"
+msgstr "<i class=\"fa fa-check-square-o me-1\"/>Review History"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "<i class=\"fa fa-clock-o me-1\"/>Thời gian"
+msgstr "<i class=\"fa fa-clock-o me-1\"/>Time"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_review
+msgid "<i class=\"fa fa-cogs me-1\"/> Công đoạn"
+msgstr "<i class=\"fa fa-cogs me-1\"/> Work Orders"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                    <strong>Lỗi:</strong>"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                    <strong>Error:</strong>"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "<i class=\"fa fa-hand-pointer-o me-1\"/>Thao tác"
+msgstr "<i class=\"fa fa-hand-pointer-o me-1\"/>Actions"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "<i class=\"fa fa-history me-1\"/>Các lượt duyệt trước"
+msgstr "<i class=\"fa fa-history me-1\"/>Previous Review Rounds"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid ""
+"<i class=\"fa fa-inbox fa-2x d-block mb-2\"/>\n"
+"                                    Chưa có sản phẩm nào."
+msgstr ""
+"<i class=\"fa fa-inbox fa-2x d-block mb-2\"/>\n"
+"                                    No products yet."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                                        Không có thao tác khả dụng."
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                                        No actions available."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
+msgid ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                        Bạn chưa có yêu cầu phê duyệt nào."
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                        You have no approval requests yet."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                    Không có thao tác khả dụng."
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                    No actions available."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_reviews
+msgid "<i class=\"fa fa-info-circle me-1\"/>Không có yêu cầu duyệt nào đang chờ."
+msgstr "<i class=\"fa fa-info-circle me-1\"/>No pending review requests."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "<i class=\"fa fa-info-circle me-1\"/>Yêu cầu duyệt đã kết thúc."
+msgstr "<i class=\"fa fa-info-circle me-1\"/>The review request is closed."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid ""
+"<i class=\"fa fa-list me-1\"/>\n"
+"                                Danh sách sản phẩm"
+msgstr ""
+"<i class=\"fa fa-list me-1\"/>\n"
+"                                Product List"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "<i class=\"fa fa-paper-plane me-1\"/> Gửi yêu cầu"
+msgstr "<i class=\"fa fa-paper-plane me-1\"/> Send Request"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "<i class=\"fa fa-paper-plane me-1\"/> Nộp yêu cầu"
+msgstr "<i class=\"fa fa-paper-plane me-1\"/> Submit Request"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "<i class=\"fa fa-pause me-1\"/> Tạm dừng"
+msgstr "<i class=\"fa fa-pause me-1\"/> Pause"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "<i class=\"fa fa-pencil me-1\"/>Chỉnh sửa dòng"
+msgstr "<i class=\"fa fa-pencil me-1\"/>Edit Line"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "<i class=\"fa fa-plus me-1\"/> Thêm dòng"
+msgstr "<i class=\"fa fa-plus me-1\"/> Add Line"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "<i class=\"fa fa-plus me-1\"/>Thêm"
+msgstr "<i class=\"fa fa-plus me-1\"/>Add"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "<i class=\"fa fa-plus me-1\"/>Thêm sản phẩm"
+msgstr "<i class=\"fa fa-plus me-1\"/>Add Product"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "<i class=\"fa fa-save me-1\"/>Lưu"
+msgstr "<i class=\"fa fa-save me-1\"/>Save"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid ""
+"<i class=\"fa fa-thumbs-up me-1 text-primary\"/>\n"
+"                                    Yêu cầu phê duyệt xuất kho"
+msgstr ""
+"<i class=\"fa fa-thumbs-up me-1 text-primary\"/>\n"
+"                                    Stock Issue Approval Request"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "<i class=\"fa fa-thumbs-up me-1\"/> Phê duyệt xuất kho"
+msgstr "<i class=\"fa fa-thumbs-up me-1\"/> Stock Issue Approval"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "<i class=\"fa fa-times me-1\"/> Chưa đạt"
+msgstr "<i class=\"fa fa-times me-1\"/> Fail"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "<i class=\"fa fa-undo me-1\"/> Đưa về nháp"
+msgstr "<i class=\"fa fa-undo me-1\"/> Reset to Draft"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_workorders_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "<i class=\"fa fa-wrench me-1\"/>Đang sửa (lượt"
+msgstr "<i class=\"fa fa-wrench me-1\"/>Reworking (round"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "<option value=\"\">-- Chọn --</option>"
+msgstr "<option value=\"\">-- Select --</option>"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "<option value=\"\">-- Chọn sản phẩm --</option>"
+msgstr "<option value=\"\">-- Select a product --</option>"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_needaction
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_needaction
+msgid "Action Needed"
+msgstr "Action Needed"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_ids
+msgid "Activities"
+msgstr "Activities"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Activity Exception Decoration"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_state
+msgid "Activity State"
+msgstr "Activity State"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Activity Type Icon"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__allowed_workorder_ids
+msgid "Allowed Workorder"
+msgstr "Allowed Workorder"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_approval_category__approval_type
+msgid ""
+"Allows you to define which documents you would like to create once the "
+"request has been approved"
+msgstr ""
+"Allows you to define which documents you would like to create once the "
+"request has been approved"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_approval_category
+msgid "Approval Category"
+msgstr "Approval Category"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_approval_request
+msgid "Approval Request"
+msgstr "Approval Request"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_approval_category__approval_type
+msgid "Approval Type"
+msgstr "Approval Type"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_attachment_count
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_attachment_count
+msgid "Attachment Count"
+msgstr "Attachment Count"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Bạn không có quyền thực hiện thao tác này."
+msgstr "You are not allowed to perform this action."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Bạn không phải quản lý duyệt của công đoạn \"%s\"."
+msgstr "You are not the review manager of work order \"%s\"."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/review.py:0
+msgid "Bạn không được chọn chế độ kiểm cho công đoạn này."
+msgstr "You are not allowed to choose the review mode for this work order."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_routing_workcenter__review_policy__required
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workcenter__review_policy__required
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_policy__required
+msgid "Bắt buộc duyệt"
+msgstr "Review Required"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__date_start
+msgid "Bắt đầu duyệt"
+msgstr "Review Start"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Chưa có lượt duyệt."
+msgstr "No review rounds yet."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Chưa có lượt trước."
+msgstr "No previous rounds."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid ""
+"Chưa cấu hình công ty sản xuất (is_mrp). Vui lòng liên hệ quản trị viên."
+msgstr ""
+"No manufacturing company (is_mrp) is configured. Please contact your "
+"administrator."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid ""
+"Chưa cấu hình loại phê duyệt \"Phê duyệt kho MRP\" cho công ty sản xuất. Vui"
+" lòng liên hệ quản trị viên."
+msgstr ""
+"The approval type \"MRP Stock Approval\" is not configured for the "
+"manufacturing company. Please contact your administrator."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_state__failed
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_review__state__failed
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_form
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_search
+msgid "Chưa đạt"
+msgstr "Fail"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_reviews
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Chế độ"
+msgstr "Mode"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__review_mode
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__mode
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Chế độ kiểm"
+msgstr "Review Mode"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/review.py:0
+msgid "Chế độ kiểm không hợp lệ."
+msgstr "Invalid review mode."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_routing_workcenter__default_review_mode
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter__default_review_mode
+msgid "Chế độ kiểm mặc định"
+msgstr "Default Review Mode"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Chỉ có thể chỉnh sửa khi yêu cầu ở trạng thái nháp."
+msgstr "The request can only be edited in draft."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Chỉ có thể thêm sản phẩm khi yêu cầu ở trạng thái nháp."
+msgstr "Products can only be added while the request is in draft."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Chỉ có thể xóa dòng khi yêu cầu ở trạng thái nháp."
+msgstr "Lines can only be deleted while the request is in draft."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workcenter__default_review_mode
+msgid "Chỉ dùng khi điểm duyệt là \"Quản lý chọn\"."
+msgstr "Only used when the review point is \"Manager Decides\"."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder_review.py:0
+msgid "Chỉ nhận duyệt / tiếp tục được yêu cầu đang chờ hoặc tạm dừng."
+msgstr "Only pending or paused requests can be taken for review or resumed."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Chỉ trả về được chính công đoạn này hoặc một công đoạn đứng trước."
+msgstr "You can only return to this work order or a previous one."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder_review.py:0
+msgid "Chỉ tạm dừng được yêu cầu đang duyệt."
+msgstr "Only requests under review can be paused."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_state__waiting
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_search
+msgid "Chờ duyệt"
+msgstr "Waiting for Review"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_review__state__waiting
+msgid "Chờ quản lý duyệt"
+msgstr "Waiting for Manager Review"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Close"
+msgstr "Close"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__company_id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__company_id
+msgid "Company"
+msgstr "Company"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__create_uid
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__create_uid
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__create_date
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__create_date
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Các công đoạn ở giữa giữ nguyên: %s"
+msgstr "Work orders in between are kept as is: %s"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__has_open_review_or_rework
+msgid "Còn duyệt / chỉnh đang mở"
+msgstr "Has Open Review / Rework"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__workorder_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_reviews
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Công đoạn"
+msgstr "Work Order"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn \"%s\" bắt buộc duyệt, không đổi được chế độ kiểm."
+msgstr "Work order \"%s\" requires review, its review mode cannot be changed."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn \"%s\" không có điểm duyệt."
+msgstr "Work order \"%s\" has no review point."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn \"%s\" đang có lượt chỉnh chưa xong."
+msgstr "Work order \"%s\" has an unfinished rework round."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn \"%s\" đã bị hủy."
+msgstr "Work order \"%s\" has been cancelled."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn \"%s\" đã kết thúc, không đổi được chế độ kiểm."
+msgstr "Work order \"%s\" is finished, its review mode cannot be changed."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder_review.py:0
+msgid "Công đoạn %(wo)s (lượt %(n)s) được duyệt đạt bởi %(user)s."
+msgstr "Work order %(wo)s (round %(n)s) was passed by %(user)s."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn %s chưa được duyệt đạt."
+msgstr "Work order %s has not passed review yet."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn %s đang được chỉnh lại."
+msgstr "Work order %s is being reworked."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/review.py:0
+msgid "Công đoạn không hợp lệ."
+msgstr "Invalid work order."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__workorder_id
+msgid "Công đoạn phát hiện lỗi"
+msgstr "Work Order Finding the Defect"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__workorder_id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__return_workorder_id
+msgid "Công đoạn phải chỉnh"
+msgstr "Work Order to Rework"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Công đoạn trả về"
+msgstr "Returned to Work Order"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/review.py:0
+msgid "Công đoạn trả về không hợp lệ."
+msgstr "Invalid return work order."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn trả về phải thuộc cùng lệnh sản xuất."
+msgstr "The return work order must belong to the same manufacturing order."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_search
+msgid "Của tôi"
+msgstr "Mine"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Danh mục"
+msgstr "Category"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Danh sách sản phẩm"
+msgstr "Product List"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_approval_category__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_approval_request__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_reason__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_routing_workcenter__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter_productivity__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__display_name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_res_users__display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_review
+msgid "Duyệt"
+msgstr "Review"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_production_form_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
+msgid "Duyệt & chỉnh"
+msgstr "Review & Rework"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+#: model:ir.actions.act_window,name:tiny_approvals_mrp.action_mrp_workorder_review
+#: model:ir.ui.menu,name:tiny_approvals_mrp.menu_mrp_workorder_review
+#: model:website.menu,name:tiny_approvals_mrp.website_menu_mrp_reviews
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_home_reviews
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_reviews
+msgid "Duyệt công đoạn"
+msgstr "Work Order Review"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/review.py:0
+msgid "Dữ liệu gửi lên không hợp lệ."
+msgstr "Invalid submitted data."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_follower_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_follower_ids
+msgid "Followers"
+msgstr "Followers"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_partner_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Followers (Partners)"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome icon e.g. fa-tasks"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__note
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__note
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__note
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Ghi chú"
+msgstr "Notes"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_list
+msgid "Giờ duyệt"
+msgstr "Review Time"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__review_duration_total
+msgid "Giờ duyệt (phút)"
+msgstr "Review Time (minutes)"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_list_mo_review
+msgid "Giờ làm mới"
+msgstr "New Work Time"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__duration_new
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__duration_new
+msgid "Giờ làm mới (phút)"
+msgstr "New Work Time (minutes)"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Giờ làm mới / giờ sửa"
+msgstr "New Work / Rework Time"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_return_list
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_list_mo_review
+msgid "Giờ sửa"
+msgstr "Rework Time"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__duration_rework
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__duration_rework
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__rework_duration
+msgid "Giờ sửa (phút)"
+msgstr "Rework Time (minutes)"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__has_message
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__has_message
+msgid "Has Message"
+msgstr "Has Message"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_return__state__cancel
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_return_wizard_form
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Hủy"
+msgstr "Cancel"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_approval_category__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_approval_request__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_reason__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_routing_workcenter__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter_productivity__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_res_users__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_exception_icon
+msgid "Icon"
+msgstr "Icon"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icon to indicate an exception activity."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_return__message_needaction
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "If checked, new messages require your attention."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_return__message_has_error
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_return__message_has_sms_error
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__message_has_error
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "If checked, some messages have a delivery error."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_is_follower
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_is_follower
+msgid "Is Follower"
+msgstr "Is Follower"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid ""
+"Kho chưa được xác nhận. Chỉ có thể yêu cầu phê duyệt khi trạng thái kho là "
+"\"Xác nhận\"."
+msgstr ""
+"The warehouse has not confirmed yet. Approval can only be requested when the"
+" warehouse status is \"Confirmed\"."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__workcenter_id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__workcenter_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_return_search
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_search
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_review
+msgid "Khu vực"
+msgstr "Work Center"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_routing_workcenter__review_policy__none
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workcenter__review_policy__none
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_policy__none
+msgid "Không có điểm duyệt"
+msgstr "No Review Point"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_state__no
+msgid "Không duyệt"
+msgstr "No Review"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Không thể đưa về nháp từ trạng thái hiện tại."
+msgstr "Cannot reset to draft from the current state."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_routing_workcenter__default_review_mode__none
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workcenter__default_review_mode__none
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_mode__none
+msgid "Không yêu cầu kiểm"
+msgstr "No Review Required"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_routing_workcenter__default_review_mode__after
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workcenter__default_review_mode__after
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_mode__after
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_review__mode__after
+msgid "Kiểm sau"
+msgstr "Review After"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_routing_workcenter__default_review_mode__before
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workcenter__default_review_mode__before
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_mode__before
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_review__mode__before
+msgid "Kiểm trước"
+msgstr "Review Before"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Kết thúc"
+msgstr "End"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__date_done
+msgid "Kết thúc duyệt"
+msgstr "Review End"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__write_uid
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__write_uid
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__write_date
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__write_date
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_reason__reason_type
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_reason_search_review
+msgid "Loại"
+msgstr "Type"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter_productivity__work_type
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.oee_search_view_review
+msgid "Loại giờ"
+msgstr "Time Type"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_res_users__is_mrp_reviewer
+msgid "Là người duyệt công đoạn"
+msgstr "Is Work Order Reviewer"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Làm lại sau khi %s chỉnh xong"
+msgstr "Redo after %s is reworked"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workcenter_productivity__work_type__new
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.oee_search_view_review
+msgid "Làm mới"
+msgstr "New Work"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__reason_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__reason_ids
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Lý do"
+msgstr "Reasons"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__round_no
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_reviews
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Lượt"
+msgstr "Round"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter_productivity__return_id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__return_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__round_no
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__return_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_review
+msgid "Lượt chỉnh"
+msgstr "Rework Round"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__rework_open_count
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__rework_return_id
+msgid "Lượt chỉnh đang mở"
+msgstr "Open Rework Round"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__review_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__review_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__review_id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__review_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_production_form_review
+msgid "Lượt duyệt"
+msgstr "Review Rounds"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__last_review_id
+msgid "Lượt duyệt mới nhất"
+msgstr "Latest Review Round"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__return_ids
+msgid "Lượt trả lại"
+msgstr "Return Rounds"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_production_form_review
+msgid "Lượt trả lại / chỉnh"
+msgstr "Returns / Reworks"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_workorder_return
+msgid "Lượt trả lại / chỉnh lại công đoạn"
+msgstr "Work Order Return / Rework"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_production.py:0
+msgid ""
+"Lệnh %(mo)s còn yêu cầu duyệt hoặc lượt chỉnh chưa xong (%(wos)s). Phải xử "
+"lý hết trước khi xuất xưởng."
+msgstr ""
+"Order %(mo)s still has unfinished reviews or reworks (%(wos)s). They must be"
+" resolved before the product leaves the workshop."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_approval_request__mrp_production_id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__production_id
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__production_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_return_search
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_search
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_reviews
+msgid "Lệnh sản xuất"
+msgstr "Manufacturing Order"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Lệnh sản xuất đã hoàn thành hoặc bị hủy, không trả lại công đoạn được."
+msgstr ""
+"The manufacturing order is done or cancelled, work orders cannot be "
+"returned."
+
+#. module: tiny_approvals_mrp
+#: model:ir.actions.act_window,name:tiny_approvals_mrp.action_mrp_workorder_return
+#: model:ir.ui.menu,name:tiny_approvals_mrp.menu_mrp_workorder_return
+msgid "Lịch sử trả lại"
+msgstr "Return History"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__defect_reason_ids
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_reason__reason_type__defect
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_reason_search_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Lỗi"
+msgstr "Defects"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Lỗi / ghi chú"
+msgstr "Defects / Notes"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_reason
+msgid "MRP Reason"
+msgstr "MRP Reason"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_production
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__production_id
+msgid "Manufacturing Order"
+msgstr "Manufacturing Order"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_has_error
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_has_error
+msgid "Message Delivery error"
+msgstr "Message Delivery error"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "My Activity Deadline"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Mô tả"
+msgstr "Description"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "Mô tả sản phẩm (tùy chọn)"
+msgstr "Product description (optional)"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__date_last_start
+msgid "Mốc phiên duyệt đang chạy"
+msgstr "Running Review Session Start"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_form
+msgid ""
+"Mở lượt chỉnh trên công đoạn phải chỉnh theo lỗi và người phụ trách đã chọn?"
+msgstr ""
+"Open a rework round on the work order to rework with the selected defects "
+"and responsible person?"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Next Activity Calendar Event"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Next Activity Deadline"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_summary
+msgid "Next Activity Summary"
+msgstr "Next Activity Summary"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_type_id
+msgid "Next Activity Type"
+msgstr "Next Activity Type"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__date_resolved
+msgid "Ngày chỉnh xong"
+msgstr "Rework Done Date"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "Ngày nộp"
+msgstr "Submitted On"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__date
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Ngày trả"
+msgstr "Return Date"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
+msgid "Ngày tạo"
+msgstr "Created On"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__date_request
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_reviews
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Ngày yêu cầu"
+msgstr "Request Date"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__review_mode_user_id
+msgid "Người chọn chế độ kiểm"
+msgstr "Review Mode Chosen By"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Người duyệt"
+msgstr "Reviewer"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__worker_ids
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Người làm"
+msgstr "Worker"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__reviewer_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Người nhận duyệt"
+msgstr "Taken By"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__assign_user_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__assign_user_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__assign_user_ids
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Người phụ trách chỉnh"
+msgstr "Rework Responsible"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__user_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Người trả"
+msgstr "Returned By"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Người yêu cầu"
+msgstr "Requested By"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__previous_user_ids
+msgid "Nhân viên thực hiện trước khi trả"
+msgstr "Operators Before Return"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_form
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Nhận duyệt"
+msgstr "Take Review"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_needaction_counter
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Number of Actions"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_has_error_counter
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_has_error_counter
+msgid "Number of errors"
+msgstr "Number of errors"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_return__message_needaction_counter
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Number of messages requiring action"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_return__message_has_error_counter
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Number of messages with delivery error"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__time_ids
+msgid "Phiên giờ sửa"
+msgstr "Rework Time Sessions"
+
+#. module: tiny_approvals_mrp
+#: model:website.menu,name:tiny_approvals_mrp.website_menu_approvals
+msgid "Phiếu phê duyệt"
+msgstr "Approval Requests"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__approval_category__approval_type__mrp_stock
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Phê duyệt kho MRP"
+msgstr "MRP Stock Approval"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Phê duyệt xuất kho - %s"
+msgstr "Stock Issue Approval - %s"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder_review.py:0
+msgid "Phải bấm Nhận duyệt trước khi đánh giá Đạt / Chưa đạt."
+msgstr "Click Take Review before marking Pass / Fail."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_routing_workcenter__review_policy__optional
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workcenter__review_policy__optional
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_policy__optional
+msgid "Quản lý chọn"
+msgstr "Manager Decides"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_routing_workcenter__user_review_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter__user_review_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__user_review_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__user_review_ids
+msgid "Quản lý duyệt"
+msgstr "Review Managers"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__rating_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__rating_ids
+msgid "Ratings"
+msgstr "Ratings"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__activity_user_id
+msgid "Responsible User"
+msgstr "Responsible User"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__message_has_sms_error
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Delivery error"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__product_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Sản phẩm"
+msgstr "Product"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Sản phẩm không hợp lệ."
+msgstr "Invalid product."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Số lượng"
+msgstr "Quantity"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Số lượng phải lớn hơn 0."
+msgstr "The quantity must be greater than 0."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__rework_count
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__rework_count
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Số lượt chỉnh"
+msgstr "Rework Count"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workcenter_productivity__work_type__rework
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.oee_search_view_review
+msgid "Sửa"
+msgstr "Rework"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "Thao tác"
+msgstr "Actions"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+#: code:addons/tiny_approvals_mrp/controller/review.py:0
+msgid "Thao tác không hợp lệ."
+msgstr "Invalid action."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
+msgid "Thời gian"
+msgstr "Time"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Thời gian duyệt"
+msgstr "Review Time"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__review_duration
+msgid "Thời gian duyệt (phút)"
+msgstr "Review Time (minutes)"
+
+#. module: tiny_approvals_mrp
+#: model:ir.actions.act_window,name:tiny_approvals_mrp.action_mrp_productivity_work_type
+#: model:ir.ui.menu,name:tiny_approvals_mrp.menu_mrp_productivity_work_type
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.oee_pivot_view_work_type
+msgid "Thời gian làm mới / sửa"
+msgstr "New Work / Rework Time"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.oee_pivot_view_work_type
+msgid "Thời lượng (phút)"
+msgstr "Duration (minutes)"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__review_mode_date
+msgid "Thời điểm chọn chế độ kiểm"
+msgstr "Review Mode Chosen On"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_form
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Tiếp tục"
+msgstr "Resume"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__state
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__state
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_search
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_reviews
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Trạng thái"
+msgstr "Status"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Trạng thái công đoạn"
+msgstr "Work Order Status"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__review_state
+msgid "Trạng thái duyệt"
+msgstr "Review Status"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_reason__reason_type__return
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_reason_search_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_return_wizard_form
+msgid "Trả lại"
+msgstr "Returned"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_workorder_return_wizard
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_form
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
+msgid "Trả lại công đoạn"
+msgstr "Return Work Order"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Trả về"
+msgstr "Return"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return_wizard__target_workorder_id
+msgid "Trả về công đoạn"
+msgstr "Return to Work Order"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type of the exception activity on record."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__name
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__name
+msgid "Tên"
+msgstr "Name"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
+msgid "Tên yêu cầu"
+msgstr "Request"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_reason__reason_type__pause
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_reason_search_review
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_form
+msgid "Tạm dừng"
+msgstr "Paused"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_state__paused
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_review__state__paused
+msgid "Tạm dừng duyệt"
+msgstr "Pause Review"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_return_form
+msgid "Tổng"
+msgstr "Total"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__from_workorder_id
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Từ công đoạn"
+msgstr "From Work Order"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_res_users
+msgid "User"
+msgstr "User"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/wizard/mrp_workorder_return_wizard.py:0
+msgid "Vui lòng chọn lý do hoặc ghi chú."
+msgstr "Please select a reason or enter a note."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/review.py:0
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder_review.py:0
+msgid "Vui lòng chọn lỗi hoặc ghi chú khi đánh giá Chưa đạt."
+msgstr "Please select a defect or enter a note when marking Fail."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Vui lòng chọn sản phẩm."
+msgstr "Please select a product."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__website_message_ids
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_review__website_message_ids
+msgid "Website Messages"
+msgstr "Website Messages"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_return__website_message_ids
+#: model:ir.model.fields,help:tiny_approvals_mrp.field_mrp_workorder_review__website_message_ids
+msgid "Website communication history"
+msgstr "Website communication history"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_workcenter
+msgid "Work Center"
+msgstr "Work Center"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "Work Center Usage"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_workorder
+msgid "Work Order"
+msgstr "Work Order"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_workcenter_productivity
+msgid "Workcenter Productivity Log"
+msgstr "Workcenter Productivity Log"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Xác nhận chưa đạt"
+msgstr "Confirm Fail"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_workorder_review
+msgid "Yêu cầu duyệt công đoạn"
+msgstr "Work Order Review Request"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__open_review_count
+msgid "Yêu cầu duyệt đang mở"
+msgstr "Open Review Request"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Yêu cầu không ở trạng thái nháp."
+msgstr "The request is not in draft."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_home_approvals
+msgid "Yêu cầu phê duyệt xuất kho"
+msgstr "Stock Issue Approval Request"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_home_approvals
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_home_reviews
+msgid "yêu cầu"
+msgstr "requests"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_return__state__open
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_return_search
+msgid "Đang chỉnh"
+msgstr "Reworking"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_state__reviewing
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_review__state__reviewing
+msgid "Đang duyệt"
+msgstr "Under Review"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_review
+msgid "Đang sửa"
+msgstr "Reworking"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_routing_workcenter__review_policy
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workcenter__review_policy
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__review_policy
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
+msgid "Điểm duyệt"
+msgstr "Review Point"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_return__state__done
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_return_search
+msgid "Đã chỉnh xong"
+msgstr "Rework Done"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_review__state__cancel
+msgid "Đã hủy"
+msgstr "Cancelled"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_return__user_replaced
+msgid "Đã đổi người thực hiện"
+msgstr "Operators Changed"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
+msgid "Đơn vị"
+msgstr "Unit"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__can_edit_review_mode
+msgid "Được chọn chế độ kiểm"
+msgstr "Can Choose Review Mode"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder__review_state__passed
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_review__state__passed
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_form
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_review_search
+msgid "Đạt"
+msgstr "Pass"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
+msgid "Để trống: giao cho nhân viên thực hiện của công đoạn trả về."
+msgstr "Leave empty to assign to the operators of the returned-to work order."

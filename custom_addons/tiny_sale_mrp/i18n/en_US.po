@@ -1,0 +1,1738 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tiny_sale_mrp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-15 16:50+0000\n"
+"PO-Revision-Date: 2026-11-15 16:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "1. Giá vốn (COST OF GOOD)"
+msgstr "1. Cost of Goods"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "2. Giá thành"
+msgstr "2. Total Cost"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "3. Giá bán đề xuất (local)"
+msgstr "3. Suggested Selling Price (local)"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "4. Bao bì (chỉ tham khảo, không cộng vào giá)"
+msgstr "4. Packaging (reference only, not added to the price)"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "5. Kênh quốc tế / showroom / sỉ / ecommerce"
+msgstr "5. International / Showroom / Wholesale / E-commerce"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid ""
+"<span class=\"badge rounded-pill text-bg-info fs-6\" invisible=\"estimate_type != 'order'\">Dự toán đơn hàng</span>\n"
+"                            <span class=\"badge rounded-pill text-bg-primary fs-6\" invisible=\"estimate_type != 'price'\">Tính giá sản phẩm</span>"
+msgstr ""
+"<span class=\"badge rounded-pill text-bg-info fs-6\" invisible=\"estimate_type != 'order'\">Order Estimate</span>\n"
+"                            <span class=\"badge rounded-pill text-bg-primary fs-6\" invisible=\"estimate_type != 'price'\">Product Pricing</span>"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid ""
+"<span class=\"badge text-bg-warning\" invisible=\"not price_manual\">Giá tự "
+"định</span>"
+msgstr ""
+"<span class=\"badge text-bg-warning\" invisible=\"not price_manual\">Manual "
+"Price</span>"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid ""
+"<span class=\"o_annotation o_annotation_1 o_annotation_end position-absolute\">Đồng hồ tính giờ</span>\n"
+"                                                        <span class=\"o_annotation o_annotation_2 o_annotation_end position-absolute\">Kiểm soát chất lượng</span>\n"
+"                                                        <span class=\"o_annotation o_annotation_3 o_annotation_start position-absolute\">Vòng phản hồi</span>\n"
+"                                                        <span class=\"o_annotation o_annotation_4 o_annotation_start position-absolute\">Ghi nhận nguyên vật liệu</span>\n"
+"                                                        <span class=\"o_annotation o_annotation_5 o_annotation_start position-absolute\">Chọn người vận hành</span>"
+msgstr ""
+"<span class=\"o_annotation o_annotation_1 o_annotation_end position-absolute\">Timer</span>\n"
+"                                                        <span class=\"o_annotation o_annotation_2 o_annotation_end position-absolute\">Quality Control</span>\n"
+"                                                        <span class=\"o_annotation o_annotation_3 o_annotation_start position-absolute\">Feedback Loop</span>\n"
+"                                                        <span class=\"o_annotation o_annotation_4 o_annotation_start position-absolute\">Component Registration</span>\n"
+"                                                        <span class=\"o_annotation o_annotation_5 o_annotation_start position-absolute\">Operator Selection</span>"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "<span invisible=\"time_mode == 'manual'\"> lệnh gần nhất</span>"
+msgstr "<span invisible=\"time_mode == 'manual'\"> last work orders</span>"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid ""
+"<span> phút</span>\n"
+"                                                                        <span invisible=\"time_mode == 'manual'\"> / </span>"
+msgstr ""
+"<span> minutes</span>\n"
+"                                                                        <span invisible=\"time_mode == 'manual'\"> / </span>"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "<span>×</span>"
+msgstr "<span>×</span>"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_needaction
+msgid "Action Needed"
+msgstr "Action Needed"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_ids
+msgid "Activities"
+msgstr "Activities"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Activity Exception Decoration"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_state
+msgid "Activity State"
+msgstr "Activity State"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Activity Type Icon"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_attachment_count
+msgid "Attachment Count"
+msgstr "Attachment Count"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "BOM tạo từ phiếu sẽ dùng các hoạt động này."
+msgstr "The BoM created from the estimate will use these operations."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__bom_id
+msgid "BOM đã tạo"
+msgstr "Created BoM"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__packaging_total
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Bao bì"
+msgstr "Packaging"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_company_form_inherit_tiny_sale_mrp
+msgid "Bao bì (chỉ tham khảo)"
+msgstr "Packaging (reference only)"
+
+#. module: tiny_sale_mrp
+#: model:ir.actions.act_window,name:tiny_sale_mrp.action_sale_estimate_line_pricing
+#: model:ir.ui.menu,name:tiny_sale_mrp.menu_sale_estimate_line_pricing
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_pivot
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+msgid "Bảng tính giá"
+msgstr "Pricing Sheet"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.actions.act_window,help:tiny_sale_mrp.action_sale_estimate_line_pricing
+msgid ""
+"Bảng tổng hợp giá của các dòng trên phiếu tính giá và phiếu dự toán. Bấm một"
+" dòng để mở phiếu."
+msgstr ""
+"Price summary of the lines on pricing sheets and estimates. Click a line to "
+"open its estimate."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_line__cost_unit
+msgid "COST OF GOOD = NVL + hoạt động + chi phí khác."
+msgstr "Cost of goods = materials + operations + other costs."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__material_cost
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Chi phí NVL"
+msgstr "Material Cost"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__cost_mode
+msgid "Chi phí dựa trên"
+msgstr "Cost Based On"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__operation_cost
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Chi phí hoạt động"
+msgstr "Operation Cost"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__extra_cost
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Chi phí khác"
+msgstr "Other Costs"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Chi phí nhân công"
+msgstr "Labor Cost"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__employee_costs_hour
+msgid "Chi phí nhân công theo giờ"
+msgstr "Employee Cost per Hour"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__costs_hour
+msgid "Chi phí theo giờ"
+msgstr "Cost per Hour"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_operation__cost_mode
+msgid "Chuyển sang hoạt động của BOM, dùng khi tính chi phí sản xuất thực tế."
+msgstr ""
+"Copied to the BoM operation, used when computing the actual production cost."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_operation__time_mode
+msgid ""
+"Chuyển sang hoạt động của BOM. Dự toán luôn tính theo Thời lượng mặc định."
+msgstr ""
+"Copied to the BoM operation. The estimate always uses the Default Duration."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Chuyển thành dự toán đơn hàng"
+msgstr "Convert to Order Estimate"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Chưa có hoạt động nào!"
+msgstr "No operations yet!"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.actions.act_window,help:tiny_sale_mrp.action_sale_estimate_line_pricing
+msgid "Chưa có sản phẩm nào được tính giá"
+msgstr "No products have been priced yet"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Chưa cấu hình công ty sản xuất (Công ty sản xuất trên form công ty)."
+msgstr ""
+"No manufacturing company is configured (Manufacturing Company on the company"
+" form)."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Chỉ chuyển phiếu tính giá ở trạng thái nháp hoặc đã chốt giá."
+msgstr "Only draft or price-confirmed pricing sheets can be converted."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Chỉ chốt giá phiếu ở trạng thái nháp."
+msgstr "Only draft sheets can have their price confirmed."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Chỉ phiếu tính giá mới chốt giá được."
+msgstr "Only pricing sheets can have their price confirmed."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_line__packaging_total
+msgid "Chỉ tham khảo, không cộng vào giá."
+msgstr "Reference only, not added to the price."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Chỉ tạo đơn hàng từ phiếu dự toán ở trạng thái nháp."
+msgstr "Sales orders can only be created from draft estimates."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Chốt giá"
+msgstr "Confirm Price"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_instruction__test_type__picture
+msgid "Chụp ảnh"
+msgstr "Take a Picture"
+
+#. module: tiny_sale_mrp
+#: model:ir.model,name:tiny_sale_mrp.model_res_company
+msgid "Companies"
+msgstr "Companies"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__create_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__create_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__create_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__create_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__create_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__create_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__create_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__create_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Các khu vực sau chưa có khu vực cùng mã ở công ty sản xuất: %s"
+msgstr ""
+"The following work centers have no work center with the same code in the "
+"manufacturing company: %s"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Các sản phẩm sau chưa có định mức nguyên vật liệu: %s"
+msgstr "The following products have no bill of materials: %s"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__company_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__company_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__company_id
+msgid "Công ty"
+msgstr "Company"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Công ty %s chưa cấu hình Tuyến cho sản phẩm dự toán."
+msgstr "Company %s has no Routes for Estimated Products configured."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Công ty %s chưa được đánh dấu là công ty thương mại."
+msgstr "Company %s is not marked as a trading company."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_operation__time_mode__manual
+msgid "Cố định"
+msgstr "Fixed"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Của tôi"
+msgstr "Mine"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__categ_id
+msgid "Danh mục"
+msgstr "Category"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_res_company__estimate_categ_id
+msgid "Danh mục mặc định trên dòng dự toán."
+msgstr "Default category on estimate lines."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_categ_id
+msgid "Danh mục sản phẩm dự toán"
+msgstr "Estimated Product Category"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_mrp_workcenter__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__estimate_line_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__estimate_line_id
+msgid "Dòng dự toán"
+msgstr "Estimate Line"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate__estimate_type__order
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Dự toán đơn hàng"
+msgstr "Order Estimate"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__time_mode_batch
+msgid "Dựa trên"
+msgstr "Based On"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Ecom 50%"
+msgstr "Ecom 50%"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_follower_ids
+msgid "Followers"
+msgstr "Followers"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Followers (Partners)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome icon e.g. fa-tasks"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "GIÁ CHỐT"
+msgstr "FINAL PRICE"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "GIÁ VỐN"
+msgstr "COST OF GOODS"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_packaging_garment_bag
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__packaging_garment_bag
+msgid "Garment bag"
+msgstr "Garment bag"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__note
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__note
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Ghi chú"
+msgstr "Notes"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__note_pattern
+msgid "Ghi chú họa tiết"
+msgstr "Pattern Notes"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_lv1_1
+msgid "Giá LV1 (1)"
+msgstr "LV1 Price (1)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_lv1_2
+msgid "Giá LV1 (2)"
+msgstr "LV1 Price (2)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_lv1_3
+msgid "Giá LV1 (3)"
+msgstr "LV1 Price (3)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_lv2_1
+msgid "Giá LV2 (1)"
+msgstr "LV2 Price (1)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_lv2_2
+msgid "Giá LV2 (2)"
+msgstr "LV2 Price (2)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_lv2_3
+msgid "Giá LV2 (3)"
+msgstr "LV2 Price (3)"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Giá USD"
+msgstr "USD Price"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_unit
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Giá chốt"
+msgstr "Final Price"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_unit_usd
+msgid "Giá chốt (USD)"
+msgstr "Final Price (USD)"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Giá chốt USD"
+msgstr "Final Price USD"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_res_company__estimate_price_rounding
+msgid "Giá chốt làm tròn đến bội số của số này."
+msgstr "The final price is rounded to a multiple of this amount."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__ecom_price
+msgid "Giá ecommerce"
+msgstr "E-commerce Price"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__ecom_price_usd
+msgid "Giá ecommerce (USD)"
+msgstr "E-commerce Price (USD)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__wsp_price
+msgid "Giá sỉ"
+msgstr "Wholesale Price"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__wsp_price_usd
+msgid "Giá sỉ (USD)"
+msgstr "Wholesale Price (USD)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__wsp2_price
+msgid "Giá sỉ 2"
+msgstr "Wholesale Price 2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__wsp2_price_usd
+msgid "Giá sỉ 2 (USD)"
+msgstr "Wholesale Price 2 (USD)"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_company_form_inherit_tiny_sale_mrp
+msgid "Giá thành"
+msgstr "Total Cost"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Giá thành LV2"
+msgstr "Total Cost LV2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_manual
+msgid "Giá tự định"
+msgstr "Manual Price"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Giá vốn"
+msgstr "Cost"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__cost_unit
+msgid "Giá vốn đơn vị"
+msgstr "Unit Cost"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__suggested_price
+msgid "Giá đề xuất"
+msgstr "Suggested Price"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_line__price_unit
+msgid ""
+"Giá đề xuất làm tròn theo cấu hình công ty, sửa tay được. Giá này đưa lên "
+"đơn bán hàng."
+msgstr ""
+"Suggested price rounded per the company settings, can be edited manually. "
+"This price goes to the sales order."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_res_company__estimate_route_ids
+msgid ""
+"Gán cho sản phẩm tạo từ phiếu dự toán. Cần có MTO + Mua để đơn hàng sinh PO "
+"sang công ty sản xuất."
+msgstr ""
+"Assigned to products created from estimates. MTO + Buy are required so the "
+"sales order creates a PO to the manufacturing company."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__has_message
+msgid "Has Message"
+msgstr "Has Message"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__operation_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__operation_ids
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__name
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Hoạt động"
+msgstr "Operations"
+
+#. module: tiny_sale_mrp
+#: model:ir.model,name:tiny_sale_mrp.model_sale_estimate_operation
+msgid "Hoạt động trên phiếu dự toán"
+msgstr "Estimate Operation"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Hoạt động..."
+msgstr "Operation..."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid ""
+"Hãy chọn khách hàng trên phiếu tính giá trước khi chuyển thành dự toán đơn "
+"hàng."
+msgstr ""
+"Please select a customer on the pricing sheet before converting it to an "
+"order estimate."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Hãy hủy đơn bán hàng liên kết trước."
+msgstr "Please cancel the linked sales order first."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__image_1920
+msgid "Hình ảnh"
+msgstr "Image"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__instruction_ids
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_instruction__test_type__instructions
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Hướng dẫn"
+msgstr "Instructions"
+
+#. module: tiny_sale_mrp
+#: model:ir.model,name:tiny_sale_mrp.model_sale_estimate_instruction
+msgid "Hướng dẫn của hoạt động trên phiếu dự toán"
+msgstr "Estimate Operation Instruction"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_option
+msgid "Hệ số"
+msgstr "Factor"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_line__price_option__1
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Hệ số 1"
+msgstr "Factor 1"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_line__price_option__2
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Hệ số 2"
+msgstr "Factor 2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_line__price_option__3
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Hệ số 3"
+msgstr "Factor 3"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_company_form_inherit_tiny_sale_mrp
+msgid "Hệ số LV1"
+msgstr "LV1 Factors"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_markup_lv1_1
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__markup_lv1_1
+msgid "Hệ số LV1 (1)"
+msgstr "LV1 Factor (1)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_markup_lv1_2
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__markup_lv1_2
+msgid "Hệ số LV1 (2)"
+msgstr "LV1 Factor (2)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_markup_lv1_3
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__markup_lv1_3
+msgid "Hệ số LV1 (3)"
+msgstr "LV1 Factor (3)"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_company_form_inherit_tiny_sale_mrp
+msgid "Hệ số LV2"
+msgstr "LV2 Factors"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_markup_lv2_1
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__markup_lv2_1
+msgid "Hệ số LV2 (1)"
+msgstr "LV2 Factor (1)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_markup_lv2_2
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__markup_lv2_2
+msgid "Hệ số LV2 (2)"
+msgstr "LV2 Factor (2)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_markup_lv2_3
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__markup_lv2_3
+msgid "Hệ số LV2 (3)"
+msgstr "LV2 Factor (3)"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_company_form_inherit_tiny_sale_mrp
+msgid "Hệ số giá bán"
+msgstr "Markup Factors"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_showroom_factor_1
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__showroom_factor_1
+msgid "Hệ số mark up 1"
+msgstr "Mark up 1 Factor"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_showroom_factor_2
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__showroom_factor_2
+msgid "Hệ số mark up 2"
+msgstr "Mark up 2 Factor"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_showroom_factor_3
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__showroom_factor_3
+msgid "Hệ số mark up 2 (LV2)"
+msgstr "Mark up 2 (LV2) Factor"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_factor_label
+msgid "Hệ số đã chọn"
+msgstr "Selected Factor"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Hủy"
+msgstr "Cancel"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_mrp_workcenter__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_order__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_exception_icon
+msgid "Icon"
+msgstr "Icon"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icon to indicate an exception activity."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "If checked, new messages require your attention."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__message_has_error
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "If checked, some messages have a delivery error."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_is_follower
+msgid "Is Follower"
+msgstr "Is Follower"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__workcenter_id
+msgid "Khu vực sản xuất"
+msgstr "Work Center"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Khách"
+msgstr "Customer"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__partner_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__partner_id
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Khách hàng"
+msgstr "Customer"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Không thể xóa phiếu dự toán đã có đơn bán hàng."
+msgstr "You cannot delete an estimate that has a sales order."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Không thể đổi loại phiếu khi phiếu đã có đơn bán hàng."
+msgstr "You cannot change the type of an estimate that has a sales order."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__employee_ratio
+msgid "Khả năng nhân viên"
+msgstr "Employee Capacity"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Kênh khác"
+msgstr "Other Channels"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LN LV1"
+msgstr "Profit LV1"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LN LV2"
+msgstr "Profit LV2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__profit_ecom_pct
+msgid "LN ecom"
+msgstr "Ecom Profit"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LN ecom %"
+msgstr "Ecom Profit %"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__profit_wsp_pct
+msgid "LN sỉ"
+msgstr "Wholesale Profit"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LN sỉ %"
+msgstr "Wholesale Profit %"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_line__price_level__lv1
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "LV1"
+msgstr "LV1"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LV1 × hệ số 1"
+msgstr "LV1 × factor 1"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LV1 × hệ số 2"
+msgstr "LV1 × factor 2"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LV1 × hệ số 3"
+msgstr "LV1 × factor 3"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_line__price_level__lv2
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "LV2"
+msgstr "LV2"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LV2 × hệ số 1"
+msgstr "LV2 × factor 1"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LV2 × hệ số 2"
+msgstr "LV2 × factor 2"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "LV2 × hệ số 3"
+msgstr "LV2 × factor 3"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__write_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__write_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__write_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__write_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__write_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__write_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__write_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__write_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__test_type
+msgid "Loại"
+msgstr "Type"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__estimate_type
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__estimate_type
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Loại phiếu"
+msgstr "Estimate Type"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_price_rounding
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_rounding
+msgid "Làm tròn giá chốt"
+msgstr "Final Price Rounding"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_bom_line__cost_unit
+msgid "Lấy theo giá vốn tại công ty sản xuất, có thể sửa theo giá dự kiến."
+msgstr ""
+"Taken from the cost in the manufacturing company, can be changed to the "
+"expected price."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_operation__costs_hour
+msgid ""
+"Lấy theo khu vực cùng mã ở công ty sản xuất, có thể sửa theo giá dự kiến."
+msgstr ""
+"Taken from the work center with the same code in the manufacturing company, "
+"can be changed to the expected price."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_operation__employee_costs_hour
+msgid ""
+"Lấy theo khu vực cùng mã ở công ty sản xuất, tính cho 1 nhân viên, có thể "
+"sửa theo giá dự kiến."
+msgstr ""
+"Taken from the work center with the same code in the manufacturing company, "
+"for 1 employee, can be changed to the expected price."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.actions.act_window,help:tiny_sale_mrp.action_sale_estimate
+msgid "Lập định mức NVL để tính giá cho sản phẩm làm theo yêu cầu khách hàng."
+msgstr ""
+"Define a bill of materials to price products made to customer requirements."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Lợi nhuận"
+msgstr "Profit"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_profit_rate_lv1
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__profit_lv1
+msgid "Lợi nhuận LV1"
+msgstr "Profit LV1"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_profit_rate_lv2
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__profit_lv2
+msgid "Lợi nhuận LV2"
+msgstr "Profit LV2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__amount_margin
+msgid "Lợi nhuận dự kiến"
+msgstr "Expected Margin"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__showroom_markup_1
+msgid "Mark up 1"
+msgstr "Mark up 1"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_res_company__estimate_showroom_factor_1
+msgid "Mark up 1 = Giá chốt x hệ số này."
+msgstr "Mark up 1 = Final price x this factor."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__showroom_markup_2
+msgid "Mark up 2"
+msgstr "Mark up 2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__showroom_markup_3
+msgid "Mark up 2 (LV2)"
+msgstr "Mark up 2 (LV2)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_res_company__estimate_showroom_factor_3
+msgid "Mark up 2 (LV2) = Total cost LV2 x hệ số này."
+msgstr "Mark up 2 (LV2) = Total cost LV2 x this factor."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_res_company__estimate_showroom_factor_2
+msgid "Mark up 2 = Mark up 1 x hệ số này."
+msgstr "Mark up 2 = Mark up 1 x this factor."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_has_error
+msgid "Message Delivery error"
+msgstr "Message Delivery error"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "My Activity Deadline"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__product_pattern_id
+msgid "Mã họa tiết"
+msgstr "Pattern Code"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/mrp_workcenter.py:0
+msgid "Mã khu vực sản xuất %s đã được dùng trong công ty này."
+msgstr "Work center code %s is already used in this company."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__code_fabric
+msgid "Mã vải"
+msgstr "Fabric Code"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_line__rrp_showroom
+msgid "Mặc định = Mark up 2 làm tròn, sửa tay được."
+msgstr "Defaults to Mark up 2 rounded, can be edited manually."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_company_form_inherit_tiny_sale_mrp
+msgid ""
+"Mặc định cho dòng dự toán mới, sửa được trên từng dòng. Công thức theo sheet"
+" bespoke của file báo giá."
+msgstr ""
+"Defaults for new estimate lines, can be changed on each line. Formulas "
+"follow the bespoke sheet of the quotation file."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Mới"
+msgstr "New"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__price_level
+msgid "Mức giá"
+msgstr "Price Level"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Next Activity Calendar Event"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Next Activity Deadline"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_summary
+msgid "Next Activity Summary"
+msgstr "Next Activity Summary"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_type_id
+msgid "Next Activity Type"
+msgstr "Next Activity Type"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__product_id
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Nguyên vật liệu"
+msgstr "Material"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__date_estimate
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__date_estimate
+msgid "Ngày dự toán"
+msgstr "Estimate Date"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__user_id
+msgid "Người lập"
+msgstr "Prepared By"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate__state__draft
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Nháp"
+msgstr "Draft"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Number of Actions"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_has_error_counter
+msgid "Number of errors"
+msgstr "Number of errors"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Number of messages requiring action"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Number of messages with delivery error"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__note
+msgid "Nội dung"
+msgstr "Content"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Nội dung hướng dẫn..."
+msgstr "Instruction content..."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+msgid "Phiếu"
+msgstr "Estimate"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+#: model:ir.actions.act_window,name:tiny_sale_mrp.action_sale_estimate
+#: model:ir.model,name:tiny_sale_mrp.model_sale_estimate
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__estimate_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_order__estimate_id
+#: model:ir.ui.menu,name:tiny_sale_mrp.menu_sale_estimate
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_list
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Phiếu dự toán"
+msgstr "Estimates"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Phiếu dự toán chưa có sản phẩm."
+msgstr "The estimate has no products."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Phiếu dự toán đơn hàng %s phải có khách hàng."
+msgstr "Order estimate %s must have a customer."
+
+#. module: tiny_sale_mrp
+#: model:ir.actions.act_window,name:tiny_sale_mrp.action_sale_estimate_price
+#: model:ir.ui.menu,name:tiny_sale_mrp.menu_sale_estimate_price
+msgid "Phiếu tính giá"
+msgstr "Pricing Sheets"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Phiếu tính giá chưa có sản phẩm."
+msgstr "The pricing sheet has no products."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__estimate_type
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_line__estimate_type
+msgid "Phiếu tính giá chỉ để tính giá, không tạo đơn hàng."
+msgstr "Pricing sheets are only for pricing and do not create sales orders."
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid ""
+"Phiếu tính giá không tạo được đơn hàng. Hãy chuyển thành dự toán đơn hàng "
+"trước."
+msgstr ""
+"Pricing sheets cannot create sales orders. Please convert it to an order "
+"estimate first."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_packaging_price_tag
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__packaging_price_tag
+msgid "Price tag"
+msgstr "Price tag"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_res_company__estimate_usd_currency_id
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__usd_currency_id
+msgid ""
+"Quy đổi giá theo tỷ giá Odoo. Tiền tệ chưa bật hoặc chưa có tỷ giá thì giá "
+"quy đổi = 0."
+msgstr ""
+"Prices are converted with the Odoo exchange rates. If the currency is "
+"inactive or has no rate, the converted price is 0."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Quốc tế và showroom"
+msgstr "International and Showroom"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__rrp_intl
+msgid "RRP quốc tế"
+msgstr "International RRP"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__rrp_intl_usd
+msgid "RRP quốc tế (USD)"
+msgstr "International RRP (USD)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__rrp_showroom
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "RRP showroom"
+msgstr "RRP showroom"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__rrp_showroom_usd
+msgid "RRP showroom (USD)"
+msgstr "RRP showroom (USD)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__rating_ids
+msgid "Ratings"
+msgstr "Ratings"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__activity_user_id
+msgid "Responsible User"
+msgstr "Responsible User"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Delivery error"
+
+#. module: tiny_sale_mrp
+#: model:ir.model,name:tiny_sale_mrp.model_sale_order
+msgid "Sales Order"
+msgstr "Sales Order"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__sequence
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__sequence
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__sequence
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__sequence
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_company_form_inherit_tiny_sale_mrp
+msgid "Showroom, sỉ, ecommerce"
+msgstr "Showroom, Wholesale, E-commerce"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__compare_vn_pct
+msgid "So với VN"
+msgstr "Compare to VN"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "So với VN %"
+msgstr "Compare to VN %"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Studio"
+msgstr "Studio"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__studio_cost
+msgid "Studio cost"
+msgstr "Studio cost"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_res_company__estimate_studio_rate
+msgid "Studio cost = Giá vốn x tỷ lệ này."
+msgstr "Studio cost = Cost x this rate."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__line_ids
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Sản phẩm yêu cầu"
+msgstr "Requested Products"
+
+#. module: tiny_sale_mrp
+#: model:ir.model,name:tiny_sale_mrp.model_sale_estimate_line
+msgid "Sản phẩm yêu cầu trên phiếu dự toán"
+msgstr "Estimate Requested Product"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__product_id
+msgid "Sản phẩm đã tạo"
+msgstr "Created Product"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Sỉ 40%"
+msgstr "Wholesale 40%"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Sỉ 42%"
+msgstr "Wholesale 42%"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Sỉ và ecommerce"
+msgstr "Wholesale and E-commerce"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__product_qty
+msgid "Số lượng"
+msgstr "Quantity"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_operation__employee_ratio
+msgid "Số nhân viên cần để hoàn thành hoạt động."
+msgstr "Number of employees needed to complete the operation."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__name
+msgid "Số phiếu"
+msgstr "Number"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__product_size
+msgid "Số đo"
+msgstr "Measurements"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "TOTAL COST LV1"
+msgstr "TOTAL COST LV1"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "TOTAL COST LV2"
+msgstr "TOTAL COST LV2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__subtotal
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__subtotal
+msgid "Thành tiền"
+msgstr "Subtotal"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Thêm các hoạt động để tính chi phí sản xuất vào giá vốn dự toán."
+msgstr "Add operations to include the production cost in the estimated cost."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Thêm hoạt động"
+msgstr "Add Operation"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_operation__cost_mode__estimated
+msgid "Thời gian lý thuyết"
+msgstr "Theoretical Time"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_operation__cost_mode__actual
+msgid "Thời gian thực tế"
+msgstr "Actual Time"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Thời lượng mặc định"
+msgstr "Default Duration"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__time_cycle_manual
+msgid "Thời lượng/1 SP (phút)"
+msgstr "Duration per Unit (minutes)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_instruction__title
+msgid "Tiêu đề"
+msgstr "Title"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__currency_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__currency_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__currency_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__currency_id
+msgid "Tiền tệ"
+msgstr "Currency"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__usd_currency_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__usd_currency_id
+msgid "Tiền tệ USD"
+msgstr "USD Currency"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_usd_currency_id
+msgid "Tiền tệ quy đổi USD"
+msgstr "USD Conversion Currency"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Total cost"
+msgstr "Total cost"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__total_cost_lv1
+msgid "Total cost LV1"
+msgstr "Total cost LV1"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__total_cost_lv2
+msgid "Total cost LV2"
+msgstr "Total cost LV2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__state
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__state
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Trạng thái"
+msgstr "Status"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__sale_order_state
+msgid "Trạng thái đơn hàng"
+msgstr "Order Status"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_route_ids
+msgid "Tuyến cho sản phẩm dự toán"
+msgstr "Routes for Estimated Products"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type of the exception activity on record."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Tên SP"
+msgstr "Product"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__name
+msgid "Tên sản phẩm"
+msgstr "Product Name"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Tên sản phẩm theo yêu cầu"
+msgstr "Requested product name"
+
+#. module: tiny_sale_mrp
+#: model:ir.ui.menu,name:tiny_sale_mrp.menu_sale_estimate_pricing_root
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Tính giá"
+msgstr "Pricing"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_company_form_inherit_tiny_sale_mrp
+msgid "Tính giá dự toán"
+msgstr "Estimate Pricing"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate__estimate_type__price
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Tính giá sản phẩm"
+msgstr "Product Pricing"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.actions.act_window,help:tiny_sale_mrp.action_sale_estimate_price
+msgid ""
+"Tính giá sản phẩm theo công thức báo giá, không cần khách hàng và không tạo đơn hàng.\n"
+"               Khi khách đồng ý, chuyển phiếu thành dự toán đơn hàng."
+msgstr ""
+"Price products with the quotation formulas, without a customer and without creating a sales order.\n"
+"               When the customer agrees, convert the sheet to an order estimate."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate_operation__time_mode__auto
+msgid "Tính toán"
+msgstr "Computed"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_operation__time_mode
+msgid "Tính toán thời lượng"
+msgstr "Duration Computation"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate_line__extra_cost
+msgid "Tính trên 1 đơn vị sản phẩm."
+msgstr "Per unit of product."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Tóm tắt giá"
+msgstr "Price Summary"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_packaging_box
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__packaging_box
+msgid "Túi giấy / hộp"
+msgstr "Paper Bag / Box"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid ""
+"Tạo phiếu dự toán đơn hàng mới từ phiếu tính giá này? Phiếu gốc giữ nguyên."
+msgstr ""
+"Create a new order estimate from this pricing sheet? The original sheet is "
+"kept."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.actions.act_window,help:tiny_sale_mrp.action_sale_estimate
+msgid "Tạo phiếu dự toán đầu tiên"
+msgstr "Create your first estimate"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.actions.act_window,help:tiny_sale_mrp.action_sale_estimate_price
+msgid "Tạo phiếu tính giá đầu tiên"
+msgstr "Create your first pricing sheet"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Tạo sản phẩm, BOM ở công ty sản xuất và đơn bán hàng từ phiếu này?"
+msgstr ""
+"Create the products, the BoMs in the manufacturing company and the sales "
+"order from this estimate?"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Tạo từ phiếu tính giá %s."
+msgstr "Created from pricing sheet %s."
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Tạo đơn hàng"
+msgstr "Create Sales Order"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Tổng"
+msgstr "Total"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__amount_total
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__subtotal_price
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_list
+msgid "Tổng giá bán"
+msgstr "Total Sales"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__amount_total_usd
+msgid "Tổng giá bán (USD)"
+msgstr "Total Sales (USD)"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__amount_cost
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__subtotal_cost
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_list
+msgid "Tổng giá vốn"
+msgstr "Total Cost"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_ecom_rate
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__ecom_rate
+msgid "Tỷ lệ ecommerce"
+msgstr "E-commerce Rate"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_wsp_rate
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__wsp_rate
+msgid "Tỷ lệ giá sỉ"
+msgstr "Wholesale Rate"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_wsp2_rate
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__wsp2_rate
+msgid "Tỷ lệ giá sỉ 2"
+msgstr "Wholesale Rate 2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__profit_rate_lv1
+msgid "Tỷ lệ lợi nhuận LV1"
+msgstr "Profit Rate LV1"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__profit_rate_lv2
+msgid "Tỷ lệ lợi nhuận LV2"
+msgstr "Profit Rate LV2"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_res_company__estimate_studio_rate
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__studio_rate
+msgid "Tỷ lệ studio"
+msgstr "Studio Rate"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__website_message_ids
+msgid "Website Messages"
+msgstr "Website Messages"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,help:tiny_sale_mrp.field_sale_estimate__website_message_ids
+msgid "Website communication history"
+msgstr "Website communication history"
+
+#. module: tiny_sale_mrp
+#: model:ir.model,name:tiny_sale_mrp.model_mrp_workcenter
+msgid "Work Center"
+msgstr "Work Center"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Xưởng sản xuất"
+msgstr "Shop Floor"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Yêu cầu của khách"
+msgstr "Customer Requirements"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+msgid "Đã chuyển thành phiếu dự toán đơn hàng %s."
+msgstr "Converted to order estimate %s."
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate__state__done
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Đã chốt giá"
+msgstr "Price Confirmed"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate__state__cancel
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+msgid "Đã hủy"
+msgstr "Cancelled"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Đã tạo"
+msgstr "Created"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields.selection,name:tiny_sale_mrp.selection__sale_estimate__state__ordered
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_search
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_search
+msgid "Đã tạo đơn hàng"
+msgstr "Order Created"
+
+#. module: tiny_sale_mrp
+#. odoo-python
+#: code:addons/tiny_sale_mrp/models/sale_estimate.py:0
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate__sale_order_id
+msgid "Đơn bán hàng"
+msgstr "Sales Order"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__cost_unit
+msgid "Đơn giá NVL"
+msgstr "Material Unit Cost"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Đơn hàng"
+msgstr "Order"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__product_uom_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__uom_id
+msgid "Đơn vị"
+msgstr "Unit"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "Đưa về nháp"
+msgstr "Reset to Draft"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_line__bom_line_ids
+msgid "Định mức NVL"
+msgstr "Bill of Materials"
+
+#. module: tiny_sale_mrp
+#: model:ir.model,name:tiny_sale_mrp.model_sale_estimate_bom_line
+msgid "Định mức NVL trên phiếu dự toán"
+msgstr "Estimate Bill of Materials Line"
+
+#. module: tiny_sale_mrp
+#: model:ir.model.fields,field_description:tiny_sale_mrp.field_sale_estimate_bom_line__product_qty
+msgid "Định mức/1 SP"
+msgstr "Quantity per Unit"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_line_pricing_list
+msgid "Ảnh"
+msgstr "Image"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+msgid "≈ USD"
+msgstr "≈ USD"

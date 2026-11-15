@@ -1,0 +1,1967 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* to_wallet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-15 16:56+0000\n"
+"PO-Revision-Date: 2026-11-15 16:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+msgid "%s must be greater or equal to 0"
+msgstr "%s must be greater or equal to 0"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+msgid "%s must not be greater than the payment amount which is %s"
+msgstr "%s must not be greater than the payment amount which is %s"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+msgid "%s to wallet %s successful!"
+msgstr "%s to wallet %s successful!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-danger text-white\">Withdrawal</em>"
+msgstr "<em class=\"badge bg-danger text-white\">Withdrawal</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-info text-white\">Refund</em>"
+msgstr "<em class=\"badge bg-info text-white\">Refund</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-light text-dark\">Cancelled</em>"
+msgstr "<em class=\"badge bg-light text-dark\">Cancelled</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-success text-white\">Successful</em>"
+msgstr "<em class=\"badge bg-success text-white\">Successful</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-success text-white\">Top-Up</em>"
+msgstr "<em class=\"badge bg-success text-white\">Top-Up</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-warning text-white\">Payment</em>"
+msgstr "<em class=\"badge bg-warning text-white\">Payment</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "<em class=\"badge bg-warning text-white\">Pending</em>"
+msgstr "<em class=\"badge bg-warning text-white\">Pending</em>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "<i class=\"fa fa-arrow-circle-right\"/> Back to My Wallet"
+msgstr "<i class=\"fa fa-arrow-circle-right\"/> Back to My Wallet"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid ""
+"<i class=\"fa fa-plus\"/>\n"
+"\t\t\t\t\t<span>New Wallet</span>"
+msgstr ""
+"<i class=\"fa fa-plus\"/>\n"
+"\t\t\t\t\t<span>New Wallet</span>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_breadcrumbs_wallet
+msgid "<span>Transaction Histories</span>"
+msgstr "<span>Transaction Histories</span>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid "<strong>Available Balance:</strong>"
+msgstr "<strong>Available Balance:</strong>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_payment_creation_wizard_form_views
+msgid ""
+"<strong>Note: </strong>\n"
+"\t\t\t\t\t\t<span>Enter the reference of the pending wallet transaction history into <strong>Reference</strong> to link it with the new payment.</span>"
+msgstr ""
+"<strong>Note: </strong>\n"
+"\t\t\t\t\t\t<span>Enter the reference of the pending wallet transaction history into <strong>Reference</strong> to link it with the new payment.</span>"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid "<strong>Pending Balance:</strong>"
+msgstr "<strong>Pending Balance:</strong>"
+
+#. module: to_wallet
+#: model:mail.template,body_html:to_wallet.mail_template_wallet_fluctuation_notification
+msgid ""
+"<t t-set=\"company\" t-value=\"(object.company_id or object.env.company)\"/>\n"
+"\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 1rem; background-color: #F1F1F1; color: #000000; width: 100%; border-collapse:separate;\">\n"
+"\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t<td align=\"center\">\n"
+"\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 0; background-color: #fcfcfc;\">\n"
+"\t\t\t\t\t\t\t\t<tbody>\n"
+"\t\t\t\t\t\t\t\t\t<!-- HEADER -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"min-width: 590px; padding: 0 !important;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"min-width: 590px; min-height:61px; background-color: #00BBCE; padding: 0 !important; border-collapse:separate;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"height: 100%;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td valign=\"middle\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"company\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img t-attf-src=\"data:image/png;base64,{{ company.logo.decode() }}\" style=\"padding-left: 29px; margin: 0; height: auto; max-width: 131px; color: #fff; font-weight: bold;\" t-att-alt=\"company.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\n"
+"\t\t\t\t\t\t\t\t\t<!-- CONTENT -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"width: 100%; padding: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"middle\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"margin: 15px;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"color: #7F4282; font-size: 30px; font-weight: bold; margin-bottom: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tNOTIFICATION\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"font-size: 23px; font-weight: bold; margin-top: 0;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span style=\"color: #00BBCE\">WALLET BALANCE FLUCTUATIONS</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p name=\"transaction_type\" style=\"font-size: 18px; font-weight: bold; margin-bottom: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'top-up'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(TOP UP)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'withdraw'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(WITHDRAW)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'payment'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(PAYMENT)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'refund'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(REFUND)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td style=\"padding: 0em 1.5em 2em 1.5em;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDear\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.partner_id.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t,\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tWallet\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\thas been\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.amount &gt; 0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>added</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-else=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>deducted</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"abs(wallet_history.amount)\" t-options=\"{'widget': 'monetary', 'display_currency': wallet_history.currency_id}\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p><table class=\"table table-bordered\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Code</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"wallet_history.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Transaction Datetime</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"format_datetime(object.env, wallet_history.date, dt_format='short')\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Amount</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"abs(wallet_history.amount)\" t-options=\"{'widget': 'monetary', 'display_currency': wallet_history.currency_id}\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Wallet</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPlease feel free to contact us if you have any questions and ask for our or need assistance\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tduring your usage.\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>This is an automated email. Please do not reply!</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\n"
+"\t\t\t\t\t\t\t\t\t<!-- FOOTER -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td style=\"min-width: 590px; padding: 16px ;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<hr/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p style=\"color: #00BBCE;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p class=\"text-muted\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<strong>Hotline:</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.phone\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.website\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t</tbody>\n"
+"\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t</tr>\n"
+"\t\t\t\t</table>\n"
+"\t\t\t"
+msgstr ""
+"<t t-set=\"company\" t-value=\"(object.company_id or object.env.company)\"/>\n"
+"\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 1rem; background-color: #F1F1F1; color: #000000; width: 100%; border-collapse:separate;\">\n"
+"\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t<td align=\"center\">\n"
+"\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 0; background-color: #fcfcfc;\">\n"
+"\t\t\t\t\t\t\t\t<tbody>\n"
+"\t\t\t\t\t\t\t\t\t<!-- HEADER -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"min-width: 590px; padding: 0 !important;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"min-width: 590px; min-height:61px; background-color: #00BBCE; padding: 0 !important; border-collapse:separate;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"height: 100%;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td valign=\"middle\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"company\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img t-attf-src=\"data:image/png;base64,{{ company.logo.decode() }}\" style=\"padding-left: 29px; margin: 0; height: auto; max-width: 131px; color: #fff; font-weight: bold;\" t-att-alt=\"company.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\n"
+"\t\t\t\t\t\t\t\t\t<!-- CONTENT -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"width: 100%; padding: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"middle\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"margin: 15px;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"color: #7F4282; font-size: 30px; font-weight: bold; margin-bottom: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tNOTIFICATION\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"font-size: 23px; font-weight: bold; margin-top: 0;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span style=\"color: #00BBCE\">WALLET BALANCE FLUCTUATIONS</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p name=\"transaction_type\" style=\"font-size: 18px; font-weight: bold; margin-bottom: 1rem;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'top-up'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(TOP UP)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'withdraw'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(WITHDRAW)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'payment'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(PAYMENT)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.wallet_history_type == 'refund'\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>(REFUND)</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td style=\"padding: 0em 1.5em 2em 1.5em;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDear\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.partner_id.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t,\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tWallet\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\thas been\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-if=\"wallet_history.amount &gt; 0\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>added</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-else=\"\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>deducted</span>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</t>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"abs(wallet_history.amount)\" t-options=\"{'widget': 'monetary', 'display_currency': wallet_history.currency_id}\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p><table class=\"table table-bordered\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Code</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"wallet_history.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Transaction Datetime</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"format_datetime(object.env, wallet_history.date, dt_format='short')\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Amount</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"abs(wallet_history.amount)\" t-options=\"{'widget': 'monetary', 'display_currency': wallet_history.currency_id}\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"width: auto;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Wallet</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"object.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPlease feel free to contact us if you have any questions and ask for our or need assistance\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tduring your usage.\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>This is an automated email. Please do not reply!</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\n"
+"\t\t\t\t\t\t\t\t\t<!-- FOOTER -->\n"
+"\t\t\t\t\t\t\t\t\t<tr>\n"
+"\t\t\t\t\t\t\t\t\t\t<td style=\"min-width: 590px; padding: 16px ;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t<hr/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p style=\"color: #00BBCE;\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.name\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p class=\"text-muted\">\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<strong>Hotline:</strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.phone\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t<t t-out=\"company.website\"/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t</p>\n"
+"\t\t\t\t\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t\t\t\t\t</tr>\n"
+"\t\t\t\t\t\t\t\t</tbody>\n"
+"\t\t\t\t\t\t\t</table>\n"
+"\t\t\t\t\t\t</td>\n"
+"\t\t\t\t\t</tr>\n"
+"\t\t\t\t</table>\n"
+"\t\t\t"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_move_line.py:0
+msgid ""
+"A journal item can only link to transaction histories within the same "
+"wallet!"
+msgstr ""
+"A journal item can only link to transaction histories within the same "
+"wallet!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid ""
+"A wallet with currency %s already exists. Currency is unique for each wallet"
+" type!"
+msgstr ""
+"A wallet with currency %s already exists. Currency is unique for each wallet"
+" type!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__account_type
+msgid "Account Type"
+msgstr "Account Type"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_needaction
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_needaction
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_needaction
+msgid "Action Needed"
+msgstr "Action Needed"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_ids
+msgid "Activities"
+msgstr "Activities"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_exception_decoration
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_exception_decoration
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Activity Exception Decoration"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_state
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_state
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_state
+msgid "Activity State"
+msgstr "Activity State"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_type_icon
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_type_icon
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Activity Type Icon"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Add New Wallet"
+msgstr "Add New Wallet"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "All"
+msgstr "All"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__allow_top_up
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__allow_top_up
+msgid "Allow Top Up"
+msgstr "Allow Top Up"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__allow_pay_online
+msgid "Allow Use To Pay Online"
+msgstr "Allow Use To Pay Online"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__allow_withdraw
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__allow_withdraw
+msgid "Allow Withdraw"
+msgstr "Allow Withdraw"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_partial_reconcile__wallet_amount_currency
+msgid ""
+"Always positive amount concerned by this matching expressed in the wallet "
+"credit/debit line foreign currency."
+msgstr ""
+"Always positive amount concerned by this matching expressed in the wallet "
+"credit/debit line foreign currency."
+
+#. module: to_wallet
+#. odoo-javascript
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/static/src/xml/wallet_payment_dialog.xml:0
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__amount
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__amount
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "Amount"
+msgstr "Amount"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__wallet_amount
+#: model_terms:ir.ui.view,arch_db:to_wallet.account_payment_form
+msgid "Amount Top Up Wallet"
+msgstr "Amount Top Up Wallet"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.account_payment_form
+msgid "Amount Withdraw Wallet"
+msgstr "Amount Withdraw Wallet"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+msgid "Amount must be greater than zero!"
+msgstr "Amount must be greater than zero!"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Amount must be positive!"
+msgstr "Amount must be positive!"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_payment__wallet_amount
+msgid "Amount top up wallet through payments."
+msgstr "Amount top up wallet through payments."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_res_company__loyalty_expense_account_id
+#: model:ir.model.fields,help:to_wallet.field_res_config_settings__loyalty_expense_account_id
+msgid ""
+"An account to record expensed amount due to Sale promotion. It is usually an"
+" Expense account."
+msgstr ""
+"An account to record expensed amount due to Sale promotion. It is usually an"
+" Expense account."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_res_company__loyalty_income_account_id
+#: model:ir.model.fields,help:to_wallet.field_res_config_settings__loyalty_income_account_id
+msgid ""
+"An account to record gained amount due to Sale promotion. It is usually an "
+"Other Income account."
+msgstr ""
+"An account to record gained amount due to Sale promotion. It is usually an "
+"Other Income account."
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_attachment_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_attachment_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_attachment_count
+msgid "Attachment Count"
+msgstr "Attachment Count"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__amount
+msgid "Available Balance"
+msgstr "Available Balance"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_wallet_payment_wizard_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_payment_creation_wizard_form_views
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__state__cancel
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Cancelled Status"
+msgstr "Cancelled Status"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_payment__is_wallet
+msgid "Check this field if the payment is top up/withdraw from wallet."
+msgstr "Check this field if the payment is top up/withdraw from wallet."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_payment_register__is_wallet
+msgid ""
+"Check this field if you want to top up payment's residual amount after "
+"reconciling it with invoice."
+msgstr ""
+"Check this field if you want to top up payment's residual amount after "
+"reconciling it with invoice."
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_payment_provider__code
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_list
+msgid "Code"
+msgstr "Code"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_res_partner__commercial_partner_wallet_ids
+#: model:ir.model.fields,field_description:to_wallet.field_res_users__commercial_partner_wallet_ids
+msgid "Commercial Partner Wallets"
+msgstr "Commercial Partner Wallets"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_res_company
+msgid "Companies"
+msgstr "Companies"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__company_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__company_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__company_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__company_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__company_id
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+msgid "Company"
+msgstr "Company"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_res_config_settings
+msgid "Config Settings"
+msgstr "Config Settings"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Confirm"
+msgstr "Confirm"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__confirm_payment
+msgid "Confirm Payment"
+msgstr "Confirm Payment"
+
+#. module: to_wallet
+#: model:wallet.type,name:to_wallet.consumption_wallet_type
+msgid "Consumption"
+msgstr "Consumption"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_move_line.py:0
+msgid ""
+"Could not reconcile journal items related to wallet transactions in "
+"different currencies!"
+msgstr ""
+"Could not reconcile journal items related to wallet transactions in "
+"different currencies!"
+
+#. module: to_wallet
+#: model:ir.model,website_form_label:to_wallet.model_res_partner
+msgid "Create a Customer"
+msgstr "Create a Customer"
+
+#. module: to_wallet
+#: model_terms:ir.actions.act_window,help:to_wallet.action_view_wallet_types
+msgid "Create a new wallet type"
+msgstr "Create a new wallet type"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Create wallet successfully!"
+msgstr "Create wallet successfully!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__create_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__create_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__create_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__create_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__create_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__create_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__create_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__create_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: to_wallet
+#. odoo-javascript
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/static/src/xml/create_wallet_dialog.xml:0
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__currency_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__currency_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__currency_id
+msgid "Currency"
+msgstr "Currency"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/payment_link_wizard.py:0
+msgid ""
+"Currently, when making an online payment with an e-wallet, the system "
+"doesn't allow partial payments. Please make sure the total amount is set to "
+"%s to use the e-wallet payment method!"
+msgstr ""
+"Currently, when making an online payment with an e-wallet, the system "
+"doesn't allow partial payments. Please make sure the total amount is set to "
+"%s to use the e-wallet payment method!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__partner_id
+msgid "Customer"
+msgstr "Customer"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+msgid "Data"
+msgstr "Data"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__description
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Description"
+msgstr "Description"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Description ..."
+msgstr "Description ..."
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "Dismiss"
+msgstr "Dismiss"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_account_partial_reconcile__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment_register__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_payment_link_wizard__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_payment_provider__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_payment_transaction__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_res_company__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_res_partner__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__display_name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+msgid "Done"
+msgstr "Done"
+
+#. module: to_wallet
+#: model:payment.method,name:to_wallet.payment_method_wallet
+#: model:payment.provider,name:to_wallet.payment_provider_company_wallet
+msgid "E-Wallet"
+msgstr "E-Wallet"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/payment_transaction.py:0
+msgid "E-Wallet: No transaction found matching reference %s."
+msgstr "E-Wallet: No transaction found matching reference %s."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/payment_transaction.py:0
+msgid "E-Wallet: Unable to identify transaction wallet!"
+msgstr "E-Wallet: Unable to identify transaction wallet!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "E.g: Reward Wallet"
+msgstr "E.g: Reward Wallet"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Error"
+msgstr "Error"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/payment_link_wizard.py:0
+msgid "Feature not supported!"
+msgstr "Feature not supported!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_my_home_wallet
+msgid "Follow, create, top-up or withdraw your wallets"
+msgstr "Follow, create, top-up or withdraw your wallets"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_follower_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_follower_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_follower_ids
+msgid "Followers"
+msgstr "Followers"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_partner_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_partner_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Followers (Partners)"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__activity_type_icon
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_type_icon
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome icon e.g. fa-tasks"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "From"
+msgstr "From"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_payment_link_wizard
+msgid "Generate Sales Payment Link"
+msgstr "Generate Sales Payment Link"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__has_message
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__has_message
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__has_message
+msgid "Has Message"
+msgstr "Has Message"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid "History"
+msgstr "History"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move__id
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__id
+#: model:ir.model.fields,field_description:to_wallet.field_account_partial_reconcile__id
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__id
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment_register__id
+#: model:ir.model.fields,field_description:to_wallet.field_payment_link_wizard__id
+#: model:ir.model.fields,field_description:to_wallet.field_payment_provider__id
+#: model:ir.model.fields,field_description:to_wallet.field_payment_transaction__id
+#: model:ir.model.fields,field_description:to_wallet.field_res_company__id
+#: model:ir.model.fields,field_description:to_wallet.field_res_config_settings__id
+#: model:ir.model.fields,field_description:to_wallet.field_res_partner__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_exception_icon
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_exception_icon
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_exception_icon
+msgid "Icon"
+msgstr "Icon"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__activity_exception_icon
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_exception_icon
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icon to indicate an exception activity."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_needaction
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_needaction
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "If checked, new messages require your attention."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_has_error
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_has_sms_error
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_has_error
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_has_sms_error
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_has_error
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "If checked, some messages have a delivery error."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+msgid "Invalid operation. The selected wallet type does not support top up!"
+msgstr "Invalid operation. The selected wallet type does not support top up!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+msgid "Invalid operation. The selected wallet type does not support withdraw!"
+msgstr ""
+"Invalid operation. The selected wallet type does not support withdraw!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_is_follower
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_is_follower
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_is_follower
+msgid "Is Follower"
+msgstr "Is Follower"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__is_wallet
+msgid "Is Top Up/Withdraw Wallet"
+msgstr "Is Top Up/Withdraw Wallet"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__journal_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__journal_id
+msgid "Journal"
+msgstr "Journal"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_move
+msgid "Journal Entry"
+msgstr "Journal Entry"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_move_line
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__account_move_line_ids
+msgid "Journal Item"
+msgstr "Journal Item"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__move_line_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__move_line_ids
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+msgid "Journal Items"
+msgstr "Journal Items"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__move_lines_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__account_move_line_count
+msgid "Journal Items Count"
+msgstr "Journal Items Count"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_move.py:0
+msgid ""
+"Journal entries related to transactions in the customer's e-wallet cannot be"
+" reset to draft after being posted."
+msgstr ""
+"Journal entries related to transactions in the customer's e-wallet cannot be"
+" reset to draft after being posted."
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__write_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__write_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__write_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__write_uid
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__write_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__write_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__write_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__write_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: to_wallet
+#: model:res.groups,name:to_wallet.group_wallet_manager
+msgid "Manager"
+msgstr "Manager"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_has_error
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_has_error
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_has_error
+msgid "Message Delivery error"
+msgstr "Message Delivery error"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__my_activity_date_deadline
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__my_activity_date_deadline
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "My Activity Deadline"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__name
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__name
+msgid "Name"
+msgstr "Name"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Newest"
+msgstr "Newest"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_calendar_event_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_calendar_event_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Next Activity Calendar Event"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_date_deadline
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_date_deadline
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Next Activity Deadline"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_summary
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_summary
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_summary
+msgid "Next Activity Summary"
+msgstr "Next Activity Summary"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_type_id
+msgid "Next Activity Type"
+msgstr "Next Activity Type"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+msgid ""
+"No journal could be found in company %(company_name)s for any of those "
+"types: %(journal_types)s"
+msgstr ""
+"No journal could be found in company %(company_name)s for any of those "
+"types: %(journal_types)s"
+
+#. module: to_wallet
+#: model_terms:ir.actions.act_window,help:to_wallet.action_view_wallet_histories
+msgid "No transactions occurred!"
+msgstr "No transactions occurred!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/payment_transaction.py:0
+msgid "No wallet linked to the specified payment transaction was found!"
+msgstr "No wallet linked to the specified payment transaction was found!"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__non_wallet_amount_currency
+msgid "Non Wallet Amount Currency"
+msgstr "Non Wallet Amount Currency"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__non_wallet_amount_residual_currency
+msgid "Non Wallet Amount Residual Currency"
+msgstr "Non Wallet Amount Residual Currency"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "None"
+msgstr "None"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__notice_recipient_ids
+msgid "Notification Recipient"
+msgstr "Notification Recipient"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Notify"
+msgstr "Notify"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_needaction_counter
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_needaction_counter
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Number of Actions"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_has_error_counter
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_has_error_counter
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_has_error_counter
+msgid "Number of errors"
+msgstr "Number of errors"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_needaction_counter
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_needaction_counter
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Number of messages requiring action"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__message_has_error_counter
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__message_has_error_counter
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Number of messages with delivery error"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+msgid "Only use send/receive payment type can top up/withdraw with wallet!"
+msgstr "Only use send/receive payment type can top up/withdraw with wallet!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet_type.py:0
+msgid "Operation '%s' is not supported. Supported operations: %s"
+msgstr "Operation '%s' is not supported. Supported operations: %s"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Other Information"
+msgstr "Other Information"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_partial_reconcile
+msgid "Partial Reconcile"
+msgstr "Partial Reconcile"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__partner_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__partner_id
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_search
+msgid "Partner"
+msgstr "Partner"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_payment_register
+msgid "Pay"
+msgstr "Pay"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Pay Online"
+msgstr "Pay Online"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_wizard__account_type__liability_payable
+msgid "Payable"
+msgstr "Payable"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__payment_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__payment_ids
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__wallet_history_type__payment
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Payment"
+msgstr "Payment"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__payment_date
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__payment_date
+msgid "Payment Date"
+msgstr "Payment Date"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_payment_provider
+msgid "Payment Provider"
+msgstr "Payment Provider"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: model:ir.model,name:to_wallet.model_payment_transaction
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__payment_transaction_id
+msgid "Payment Transaction"
+msgstr "Payment Transaction"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__type
+msgid "Payment Type"
+msgstr "Payment Type"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_payment_form.js:0
+msgid "Payment processing failed"
+msgstr "Payment processing failed"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_account_payment
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+msgid "Payments"
+msgstr "Payments"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__payments_count
+msgid "Payments Count"
+msgstr "Payments Count"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__state__pending
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Pending"
+msgstr "Pending"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__amount_pending
+msgid "Pending Balance"
+msgstr "Pending Balance"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Pending Status"
+msgstr "Pending Status"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Please enter amount!"
+msgstr "Please enter amount!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_wallet_payment_wizard_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_payment_creation_wizard_form_views
+msgid "Process"
+msgstr "Process"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__rating_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__rating_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__rating_ids
+msgid "Ratings"
+msgstr "Ratings"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_wizard__account_type__asset_receivable
+msgid "Receivable"
+msgstr "Receivable"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__reference
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__payment_ref
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "Reference"
+msgstr "Reference"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__wallet_history_type__refund
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Refund"
+msgstr "Refund"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Refund Transaction"
+msgstr "Refund Transaction"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_move_line.py:0
+#: model:ir.actions.act_window,name:to_wallet.wallet_payment_wizard_action
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_move_form_inherit
+msgid "Register Payment By Wallet"
+msgstr "Register Payment By Wallet"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_user_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_user_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_user_id
+msgid "Responsible User"
+msgstr "Responsible User"
+
+#. module: to_wallet
+#: model:wallet.type,name:to_wallet.reward_wallet_type
+msgid "Reward"
+msgstr "Reward"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__message_has_sms_error
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__message_has_sms_error
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Delivery error"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_res_company__loyalty_expense_account_id
+#: model:ir.model.fields,field_description:to_wallet.field_res_config_settings__loyalty_expense_account_id
+msgid "Sale Promotion Expense Account"
+msgstr "Sale Promotion Expense Account"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_res_company__loyalty_income_account_id
+#: model:ir.model.fields,field_description:to_wallet.field_res_config_settings__loyalty_income_account_id
+msgid "Sale Promotion Income Account"
+msgstr "Sale Promotion Income Account"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Search All"
+msgstr "Search All"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Search Transaction Code"
+msgstr "Search Transaction Code"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Search Transaction Reference"
+msgstr "Search Transaction Reference"
+
+#. module: to_wallet
+#: model:mail.template,description:to_wallet.mail_template_wallet_fluctuation_notification
+msgid "Sent automatically to partner when wallet balance fluctuates"
+msgstr "Sent automatically to partner when wallet balance fluctuates"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__state
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "State"
+msgstr "State"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__activity_state
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_state
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__date
+msgid "Success Date"
+msgstr "Success Date"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__state__done
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Successful"
+msgstr "Successful"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Successful Status"
+msgstr "Successful Status"
+
+#. module: to_wallet
+#: model_terms:payment.provider,cancel_msg:to_wallet.payment_provider_company_wallet
+msgid "Thanh toán của bạn đã bị hủy."
+msgstr "Your payment has been cancelled."
+
+#. module: to_wallet
+#: model_terms:payment.provider,auth_msg:to_wallet.payment_provider_company_wallet
+msgid "Thanh toán của bạn đã được chứng thực."
+msgstr "Your payment has been authorized."
+
+#. module: to_wallet
+#: model_terms:payment.provider,done_msg:to_wallet.payment_provider_company_wallet
+msgid "Thanh toán của bạn đã được xử lý."
+msgstr "Your payment has been processed."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+msgid ""
+"The amount to withdraw exceeds the available balance! (Pending: %s, Demand: "
+"%s, Availability: %s)"
+msgstr ""
+"The amount to withdraw exceeds the available balance! (Pending: %s, Demand: "
+"%s, Availability: %s)"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+msgid "The partner %s does not have any wallet to withdraw by the payment %s!"
+msgstr ""
+"The partner %s does not have any wallet to withdraw by the payment %s!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_payment.py:0
+msgid "The provided parameters are invalid."
+msgstr "The provided parameters are invalid."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_account_payment__wallet_id
+msgid "The related wallet of the payment."
+msgstr "The related wallet of the payment."
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr "The technical code of this payment provider."
+
+#. module: to_wallet
+#: model:res.groups,comment:to_wallet.group_wallet_manager
+msgid "The users in this group will be able to manage partner's ewallets."
+msgstr "The users in this group will be able to manage partner's ewallets."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid ""
+"The wallet payment register wizard should only be called on account.move or "
+"account.move.line records."
+msgstr ""
+"The wallet payment register wizard should only be called on account.move or "
+"account.move.line records."
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+msgid "There are currently no wallets for your account."
+msgstr "There are currently no wallets for your account."
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+msgid "There are no wallet transaction history."
+msgstr "There are no wallet transaction history."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+msgid "There is no pending wallet transaction history has reference '%s'"
+msgstr "There is no pending wallet transaction history has reference '%s'"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+msgid "Top Up"
+msgstr "Top Up"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+msgid "Top Up Wallet"
+msgstr "Top Up Wallet"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Top Up Wallet: %s"
+msgstr "Top Up Wallet: %s"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__wallet_history_type__top-up
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_creation_wizard__type__inbound
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Top-Up"
+msgstr "Top-Up"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Top-Up Transaction"
+msgstr "Top-Up Transaction"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_list
+msgid "Total"
+msgstr "Total"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__name
+msgid "Transaction Code"
+msgstr "Transaction Code"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_list
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Transaction Date"
+msgstr "Transaction Date"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Transaction Date: Day"
+msgstr "Transaction Date: Day"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Transaction Date: Month"
+msgstr "Transaction Date: Month"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Transaction Date: Year"
+msgstr "Transaction Date: Year"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__wallet_history_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__wallet_history_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__wallet_history_ids
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Transaction Histories"
+msgstr "Transaction Histories"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__wallet_histories_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__wallet_histories_count
+msgid "Transaction Histories Count"
+msgstr "Transaction Histories Count"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Transaction Status"
+msgstr "Transaction Status"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallet_histories_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Transaction Type"
+msgstr "Transaction Type"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment_register__is_wallet
+msgid "Transfer To Wallet"
+msgstr "Transfer To Wallet"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__activity_exception_decoration
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_exception_decoration
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type of the exception activity on record."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_partial_reconcile.py:0
+msgid ""
+"Unable to create wallet transaction history for partial reconciliation not "
+"related to wallet!"
+msgstr ""
+"Unable to create wallet transaction history for partial reconciliation not "
+"related to wallet!"
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+msgid "Use To Pay Online"
+msgstr "Use To Pay Online"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet_history.py:0
+msgid "Verify wallet %s history."
+msgstr "Verify wallet %s history."
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__wallet_id
+#: model:ir.model.fields,field_description:to_wallet.field_account_partial_reconcile__wallet_id
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__wallet_id
+#: model:ir.model.fields,field_description:to_wallet.field_payment_transaction__wallet_id
+#: model:ir.model.fields,field_description:to_wallet.field_res_partner__wallet_ids
+#: model:ir.model.fields,field_description:to_wallet.field_res_users__wallet_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__wallet_id
+#: model:ir.model.fields.selection,name:to_wallet.selection__payment_provider__code__wallet
+#: model:ir.ui.menu,name:to_wallet.menu_config_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+msgid "Wallet"
+msgstr "Wallet"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__wallet_amount_currency
+#: model:ir.model.fields,field_description:to_wallet.field_account_partial_reconcile__wallet_amount_currency
+msgid "Wallet Amount Currency"
+msgstr "Wallet Amount Currency"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_account_move_line__wallet_amount_residual_currency
+msgid "Wallet Amount Residual Currency"
+msgstr "Wallet Amount Residual Currency"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_wallet_history
+#: model:ir.model.fields,field_description:to_wallet.field_account_partial_reconcile__wallet_history_id
+msgid "Wallet History"
+msgstr "Wallet History"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_wallet_payment_creation_wizard
+msgid "Wallet Payment Creation Wizard"
+msgstr "Wallet Payment Creation Wizard"
+
+#. module: to_wallet
+#: model:ir.model,name:to_wallet.model_wallet_payment_wizard
+msgid "Wallet Payment Wizard"
+msgstr "Wallet Payment Wizard"
+
+#. module: to_wallet
+#: model:ir.actions.act_window,name:to_wallet.account_payment_action_view_tree_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_account_payment_search
+msgid "Wallet Payments"
+msgstr "Wallet Payments"
+
+#. module: to_wallet
+#: model:ir.actions.act_window,name:to_wallet.action_view_wallet_histories
+#: model:ir.model.fields,field_description:to_wallet.field_payment_transaction__wallet_history_ids
+#: model:ir.ui.menu,name:to_wallet.wallet_history_menu
+msgid "Wallet Transaction Histories"
+msgstr "Wallet Transaction Histories"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__wallet_history_type
+msgid "Wallet Transaction History Type"
+msgstr "Wallet Transaction History Type"
+
+#. module: to_wallet
+#. odoo-javascript
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+#: code:addons/to_wallet/static/src/xml/create_wallet_dialog.xml:0
+#: model:ir.model,name:to_wallet.model_wallet_type
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_account_payment_register__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_creation_wizard__wallet_type_id
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__wallet_type_id
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_search
+msgid "Wallet Type"
+msgstr "Wallet Type"
+
+#. module: to_wallet
+#: model:ir.actions.act_window,name:to_wallet.action_view_wallet_types
+#: model:ir.ui.menu,name:to_wallet.wallet_type_menu
+msgid "Wallet Types"
+msgstr "Wallet Types"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid "Wallet balance is not available! (Balance: %s)"
+msgstr "Wallet balance is not available! (Balance: %s)"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+msgid "Wallet balance is unavailable! (Remaining balance: %d %s)"
+msgstr "Wallet balance is unavailable! (Remaining balance: %d %s)"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/payment_transaction.py:0
+msgid "Wallet balance is unavailable! (Remaining balance: %s)"
+msgstr "Wallet balance is unavailable! (Remaining balance: %s)"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+msgid "Wallet top up amount"
+msgstr "Wallet top up amount"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/account_payment.py:0
+msgid "Wallet withdraw amount"
+msgstr "Wallet withdraw amount"
+
+#. module: to_wallet
+#: model:mail.template,name:to_wallet.mail_template_wallet_fluctuation_notification
+msgid "Wallet: Notification of wallet balance fluctuations"
+msgstr "Wallet: Notification of wallet balance fluctuations"
+
+#. module: to_wallet
+#: model:ir.actions.act_window,name:to_wallet.action_view_wallets
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__wallet_ids
+#: model:ir.ui.menu,name:to_wallet.menu_wallets
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_breadcrumbs_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_my_home_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_partner_form
+msgid "Wallets"
+msgstr "Wallets"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_res_partner__wallets_count
+#: model:ir.model.fields,field_description:to_wallet.field_res_users__wallets_count
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__wallets_count
+msgid "Wallets Count"
+msgstr "Wallets Count"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Warning"
+msgstr "Warning"
+
+#. module: to_wallet
+#: model:ir.model.fields,field_description:to_wallet.field_wallet__website_message_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__website_message_ids
+#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__website_message_ids
+msgid "Website Messages"
+msgstr "Website Messages"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet__website_message_ids
+#: model:ir.model.fields,help:to_wallet.field_wallet_history__website_message_ids
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__website_message_ids
+msgid "Website communication history"
+msgstr "Website communication history"
+
+#. module: to_wallet
+#: model:ir.model.fields,help:to_wallet.field_wallet_type__notice_recipient_ids
+msgid ""
+"When there is a request to withdraw or top up money from a customer, the "
+"user set up here will receive a notification."
+msgstr ""
+"When there is a request to withdraw or top up money from a customer, the "
+"user set up here will receive a notification."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_creation_wizard.py:0
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_creation_wizard__type__outbound
+#: model_terms:ir.ui.view,arch_db:to_wallet.portal_wallets_page
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_type_search
+msgid "Withdraw"
+msgstr "Withdraw"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet.py:0
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid "Withdraw Wallet"
+msgstr "Withdraw Wallet"
+
+#. module: to_wallet
+#. odoo-javascript
+#: code:addons/to_wallet/static/src/js/wallet_portal.js:0
+msgid "Withdraw Wallet: %s"
+msgstr "Withdraw Wallet: %s"
+
+#. module: to_wallet
+#: model:ir.model.fields.selection,name:to_wallet.selection__wallet_history__wallet_history_type__withdraw
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_form
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_history_search
+msgid "Withdrawal"
+msgstr "Withdrawal"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Withdrawal Transaction"
+msgstr "Withdrawal Transaction"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "Withdrawal request with reference %s already exists."
+msgstr "Withdrawal request with reference %s already exists."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet_history.py:0
+msgid ""
+"You are not allowed to cancel this wallet transaction history! Contact your "
+"administrator to request access if necessary."
+msgstr ""
+"You are not allowed to cancel this wallet transaction history! Contact your "
+"administrator to request access if necessary."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/models/wallet_history.py:0
+msgid ""
+"You are not allowed to done this wallet transaction history! Contact your "
+"administrator to request access if necessary."
+msgstr ""
+"You are not allowed to done this wallet transaction history! Contact your "
+"administrator to request access if necessary."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid "You can only use this wizard for posted journal items."
+msgstr "You can only use this wizard for posted journal items."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid ""
+"You can only use this wizard on journal items that have account type "
+"Receivable or Payable!"
+msgstr ""
+"You can only use this wizard on journal items that have account type "
+"Receivable or Payable!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid ""
+"You can't register a payment because there is nothing left to pay on the "
+"selected journal items."
+msgstr ""
+"You can't register a payment because there is nothing left to pay on the "
+"selected journal items."
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid ""
+"You can't register payments for both receivable and payable at the same "
+"time!"
+msgstr ""
+"You can't register payments for both receivable and payable at the same "
+"time!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid ""
+"You cannot use this wizard for journal items that are not yet reconciled!"
+msgstr ""
+"You cannot use this wizard for journal items that are not yet reconciled!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid ""
+"You cannot use this wizard on journal items belonging to different "
+"companies!"
+msgstr ""
+"You cannot use this wizard on journal items belonging to different "
+"companies!"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/wizard/wallet_payment_wizard.py:0
+msgid ""
+"You cannot use this wizard on journal items belonging to different partners!"
+msgstr ""
+"You cannot use this wizard on journal items belonging to different partners!"
+
+#. module: to_wallet
+#: model_terms:payment.provider,pending_msg:to_wallet.payment_provider_company_wallet
+msgid "Your payment has been processed but is waiting for approval."
+msgstr "Your payment has been processed but is waiting for approval."
+
+#. module: to_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
+msgid ""
+"Your withdrawal request is being processed. We will send you a notification "
+"email after the processing is completed. Thank you!"
+msgstr ""
+"Your withdrawal request is being processed. We will send you a notification "
+"email after the processing is completed. Thank you!"
+
+#. module: to_wallet
+#: model:mail.template,subject:to_wallet.mail_template_wallet_fluctuation_notification
+msgid ""
+"[{{ object.company_id.name }}] Notification of wallet balance fluctuations"
+msgstr ""
+"[{{ object.company_id.name }}] Notification of wallet balance fluctuations"
+
+#. module: to_wallet
+#: model:res.groups.privilege,name:to_wallet.res_groups_privilege_wallet
+#: model_terms:ir.ui.view,arch_db:to_wallet.view_move_line_form
+msgid "eWallet"
+msgstr "eWallet"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "state"
+msgstr "state"
+
+#. module: to_wallet
+#. odoo-python
+#: code:addons/to_wallet/controllers/wallet_portal.py:0
+msgid "wallet_history_type"
+msgstr "wallet_history_type"

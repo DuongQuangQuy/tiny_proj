@@ -1,0 +1,514 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tiny_sale_mrp_trial_delivery
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-15 16:52+0000\n"
+"PO-Revision-Date: 2026-11-15 16:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_kanban
+msgid "<i class=\"fa fa-calendar\"/> Hạn:"
+msgstr "<i class=\"fa fa-calendar\"/> Due:"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_mrp_production_form_trial_delivery
+msgid "<span class=\"o_stat_text\">Giao thử</span>"
+msgstr "<span class=\"o_stat_text\">Trial Delivery</span>"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_needaction
+msgid "Action Needed"
+msgstr "Action Needed"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_ids
+msgid "Activities"
+msgstr "Activities"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Activity Exception Decoration"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_state
+msgid "Activity State"
+msgstr "Activity State"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Activity Type Icon"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_attachment_count
+msgid "Attachment Count"
+msgstr "Attachment Count"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__line_ids
+msgid "Chi tiết phiếu giao thử"
+msgstr "Trial Delivery Lines"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model,name:tiny_sale_mrp_trial_delivery.model_trial_delivery_line
+msgid "Chi tiết sản phẩm giao thử"
+msgstr "Trial Delivery Line"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__create_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__create_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__product_uom_id
+msgid "Default unit of measure used for all stock operations."
+msgstr "Default unit of measure used for all stock operations."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_production__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_sale_order__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_follower_ids
+msgid "Followers"
+msgstr "Followers"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Followers (Partners)"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome icon e.g. fa-tasks"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Ghi chú"
+msgstr "Notes"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Ghi chú cho khách hàng..."
+msgstr "Notes for the customer..."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__customer_note
+msgid "Ghi chú khách hàng"
+msgstr "Customer Notes"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__note
+msgid "Ghi chú nội bộ"
+msgstr "Internal Notes"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Ghi chú nội bộ..."
+msgstr "Internal notes..."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.ui.menu,name:tiny_sale_mrp_trial_delivery.menu_trial_delivery
+msgid "Giao Hàng Thử"
+msgstr "Trial Deliveries"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__partner_id
+msgid "Giao cho khách"
+msgstr "Delivered To"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__has_message
+msgid "Has Message"
+msgstr "Has Message"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Hủy"
+msgstr "Cancel"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_production__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_sale_order__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_exception_icon
+msgid "Icon"
+msgstr "Icon"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icon to indicate an exception activity."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "If checked, new messages require your attention."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_has_error
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "If checked, some messages have a delivery error."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_is_follower
+msgid "Is Follower"
+msgstr "Is Follower"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Khách hàng"
+msgstr "Customer"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields.selection,name:tiny_sale_mrp_trial_delivery.selection__trial_delivery__state__returned
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Khách trả hàng"
+msgstr "Returned by Customer"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__write_uid
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__write_date
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__production_id
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Lệnh sản xuất"
+msgstr "Manufacturing Order"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model,name:tiny_sale_mrp_trial_delivery.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Manufacturing Order"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_has_error
+msgid "Message Delivery error"
+msgstr "Message Delivery error"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "My Activity Deadline"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__description
+msgid "Mô tả"
+msgstr "Description"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__product_tmpl_id
+msgid "Mẫu sản phẩm"
+msgstr "Product Template"
+
+#. module: tiny_sale_mrp_trial_delivery
+#. odoo-python
+#: code:addons/tiny_sale_mrp_trial_delivery/models/trial_delivery.py:0
+msgid "Mới"
+msgstr "New"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Next Activity Calendar Event"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Next Activity Deadline"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_summary
+msgid "Next Activity Summary"
+msgstr "Next Activity Summary"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_type_id
+msgid "Next Activity Type"
+msgstr "Next Activity Type"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__sale_origin
+msgid "Nguồn đơn hàng"
+msgstr "Source Order"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__date_delivery
+msgid "Ngày giao hàng thử"
+msgstr "Trial Delivery Date"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__date_return
+msgid "Ngày khách trả hàng"
+msgstr "Customer Return Date"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields.selection,name:tiny_sale_mrp_trial_delivery.selection__trial_delivery__state__draft
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Nháp"
+msgstr "Draft"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Number of Actions"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_has_error_counter
+msgid "Number of errors"
+msgstr "Number of errors"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Number of messages requiring action"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Number of messages with delivery error"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.actions.act_window,name:tiny_sale_mrp_trial_delivery.action_trial_delivery
+#: model:ir.model,name:tiny_sale_mrp_trial_delivery.model_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_list
+msgid "Phiếu Giao Hàng Thử"
+msgstr "Trial Deliveries"
+
+#. module: tiny_sale_mrp_trial_delivery
+#. odoo-python
+#: code:addons/tiny_sale_mrp_trial_delivery/models/mrp_production.py:0
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_production__trial_delivery_ids
+msgid "Phiếu giao hàng thử"
+msgstr "Trial Delivery"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.actions.act_window,help:tiny_sale_mrp_trial_delivery.action_trial_delivery
+msgid ""
+"Phiếu giao hàng thử giúp bạn gửi sản phẩm từ lệnh sản xuất\n"
+"                cho khách hàng dùng thử trước khi quyết định mua chính thức."
+msgstr ""
+"Trial deliveries let you send products from a manufacturing order\n"
+"                to the customer for a trial before the final purchase decision."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__trial_delivery_id
+msgid "Phiếu giao thử"
+msgstr "Trial Delivery"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__rating_ids
+msgid "Ratings"
+msgstr "Ratings"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_user_id
+msgid "Responsible User"
+msgstr "Responsible User"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "SL giao thử"
+msgstr "Trial Qty"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Delivery error"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model,name:tiny_sale_mrp_trial_delivery.model_sale_order
+msgid "Sales Order"
+msgstr "Sales Order"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__product_id
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Sản phẩm"
+msgstr "Product"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Sản phẩm giao thử"
+msgstr "Trial Products"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__qty_trial
+msgid "Số lượng thử"
+msgstr "Trial Quantity"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Số phiếu"
+msgstr "Number"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__name
+msgid "Số phiếu giao hàng thử"
+msgstr "Trial Delivery Count"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_production__trial_delivery_count
+msgid "Số phiếu giao thử"
+msgstr "Trial Delivery Number"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Thông tin khách hàng"
+msgstr "Customer Information"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Thông tin đơn hàng"
+msgstr "Order Information"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Thời gian"
+msgstr "Time"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__state
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Trạng thái"
+msgstr "Status"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type of the exception activity on record."
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Tìm kiếm phiếu giao thử"
+msgstr "Search Trial Deliveries"
+
+#. module: tiny_sale_mrp_trial_delivery
+#. odoo-python
+#: code:addons/tiny_sale_mrp_trial_delivery/models/mrp_production.py:0
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_mrp_production_form_trial_delivery
+msgid "Tạo phiếu giao hàng thử"
+msgstr "Create Trial Delivery"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.actions.act_window,help:tiny_sale_mrp_trial_delivery.action_trial_delivery
+msgid "Tạo phiếu giao hàng thử đầu tiên!"
+msgstr "Create your first trial delivery!"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__website_message_ids
+msgid "Website Messages"
+msgstr "Website Messages"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery__website_message_ids
+msgid "Website communication history"
+msgstr "Website communication history"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Xác nhận đã giao"
+msgstr "Confirm Delivered"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_form
+msgid "Xác nhận đã trả"
+msgstr "Confirm Returned"
+
+#. module: tiny_sale_mrp_trial_delivery
+#. odoo-python
+#: code:addons/tiny_sale_mrp_trial_delivery/models/mrp_production.py:0
+msgid "production_id"
+msgstr "production_id"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__partner_phone
+msgid "Điện thoại"
+msgstr "Phone"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields.selection,name:tiny_sale_mrp_trial_delivery.selection__trial_delivery__state__delivered
+msgid "Đã giao hàng thử"
+msgstr "Trial Delivered"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Đã giao thử"
+msgstr "Trial Delivered"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields.selection,name:tiny_sale_mrp_trial_delivery.selection__trial_delivery__state__cancel
+msgid "Đã hủy"
+msgstr "Cancelled"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_trial_delivery_search
+msgid "Đơn hàng gốc"
+msgstr "Origin Order"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__product_uom_id
+msgid "Đơn vị tính"
+msgstr "Unit of Measure"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__partner_shipping_id
+msgid "Địa chỉ giao hàng"
+msgstr "Delivery Address"

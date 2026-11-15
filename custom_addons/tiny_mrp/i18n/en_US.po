@@ -1,0 +1,991 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tiny_mrp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-15 16:37+0000\n"
+"PO-Revision-Date: 2026-11-15 16:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid ""
+".\n"
+"                                        Hãy tạm dừng hoặc hoàn thành trước."
+msgstr ""
+".\n"
+"                                        Please pause or finish it first."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<i class=\"fa fa-arrow-left me-1\"/> Danh sách lệnh"
+msgstr "<i class=\"fa fa-arrow-left me-1\"/> Order List"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "<i class=\"fa fa-arrow-left me-1\"/> Danh sách lệnh sản xuất"
+msgstr "<i class=\"fa fa-arrow-left me-1\"/> Manufacturing Orders"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid "<i class=\"fa fa-arrow-left me-1\"/> Quay lại:"
+msgstr "<i class=\"fa fa-arrow-left me-1\"/> Back:"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "<i class=\"fa fa-balance-scale me-1\"/>Tổng cần dùng"
+msgstr "<i class=\"fa fa-balance-scale me-1\"/>Total Required"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<i class=\"fa fa-ban me-1\"/>Trạm làm việc đang bị chặn."
+msgstr "<i class=\"fa fa-ban me-1\"/>The work center is blocked."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<i class=\"fa fa-check me-1\"/> Hoàn thành"
+msgstr "<i class=\"fa fa-check me-1\"/> Done"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "<i class=\"fa fa-check me-1\"/> Xác nhận NVL rập"
+msgstr "<i class=\"fa fa-check me-1\"/> Confirm Pattern Materials"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "<i class=\"fa fa-check me-1\"/> Xác nhận kho"
+msgstr "<i class=\"fa fa-check me-1\"/> Warehouse Confirm"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "<i class=\"fa fa-check me-1\"/> Xác nhận lệnh"
+msgstr "<i class=\"fa fa-check me-1\"/> Confirm Order"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "<i class=\"fa fa-check-circle me-1\"/> Hoàn thành"
+msgstr "<i class=\"fa fa-check-circle me-1\"/> Done"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                                        <strong>Không thể bắt đầu.</strong><br/>\n"
+"                                        Bạn đang thực hiện công đoạn"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                                        <strong>Cannot start.</strong><br/>\n"
+"                                        You are working on work order"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                <strong>Lỗi:</strong>"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                <strong>Error:</strong>"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<i class=\"fa fa-hand-pointer-o me-1\"/>Thao tác"
+msgstr "<i class=\"fa fa-hand-pointer-o me-1\"/>Actions"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid ""
+"<i class=\"fa fa-history me-1 text-muted\"/>\n"
+"                        Nhật ký hoạt động —"
+msgstr ""
+"<i class=\"fa fa-history me-1 text-muted\"/>\n"
+"                        Activity Log —"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<i class=\"fa fa-history me-1\"/> Nhật ký hoạt động"
+msgstr "<i class=\"fa fa-history me-1\"/> Activity Log"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid ""
+"<i class=\"fa fa-inbox fa-2x d-block mb-2\"/>\n"
+"                                Chưa có thành phần nào."
+msgstr ""
+"<i class=\"fa fa-inbox fa-2x d-block mb-2\"/>\n"
+"                                No components yet."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid ""
+"<i class=\"fa fa-inbox fa-2x d-block mb-2\"/>\n"
+"                            Chưa có dòng nào. Thêm dòng bên dưới."
+msgstr ""
+"<i class=\"fa fa-inbox fa-2x d-block mb-2\"/>\n"
+"                            No lines yet. Add a line below."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid ""
+"<i class=\"fa fa-inbox fa-2x d-block mb-2\"/>\n"
+"                            Chưa có nhật ký hoạt động nào."
+msgstr ""
+"<i class=\"fa fa-inbox fa-2x d-block mb-2\"/>\n"
+"                            No activity log yet."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_productions
+msgid "<i class=\"fa fa-industry me-1\"/>Lệnh chính"
+msgstr "<i class=\"fa fa-industry me-1\"/>Main Order"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                                    Không có thao tác khả dụng."
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                                    No actions available."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_productions
+msgid ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                        Không có lệnh phụ nào."
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                        No sub-orders."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_workorders
+msgid ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                    Bạn chưa có lệnh công việc nào được giao."
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                    You have no work orders assigned yet."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_productions
+msgid ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                    Không có lệnh sản xuất chính nào."
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\"/>\n"
+"                    No main manufacturing orders."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid ""
+"<i class=\"fa fa-info-circle me-1\"/>Lệnh sản xuất không ở trạng thái hoạt "
+"động."
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\"/>The manufacturing order is not active."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid ""
+"<i class=\"fa fa-list me-1\"/>\n"
+"                            Thành phần"
+msgstr ""
+"<i class=\"fa fa-list me-1\"/>\n"
+"                            Components"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "<i class=\"fa fa-list-ul me-1\"/>Thao tác chi tiết"
+msgstr "<i class=\"fa fa-list-ul me-1\"/>Detailed Operations"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid ""
+"<i class=\"fa fa-lock me-1\"/>\n"
+"                                        <strong>Chưa thể bắt đầu.</strong><br/>"
+msgstr ""
+"<i class=\"fa fa-lock me-1\"/>\n"
+"                                        <strong>Cannot start yet.</strong><br/>"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<i class=\"fa fa-pause me-1\"/> Tạm dừng"
+msgstr "<i class=\"fa fa-pause me-1\"/> Pause"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<i class=\"fa fa-pause me-1\"/> Xác nhận"
+msgstr "<i class=\"fa fa-pause me-1\"/> Confirm"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "<i class=\"fa fa-pencil me-1\"/> Chi tiết"
+msgstr "<i class=\"fa fa-pencil me-1\"/> Details"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "<i class=\"fa fa-pencil me-1\"/>Chỉnh sửa dòng"
+msgstr "<i class=\"fa fa-pencil me-1\"/>Edit Line"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "<i class=\"fa fa-pencil me-1\"/>Nhập thủ công"
+msgstr "<i class=\"fa fa-pencil me-1\"/>Manual Entry"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<i class=\"fa fa-play me-1\"/> Bắt đầu"
+msgstr "<i class=\"fa fa-play me-1\"/> Start"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "<i class=\"fa fa-plus me-1\"/>Thêm"
+msgstr "<i class=\"fa fa-plus me-1\"/>Add"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_productions
+msgid "<i class=\"fa fa-puzzle-piece me-1\"/>Lệnh phụ (quy trình cũ)"
+msgstr "<i class=\"fa fa-puzzle-piece me-1\"/>Sub-orders (legacy flow)"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "<i class=\"fa fa-save me-1\"/>Lưu"
+msgstr "<i class=\"fa fa-save me-1\"/>Save"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "<option value=\"\">-- Chọn lô hàng --</option>"
+msgstr "<option value=\"\">-- Select a lot --</option>"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "<option value=\"\">-- Chọn lý do --</option>"
+msgstr "<option value=\"\">-- Select a reason --</option>"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_workorders
+msgid ""
+"<span class=\"badge bg-success ms-1\">\n"
+"                                                <i class=\"fa fa-play me-1\"/>Đang chạy\n"
+"                                            </span>"
+msgstr ""
+"<span class=\"badge bg-success ms-1\">\n"
+"                                                <i class=\"fa fa-play me-1\"/>Running\n"
+"                                            </span>"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid "<span class=\"badge bg-success\">Đang chạy</span>"
+msgstr "<span class=\"badge bg-success\">Running</span>"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Bạn không có quyền thực hiện thao tác này."
+msgstr "You are not allowed to perform this action."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid ""
+"Bạn đang thực hiện công đoạn \"%s\". Hãy tạm dừng trước khi bắt đầu công "
+"đoạn mới."
+msgstr ""
+"You are working on work order \"%s\". Please pause it before starting a new "
+"one."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid "Bắt đầu"
+msgstr "Start"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Bắt đầu dự kiến"
+msgstr "Scheduled Start"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_workorder.py:0
+msgid "Chưa xác nhận số lượng NVL sau rập."
+msgstr "The material quantities after pattern-making have not been confirmed."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_production.py:0
+msgid "Chỉ có thể hoàn thành lệnh rập."
+msgstr "Only pattern orders can be completed here."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_production.py:0
+msgid "Chỉ có thể xác nhận kho khi rập và số lượng NVL đã được xác nhận."
+msgstr ""
+"The warehouse can only confirm once the pattern and material quantities have"
+" been confirmed."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "Chọn lô hàng / vị trí"
+msgstr "Select Lot / Location"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Close"
+msgstr "Close"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__create_uid
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_reason__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__create_date
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_reason__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Còn lại"
+msgstr "Remaining"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__has_pattern_workorder
+msgid "Có công đoạn rập"
+msgstr "Has Pattern Work Order"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__workorder_id
+msgid "Công đoạn"
+msgstr "Work Order"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn \"%s\" đang có phiên làm việc, hãy tạm dừng trước khi pass."
+msgstr "Work order \"%s\" has a running session, please pause it before passing."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn \"%s\" đã kết thúc hoặc bị hủy."
+msgstr "Work order \"%s\" is already finished or cancelled."
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_routing_workcenter__is_pattern
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workorder__is_pattern
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Công đoạn rập"
+msgstr "Pattern Work Order"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_production.py:0
+#: code:addons/tiny_mrp/models/mrp_workorder.py:0
+msgid "Công đoạn rập chưa hoàn thành."
+msgstr "The pattern work order is not finished yet."
+
+#. module: tiny_mrp
+#: model:ir.model.fields,help:tiny_mrp.field_mrp_workcenter__is_pattern
+msgid ""
+"Công đoạn tại khu vực này là công đoạn rập, phải làm trước các công đoạn "
+"khác."
+msgstr ""
+"Work orders at this work center are pattern work orders and must be done "
+"before the others."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Cần sử dụng"
+msgstr "To Consume"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__need_pattern_confirm
+msgid "Cần xác nhận rập"
+msgstr "Pattern Confirmation Required"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Deadline"
+msgstr "Deadline"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__display_name
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__display_name
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_reason__display_name
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_routing_workcenter__display_name
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workcenter__display_name
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workcenter_productivity__display_name
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workorder__display_name
+#: model:ir.model.fields,field_description:tiny_mrp.field_res_users__display_name
+#: model:ir.model.fields,field_description:tiny_mrp.field_stock_move__display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "Dự báo tồn"
+msgstr "Forecasted Quantity"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Hủy"
+msgstr "Cancel"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__id
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__id
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_reason__id
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_routing_workcenter__id
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workcenter__id
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workcenter_productivity__id
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workorder__id
+#: model:ir.model.fields,field_description:tiny_mrp.field_res_users__id
+#: model:ir.model.fields,field_description:tiny_mrp.field_stock_move__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "KD)"
+msgstr "avail.)"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_workorder.py:0
+msgid "Kho chưa xác nhận."
+msgstr "The warehouse has not confirmed yet."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Kho xác nhận"
+msgstr "Warehouse Confirmed"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Kho đã xác nhận, nhân viên rập không thể sửa số lượng NVL."
+msgstr ""
+"The warehouse has already confirmed, pattern staff can no longer change "
+"material quantities."
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workcenter__is_pattern
+msgid "Khu vực rập"
+msgstr "Pattern Work Center"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Không còn số lượng khả dụng trên lô này."
+msgstr "There is no available quantity left in this lot."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Không có thao tác khả dụng."
+msgstr "No actions available."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_workorder.py:0
+msgid "Không thể bắt đầu công đoạn \"%(name)s\": %(reason)s"
+msgstr "Cannot start work order \"%(name)s\": %(reason)s"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_workorder.py:0
+msgid "Không thể pass công đoạn \"%(name)s\": %(reason)s"
+msgstr "Cannot pass work order \"%(name)s\": %(reason)s"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid "Kết thúc"
+msgstr "End"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Kết thúc dự kiến"
+msgstr "Scheduled End"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__write_uid
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_reason__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__write_date
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_reason__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid "Loại"
+msgstr "Type"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__is_mrp_pattern
+msgid "Là MRP rập"
+msgstr "Is Pattern MRP"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_res_users__is_mrp_pattern
+msgid "Là nhân viên MRP rập"
+msgstr "Is Pattern MRP Staff"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_res_users__is_mrp_stock
+msgid "Là nhân viên kho MRP"
+msgstr "Is MRP Warehouse Staff"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Lô hàng không hợp lệ."
+msgstr "Invalid lot."
+
+#. module: tiny_mrp
+#: model:ir.actions.act_window,name:tiny_mrp.action_mrp_reason
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__reason_id
+#: model:ir.ui.menu,name:tiny_mrp.menu_mrp_reason
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.mrp_reason_form
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.view_mrp_workorder_form_view_inherit
+msgid "Lý do"
+msgstr "Reasons"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__name
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workorder__reason_ids
+msgid "Lý do tạm dừng"
+msgstr "Pause Reason"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Lý do tạm dừng <span class=\"text-danger\">*</span>"
+msgstr "Pause reason <span class=\"text-danger\">*</span>"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Lý do tạm dừng không hợp lệ."
+msgstr "Invalid pause reason."
+
+#. module: tiny_mrp
+#: model:ir.model.fields,help:tiny_mrp.field_mrp_routing_workcenter__is_pattern
+msgid ""
+"Lấy theo khu vực sản xuất, có thể sửa riêng trên từng công đoạn. Công đoạn "
+"rập luôn được thực hiện trước. Các công đoạn khác chỉ được bắt đầu khi rập "
+"đã xong, đã xác nhận NVL rập và kho đã xác nhận."
+msgstr ""
+"Taken from the work center and can be changed on each operation. The pattern"
+" work order is always done first. Other work orders can only start once the "
+"pattern is done, the pattern materials are confirmed and the warehouse has "
+"confirmed."
+
+#. module: tiny_mrp
+#: model:website.menu,name:tiny_mrp.website_menu_mrp_workorders
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_home_workorder
+msgid "Lệnh Công Việc"
+msgstr "Work Orders"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_workorders
+msgid "Lệnh Công Việc Của Tôi"
+msgstr "My Work Orders"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "Lệnh SX"
+msgstr "MO"
+
+#. module: tiny_mrp
+#: model:website.menu,name:tiny_mrp.website_menu_mrp_productions
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_home_production
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_productions
+msgid "Lệnh Sản Xuất"
+msgstr "Manufacturing Orders"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid ""
+"Lệnh công việc đang có phiên làm việc chưa kết thúc, hãy tạm dừng trước."
+msgstr "The work order has an unfinished session, please pause it first."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Lệnh công việc đã kết thúc hoặc bị hủy."
+msgstr "The work order is already finished or cancelled."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_workorders
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Lệnh sản xuất"
+msgstr "Manufacturing Order"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_production.py:0
+msgid "Lệnh sản xuất chưa được xác nhận, không thể xác nhận kho."
+msgstr ""
+"The manufacturing order is not confirmed, the warehouse cannot confirm."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/models/mrp_production.py:0
+msgid "Lệnh sản xuất chưa được xác nhận, không thể xác nhận rập."
+msgstr ""
+"The manufacturing order is not confirmed, the pattern cannot be confirmed."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa."
+msgstr "The manufacturing order cannot be edited in its current state."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Lệnh sản xuất không ở trạng thái cho phép thao tác."
+msgstr ""
+"No actions are allowed on the manufacturing order in its current state."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Lệnh sản xuất không ở trạng thái nháp."
+msgstr "The manufacturing order is not in draft."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+#: code:addons/tiny_mrp/models/mrp_production.py:0
+msgid "Lệnh sản xuất đã hoàn thành hoặc bị hủy."
+msgstr "The manufacturing order is already done or cancelled."
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_mrp_pause_reason
+msgid "MRP Pause Reason"
+msgstr "MRP Pause Reason"
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_mrp_reason
+msgid "MRP Reason"
+msgstr "MRP Reason"
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Manufacturing Order"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_productions_table
+msgid "Ngày bắt đầu"
+msgstr "Start Date"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Ngày kết thúc"
+msgstr "End Date"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__date
+msgid "Ngày yêu cầu"
+msgstr "Request Date"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Người phụ trách"
+msgstr "Responsible"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_pause_reason__user_id
+msgid "Người yêu cầu"
+msgstr "Requested By"
+
+#. module: tiny_mrp
+#: model:ir.model.fields.selection,name:tiny_mrp.selection__mrp_production__state_pattern__draft
+#: model:ir.model.fields.selection,name:tiny_mrp.selection__mrp_production__state_stock__draft
+msgid "Nháp"
+msgstr "Draft"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workcenter_productivity__user_mrp_id
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid "Nhân viên MRP"
+msgstr "MRP Staff"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__user_mrp_stock_ids
+msgid "Nhân viên kho"
+msgstr "Warehouse Staff"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workcenter__user_mrp_ids
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_workorder__user_mrp_ids
+msgid "Nhân viên thực hiện"
+msgstr "Operators"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Nhấn để xem ảnh lớn"
+msgstr "Click to enlarge"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_workorders
+msgid "Rập"
+msgstr "Pattern"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__pattern_workorders_done
+msgid "Rập đã xong"
+msgstr "Pattern Done"
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_stock_move
+msgid "Stock Move"
+msgstr "Stock Move"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_productions_table
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Sản phẩm"
+msgstr "Product"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "Số lô / Serial"
+msgstr "Lot / Serial Number"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_productions_table
+msgid "Số lượng"
+msgstr "Quantity"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Số lượng SX"
+msgstr "Quantity to Produce"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Số lượng phải lớn hơn 0."
+msgstr "The quantity must be greater than 0."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "Thao tác"
+msgstr "Actions"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Thao tác không hợp lệ."
+msgstr "Invalid action."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Thao tác không hợp lệ. Không có phiên làm việc nào đang mở."
+msgstr "Invalid action. There is no open session."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid ""
+"Thao tác không hợp lệ. Lệnh công việc không đang trong trạng thái thực hiện."
+msgstr "Invalid action. The work order is not in progress."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Thành phần"
+msgstr "Components"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_productivity
+msgid "Thời lượng"
+msgstr "Duration"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_workorders
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Trạm làm việc"
+msgstr "Work Center"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Trạm làm việc đang bị chặn, không thể thực hiện thao tác."
+msgstr "The work center is blocked, the action cannot be performed."
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_workorders
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_productions_table
+msgid "Trạng thái"
+msgstr "Status"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__state_stock
+msgid "Trạng thái MRP kho"
+msgstr "Warehouse MRP Status"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__state_pattern
+msgid "Trạng thái MRP rập"
+msgstr "Pattern MRP Status"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Trạng thái kho đã được xác nhận."
+msgstr "The warehouse status has already been confirmed."
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Trạng thái rập đã được xác nhận."
+msgstr "The pattern status has already been confirmed."
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_reason__name
+msgid "Tên"
+msgstr "Name"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_workorders
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_productions_table
+msgid "Tên lệnh"
+msgstr "Order"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Tồn kho thực tế"
+msgstr "On Hand"
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_res_users
+msgid "User"
+msgstr "User"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "VD: LOT001"
+msgstr "e.g. LOT001"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "VD: LOT001 (để trống nếu không theo dõi lô)"
+msgstr "e.g. LOT001 (leave empty if not tracked by lot)"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Vui lòng chọn lý do tạm dừng."
+msgstr "Please select a pause reason."
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_stock_move__is_lining
+msgid "Vải lót"
+msgstr "Lining Fabric"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__lining_product_ids
+msgid "Vải lót được phép"
+msgstr "Allowed Lining Fabrics"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "Vị trí nguồn"
+msgstr "Source Location"
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_mrp_workcenter
+msgid "Work Center"
+msgstr "Work Center"
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "Work Center Usage"
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_mrp_workorder
+msgid "Work Order"
+msgstr "Work Order"
+
+#. module: tiny_mrp
+#: model:ir.model,name:tiny_mrp.model_mrp_workcenter_productivity
+msgid "Workcenter Productivity Log"
+msgstr "Workcenter Productivity Log"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_workorder_detail
+msgid "Xem lịch sử chạy máy"
+msgstr "View Work Time History"
+
+#. module: tiny_mrp
+#: model:ir.model.fields.selection,name:tiny_mrp.selection__mrp_production__state_pattern__confirmed
+#: model:ir.model.fields.selection,name:tiny_mrp.selection__mrp_production__state_stock__confirmed
+msgid "Xác nhận"
+msgstr "Confirmed"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_detail
+msgid "Xác nhận NVL rập"
+msgstr "Confirm Pattern Materials"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.view_mrp_production_form_inherit
+msgid "Xác nhận kho"
+msgstr "Warehouse Confirm"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.view_mrp_production_form_inherit
+msgid "Xác nhận rập (NVL)"
+msgstr "Confirm Pattern (Materials)"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_home_production
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_my_home_workorder
+msgid "lệnh"
+msgstr "orders"
+
+#. module: tiny_mrp
+#. odoo-python
+#: code:addons/tiny_mrp/controller/main.py:0
+msgid "Đây không phải là lệnh rập."
+msgstr "This is not a pattern order."
+
+#. module: tiny_mrp
+#: model:ir.model.fields.selection,name:tiny_mrp.selection__mrp_production__state_pattern__cancel
+#: model:ir.model.fields.selection,name:tiny_mrp.selection__mrp_production__state_stock__cancel
+msgid "Đã hủy"
+msgstr "Cancelled"
+
+#. module: tiny_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
+msgid "Đơn vị"
+msgstr "Unit"

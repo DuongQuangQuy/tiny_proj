@@ -582,6 +582,8 @@ msgid ""
 "An account to record gained amount due to Sale promotion. It is usually an "
 "Other Income account."
 msgstr ""
+"Tài khoản ghi nhận số tiền có được từ khuyến mãi bán hàng, thường là tài "
+"khoản thu nhập khác."
 
 #. module: to_wallet
 #: model:ir.model.fields,field_description:to_wallet.field_wallet__message_attachment_count
@@ -864,7 +866,7 @@ msgstr "Người theo dõi (đối tác)"
 #: model:ir.model.fields,help:to_wallet.field_wallet_history__activity_type_icon
 #: model:ir.model.fields,help:to_wallet.field_wallet_type__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
+msgstr "Font biểu tượng, ví dụ: fa-tasks"
 
 #. module: to_wallet
 #: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
@@ -902,7 +904,7 @@ msgstr "Lịch sử"
 #: model:ir.model.fields,field_description:to_wallet.field_wallet_payment_wizard__id
 #: model:ir.model.fields,field_description:to_wallet.field_wallet_type__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: to_wallet
 #: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_exception_icon
@@ -2006,3 +2008,23 @@ msgstr "Ví điện tử"
 #: model:res.groups,name:to_wallet.group_wallet_manager
 msgid "eWallet Manager"
 msgstr "Quản lý ví điện tử"
+
+#. module: to_wallet
+#: model_terms:payment.provider,cancel_msg:to_wallet.payment_provider_company_wallet
+msgid "Thanh toán của bạn đã bị hủy."
+msgstr "Thanh toán của bạn đã bị hủy."
+
+#. module: to_wallet
+#: model_terms:payment.provider,auth_msg:to_wallet.payment_provider_company_wallet
+msgid "Thanh toán của bạn đã được chứng thực."
+msgstr "Thanh toán của bạn đã được chứng thực."
+
+#. module: to_wallet
+#: model_terms:payment.provider,done_msg:to_wallet.payment_provider_company_wallet
+msgid "Thanh toán của bạn đã được xử lý."
+msgstr "Thanh toán của bạn đã được xử lý."
+
+#. module: to_wallet
+#: model_terms:payment.provider,pending_msg:to_wallet.payment_provider_company_wallet
+msgid "Your payment has been processed but is waiting for approval."
+msgstr "Thanh toán của bạn đã được xử lý nhưng đang chờ phê duyệt."
