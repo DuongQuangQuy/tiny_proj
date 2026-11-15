@@ -9,7 +9,12 @@
                 <field name="user_mrp_ids" widget="many2many_tags"/>
                 <field name="is_pattern"/>
             </xpath>
-
+            <xpath expr="//field[@name='time_stop']/.." position="after">
+                <label for="estimate_time"/>
+                <div>
+                    <field name="estimate_time" widget="float_time" class="oe_inline"/> phút / 1 sản phẩm
+                </div>
+            </xpath>
         </field>
     </record>
 </odoo>

@@ -23,6 +23,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='loss_id']" position="after" >
                 <field name="user_mrp_id" />
+            </xpath>
+            <!-- is_passed thuộc công đoạn, không đặt trong list thời gian (mrp.workcenter.productivity) -->
+            <xpath expr="//group/group/field[@name='workcenter_id']" position="after">
                 <field name="is_passed"/>
             </xpath>
             <xpath expr="//page[@ name='dependencies']" position="after" >

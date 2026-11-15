@@ -15,7 +15,7 @@ sản phẩm mới, BOM ở công ty sản xuất và đơn bán hàng. Luồng 
     'version': '19.0.0.2',
     'license': 'LGPL-3',
     'depends': [
-        'base', 'sale_mrp', 'mrp_workorder', 'tiny_contacts', 'tiny_product', 'tiny_sale_purchase_stock',
+        'base', 'sale_mrp', 'mrp_workorder', 'tiny_contacts', 'tiny_product', 'tiny_sale_purchase_stock', 'tiny_mrp',
     ],
     'data': [
         'data/sequence.xml',

@@ -14,3 +14,10 @@ class MrpRoutingWorkcenter(models.Model):
     def _compute_is_pattern(self):
         for record in self:
             record.is_pattern = record.workcenter_id.is_pattern
+
+    @api.onchange('workcenter_id')
+    def _onchange_workcenter_id_estimate_time(self):
+        """Điền Thời lượng mặc định theo Thời gian dự kiến của khu vực, nếu khu vực có khai báo."""
+        for record in self:
+            if record.workcenter_id.estimate_time:
+                record.time_cycle_manual = record.workcenter_id.estimate_time

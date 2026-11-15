@@ -616,6 +616,17 @@ class SaleEstimateOperation(models.Model):
             operation.employee_costs_hour = workcenter.currency_id._convert(
                 workcenter.employee_costs_hour, currency, workcenter.company_id, date)
 
+    @api.onchange('workcenter_id')
+    def _onchange_workcenter_id_estimate_time(self):
+        """Thời lượng mặc định lấy theo Thời gian dự kiến của khu vực cùng mã ở công ty sản xuất
+        (giống chi phí theo giờ), không có thì lấy khu vực đang chọn. Cả hai bằng 0 thì giữ nguyên."""
+        mrp_company = self.env['sale.estimate']._get_mrp_company()
+        for operation in self.filtered('workcenter_id'):
+            estimate_time = (operation._get_mrp_workcenter(mrp_company).estimate_time
+                             or operation.workcenter_id.sudo().estimate_time)
+            if estimate_time:
+                operation.time_cycle_manual = estimate_time
+
     @api.depends('time_cycle_manual', 'costs_hour', 'employee_costs_hour', 'employee_ratio')
     def _compute_subtotal(self):
         """Cùng công thức với chi phí hoạt động của BOM trong mrp_workorder."""

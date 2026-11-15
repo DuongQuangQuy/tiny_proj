@@ -423,3 +423,31 @@ class TestSaleEstimate(TransactionCase):
             self.assertIn(self.env.ref('tiny_sale_mrp.%s' % xmlid).id, menus)
         estimate.with_user(self.salesman).action_done()
         self.assertEqual(estimate.state, 'done')
+
+    def test_28_workcenter_estimate_time_fills_duration(self):
+        self.workcenter.estimate_time = 45
+        env = self.env(user=self.salesman, context={'allowed_company_ids': self.service_company.ids})
+        form = Form(env['sale.estimate'].with_context(default_estimate_type='price'))
+        with form.line_ids.new() as line:
+            line.name = 'Ao may do'
+            with line.operation_ids.new() as operation:
+                self.assertEqual(operation.time_cycle_manual, 60)
+                operation.workcenter_id = self.service_workcenter
+                # Lấy theo khu vực cùng mã ở công ty sản xuất
+                self.assertEqual(operation.time_cycle_manual, 45)
+            with line.operation_ids.new() as operation:
+                operation.workcenter_id = self.other_workcenter
+                self.assertEqual(operation.time_cycle_manual, 60)  # khu vực không khai báo thì giữ nguyên
+        estimate = form.save()
+        self.assertEqual(estimate.line_ids.operation_ids.mapped('time_cycle_manual'), [45, 60])
+
+        # Hoạt động của BOM (tiny_mrp)
+        self.workcenter.estimate_time = 25
+        bom = self.env['mrp.bom'].with_company(self.mrp_company).create({
+            'product_tmpl_id': self.fabric.product_tmpl_id.id, 'company_id': self.mrp_company.id})
+        operation_form = Form(self.env['mrp.routing.workcenter'].with_company(self.mrp_company).with_context(
+            default_bom_id=bom.id))
+        operation_form.name = 'May'
+        operation_form.workcenter_id = self.workcenter
+        self.assertEqual(operation_form.time_cycle_manual, 25)
+        self.assertEqual(operation_form.save().time_cycle_manual, 25)
