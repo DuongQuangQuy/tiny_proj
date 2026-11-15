@@ -12,14 +12,14 @@ _logger = logging.getLogger(__name__)
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    product_size = fields.Char(string='Số đo')
-    note = fields.Text(string='Ghi chú')
-    default_code = fields.Char(string='Mã tham chiếu')
-    product_pattern_id = fields.Many2one('product.product', string='Mã họa tiết')
-    product_pattern_image = fields.Binary(string='Ảnh họa tiết')
-    note_pattern = fields.Text(string='Ghi chú họa tiết')
+    product_size = fields.Char(string='Measurements')
+    note = fields.Text(string='Notes')
+    default_code = fields.Char(string='Reference Code')
+    product_pattern_id = fields.Many2one('product.product', string='Pattern Code')
+    product_pattern_image = fields.Binary(string='Pattern Image')
+    note_pattern = fields.Text(string='Pattern Notes')
     code_fabric = fields.Char(
-        string='Mã vải', compute='_compute_code_fabric', store=True, readonly=False, precompute=True)
+        string='Fabric Code', compute='_compute_code_fabric', store=True, readonly=False, precompute=True)
 
     @api.onchange('product_pattern_id')
     def onchange_sale_product_pattern_image(self):

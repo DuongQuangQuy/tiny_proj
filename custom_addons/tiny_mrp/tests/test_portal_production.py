@@ -32,7 +32,8 @@ class TestPortalProduction(HttpCase):
         response = self.url_open(f'/my/productions/{production.id}')
         self.assertEqual(response.status_code, 200)
         html = response.text
-        self.assertIn('Tồn kho thực tế', html)
+        # Nhãn cột theo ngôn ngữ người dùng: en_US.po dịch thành "On Hand"
+        self.assertTrue('Tồn kho thực tế' in html or 'On Hand' in html)
 
         def row_text(name):
             row = html[html.index(name):]
@@ -77,9 +78,10 @@ class TestPortalProduction(HttpCase):
 
         self.authenticate('admin', 'admin')
         page = self.url_open(f'/my/workorders/{workorder.id}')
-        self.assertIn('Pass (có sẵn)', page.text)
+        self.assertTrue('Pass (có sẵn)' in page.text or 'Pass (already made)' in page.text)
 
-        csrf_token = re.search(r'name="csrf_token" value="([^"]+)"', page.text).group(1)
+        # Admin có quyền sửa website nên Odoo chèn data-oe-* giữa name và value
+        csrf_token = re.search(r'name="csrf_token"[^>]*?value="([^"]+)"', page.text).group(1)
         response = self.url_open(f'/my/workorders/{workorder.id}/action',
                                  data={'action': 'pass', 'csrf_token': csrf_token})
         self.assertEqual(response.status_code, 200)

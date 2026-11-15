@@ -12,8 +12,8 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    partner_code = fields.Char(string='Mã khách hàng', related='partner_id.code', store=True)
-    ship_to = fields.Selection([('shop', 'Cửa hàng'), ('address_cus', 'Địa chỉ KH')], default='shop', string='Ship to')
+    partner_code = fields.Char(string='Customer Code', related='partner_id.code', store=True)
+    ship_to = fields.Selection([('shop', 'Store'), ('address_cus', 'Customer Address')], default='shop', string='Ship to')
 
     @api.model_create_multi
     def create(self, vals_list):

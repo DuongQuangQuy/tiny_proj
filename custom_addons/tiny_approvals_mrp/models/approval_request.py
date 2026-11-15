@@ -12,5 +12,5 @@ _logger = logging.getLogger(__name__)
 class ApprovalRequest(models.Model):
     _inherit = "approval.request"
 
-    mrp_production_id = fields.Many2one('mrp.production', string='Lệnh sản xuất')
+    mrp_production_id = fields.Many2one('mrp.production', string='Manufacturing Order')
     

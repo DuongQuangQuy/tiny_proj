@@ -8,10 +8,10 @@ class MrpProduction(models.Model):
     trial_delivery_ids = fields.One2many(
         'trial.delivery',
         'production_id',
-        string='Phiếu giao hàng thử',
+        string='Trial Delivery',
     )
     trial_delivery_count = fields.Integer(
-        string='Số phiếu giao thử',
+        string='Trial Delivery Number',
         compute='_compute_trial_delivery_count',
     )
 
@@ -64,7 +64,7 @@ class MrpProduction(models.Model):
         }
         return {
             'type': 'ir.actions.act_window',
-            'name': _('Tạo phiếu giao hàng thử'),
+            'name': _('Create Trial Delivery'),
             'res_model': 'trial.delivery',
             'view_mode': 'form',
             'context': ctx,
@@ -75,7 +75,7 @@ class MrpProduction(models.Model):
         self.ensure_one()
         action = {
             'type': 'ir.actions.act_window',
-            'name': _('Phiếu giao hàng thử'),
+            'name': _('Trial Delivery'),
             'res_model': 'trial.delivery',
             'view_mode': 'list,form',
             'domain': [('production_id', '=', self.id)],

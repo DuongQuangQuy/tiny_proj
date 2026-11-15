@@ -64,7 +64,7 @@ class TestPortalReview(HttpCase):
         self.authenticate('tiny_portal_worker', 'tiny_portal_worker')
         self.assertEqual(self.url_open(f'/my/reviews/{review.id}').status_code, 404)
         page = self.url_open(f'/my/workorders/{self.paint.id}')
-        self.assertIn('chưa được duyệt đạt', page.text)
+        self.assertIn('has not passed review yet', page.text)
 
         self.authenticate('tiny_portal_reviewer', 'tiny_portal_reviewer')
         listing = self.url_open('/my/reviews')
@@ -75,7 +75,7 @@ class TestPortalReview(HttpCase):
 
         # Đạt khi chưa nhận duyệt: báo lỗi trên trang
         response = self._post(action_url, detail_url, {'action': 'pass'})
-        self.assertIn('Nhận duyệt', response.text)
+        self.assertIn('Take Review', response.text)
         self.assertEqual(review.state, 'waiting')
 
         self._post(action_url, detail_url, {'action': 'start'})
@@ -98,11 +98,12 @@ class TestPortalReview(HttpCase):
 
         self.authenticate('tiny_portal_worker', 'tiny_portal_worker')
         listing = self.url_open('/my/workorders')
-        self.assertIn('Đang sửa', listing.text)
+        # Chữ trong template portal theo ngôn ngữ người dùng (en_US.po: Reworking / Review History)
+        self.assertTrue('Đang sửa' in listing.text or 'Reworking' in listing.text)
         page = self.url_open(f'/my/workorders/{self.paint.id}')
         self.assertIn('Sai họa tiết', page.text)
         self.assertIn('Sai màu', page.text)
-        self.assertIn('Lịch sử duyệt', page.text)
+        self.assertTrue('Lịch sử duyệt' in page.text or 'Review History' in page.text)
 
     def test_02_portal_set_review_mode(self):
         self.authenticate('tiny_portal_reviewer', 'tiny_portal_reviewer')
@@ -117,5 +118,5 @@ class TestPortalReview(HttpCase):
         # Công đoạn bắt buộc duyệt không đổi được
         response = self._post(f'{url}/action', url, {
             'action': 'set_review_mode', 'workorder_id': str(self.paint.id), 'review_mode': 'after'})
-        self.assertIn('không được chọn chế độ kiểm', response.text)
+        self.assertIn('not allowed to choose the review mode', response.text)
         self.assertEqual(self.paint.review_mode, 'before')

@@ -8,35 +8,35 @@ class ResPartner(models.Model):
     _rec_names_search = ['complete_name', 'code', 'code_old', 'email', 'ref', 'vat', 'company_registry']
 
     code = fields.Char(
-        string="Mã",
+        string='Code',
         copy=False,
         index=True,
     )
     code_old = fields.Char(
-        string="Mã cũ",
+        string='Old Code',
     )
     birthday = fields.Date(
-        string='Ngày sinh'
+        string='Date of Birth'
     )
     partner_referral_id = fields.Many2one(
         'res.partner',
-        string='Người giới thiệu'
+        string='Referrer'
     )
 
-    note_size = fields.Text(string='Ghi chú số đo')
-    note_supplier = fields.Text(string='Ghi chú NCC')
+    note_size = fields.Text(string='Measurement Notes')
+    note_supplier = fields.Text(string='Vendor Notes')
 
     partner_type = fields.Selection(
         selection=[
-            ('supplier', 'Nhà cung cấp'),
-            ('pre_customer', 'Khách hàng tiềm năng'),
-            ('customer', 'Khách hàng'),
+            ('supplier', 'Vendor'),
+            ('pre_customer', 'Prospect'),
+            ('customer', 'Customer'),
         ],
-        string='Loại đối tác',
+        string='Partner Type',
         default='pre_customer',
     )
     social = fields.Char(string='Social')
-    personal_contact = fields.Char(string='Người liên hệ')
+    personal_contact = fields.Char(string='Contact Person')
 
     def _ensure_partner_sequence_range(self):
         """Tạo date range cho năm hiện tại nếu chưa tồn tại"""

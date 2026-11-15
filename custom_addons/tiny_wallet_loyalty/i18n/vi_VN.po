@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 16:56+0000\n"
-"PO-Revision-Date: 2026-11-15 16:56+0000\n"
+"POT-Creation-Date: 2026-11-15 17:27+0000\n"
+"PO-Revision-Date: 2026-11-15 17:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi_VN\n"
@@ -117,6 +117,16 @@ msgid "Currency"
 msgstr "Tiền tệ"
 
 #. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_type__loyalty_bonus_account_id
+msgid ""
+"Debit account when a promotion bonus is credited to this wallet. Main wallet"
+" (withdrawable): use account 641 or 521. Promotion wallet (not "
+"withdrawable): use account 3387."
+msgstr ""
+"Tài khoản Nợ khi ghi nhận bonus khuyến mãi vào ví này. Ví chính (rút được): "
+"dùng TK 641 hoặc TK 521. Ví KM (không rút): dùng TK 3387."
+
+#. module: tiny_wallet_loyalty
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__description
 msgid "Description"
 msgstr "Mô tả"
@@ -127,10 +137,7 @@ msgid "Description..."
 msgstr "Mô tả..."
 
 #. module: tiny_wallet_loyalty
-#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_account_payment__display_name
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__display_name
-#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_payment_creation_wizard__display_name
-#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_type__display_name
 msgid "Display Name"
 msgstr "Tên hiển thị"
 
@@ -169,10 +176,7 @@ msgid "Has Message"
 msgstr "Có thông điệp"
 
 #. module: tiny_wallet_loyalty
-#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_account_payment__id
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__id
-#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_payment_creation_wizard__id
-#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_type__id
 msgid "ID"
 msgstr "ID"
 
@@ -284,6 +288,15 @@ msgid "Minimum top-up amount must be greater than 0!"
 msgstr "Số tiền nạp tối thiểu phải lớn hơn 0!"
 
 #. module: tiny_wallet_loyalty
+#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_type__loyalty_bonus_journal_id
+msgid ""
+"Miscellaneous journal (type=general) used to create the journal entry when "
+"the promotion bonus is credited."
+msgstr ""
+"Nhật ký hỗn hợp (type=general) dùng để tạo bút toán khi cộng bonus khuyến "
+"mãi."
+
+#. module: tiny_wallet_loyalty
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Hạn chót hoạt động"
@@ -292,11 +305,6 @@ msgstr "Hạn chót hoạt động"
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__name
 msgid "Name"
 msgstr "Tên"
-
-#. module: tiny_wallet_loyalty
-#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Sự kiện trên lịch cho hoạt động tiếp theo"
 
 #. module: tiny_wallet_loyalty
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_date_deadline
@@ -312,15 +320,6 @@ msgstr "Tóm tắt hoạt động kế tiếp"
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_type_id
 msgid "Next Activity Type"
 msgstr "Kiểu hành động kế tiếp"
-
-#. module: tiny_wallet_loyalty
-#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_type__loyalty_bonus_journal_id
-msgid ""
-"Nhật ký hỗn hợp (type=general) dùng để tạo bút toán khi cộng bonus khuyến "
-"mãi."
-msgstr ""
-"Nhật ký hỗn hợp (type=general) dùng để tạo bút toán khi cộng bonus khuyến "
-"mãi."
 
 #. module: tiny_wallet_loyalty
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__message_needaction_counter
@@ -343,11 +342,6 @@ msgid "Number of messages with delivery error"
 msgstr "Số thông điệp có lỗi khi gửi đi"
 
 #. module: tiny_wallet_loyalty
-#: model:ir.model,name:tiny_wallet_loyalty.model_account_payment
-msgid "Payments"
-msgstr "Thanh toán"
-
-#. module: tiny_wallet_loyalty
 #: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_loyalty_rule_search
 msgid "Percentage"
 msgstr "Phần trăm"
@@ -362,11 +356,6 @@ msgstr "Phần trăm số tiền nạp"
 #: code:addons/tiny_wallet_loyalty/models/wallet_loyalty_rule.py:0
 msgid "Percentage reward cannot exceed 100%!"
 msgstr "Thưởng theo phần trăm không được vượt quá 100%!"
-
-#. module: tiny_wallet_loyalty
-#: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__rating_ids
-msgid "Ratings"
-msgstr "Đánh giá"
 
 #. module: tiny_wallet_loyalty
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__activity_user_id
@@ -449,15 +438,6 @@ msgid "Type of the exception activity on record."
 msgstr "Kiểu hoạt động ngoại lệ trên bản ghi."
 
 #. module: tiny_wallet_loyalty
-#: model:ir.model.fields,help:tiny_wallet_loyalty.field_wallet_type__loyalty_bonus_account_id
-msgid ""
-"Tài khoản Nợ khi ghi nhận bonus khuyến mãi vào ví này. Ví chính (rút được): "
-"dùng TK 641 hoặc TK 521. Ví KM (không rút): dùng TK 3387."
-msgstr ""
-"Tài khoản Nợ khi ghi nhận bonus khuyến mãi vào ví này. Ví chính (rút được): "
-"dùng TK 641 hoặc TK 521. Ví KM (không rút): dùng TK 3387."
-
-#. module: tiny_wallet_loyalty
 #: model_terms:ir.ui.view,arch_db:tiny_wallet_loyalty.wallet_type_form_loyalty
 msgid "VD: TK 641, TK 3387, TK 521"
 msgstr "VD: TK 641, TK 3387, TK 521"
@@ -476,16 +456,6 @@ msgstr "Hiệu lực đến"
 #: model:ir.model,name:tiny_wallet_loyalty.model_wallet_loyalty_rule
 msgid "Wallet Loyalty Rule"
 msgstr "Quy tắc khuyến mãi ví"
-
-#. module: tiny_wallet_loyalty
-#: model:ir.model,name:tiny_wallet_loyalty.model_wallet_payment_creation_wizard
-msgid "Wallet Payment Creation Wizard"
-msgstr "Trình hướng dẫn Tạo Thanh toán Ví"
-
-#. module: tiny_wallet_loyalty
-#: model:ir.model,name:tiny_wallet_loyalty.model_wallet_type
-msgid "Wallet Type"
-msgstr "Loại ví"
 
 #. module: tiny_wallet_loyalty
 #: model:ir.model.fields,field_description:tiny_wallet_loyalty.field_wallet_loyalty_rule__website_message_ids

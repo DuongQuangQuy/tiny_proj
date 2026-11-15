@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 class AccountVoucherWizard(models.TransientModel):
     _inherit = 'account.voucher.wizard'
 
-    is_wallet = fields.Boolean(string='Thanh toán qua Ví', default=False)
+    is_wallet = fields.Boolean(string='Pay by Wallet', default=False)
     journal_id = fields.Many2one(
         comodel_name='account.journal',
         string='Journal',
@@ -62,7 +62,7 @@ class AccountVoucherWizard(models.TransientModel):
 
     def _check_wallet_balance(self, wallet, amount):
         if not wallet:
-            raise UserError(self.env._("Vui lòng chọn ví để đặt cọc!"))
+            raise UserError(self.env._('Please select a wallet for the deposit!'))
         sale_currency = self.order_id.currency_id
         check_amount = amount
         if wallet.currency_id != sale_currency:
@@ -73,7 +73,7 @@ class AccountVoucherWizard(models.TransientModel):
         if wallet.currency_id.compare_amounts(wallet.amount, check_amount) < 0:
             raise UserError(
                 self.env._(
-                    "Số dư ví không đủ! (Số dư hiện tại: %s %s)"
+                    'Insufficient wallet balance! (Current balance: %s %s)'
                 ) % (wallet.amount, wallet.currency_id.name)
             )
 
@@ -92,7 +92,7 @@ class AccountVoucherWizard(models.TransientModel):
         partner = sale.partner_invoice_id.commercial_partner_id
         receivable_account = partner.property_account_receivable_id
         if not receivable_account:
-            raise UserError(self.env._("Khách hàng chưa được cấu hình tài khoản phải thu!"))
+            raise UserError(self.env._('The customer has no receivable account configured!'))
 
         amount = self.amount_advance
         journal_currency = self.journal_currency_id or sale.company_id.currency_id
@@ -185,14 +185,14 @@ class AccountVoucherWizard(models.TransientModel):
         total_refund = sum(advance_lines.filtered(lambda l: l.transaction_type == 'refund').mapped('amount'))
         remaining = total_deposit - total_refund
         if sale.currency_id.compare_amounts(remaining, 0) <= 0:
-            raise UserError(self.env._("Không có khoản đặt cọc nào còn lại để hoàn trả!"))
+            raise UserError(self.env._('There is no remaining deposit to refund!'))
         return remaining
 
     def _prepare_wallet_refund_move_vals(self, sale, wallet, amount):
         partner = sale.partner_invoice_id.commercial_partner_id
         receivable_account = partner.property_account_receivable_id
         if not receivable_account:
-            raise UserError(self.env._("Khách hàng chưa được cấu hình tài khoản phải thu!"))
+            raise UserError(self.env._('The customer has no receivable account configured!'))
 
         journal_currency = self.journal_currency_id or sale.company_id.currency_id
         company_currency = sale.company_id.currency_id
@@ -216,9 +216,7 @@ class AccountVoucherWizard(models.TransientModel):
         if not journal_account:
             raise UserError(
                 self.env._(
-                    "Không tìm thấy tài khoản phù hợp để hoàn cọc!\n"
-                    "Vui lòng cấu hình 'Tài khoản mặc định' cho sổ '%s', "
-                    "hoặc đảm bảo hệ thống có ít nhất một sổ loại Tiền mặt/Ngân hàng."
+                    "No suitable account found to refund the deposit!\nPlease set the 'Default Account' on journal '%s', or make sure there is at least one Cash/Bank journal."
                 ) % self.journal_id.name
             )
 
@@ -254,7 +252,7 @@ class AccountVoucherWizard(models.TransientModel):
         self.ensure_one()
         wallet = self.wallet_id
         if not wallet:
-            raise UserError(self.env._("Vui lòng chọn ví để hoàn cọc!"))
+            raise UserError(self.env._('Please select a wallet to refund the deposit to!'))
 
         amount = self.currency_amount
         self._check_refund_wallet(sale, amount)
@@ -288,7 +286,7 @@ class AccountVoucherWizard(models.TransientModel):
                 and not l.reconciled and l.parent_state == 'posted'
             )
             if not advance_cr_lines:
-                raise UserError(self.env._("Khoản đặt cọc bằng ví đã được áp dụng vào hóa đơn, không thể hoàn trả!"))
+                raise UserError(self.env._('The wallet deposit has already been applied to an invoice and cannot be refunded!'))
 
             refund_move = self.env['account.move'].create(
                 self._prepare_wallet_refund_move_vals(sale, wallet, refund_amount)
@@ -344,13 +342,13 @@ class AccountVoucherWizard(models.TransientModel):
                 self._create_wallet_refund(sale)
         else:
             if not self.journal_id:
-                raise UserError(self.env._("Vui lòng chọn phương thức thanh toán (Journal)!"))
+                raise UserError(self.env._('Please select a payment method (Journal)!'))
             if self.payment_type == 'outbound':
                 advance_lines = sale.advance_line_ids.filtered(lambda l: l.state != 'cancel')
                 total_deposit = sum(advance_lines.filtered(lambda l: l.transaction_type == 'deposit').mapped('amount'))
                 total_refund = sum(advance_lines.filtered(lambda l: l.transaction_type == 'refund').mapped('amount'))
                 if sale.currency_id.compare_amounts(total_deposit - total_refund, 0) <= 0:
-                    raise UserError(self.env._("Không có khoản đặt cọc nào còn lại để hoàn trả!"))
+                    raise UserError(self.env._('There is no remaining deposit to refund!'))
             self._create_cash_bank_advance(sale)
 
         return {'type': 'ir.actions.act_window_close'}

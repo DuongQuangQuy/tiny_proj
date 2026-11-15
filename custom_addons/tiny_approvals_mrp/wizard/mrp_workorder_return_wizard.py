@@ -4,17 +4,17 @@ from odoo.exceptions import UserError
 
 class MrpWorkorderReturnWizard(models.TransientModel):
     _name = 'mrp.workorder.return.wizard'
-    _description = 'Trả lại công đoạn'
+    _description = 'Return Work Order'
 
-    workorder_id = fields.Many2one('mrp.workorder', string='Công đoạn phát hiện lỗi', required=True, readonly=True)
+    workorder_id = fields.Many2one('mrp.workorder', string='Work Order Finding the Defect', required=True, readonly=True)
     production_id = fields.Many2one('mrp.production', related='workorder_id.production_id')
-    review_id = fields.Many2one('mrp.workorder.review', string='Lượt duyệt', readonly=True)
+    review_id = fields.Many2one('mrp.workorder.review', string='Review Round', readonly=True)
     allowed_workorder_ids = fields.Many2many('mrp.workorder', compute='_compute_allowed_workorder_ids')
-    target_workorder_id = fields.Many2one('mrp.workorder', string='Trả về công đoạn', required=True,
+    target_workorder_id = fields.Many2one('mrp.workorder', string='Return to Work Order', required=True,
                                           domain="[('id', 'in', allowed_workorder_ids)]")
-    reason_ids = fields.Many2many('mrp.reason', string='Lý do', domain=[('reason_type', 'in', ('defect', 'return'))])
-    note = fields.Text(string='Ghi chú')
-    assign_user_ids = fields.Many2many('res.users', string='Người phụ trách chỉnh')
+    reason_ids = fields.Many2many('mrp.reason', string='Reasons', domain=[('reason_type', 'in', ('defect', 'return'))])
+    note = fields.Text(string='Notes')
+    assign_user_ids = fields.Many2many('res.users', string='Rework Responsible')
 
     @api.model
     def default_get(self, fields_list):
@@ -40,7 +40,7 @@ class MrpWorkorderReturnWizard(models.TransientModel):
         self.ensure_one()
         self.workorder_id._tiny_check_reviewer()
         if not self.reason_ids and not self.note:
-            raise UserError(_('Vui lòng chọn lý do hoặc ghi chú.'))
+            raise UserError(_('Please select a reason or enter a note.'))
         self.workorder_id._tiny_create_return(self.target_workorder_id, self.reason_ids, self.note,
                                               self.assign_user_ids, review=self.review_id)
         return {'type': 'ir.actions.act_window_close'}

@@ -1,14 +1,14 @@
 from odoo import api, fields, models
 
 REVIEW_POLICY = [
-    ('none', 'Không có điểm duyệt'),
-    ('required', 'Bắt buộc duyệt'),
-    ('optional', 'Quản lý chọn'),
+    ('none', 'No Review Point'),
+    ('required', 'Review Required'),
+    ('optional', 'Manager Decides'),
 ]
 REVIEW_MODE = [
-    ('before', 'Kiểm trước'),
-    ('after', 'Kiểm sau'),
-    ('none', 'Không yêu cầu kiểm'),
+    ('before', 'Review Before'),
+    ('after', 'Review After'),
+    ('none', 'No Review Required'),
 ]
 
 
@@ -16,31 +16,31 @@ class MrpReason(models.Model):
     _inherit = 'mrp.reason'
 
     reason_type = fields.Selection([
-        ('pause', 'Tạm dừng'),
-        ('defect', 'Lỗi'),
-        ('return', 'Trả lại'),
-    ], string='Loại', default='pause', required=True)
+        ('pause', 'Pause'),
+        ('defect', 'Defect'),
+        ('return', 'Return'),
+    ], string='Type', default='pause', required=True)
 
 
 class MrpWorkcenter(models.Model):
     _inherit = 'mrp.workcenter'
 
-    review_policy = fields.Selection(REVIEW_POLICY, string='Điểm duyệt', default='none', required=True)
-    default_review_mode = fields.Selection(REVIEW_MODE, string='Chế độ kiểm mặc định', default='before',
-                                           help='Chỉ dùng khi điểm duyệt là "Quản lý chọn".')
+    review_policy = fields.Selection(REVIEW_POLICY, string='Review Point', default='none', required=True)
+    default_review_mode = fields.Selection(REVIEW_MODE, string='Default Review Mode', default='before',
+                                           help='Only used when the review point is "Manager Decides".')
     user_review_ids = fields.Many2many('res.users', 'mrp_workcenter_user_review_rel', 'workcenter_id', 'user_id',
-                                       string='Quản lý duyệt')
+                                       string='Review Managers')
 
 
 class MrpRoutingWorkcenter(models.Model):
     _inherit = 'mrp.routing.workcenter'
 
-    review_policy = fields.Selection(REVIEW_POLICY, string='Điểm duyệt', compute='_compute_review_config',
+    review_policy = fields.Selection(REVIEW_POLICY, string='Review Point', compute='_compute_review_config',
                                      store=True, readonly=False)
-    default_review_mode = fields.Selection(REVIEW_MODE, string='Chế độ kiểm mặc định',
+    default_review_mode = fields.Selection(REVIEW_MODE, string='Default Review Mode',
                                            compute='_compute_review_config', store=True, readonly=False)
     user_review_ids = fields.Many2many('res.users', 'mrp_routing_workcenter_user_review_rel', 'operation_id', 'user_id',
-                                       string='Quản lý duyệt', compute='_compute_review_config',
+                                       string='Review Managers', compute='_compute_review_config',
                                        store=True, readonly=False)
 
     @api.depends('workcenter_id.review_policy', 'workcenter_id.default_review_mode',
@@ -55,7 +55,7 @@ class MrpRoutingWorkcenter(models.Model):
 class ResUsers(models.Model):
     _inherit = 'res.users'
 
-    is_mrp_reviewer = fields.Boolean(string='Là người duyệt công đoạn', compute='_compute_is_mrp_reviewer')
+    is_mrp_reviewer = fields.Boolean(string='Is Work Order Reviewer', compute='_compute_is_mrp_reviewer')
 
     def _compute_is_mrp_reviewer(self):
         Workorder = self.env['mrp.workorder'].sudo()

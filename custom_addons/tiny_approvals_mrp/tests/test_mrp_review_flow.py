@@ -116,7 +116,7 @@ class TestMrpReviewFlow(TransactionCase):
         self.assertFalse(cut.review_ids)
         self._run(sew)
         self.assertEqual(sew.review_state, 'waiting')
-        with self.assertRaisesRegex(UserError, 'Công đoạn May chưa được duyệt đạt'):
+        with self.assertRaisesRegex(UserError, 'Work order May has not passed review yet'):
             paint.button_start(bypass=True)
         self._pass_last_review(sew)
 
@@ -126,11 +126,11 @@ class TestMrpReviewFlow(TransactionCase):
         self.assertEqual(review.state, 'waiting')
         self.assertEqual(review.mode, 'before')
         self.assertTrue(review.activity_ids, 'Phải tạo hoạt động Duyệt công đoạn cho quản lý duyệt')
-        with self.assertRaisesRegex(UserError, 'Công đoạn Vẽ chưa được duyệt đạt'):
+        with self.assertRaisesRegex(UserError, 'Work order Vẽ has not passed review yet'):
             finish.button_start(bypass=True)
-        with self.assertRaisesRegex(UserError, 'Nhận duyệt'):
+        with self.assertRaisesRegex(UserError, 'Take Review'):
             review.action_pass()
-        with self.assertRaisesRegex(UserError, 'không phải quản lý duyệt'):
+        with self.assertRaisesRegex(UserError, 'not the review manager'):
             review.with_user(self.outsider).action_start_review()
 
         review.action_start_review()
@@ -170,7 +170,7 @@ class TestMrpReviewFlow(TransactionCase):
         self.assertEqual(paint.rework_return_id, review.return_id)
         self.assertEqual(paint.review_state, 'failed')
         self.assertEqual(production.state, 'progress')
-        with self.assertRaisesRegex(UserError, 'Công đoạn Vẽ đang được chỉnh lại'):
+        with self.assertRaisesRegex(UserError, 'Work order Vẽ is being reworked'):
             finish.button_start(bypass=True)
 
         # Phiên giờ khi đang sửa là giờ sửa, kể cả sau Tạm dừng -> Tiếp tục
@@ -225,9 +225,9 @@ class TestMrpReviewFlow(TransactionCase):
         self.assertEqual(finish.state, 'ready')
         self.assertTrue(finish.rework_return_id)
         self.assertEqual(paint.state, 'done', 'Công đoạn ở giữa giữ nguyên')
-        with self.assertRaisesRegex(UserError, 'Công đoạn May đang được chỉnh lại'):
+        with self.assertRaisesRegex(UserError, 'Work order May is being reworked'):
             finish.button_start(bypass=True)
-        self.assertIn('bị trả về', production.message_ids[:1].body)
+        self.assertIn('returned to', production.message_ids[:1].body)
 
         sew.button_start(bypass=True)
         self.assertEqual(self._log_time(sew).work_type, 'rework')
@@ -256,7 +256,7 @@ class TestMrpReviewFlow(TransactionCase):
         self._pass_last_review(paint)
         self._run(finish)
         self._pass_last_review(finish)
-        with self.assertRaisesRegex(UserError, 'còn yêu cầu duyệt'):
+        with self.assertRaisesRegex(UserError, 'unfinished reviews or reworks'):
             production.button_mark_done()
         self._pass_last_review(sew)
         self.assertFalse(production.has_open_review_or_rework)
@@ -265,7 +265,7 @@ class TestMrpReviewFlow(TransactionCase):
     def test_06_change_review_mode(self):
         production = self._full_production()
         sew, paint = self._wo(production, 'May'), self._wo(production, 'Vẽ')
-        with self.assertRaisesRegex(UserError, 'bắt buộc duyệt'):
+        with self.assertRaisesRegex(UserError, 'requires review'):
             paint.review_mode = 'after'
         self.assertTrue(sew.can_edit_review_mode)
         sew.review_mode = 'none'
@@ -274,7 +274,7 @@ class TestMrpReviewFlow(TransactionCase):
         self._run(self._wo(production, 'Cắt'))
         self._run(sew)
         self.assertFalse(sew.review_ids, 'Không yêu cầu kiểm thì không sinh yêu cầu duyệt')
-        with self.assertRaisesRegex(UserError, 'đã kết thúc'):
+        with self.assertRaisesRegex(UserError, 'is finished'):
             sew.review_mode = 'before'
 
     def test_07_cancel_production_cancels_reviews(self):

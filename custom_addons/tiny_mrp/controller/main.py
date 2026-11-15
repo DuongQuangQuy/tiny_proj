@@ -152,20 +152,20 @@ class MrpPortal(CustomerPortal):
         error = None
         try:
             if workorder.working_state == 'blocked':
-                raise UserError(_('Trạm làm việc đang bị chặn, không thể thực hiện thao tác.'))
+                raise UserError(_('The work center is blocked, the action cannot be performed.'))
             if workorder.production_state in ('draft', 'done', 'cancel'):
-                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép thao tác.'))
+                raise UserError(_('No actions are allowed on the manufacturing order in its current state.'))
             if workorder.state in ('done', 'cancel'):
-                raise UserError(_('Lệnh công việc đã kết thúc hoặc bị hủy.'))
+                raise UserError(_('The work order is already finished or cancelled.'))
 
             has_open_time = bool(workorder.time_ids.filtered(lambda t: not t.date_end))
 
             if action == 'start':
                 if has_open_time:
-                    raise UserError(_('Lệnh công việc đang có phiên làm việc chưa kết thúc, hãy tạm dừng trước.'))
+                    raise UserError(_('The work order has an unfinished session, please pause it first.'))
                 other_active = self._get_user_other_active_workorder(user, workorder.id)
                 if other_active:
-                    raise UserError(_('Bạn đang thực hiện công đoạn "%s". Hãy tạm dừng trước khi bắt đầu công đoạn mới.',
+                    raise UserError(_('You are working on work order "%s". Please pause it before starting a new one.',
                                       other_active.workorder_id.name))
                 flow_block_reason = workorder._get_flow_block_reason()
                 if flow_block_reason:
@@ -174,12 +174,12 @@ class MrpPortal(CustomerPortal):
             elif action == 'pending':
                 reason_id = kw.get('reason_id', '').strip()
                 if not reason_id:
-                    raise UserError(_('Vui lòng chọn lý do tạm dừng.'))
+                    raise UserError(_('Please select a pause reason.'))
                 reason = request.env['mrp.reason'].sudo().browse(int(reason_id))
                 if not reason.exists():
-                    raise UserError(_('Lý do tạm dừng không hợp lệ.'))
+                    raise UserError(_('Invalid pause reason.'))
                 if not has_open_time or workorder.state != 'progress':
-                    raise UserError(_('Thao tác không hợp lệ. Không có phiên làm việc nào đang mở.'))
+                    raise UserError(_('Invalid action. There is no open session.'))
                 workorder.with_context(portal_user_id=user.id).button_pending()
                 request.env['mrp.pause.reason'].sudo().create({
                     'reason_id': reason.id,
@@ -191,7 +191,7 @@ class MrpPortal(CustomerPortal):
                     workorder.with_context(portal_user_id=user.id).action_pass()
                 else:
                     if workorder.state != 'progress':
-                        raise UserError(_('Thao tác không hợp lệ. Lệnh công việc không đang trong trạng thái thực hiện.'))
+                        raise UserError(_('Invalid action. The work order is not in progress.'))
                     workorder.with_context(portal_user_id=user.id).button_finish()
                 production = workorder.production_id
                 if (production.is_mrp_pattern
@@ -199,7 +199,7 @@ class MrpPortal(CustomerPortal):
                         and all(wo.state == 'done' for wo in production.workorder_ids)):
                     production.action_done_pattern()
             else:
-                raise UserError(_('Thao tác không hợp lệ.'))
+                raise UserError(_('Invalid action.'))
         except UserError as e:
             error = e.args[0] if e.args else str(e)
         except Exception as e:
@@ -263,32 +263,32 @@ class MrpPortal(CustomerPortal):
         try:
             if action == 'confirm':
                 if not user.is_mrp_pattern:
-                    raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                    raise UserError(_('You are not allowed to perform this action.'))
                 if production.state != 'draft':
-                    raise UserError(_('Lệnh sản xuất không ở trạng thái nháp.'))
+                    raise UserError(_('The manufacturing order is not in draft.'))
                 production.action_confirm()
             elif action == 'confirm_pattern':
                 if not user.is_mrp_pattern:
-                    raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                    raise UserError(_('You are not allowed to perform this action.'))
                 if production.state_pattern != 'draft':
-                    raise UserError(_('Trạng thái rập đã được xác nhận.'))
+                    raise UserError(_('The pattern status has already been confirmed.'))
                 production.action_confirm_pattern()
             elif action == 'confirm_stock':
                 if not user.is_mrp_stock:
-                    raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                    raise UserError(_('You are not allowed to perform this action.'))
                 if production.state_stock != 'draft':
-                    raise UserError(_('Trạng thái kho đã được xác nhận.'))
+                    raise UserError(_('The warehouse status has already been confirmed.'))
                 production.action_confirm_stock()
             elif action == 'done_pattern':
                 if not user.is_mrp_pattern:
-                    raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                    raise UserError(_('You are not allowed to perform this action.'))
                 if not production.is_mrp_pattern:
-                    raise UserError(_('Đây không phải là lệnh rập.'))
+                    raise UserError(_('This is not a pattern order.'))
                 if production.state in ('done', 'cancel'):
-                    raise UserError(_('Lệnh sản xuất đã hoàn thành hoặc bị hủy.'))
+                    raise UserError(_('The manufacturing order is already done or cancelled.'))
                 production.action_done_pattern()
             else:
-                raise UserError(_('Thao tác không hợp lệ.'))
+                raise UserError(_('Invalid action.'))
         except UserError as e:
             error = e.args[0] if e.args else str(e)
         except Exception as e:
@@ -360,12 +360,12 @@ class MrpPortal(CustomerPortal):
         error = None
         try:
             if production.state not in ('draft', 'confirmed', 'progress'):
-                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
+                raise UserError(_('The manufacturing order cannot be edited in its current state.'))
             if not user.is_mrp_stock and production.state_stock != 'draft':
-                raise UserError(_('Kho đã xác nhận, nhân viên rập không thể sửa số lượng NVL.'))
+                raise UserError(_('The warehouse has already confirmed, pattern staff can no longer change material quantities.'))
             qty = float(product_uom_qty or 0)
             if qty <= 0:
-                raise UserError(_('Số lượng phải lớn hơn 0.'))
+                raise UserError(_('The quantity must be greater than 0.'))
             move.write({'product_uom_qty': qty})
         except (UserError, ValueError) as e:
             error = e.args[0] if hasattr(e, 'args') and e.args else str(e)
@@ -388,7 +388,7 @@ class MrpPortal(CustomerPortal):
         error = None
         try:
             if production.state not in ('draft', 'confirmed', 'progress'):
-                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
+                raise UserError(_('The manufacturing order cannot be edited in its current state.'))
             vals = {
                 'move_id': move.id,
                 'product_id': move.product_id.id,
@@ -400,12 +400,12 @@ class MrpPortal(CustomerPortal):
             if quant_id:
                 quant = request.env['stock.quant'].sudo().browse(int(quant_id))
                 if not quant.exists() or quant.product_id.id != move.product_id.id:
-                    raise UserError(_('Lô hàng không hợp lệ.'))
+                    raise UserError(_('Invalid lot.'))
                 done_qty = sum(move.move_line_ids.mapped('quantity'))
                 remaining = max(0.0, move.product_uom_qty - done_qty)
                 auto_qty = max(0.0, min(quant.available_quantity, remaining)) if remaining > 0 else quant.available_quantity
                 if auto_qty <= 0:
-                    raise UserError(_('Không còn số lượng khả dụng trên lô này.'))
+                    raise UserError(_('There is no available quantity left in this lot.'))
                 vals.update({
                     'lot_id': quant.lot_id.id if quant.lot_id else False,
                     'location_id': quant.location_id.id,
@@ -414,7 +414,7 @@ class MrpPortal(CustomerPortal):
             else:
                 qty = float(quantity or 0)
                 if qty <= 0:
-                    raise UserError(_('Số lượng phải lớn hơn 0.'))
+                    raise UserError(_('The quantity must be greater than 0.'))
                 vals.update({
                     'lot_name': lot_name.strip() if lot_name and lot_name.strip() else False,
                     'quantity': qty,
@@ -450,10 +450,10 @@ class MrpPortal(CustomerPortal):
         error = None
         try:
             if production.state not in ('draft', 'confirmed', 'progress'):
-                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
+                raise UserError(_('The manufacturing order cannot be edited in its current state.'))
             qty = float(quantity or 0)
             if qty <= 0:
-                raise UserError(_('Số lượng phải lớn hơn 0.'))
+                raise UserError(_('The quantity must be greater than 0.'))
             line.write({
                 'lot_name': lot_name.strip() if lot_name and lot_name.strip() else False,
                 'quantity': qty,
@@ -482,7 +482,7 @@ class MrpPortal(CustomerPortal):
         error = None
         try:
             if production.state not in ('draft', 'confirmed', 'progress'):
-                raise UserError(_('Lệnh sản xuất không ở trạng thái cho phép chỉnh sửa.'))
+                raise UserError(_('The manufacturing order cannot be edited in its current state.'))
             line.unlink()
         except (UserError, Exception) as e:
             error = e.args[0] if hasattr(e, 'args') and e.args else str(e)

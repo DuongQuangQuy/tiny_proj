@@ -6,24 +6,24 @@ from datetime import timedelta
 
 class TrialDelivery(models.Model):
     _name = 'trial.delivery'
-    _description = 'Phiếu Giao Hàng Thử'
+    _description = 'Trial Delivery'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'name desc'
 
     name = fields.Char(
-        string='Số phiếu giao hàng thử',
+        string='Trial Delivery Count',
         required=True,
         copy=False,
         readonly=True,
-        default=lambda self: _('Mới'),
+        default=lambda self: _('New'),
         tracking=True,
     )
     state = fields.Selection([
-        ('draft', 'Nháp'),
-        ('delivered', 'Đã giao hàng thử'),
-        ('returned', 'Khách trả hàng'),
-        ('cancel', 'Đã hủy'),
-    ], string='Trạng thái', default='draft', tracking=True, index=True)
+        ('draft', 'Draft'),
+        ('delivered', 'Trial Delivered'),
+        ('returned', 'Returned by Customer'),
+        ('cancel', 'Cancelled'),
+    ], string='Status', default='draft', tracking=True, index=True)
 
     # Liên kết đơn bán hàng
     # sale_order_id = fields.Many2one(
@@ -42,41 +42,41 @@ class TrialDelivery(models.Model):
     # Liên kết lệnh sản xuất
     production_id = fields.Many2one(
         'mrp.production',
-        string='Lệnh sản xuất',
+        string='Manufacturing Order',
         tracking=True,
         domain=[('state', 'in', ['confirmed', 'progress', 'to_close', 'done'])],
     )
     sale_origin = fields.Char(
-        string='Nguồn đơn hàng',
+        string='Source Order',
        
     )
 
     # Thông tin khách hàng (có thể khác với đơn hàng)
     partner_id = fields.Many2one(
         'res.partner',
-        string='Giao cho khách',
+        string='Delivered To',
         required=True,
         tracking=True,
     )
     partner_shipping_id = fields.Many2one(
         'res.partner',
-        string='Địa chỉ giao hàng',
+        string='Delivery Address',
         tracking=True,
     )
     partner_phone = fields.Char(
-        string='Điện thoại',
+        string='Phone',
         related='partner_id.phone',
     )
-    note = fields.Text(string='Ghi chú nội bộ')
-    customer_note = fields.Text(string='Ghi chú khách hàng')
+    note = fields.Text(string='Internal Notes')
+    customer_note = fields.Text(string='Customer Notes')
     date_delivery = fields.Datetime(
-        string='Ngày giao hàng thử', default=fields.Datetime.now, required=True)
+        string='Trial Delivery Date', default=fields.Datetime.now, required=True)
     date_return = fields.Datetime(
-        string='Ngày khách trả hàng', required=True, default=lambda self: self._default_date_return())
+        string='Customer Return Date', required=True, default=lambda self: self._default_date_return())
     line_ids = fields.One2many(
         'trial.delivery.line',
         'trial_delivery_id',
-        string='Chi tiết phiếu giao thử'
+        string='Trial Delivery Lines'
     )
 
     def _default_date_return(self):
@@ -85,8 +85,8 @@ class TrialDelivery(models.Model):
     @api.model_create_multi
     def create(self, vals):
         for val in vals:
-            if val.get('name', _('Mới')) == _('Mới'):
-                val['name'] = self.env['ir.sequence'].next_by_code('trial.delivery') or _('Mới')
+            if val.get('name', _('New')) == _('New'):
+                val['name'] = self.env['ir.sequence'].next_by_code('trial.delivery') or _('New')
         return super(TrialDelivery, self).create(vals)
 
     def action_delivered(self):
@@ -104,34 +104,34 @@ class TrialDelivery(models.Model):
 
 class TrialDeliveryLine(models.Model):
     _name = 'trial.delivery.line'
-    _description = 'Chi tiết sản phẩm giao thử'
+    _description = 'Trial Delivery Line'
 
     trial_delivery_id = fields.Many2one(
         'trial.delivery',
-        string='Phiếu giao thử',
+        string='Trial Delivery',
         required=True,
         ondelete='cascade',
     )
 
     product_id = fields.Many2one(
         'product.product',
-        string='Sản phẩm',
+        string='Product',
         required=True,
         domain=[('type', 'in', ['product', 'consu'])],
     )
     product_tmpl_id = fields.Many2one(
         'product.template',
         related='product_id.product_tmpl_id',
-        string='Mẫu sản phẩm',
+        string='Product Template',
     )
     description = fields.Text(
-        string='Mô tả',
+        string='Description',
         compute='_compute_description',
         store=True,
     )
 
     qty_trial = fields.Float(
-        string='Số lượng thử',
+        string='Trial Quantity',
         required=True,
         default=1.0,
         digits='Product Unit of Measure',
@@ -139,7 +139,7 @@ class TrialDeliveryLine(models.Model):
 
     product_uom_id = fields.Many2one(
         'uom.uom',
-        string='Đơn vị tính',
+        string='Unit of Measure',
         related='product_id.uom_id',
     )
 

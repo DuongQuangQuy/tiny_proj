@@ -12,10 +12,10 @@ _logger = logging.getLogger(__name__)
 class MrpWorkcenter(models.Model):
     _inherit = "mrp.workcenter"
 
-    user_mrp_ids = fields.Many2many('res.users', 'mrp_workcenter_user_mrp_rel', string='Nhân viên thực hiện')
-    is_pattern = fields.Boolean(string='Khu vực rập', default=False,
-                                help='Công đoạn tại khu vực này là công đoạn rập, phải làm trước các công đoạn khác.')
+    user_mrp_ids = fields.Many2many('res.users', 'mrp_workcenter_user_mrp_rel', string='Operators')
+    is_pattern = fields.Boolean(string='Pattern Work Center', default=False,
+                                help='Work orders at this work center are pattern work orders and must be done before the others.')
     estimate_time = fields.Float(
-        string='Thời gian dự kiến',
-        help='Số phút để làm 1 sản phẩm tại khu vực này. Khi chọn khu vực trên hoạt động của BOM, '
-             'giá trị này điền sẵn vào Thời lượng mặc định (sửa được). Để 0 thì giữ nguyên thời lượng đang có.')
+        string='Estimated Time',
+        help='Minutes to make 1 product at this work center. When this work center is selected on a BoM operation, '
+             'this value fills the Default Duration (editable). Leave 0 to keep the current duration.')

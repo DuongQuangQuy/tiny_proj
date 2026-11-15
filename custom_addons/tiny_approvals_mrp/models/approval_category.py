@@ -13,7 +13,7 @@ class ApprovalCategory(models.Model):
     _inherit = "approval.category"
 
     approval_type = fields.Selection(
-        selection_add=[('mrp_stock', "Phê duyệt kho MRP")],
+        selection_add=[('mrp_stock', 'MRP Stock Approval')],
         ondelete={'mrp_stock': "cascade"})
 
     @api.onchange('approval_type')

@@ -7,9 +7,9 @@ from .mrp_workorder import OPEN_REVIEW_STATES
 class MrpWorkcenterProductivity(models.Model):
     _inherit = 'mrp.workcenter.productivity'
 
-    work_type = fields.Selection([('new', 'Làm mới'), ('rework', 'Sửa')], string='Loại giờ',
+    work_type = fields.Selection([('new', 'New Work'), ('rework', 'Rework')], string='Time Type',
                                  default='new', required=True, index=True)
-    return_id = fields.Many2one('mrp.workorder.return', string='Lượt chỉnh', index=True, ondelete='set null')
+    return_id = fields.Many2one('mrp.workorder.return', string='Rework Round', index=True, ondelete='set null')
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -29,16 +29,16 @@ class MrpWorkcenterProductivity(models.Model):
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    review_ids = fields.One2many('mrp.workorder.review', 'production_id', string='Lượt duyệt')
-    return_ids = fields.One2many('mrp.workorder.return', 'production_id', string='Lượt trả lại')
-    open_review_count = fields.Integer(string='Yêu cầu duyệt đang mở', compute='_compute_open_review_rework')
-    rework_open_count = fields.Integer(string='Lượt chỉnh đang mở', compute='_compute_open_review_rework')
-    has_open_review_or_rework = fields.Boolean(string='Còn duyệt / chỉnh đang mở',
+    review_ids = fields.One2many('mrp.workorder.review', 'production_id', string='Review Rounds')
+    return_ids = fields.One2many('mrp.workorder.return', 'production_id', string='Return Rounds')
+    open_review_count = fields.Integer(string='Open Review Request', compute='_compute_open_review_rework')
+    rework_open_count = fields.Integer(string='Open Rework Round', compute='_compute_open_review_rework')
+    has_open_review_or_rework = fields.Boolean(string='Has Open Review / Rework',
                                                compute='_compute_open_review_rework')
-    duration_new = fields.Float(string='Giờ làm mới (phút)', compute='_compute_review_durations', store=True)
-    duration_rework = fields.Float(string='Giờ sửa (phút)', compute='_compute_review_durations', store=True)
-    review_duration_total = fields.Float(string='Giờ duyệt (phút)', compute='_compute_review_durations', store=True)
-    rework_count = fields.Integer(string='Số lượt chỉnh', compute='_compute_review_durations', store=True)
+    duration_new = fields.Float(string='New Work Time (minutes)', compute='_compute_review_durations', store=True)
+    duration_rework = fields.Float(string='Rework Time (minutes)', compute='_compute_review_durations', store=True)
+    review_duration_total = fields.Float(string='Review Time (minutes)', compute='_compute_review_durations', store=True)
+    rework_count = fields.Integer(string='Rework Count', compute='_compute_review_durations', store=True)
 
     @api.depends('review_ids.state', 'return_ids.state', 'workorder_ids.review_state')
     def _compute_open_review_rework(self):
@@ -68,8 +68,7 @@ class MrpProduction(models.Model):
                     lambda wo: wo.state != 'cancel' and (
                         wo.rework_return_id or wo.review_state in OPEN_REVIEW_STATES + ('failed',)))
                 raise UserError(_(
-                    'Lệnh %(mo)s còn yêu cầu duyệt hoặc lượt chỉnh chưa xong (%(wos)s). '
-                    'Phải xử lý hết trước khi xuất xưởng.',
+                    'Order %(mo)s still has unfinished reviews or reworks (%(wos)s). They must be resolved before the product leaves the workshop.',
                     mo=production.name, wos=', '.join(pending.mapped('name')) or '—'))
 
     def button_mark_done(self):

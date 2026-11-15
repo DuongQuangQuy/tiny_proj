@@ -9,12 +9,12 @@ _logger = logging.getLogger(__name__)
 class MrpWorkorder(models.Model):
     _inherit = "mrp.workorder"
 
-    user_mrp_ids = fields.Many2many('res.users', 'mrp_workorder_user_mrp_rel', string='Nhân viên thực hiện',
+    user_mrp_ids = fields.Many2many('res.users', 'mrp_workorder_user_mrp_rel', string='Operators',
                                     compute='_compute_user_mrp_ids', store=True, readonly=False)
-    reason_ids = fields.One2many('mrp.pause.reason', 'workorder_id', string='Lý do tạm dừng')
-    is_pattern = fields.Boolean(string='Công đoạn rập', compute='_compute_is_pattern', store=True, readonly=False)
+    reason_ids = fields.One2many('mrp.pause.reason', 'workorder_id', string='Pause Reasons')
+    is_pattern = fields.Boolean(string='Pattern Work Order', compute='_compute_is_pattern', store=True, readonly=False)
     # Công đoạn bỏ qua vì đã có sẵn: hoàn thành không ghi giờ làm, không tính KPI
-    is_passed = fields.Boolean(string='Pass (không tính KPI)', copy=False, readonly=True)
+    is_passed = fields.Boolean(string='Passed (no KPI)', copy=False, readonly=True)
 
     @api.depends('workcenter_id', 'workcenter_id.user_mrp_ids')
     def _compute_user_mrp_ids(self):
@@ -37,23 +37,23 @@ class MrpWorkorder(models.Model):
             # Lệnh rập phụ kiểu cũ: giữ nguyên cách chạy trước đây
             return False
         if not production.pattern_workorders_done:
-            return _('Công đoạn rập chưa hoàn thành.')
+            return _('The pattern work order is not finished yet.')
         if production.need_pattern_confirm and production.state_pattern != 'confirmed':
-            return _('Chưa xác nhận số lượng NVL sau rập.')
+            return _('The material quantities after pattern-making have not been confirmed.')
         if production.state_stock != 'confirmed':
-            return _('Kho chưa xác nhận.')
+            return _('The warehouse has not confirmed yet.')
         return False
 
     def action_pass(self):
         """Pass công đoạn đã có sẵn: hoàn thành ngay, không ghi giờ làm, đánh dấu không tính KPI."""
         for workorder in self:
             if workorder.state in ('done', 'cancel'):
-                raise UserError(_('Công đoạn "%s" đã kết thúc hoặc bị hủy.', workorder.name))
+                raise UserError(_('Work order "%s" is already finished or cancelled.', workorder.name))
             if workorder.time_ids.filtered(lambda t: not t.date_end):
-                raise UserError(_('Công đoạn "%s" đang có phiên làm việc, hãy tạm dừng trước khi pass.', workorder.name))
+                raise UserError(_('Work order "%s" has a running session, please pause it before passing.', workorder.name))
             reason = workorder._get_flow_block_reason()
             if reason:
-                raise UserError(_('Không thể pass công đoạn "%(name)s": %(reason)s',
+                raise UserError(_('Cannot pass work order "%(name)s": %(reason)s',
                                   name=workorder.name, reason=reason))
         self.write({'is_passed': True})
         return self.button_finish()
@@ -62,7 +62,7 @@ class MrpWorkorder(models.Model):
         for workorder in self:
             reason = workorder._get_flow_block_reason()
             if reason:
-                raise UserError(_('Không thể bắt đầu công đoạn "%(name)s": %(reason)s',
+                raise UserError(_('Cannot start work order "%(name)s": %(reason)s',
                                   name=workorder.name, reason=reason))
         return super().button_start(*args, **kwargs)
 

@@ -11,7 +11,7 @@ class MrpProduction(models.Model):
 
     # Danh sách vải lót được phép chọn trên dòng NVL vải lót (theo vải có setup Vải lót)
     lining_product_ids = fields.Many2many('product.product', compute='_compute_lining_product_ids',
-                                          string='Vải lót được phép')
+                                          string='Allowed Lining Fabrics')
 
     @api.depends('move_raw_ids.product_id')
     def _compute_lining_product_ids(self):
@@ -26,22 +26,22 @@ class MrpProduction(models.Model):
     def _default_user_stock(self):
         return self.env['res.users'].search(['|', ('is_mrp_stock', '=', True), ('is_mrp_pattern', '=', True)])
 
-    user_mrp_stock_ids = fields.Many2many('res.users', 'user_mrp_stock_production_rel', string='Nhân viên kho',
+    user_mrp_stock_ids = fields.Many2many('res.users', 'user_mrp_stock_production_rel', string='Warehouse Staff',
                                            default=_default_user_stock)
 
     # Lệnh rập phụ kiểu cũ (MO con). Quy trình mới dùng công đoạn rập, trường này chỉ giữ cho dữ liệu cũ.
-    is_mrp_pattern = fields.Boolean(string='Là MRP rập', default=False)
-    state_stock = fields.Selection([('draft', 'Nháp'),
-        ('confirmed', 'Xác nhận'),
-        ('cancel', 'Đã hủy')
-    ], string='Trạng thái MRP kho', default='draft')
-    state_pattern = fields.Selection([('draft', 'Nháp'),
-        ('confirmed', 'Xác nhận'),
-        ('cancel', 'Đã hủy')
-    ], string='Trạng thái MRP rập', default='draft')
-    has_pattern_workorder = fields.Boolean(string='Có công đoạn rập', compute='_compute_pattern_workorders')
-    pattern_workorders_done = fields.Boolean(string='Rập đã xong', compute='_compute_pattern_workorders')
-    need_pattern_confirm = fields.Boolean(string='Cần xác nhận rập', compute='_compute_pattern_workorders')
+    is_mrp_pattern = fields.Boolean(string='Is Pattern MRP', default=False)
+    state_stock = fields.Selection([('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('cancel', 'Cancelled')
+    ], string='Warehouse MRP Status', default='draft')
+    state_pattern = fields.Selection([('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('cancel', 'Cancelled')
+    ], string='Pattern MRP Status', default='draft')
+    has_pattern_workorder = fields.Boolean(string='Has Pattern Work Order', compute='_compute_pattern_workorders')
+    pattern_workorders_done = fields.Boolean(string='Pattern Done', compute='_compute_pattern_workorders')
+    need_pattern_confirm = fields.Boolean(string='Pattern Confirmation Required', compute='_compute_pattern_workorders')
 
     @api.depends('workorder_ids.is_pattern', 'workorder_ids.state')
     def _compute_pattern_workorders(self):
@@ -55,26 +55,26 @@ class MrpProduction(models.Model):
         """Nhân viên rập xác nhận đã nhập xong số lượng NVL sau khi công đoạn rập hoàn thành."""
         for production in self:
             if production.state not in ('confirmed', 'progress'):
-                raise UserError(_('Lệnh sản xuất chưa được xác nhận, không thể xác nhận rập.'))
+                raise UserError(_('The manufacturing order is not confirmed, the pattern cannot be confirmed.'))
             if not production.pattern_workorders_done:
-                raise UserError(_('Công đoạn rập chưa hoàn thành.'))
+                raise UserError(_('The pattern work order is not finished yet.'))
             production.state_pattern = 'confirmed'
 
     def action_confirm_stock(self):
         for production in self:
             if production.state == 'draft':
-                raise UserError(_('Lệnh sản xuất chưa được xác nhận, không thể xác nhận kho.'))
+                raise UserError(_('The manufacturing order is not confirmed, the warehouse cannot confirm.'))
             # Lệnh không có công đoạn rập (hay lệnh rập con kiểu cũ) thì không có bước xác nhận rập
             if production.need_pattern_confirm and production.state_pattern != 'confirmed':
-                raise UserError(_('Chỉ có thể xác nhận kho khi rập và số lượng NVL đã được xác nhận.'))
+                raise UserError(_('The warehouse can only confirm once the pattern and material quantities have been confirmed.'))
             production.state_stock = 'confirmed'
 
     def action_done_pattern(self):
         for production in self:
             if not production.is_mrp_pattern:
-                raise UserError(_('Chỉ có thể hoàn thành lệnh rập.'))
+                raise UserError(_('Only pattern orders can be completed here.'))
             if production.state in ('done', 'cancel'):
-                raise UserError(_('Lệnh sản xuất đã hoàn thành hoặc bị hủy.'))
+                raise UserError(_('The manufacturing order is already done or cancelled.'))
             production.with_context(skip_immediate=True, skip_backorder=True).button_mark_done()
 
     @api.model_create_multi

@@ -4,52 +4,52 @@ from odoo.exceptions import UserError
 
 class MrpWorkorderReview(models.Model):
     _name = 'mrp.workorder.review'
-    _description = 'Yêu cầu duyệt công đoạn'
+    _description = 'Work Order Review Request'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'id desc'
 
-    name = fields.Char(string='Tên', compute='_compute_name', store=True)
-    workorder_id = fields.Many2one('mrp.workorder', string='Công đoạn', required=True, ondelete='cascade', index=True)
-    production_id = fields.Many2one('mrp.production', string='Lệnh sản xuất', related='workorder_id.production_id',
+    name = fields.Char(string='Name', compute='_compute_name', store=True)
+    workorder_id = fields.Many2one('mrp.workorder', string='Work Order', required=True, ondelete='cascade', index=True)
+    production_id = fields.Many2one('mrp.production', string='Manufacturing Order', related='workorder_id.production_id',
                                     store=True, index=True)
-    workcenter_id = fields.Many2one('mrp.workcenter', string='Khu vực', related='workorder_id.workcenter_id',
+    workcenter_id = fields.Many2one('mrp.workcenter', string='Work Center', related='workorder_id.workcenter_id',
                                     store=True)
-    product_id = fields.Many2one('product.product', string='Sản phẩm', related='production_id.product_id')
+    product_id = fields.Many2one('product.product', string='Product', related='production_id.product_id')
     company_id = fields.Many2one('res.company', related='workorder_id.company_id', store=True)
-    round_no = fields.Integer(string='Lượt', default=1)
-    mode = fields.Selection([('before', 'Kiểm trước'), ('after', 'Kiểm sau')], string='Chế độ kiểm',
+    round_no = fields.Integer(string='Round', default=1)
+    mode = fields.Selection([('before', 'Review Before'), ('after', 'Review After')], string='Review Mode',
                             default='before', required=True)
     state = fields.Selection([
-        ('waiting', 'Chờ quản lý duyệt'),
-        ('reviewing', 'Đang duyệt'),
-        ('paused', 'Tạm dừng duyệt'),
-        ('passed', 'Đạt'),
-        ('failed', 'Chưa đạt'),
-        ('cancel', 'Đã hủy'),
-    ], string='Trạng thái', default='waiting', required=True, tracking=True, index=True)
-    reviewer_id = fields.Many2one('res.users', string='Người nhận duyệt', tracking=True)
-    user_review_ids = fields.Many2many('res.users', string='Quản lý duyệt', related='workorder_id.user_review_ids')
-    worker_ids = fields.Many2many('res.users', string='Người làm', related='workorder_id.user_mrp_ids')
-    date_request = fields.Datetime(string='Ngày yêu cầu', default=fields.Datetime.now, readonly=True)
-    date_start = fields.Datetime(string='Bắt đầu duyệt', readonly=True)
-    date_done = fields.Datetime(string='Kết thúc duyệt', readonly=True)
-    date_last_start = fields.Datetime(string='Mốc phiên duyệt đang chạy', readonly=True)
-    review_duration = fields.Float(string='Thời gian duyệt (phút)', readonly=True)
+        ('waiting', 'Waiting for Manager Review'),
+        ('reviewing', 'Under Review'),
+        ('paused', 'Pause Review'),
+        ('passed', 'Pass'),
+        ('failed', 'Fail'),
+        ('cancel', 'Cancelled'),
+    ], string='Status', default='waiting', required=True, tracking=True, index=True)
+    reviewer_id = fields.Many2one('res.users', string='Taken By', tracking=True)
+    user_review_ids = fields.Many2many('res.users', string='Review Managers', related='workorder_id.user_review_ids')
+    worker_ids = fields.Many2many('res.users', string='Workers', related='workorder_id.user_mrp_ids')
+    date_request = fields.Datetime(string='Request Date', default=fields.Datetime.now, readonly=True)
+    date_start = fields.Datetime(string='Review Start', readonly=True)
+    date_done = fields.Datetime(string='Review End', readonly=True)
+    date_last_start = fields.Datetime(string='Running Review Session Start', readonly=True)
+    review_duration = fields.Float(string='Review Duration (minutes)', readonly=True)
 
     # Khi chưa đạt
     defect_reason_ids = fields.Many2many('mrp.reason', 'mrp_workorder_review_reason_rel', 'review_id', 'reason_id',
-                                         string='Lỗi', domain=[('reason_type', '=', 'defect')])
-    note = fields.Text(string='Ghi chú')
-    return_workorder_id = fields.Many2one('mrp.workorder', string='Công đoạn phải chỉnh',
+                                         string='Defects', domain=[('reason_type', '=', 'defect')])
+    note = fields.Text(string='Notes')
+    return_workorder_id = fields.Many2one('mrp.workorder', string='Work Order to Rework',
                                           domain="[('production_id', '=', production_id), ('state', '!=', 'cancel')]")
     assign_user_ids = fields.Many2many('res.users', 'mrp_workorder_review_assign_user_rel', 'review_id', 'user_id',
-                                       string='Người phụ trách chỉnh')
-    return_id = fields.Many2one('mrp.workorder.return', string='Lượt chỉnh', readonly=True)
+                                       string='Rework Responsible')
+    return_id = fields.Many2one('mrp.workorder.return', string='Rework Round', readonly=True)
 
     @api.depends('production_id.name', 'workorder_id.name', 'round_no')
     def _compute_name(self):
         for review in self:
-            review.name = _('%(mo)s - %(wo)s - Lượt %(n)s', mo=review.production_id.name or '',
+            review.name = _('%(mo)s - %(wo)s - Round %(n)s', mo=review.production_id.name or '',
                             wo=review.workorder_id.name or '', n=review.round_no)
 
     @api.onchange('return_workorder_id')
@@ -79,7 +79,7 @@ class MrpWorkorderReview(models.Model):
         now = fields.Datetime.now()
         for review in self:
             if review.state not in ('waiting', 'paused'):
-                raise UserError(_('Chỉ nhận duyệt / tiếp tục được yêu cầu đang chờ hoặc tạm dừng.'))
+                raise UserError(_('Only pending or paused requests can be taken for review or resumed.'))
             vals = {'state': 'reviewing', 'date_last_start': now}
             if not review.reviewer_id:
                 vals['reviewer_id'] = self.env.user.id
@@ -92,7 +92,7 @@ class MrpWorkorderReview(models.Model):
         self._tiny_check_reviewer()
         for review in self:
             if review.state != 'reviewing':
-                raise UserError(_('Chỉ tạm dừng được yêu cầu đang duyệt.'))
+                raise UserError(_('Only requests under review can be paused.'))
         self._tiny_close_session()
         self.write({'state': 'paused'})
         return True
@@ -101,12 +101,12 @@ class MrpWorkorderReview(models.Model):
         self._tiny_check_reviewer()
         for review in self:
             if review.state != 'reviewing':
-                raise UserError(_('Phải bấm Nhận duyệt trước khi đánh giá Đạt / Chưa đạt.'))
+                raise UserError(_('Click Take Review before marking Pass / Fail.'))
         self._tiny_close_session()
         self.write({'state': 'passed', 'date_done': fields.Datetime.now()})
         self._tiny_done_activities()
         for review in self:
-            review.production_id.message_post(body=_('Công đoạn %(wo)s (lượt %(n)s) được duyệt đạt bởi %(user)s.',
+            review.production_id.message_post(body=_('Work order %(wo)s (round %(n)s) was passed by %(user)s.',
                                                      wo=review.workorder_id.name, n=review.round_no,
                                                      user=self.env.user.name))
         return True
@@ -116,7 +116,7 @@ class MrpWorkorderReview(models.Model):
         self.ensure_one()
         self._tiny_check_reviewer()
         if self.state != 'reviewing':
-            raise UserError(_('Phải bấm Nhận duyệt trước khi đánh giá Đạt / Chưa đạt.'))
+            raise UserError(_('Click Take Review before marking Pass / Fail.'))
         Workorder = self.env['mrp.workorder']
         Reason = self.env['mrp.reason']
         Users = self.env['res.users']
@@ -135,7 +135,7 @@ class MrpWorkorderReview(models.Model):
         if vals:
             self.write(vals)
         if not self.defect_reason_ids and not self.note:
-            raise UserError(_('Vui lòng chọn lỗi hoặc ghi chú khi đánh giá Chưa đạt.'))
+            raise UserError(_('Please select a defect or enter a note when marking Fail.'))
         target = self.return_workorder_id or self.workorder_id
         assign_users = self.assign_user_ids or target.user_mrp_ids
         self._tiny_close_session()
@@ -163,40 +163,40 @@ class MrpWorkorderReview(models.Model):
 
 class MrpWorkorderReturn(models.Model):
     _name = 'mrp.workorder.return'
-    _description = 'Lượt trả lại / chỉnh lại công đoạn'
+    _description = 'Work Order Return / Rework'
     _inherit = ['mail.thread']
     _order = 'id desc'
 
-    name = fields.Char(string='Tên', compute='_compute_name', store=True)
-    from_workorder_id = fields.Many2one('mrp.workorder', string='Từ công đoạn', required=True, ondelete='cascade',
+    name = fields.Char(string='Name', compute='_compute_name', store=True)
+    from_workorder_id = fields.Many2one('mrp.workorder', string='From Work Order', required=True, ondelete='cascade',
                                         index=True)
-    workorder_id = fields.Many2one('mrp.workorder', string='Công đoạn phải chỉnh', required=True, ondelete='cascade',
+    workorder_id = fields.Many2one('mrp.workorder', string='Work Order to Rework', required=True, ondelete='cascade',
                                    index=True)
-    production_id = fields.Many2one('mrp.production', string='Lệnh sản xuất', related='workorder_id.production_id',
+    production_id = fields.Many2one('mrp.production', string='Manufacturing Order', related='workorder_id.production_id',
                                     store=True, index=True)
-    workcenter_id = fields.Many2one('mrp.workcenter', string='Khu vực', related='workorder_id.workcenter_id',
+    workcenter_id = fields.Many2one('mrp.workcenter', string='Work Center', related='workorder_id.workcenter_id',
                                     store=True)
     company_id = fields.Many2one('res.company', related='workorder_id.company_id', store=True)
-    review_id = fields.Many2one('mrp.workorder.review', string='Lượt duyệt', ondelete='set null')
+    review_id = fields.Many2one('mrp.workorder.review', string='Review Round', ondelete='set null')
     reason_ids = fields.Many2many('mrp.reason', 'mrp_workorder_return_reason_rel', 'return_id', 'reason_id',
-                                  string='Lý do', domain=[('reason_type', 'in', ('defect', 'return'))])
-    note = fields.Text(string='Ghi chú')
-    user_id = fields.Many2one('res.users', string='Người trả', default=lambda self: self.env.user)
+                                  string='Reasons', domain=[('reason_type', 'in', ('defect', 'return'))])
+    note = fields.Text(string='Notes')
+    user_id = fields.Many2one('res.users', string='Returned By', default=lambda self: self.env.user)
     assign_user_ids = fields.Many2many('res.users', 'mrp_workorder_return_assign_user_rel', 'return_id', 'user_id',
-                                       string='Người phụ trách chỉnh')
+                                       string='Rework Responsible')
     previous_user_ids = fields.Many2many('res.users', 'mrp_workorder_return_prev_user_rel', 'return_id', 'user_id',
-                                         string='Nhân viên thực hiện trước khi trả')
-    user_replaced = fields.Boolean(string='Đã đổi người thực hiện')
-    date = fields.Datetime(string='Ngày trả', default=fields.Datetime.now, readonly=True)
-    date_resolved = fields.Datetime(string='Ngày chỉnh xong', readonly=True)
+                                         string='Operators Before Return')
+    user_replaced = fields.Boolean(string='Operators Changed')
+    date = fields.Datetime(string='Return Date', default=fields.Datetime.now, readonly=True)
+    date_resolved = fields.Datetime(string='Rework Done Date', readonly=True)
     state = fields.Selection([
-        ('open', 'Đang chỉnh'),
-        ('done', 'Đã chỉnh xong'),
-        ('cancel', 'Hủy'),
-    ], string='Trạng thái', default='open', required=True, tracking=True, index=True)
-    time_ids = fields.One2many('mrp.workcenter.productivity', 'return_id', string='Phiên giờ sửa')
-    rework_duration = fields.Float(string='Giờ sửa (phút)', compute='_compute_rework_duration', store=True)
-    round_no = fields.Integer(string='Lượt chỉnh', compute='_compute_round_no')
+        ('open', 'Reworking'),
+        ('done', 'Rework Done'),
+        ('cancel', 'Cancelled'),
+    ], string='Status', default='open', required=True, tracking=True, index=True)
+    time_ids = fields.One2many('mrp.workcenter.productivity', 'return_id', string='Rework Time Sessions')
+    rework_duration = fields.Float(string='Rework Time (minutes)', compute='_compute_rework_duration', store=True)
+    round_no = fields.Integer(string='Rework Round', compute='_compute_round_no')
 
     @api.depends('workorder_id.name', 'from_workorder_id.name', 'production_id.name')
     def _compute_name(self):

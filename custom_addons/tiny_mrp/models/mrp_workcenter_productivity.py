@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 class MrpWorkcenterProductivity(models.Model):
     _inherit = "mrp.workcenter.productivity"
 
-    user_mrp_id = fields.Many2one('res.users', string='Nhân viên MRP')
+    user_mrp_id = fields.Many2one('res.users', string='MRP Staff')
 
     @api.model_create_multi
     def create(self, vals_list):

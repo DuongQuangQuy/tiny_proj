@@ -6,12 +6,12 @@ from odoo.exceptions import UserError
 from .mrp_review_config import REVIEW_MODE, REVIEW_POLICY
 
 REVIEW_STATE = [
-    ('no', 'Không duyệt'),
-    ('waiting', 'Chờ duyệt'),
-    ('reviewing', 'Đang duyệt'),
-    ('paused', 'Tạm dừng duyệt'),
-    ('passed', 'Đạt'),
-    ('failed', 'Chưa đạt'),
+    ('no', 'No Review'),
+    ('waiting', 'Waiting for Review'),
+    ('reviewing', 'Under Review'),
+    ('paused', 'Pause Review'),
+    ('passed', 'Pass'),
+    ('failed', 'Fail'),
 ]
 OPEN_REVIEW_STATES = ('waiting', 'reviewing', 'paused')
 
@@ -20,31 +20,31 @@ class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
 
     # ---------- Cấu hình điểm duyệt ----------
-    review_policy = fields.Selection(REVIEW_POLICY, string='Điểm duyệt', compute='_compute_review_policy', store=True)
-    review_mode = fields.Selection(REVIEW_MODE, string='Chế độ kiểm', compute='_compute_review_mode',
+    review_policy = fields.Selection(REVIEW_POLICY, string='Review Point', compute='_compute_review_policy', store=True)
+    review_mode = fields.Selection(REVIEW_MODE, string='Review Mode', compute='_compute_review_mode',
                                    store=True, readonly=False, copy=False)
-    review_mode_user_id = fields.Many2one('res.users', string='Người chọn chế độ kiểm', readonly=True, copy=False)
-    review_mode_date = fields.Datetime(string='Thời điểm chọn chế độ kiểm', readonly=True, copy=False)
+    review_mode_user_id = fields.Many2one('res.users', string='Review Mode Chosen By', readonly=True, copy=False)
+    review_mode_date = fields.Datetime(string='Review Mode Chosen On', readonly=True, copy=False)
     user_review_ids = fields.Many2many('res.users', 'mrp_workorder_user_review_rel', 'workorder_id', 'user_id',
-                                       string='Quản lý duyệt', compute='_compute_user_review_ids',
+                                       string='Review Managers', compute='_compute_user_review_ids',
                                        store=True, readonly=False)
-    can_edit_review_mode = fields.Boolean(string='Được chọn chế độ kiểm', compute='_compute_can_edit_review_mode')
+    can_edit_review_mode = fields.Boolean(string='Can Choose Review Mode', compute='_compute_can_edit_review_mode')
 
     # ---------- Lượt duyệt ----------
-    review_ids = fields.One2many('mrp.workorder.review', 'workorder_id', string='Lượt duyệt')
-    last_review_id = fields.Many2one('mrp.workorder.review', string='Lượt duyệt mới nhất',
+    review_ids = fields.One2many('mrp.workorder.review', 'workorder_id', string='Review Rounds')
+    last_review_id = fields.Many2one('mrp.workorder.review', string='Latest Review Round',
                                      compute='_compute_last_review_id')
-    review_state = fields.Selection(REVIEW_STATE, string='Trạng thái duyệt', compute='_compute_review_state',
+    review_state = fields.Selection(REVIEW_STATE, string='Review Status', compute='_compute_review_state',
                                     store=True)
 
     # ---------- Trả lại / chỉnh lại ----------
-    rework_return_id = fields.Many2one('mrp.workorder.return', string='Lượt chỉnh đang mở', copy=False, readonly=True)
-    return_ids = fields.One2many('mrp.workorder.return', 'workorder_id', string='Lượt chỉnh')
-    rework_count = fields.Integer(string='Số lượt chỉnh', compute='_compute_rework_count', store=True)
+    rework_return_id = fields.Many2one('mrp.workorder.return', string='Open Rework Round', copy=False, readonly=True)
+    return_ids = fields.One2many('mrp.workorder.return', 'workorder_id', string='Rework Rounds')
+    rework_count = fields.Integer(string='Rework Count', compute='_compute_rework_count', store=True)
 
     # ---------- Thời gian làm mới / sửa ----------
-    duration_new = fields.Float(string='Giờ làm mới (phút)', compute='_compute_duration_split', store=True)
-    duration_rework = fields.Float(string='Giờ sửa (phút)', compute='_compute_duration_split', store=True)
+    duration_new = fields.Float(string='New Work Time (minutes)', compute='_compute_duration_split', store=True)
+    duration_rework = fields.Float(string='Rework Time (minutes)', compute='_compute_duration_split', store=True)
 
     @api.depends('operation_id.review_policy', 'workcenter_id.review_policy')
     def _compute_review_policy(self):
@@ -119,7 +119,7 @@ class MrpWorkorder(models.Model):
     def _tiny_check_reviewer(self, check_user=None):
         for workorder in self:
             if not workorder._tiny_is_reviewer(check_user):
-                raise UserError(_('Bạn không phải quản lý duyệt của công đoạn "%s".', workorder.name))
+                raise UserError(_('You are not the review manager of work order "%s".', workorder.name))
 
     # ------------------------------------------------------------------
     # Ghi chế độ kiểm
@@ -129,11 +129,11 @@ class MrpWorkorder(models.Model):
             changed = self.filtered(lambda wo: wo.review_mode != vals['review_mode'])
             for workorder in changed:
                 if workorder.review_policy == 'required':
-                    raise UserError(_('Công đoạn "%s" bắt buộc duyệt, không đổi được chế độ kiểm.', workorder.name))
+                    raise UserError(_('Work order "%s" requires review, its review mode cannot be changed.', workorder.name))
                 if workorder.review_policy == 'none':
-                    raise UserError(_('Công đoạn "%s" không có điểm duyệt.', workorder.name))
+                    raise UserError(_('Work order "%s" has no review point.', workorder.name))
                 if workorder.state in ('done', 'cancel'):
-                    raise UserError(_('Công đoạn "%s" đã kết thúc, không đổi được chế độ kiểm.', workorder.name))
+                    raise UserError(_('Work order "%s" is finished, its review mode cannot be changed.', workorder.name))
             changed._tiny_check_reviewer()
             if changed:
                 res = super().write(vals)
@@ -182,9 +182,9 @@ class MrpWorkorder(models.Model):
         # Xét mọi công đoạn đứng trước (Odoo nối công đoạn thành chuỗi phụ thuộc nên phải lấy đệ quy)
         for previous in self._tiny_get_all_previous_workorders().sorted(lambda wo: wo._tiny_sort_key()):
             if previous.rework_return_id:
-                return _('Công đoạn %s đang được chỉnh lại.', previous.name)
+                return _('Work order %s is being reworked.', previous.name)
             if previous.review_mode == 'before' and previous.review_state != 'passed':
-                return _('Công đoạn %s chưa được duyệt đạt.', previous.name)
+                return _('Work order %s has not passed review yet.', previous.name)
         return False
 
     # ------------------------------------------------------------------
@@ -227,7 +227,7 @@ class MrpWorkorder(models.Model):
         for user in self.user_review_ids:
             review.activity_schedule(
                 'mail.mail_activity_data_todo',
-                summary=_('Duyệt công đoạn'),
+                summary=_('Work Order Review'),
                 note=review.name,
                 user_id=user.id,
             )
@@ -241,7 +241,7 @@ class MrpWorkorder(models.Model):
         self._tiny_check_reviewer()
         return {
             'type': 'ir.actions.act_window',
-            'name': _('Trả lại công đoạn'),
+            'name': _('Return Work Order'),
             'res_model': 'mrp.workorder.return.wizard',
             'view_mode': 'form',
             'target': 'new',
@@ -267,18 +267,18 @@ class MrpWorkorder(models.Model):
         production = self.production_id
         assign_users = assign_users or self.env['res.users']
         if production.state in ('done', 'cancel'):
-            raise UserError(_('Lệnh sản xuất đã hoàn thành hoặc bị hủy, không trả lại công đoạn được.'))
+            raise UserError(_('The manufacturing order is done or cancelled, work orders cannot be returned.'))
         if not target_wo or target_wo.production_id != production:
-            raise UserError(_('Công đoạn trả về phải thuộc cùng lệnh sản xuất.'))
+            raise UserError(_('The return work order must belong to the same manufacturing order.'))
         if target_wo.state == 'cancel':
-            raise UserError(_('Công đoạn "%s" đã bị hủy.', target_wo.name))
+            raise UserError(_('Work order "%s" has been cancelled.', target_wo.name))
         previous = self._tiny_get_all_previous_workorders()
         if target_wo != self and target_wo not in previous:
-            raise UserError(_('Chỉ trả về được chính công đoạn này hoặc một công đoạn đứng trước.'))
+            raise UserError(_('You can only return to this work order or a previous one.'))
         if target_wo.rework_return_id:
-            raise UserError(_('Công đoạn "%s" đang có lượt chỉnh chưa xong.', target_wo.name))
+            raise UserError(_('Work order "%s" has an unfinished rework round.', target_wo.name))
         if self != target_wo and self.rework_return_id:
-            raise UserError(_('Công đoạn "%s" đang có lượt chỉnh chưa xong.', self.name))
+            raise UserError(_('Work order "%s" has an unfinished rework round.', self.name))
 
         reason_text = ', '.join(reasons.mapped('name')) or (note or '')
         ret = Return.create({
@@ -298,7 +298,7 @@ class MrpWorkorder(models.Model):
             target_vals['user_mrp_ids'] = [(6, 0, assign_users.ids)]
         target_wo.write(target_vals)
 
-        body = _('%(from)s bị trả về %(to)s: %(reason)s',
+        body = _('%(from)s returned to %(to)s: %(reason)s',
                  **{'from': self.name, 'to': target_wo.name, 'reason': reason_text})
         if self != target_wo:
             if self.state == 'done':
@@ -308,7 +308,7 @@ class MrpWorkorder(models.Model):
                     'workorder_id': self.id,
                     'review_id': review.id if review else False,
                     'reason_ids': [(6, 0, reasons.ids)],
-                    'note': _('Làm lại sau khi %s chỉnh xong', target_wo.name),
+                    'note': _('Redo after %s is reworked', target_wo.name),
                     'user_id': self.env.user.id,
                 })
                 self._tiny_reopen()
@@ -329,6 +329,6 @@ class MrpWorkorder(models.Model):
                 lambda wo: wo != target_wo and wo.state == 'done' and key_to < wo._tiny_sort_key() < key_from)
             if middle:
                 body = Markup('%s<br/>%s') % (
-                    body, _('Các công đoạn ở giữa giữ nguyên: %s', ', '.join(middle.mapped('name'))))
+                    body, _('Work orders in between are kept as is: %s', ', '.join(middle.mapped('name'))))
         production.message_post(body=body)
         return ret

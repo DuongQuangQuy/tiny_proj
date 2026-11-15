@@ -5,7 +5,7 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     # Dấu tích dòng NVL vải lót: tự tích theo danh mục sản phẩm (NVL vải lót), cho phép sửa tay
-    is_lining = fields.Boolean(string='Vải lót', compute='_compute_is_lining', store=True, readonly=False)
+    is_lining = fields.Boolean(string='Lining Fabric', compute='_compute_is_lining', store=True, readonly=False)
 
     @api.depends('product_id')
     def _compute_is_lining(self):

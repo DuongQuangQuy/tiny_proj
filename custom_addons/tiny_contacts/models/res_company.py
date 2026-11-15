@@ -10,5 +10,5 @@ from odoo.tools.date_utils import float_to_time
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    is_mrp = fields.Boolean(string='Công ty sản xuất', default=False)
-    is_service = fields.Boolean(string='Công ty thương mại', default=False)
+    is_mrp = fields.Boolean(string='Manufacturing Company', default=False)
+    is_service = fields.Boolean(string='Trading Company', default=False)

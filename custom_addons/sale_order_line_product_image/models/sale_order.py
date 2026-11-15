@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    image_128 = fields.Binary(string="Hình ảnh")
+    image_128 = fields.Binary(string='Image')
 
     @api.onchange('product_id')
     def onchange_sale_product_image(self):

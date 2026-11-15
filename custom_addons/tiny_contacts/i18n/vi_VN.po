@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 16:35+0000\n"
-"PO-Revision-Date: 2026-11-15 16:35+0000\n"
+"POT-Creation-Date: 2026-11-15 17:27+0000\n"
+"PO-Revision-Date: 2026-11-15 17:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi_VN\n"
@@ -22,110 +22,83 @@ msgid "Chuyển thành khách hàng"
 msgstr "Chuyển thành khách hàng"
 
 #. module: tiny_contacts
-#: model:ir.model,name:tiny_contacts.model_res_company
-msgid "Companies"
-msgstr "Công ty"
-
-#. module: tiny_contacts
-#: model:ir.model,name:tiny_contacts.model_res_partner
-msgid "Contact"
-msgstr "Liên hệ"
-
-#. module: tiny_contacts
-#: model:ir.model,website_form_label:tiny_contacts.model_res_partner
-msgid "Create a Customer"
-msgstr "Tạo một khách hàng"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_company__is_mrp
-msgid "Công ty sản xuất"
-msgstr "Công ty sản xuất"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_company__is_service
-msgid "Công ty thương mại"
-msgstr "Công ty thương mại"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_company__display_name
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__display_name
-msgid "Display Name"
-msgstr "Tên hiển thị"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__note_supplier
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__note_supplier
-msgid "Ghi chú NCC"
-msgstr "Ghi chú NCC"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__note_size
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__note_size
-msgid "Ghi chú số đo"
-msgstr "Ghi chú số đo"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_company__id
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__id
-msgid "ID"
-msgstr "ID"
-
-#. module: tiny_contacts
-#: model:ir.model.fields.selection,name:tiny_contacts.selection__res_partner__partner_type__customer
-msgid "Khách hàng"
-msgstr "Khách hàng"
-
-#. module: tiny_contacts
-#: model:ir.model.fields.selection,name:tiny_contacts.selection__res_partner__partner_type__pre_customer
-msgid "Khách hàng tiềm năng"
-msgstr "Khách hàng tiềm năng"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__partner_type
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__partner_type
-msgid "Loại đối tác"
-msgstr "Loại đối tác"
-
-#. module: tiny_contacts
 #: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__code
 #: model:ir.model.fields,field_description:tiny_contacts.field_res_users__code
-msgid "Mã"
+msgid "Code"
 msgstr "Mã"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__code_old
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__code_old
-msgid "Mã cũ"
-msgstr "Mã cũ"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__birthday
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__birthday
-msgid "Ngày sinh"
-msgstr "Ngày sinh"
-
-#. module: tiny_contacts
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__partner_referral_id
-#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__partner_referral_id
-msgid "Người giới thiệu"
-msgstr "Người giới thiệu"
 
 #. module: tiny_contacts
 #: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__personal_contact
 #: model:ir.model.fields,field_description:tiny_contacts.field_res_users__personal_contact
-msgid "Người liên hệ"
+msgid "Contact Person"
 msgstr "Người liên hệ"
 
 #. module: tiny_contacts
-#: model:ir.model.fields.selection,name:tiny_contacts.selection__res_partner__partner_type__supplier
-msgid "Nhà cung cấp"
-msgstr "Nhà cung cấp"
+#: model:ir.model.fields.selection,name:tiny_contacts.selection__res_partner__partner_type__customer
+msgid "Customer"
+msgstr "Khách hàng"
+
+#. module: tiny_contacts
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__birthday
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__birthday
+msgid "Date of Birth"
+msgstr "Ngày sinh"
+
+#. module: tiny_contacts
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_company__is_mrp
+msgid "Manufacturing Company"
+msgstr "Công ty sản xuất"
+
+#. module: tiny_contacts
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__note_size
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__note_size
+msgid "Measurement Notes"
+msgstr "Ghi chú số đo"
+
+#. module: tiny_contacts
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__code_old
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__code_old
+msgid "Old Code"
+msgstr "Mã cũ"
+
+#. module: tiny_contacts
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__partner_type
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__partner_type
+msgid "Partner Type"
+msgstr "Loại đối tác"
+
+#. module: tiny_contacts
+#: model:ir.model.fields.selection,name:tiny_contacts.selection__res_partner__partner_type__pre_customer
+msgid "Prospect"
+msgstr "Khách hàng tiềm năng"
+
+#. module: tiny_contacts
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__partner_referral_id
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__partner_referral_id
+msgid "Referrer"
+msgstr "Người giới thiệu"
 
 #. module: tiny_contacts
 #: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__social
 #: model:ir.model.fields,field_description:tiny_contacts.field_res_users__social
 msgid "Social"
 msgstr "Mạng xã hội"
+
+#. module: tiny_contacts
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_company__is_service
+msgid "Trading Company"
+msgstr "Công ty thương mại"
+
+#. module: tiny_contacts
+#: model:ir.model.fields.selection,name:tiny_contacts.selection__res_partner__partner_type__supplier
+msgid "Vendor"
+msgstr "Nhà cung cấp"
+
+#. module: tiny_contacts
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_partner__note_supplier
+#: model:ir.model.fields,field_description:tiny_contacts.field_res_users__note_supplier
+msgid "Vendor Notes"
+msgstr "Ghi chú NCC"
 
 #. module: tiny_contacts
 #: model_terms:ir.ui.view,arch_db:tiny_contacts.res_partner_view_inherit_tiny_contacts

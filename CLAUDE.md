@@ -73,6 +73,9 @@ Dành cho sản phẩm làm theo yêu cầu khách, chưa tồn tại lúc báo 
 
 ## Quy ước
 
-- Nhãn, thông báo và comment viết bằng tiếng Việt.
+- Chữ gốc trong code Python (tên trường, help, nhãn selection, `_description`, `_()`) viết bằng **tiếng Anh**, bản tiếng Việt
+  để trong `i18n/vi_VN.po`. Odoo luôn ghi đè bản `en_US` của tên trường bằng chữ gốc mỗi khi nạp module, nên chữ gốc tiếng
+  Việt sẽ không dịch được sang tiếng Anh. Chữ trong view XML/QWeb có thể để tiếng Việt và dịch bằng `en_US.po`.
+- Sửa nhãn thì cập nhật cả `en_US.po` và `vi_VN.po`. Comment trong code viết tiếng Việt.
 - Commit theo dạng `[IMP] tên_module`.
 - Module mới có `author` "Tiny", `website` https://tiny.com.vn/, `version` `19.0.0.1`, `license` LGPL-3.

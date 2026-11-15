@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 16:55+0000\n"
-"PO-Revision-Date: 2026-11-15 16:55+0000\n"
+"POT-Creation-Date: 2026-11-15 17:27+0000\n"
+"PO-Revision-Date: 2026-11-15 17:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi_VN\n"
@@ -35,7 +35,7 @@ msgstr "Tuyến cung ứng tồn kho"
 
 #. module: tiny_sale_purchase_stock
 #: model:ir.model.fields,field_description:tiny_sale_purchase_stock.field_stock_route__is_mrp
-msgid "Là sản xuất"
+msgid "Is Manufacturing"
 msgstr "Là sản xuất"
 
 #. module: tiny_sale_purchase_stock

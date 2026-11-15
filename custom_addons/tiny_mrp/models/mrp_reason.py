@@ -8,6 +8,6 @@ class MrpReason(models.Model):
     _description = 'MRP Reason'
     _rec_name = 'name'
 
-    name = fields.Char(string='Tên', required=True)
+    name = fields.Char(string='Name', required=True)
     
     

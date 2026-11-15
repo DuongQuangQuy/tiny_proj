@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 16:40+0000\n"
-"PO-Revision-Date: 2026-11-15 16:40+0000\n"
+"POT-Creation-Date: 2026-11-15 17:27+0000\n"
+"PO-Revision-Date: 2026-11-15 17:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -89,20 +89,22 @@ msgid "Deposit"
 msgstr "Deposit"
 
 #. module: tiny_sale_advance_wallet
-#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_move__display_name
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__display_name
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__display_name
-#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_order__display_name
 msgid "Display Name"
 msgstr "Display Name"
 
 #. module: tiny_sale_advance_wallet
-#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_move__id
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__id
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__id
-#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_order__id
 msgid "ID"
 msgstr "ID"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Insufficient wallet balance! (Current balance: %s %s)"
+msgstr "Insufficient wallet balance! (Current balance: %s %s)"
 
 #. module: tiny_sale_advance_wallet
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__journal_id
@@ -110,40 +112,9 @@ msgid "Journal"
 msgstr "Journal"
 
 #. module: tiny_sale_advance_wallet
-#: model:ir.model,name:tiny_sale_advance_wallet.model_account_move
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__move_id
 msgid "Journal Entry"
 msgstr "Journal Entry"
-
-#. module: tiny_sale_advance_wallet
-#. odoo-python
-#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
-msgid "Khoản đặt cọc bằng ví đã được áp dụng vào hóa đơn, không thể hoàn trả!"
-msgstr ""
-"The wallet deposit has already been applied to an invoice and cannot be "
-"refunded!"
-
-#. module: tiny_sale_advance_wallet
-#. odoo-python
-#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
-msgid "Khách hàng chưa được cấu hình tài khoản phải thu!"
-msgstr "The customer has no receivable account configured!"
-
-#. module: tiny_sale_advance_wallet
-#. odoo-python
-#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
-msgid "Không có khoản đặt cọc nào còn lại để hoàn trả!"
-msgstr "There is no remaining deposit to refund!"
-
-#. module: tiny_sale_advance_wallet
-#. odoo-python
-#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
-msgid ""
-"Không tìm thấy tài khoản phù hợp để hoàn cọc!\n"
-"Vui lòng cấu hình 'Tài khoản mặc định' cho sổ '%s', hoặc đảm bảo hệ thống có ít nhất một sổ loại Tiền mặt/Ngân hàng."
-msgstr ""
-"No suitable account found to refund the deposit!\n"
-"Please set the 'Default Account' on journal '%s', or make sure there is at least one Cash/Bank journal."
 
 #. module: tiny_sale_advance_wallet
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__write_uid
@@ -156,9 +127,24 @@ msgid "Last Updated on"
 msgstr "Last Updated on"
 
 #. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid ""
+"No suitable account found to refund the deposit!\n"
+"Please set the 'Default Account' on journal '%s', or make sure there is at least one Cash/Bank journal."
+msgstr ""
+"No suitable account found to refund the deposit!\n"
+"Please set the 'Default Account' on journal '%s', or make sure there is at least one Cash/Bank journal."
+
+#. module: tiny_sale_advance_wallet
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__partner_id
 msgid "Partner"
 msgstr "Partner"
+
+#. module: tiny_sale_advance_wallet
+#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__is_wallet
+msgid "Pay by Wallet"
+msgstr "Pay by Wallet"
 
 #. module: tiny_sale_advance_wallet
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__payment_id
@@ -170,6 +156,24 @@ msgstr "Payment"
 #: model_terms:ir.ui.view,arch_db:tiny_sale_advance_wallet.view_account_voucher_wizard_wallet
 msgid "Payment Method"
 msgstr "Payment Method"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Please select a payment method (Journal)!"
+msgstr "Please select a payment method (Journal)!"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Please select a wallet for the deposit!"
+msgstr "Please select a wallet for the deposit!"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "Please select a wallet to refund the deposit to!"
+msgstr "Please select a wallet to refund the deposit to!"
 
 #. module: tiny_sale_advance_wallet
 #: model:ir.model.fields.selection,name:tiny_sale_advance_wallet.selection__sale_advance_line__state__posted
@@ -192,11 +196,6 @@ msgid "Sale Order"
 msgstr "Sale Order"
 
 #. module: tiny_sale_advance_wallet
-#: model:ir.model,name:tiny_sale_advance_wallet.model_sale_order
-msgid "Sales Order"
-msgstr "Sales Order"
-
-#. module: tiny_sale_advance_wallet
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__state
 msgid "State"
 msgstr "State"
@@ -204,13 +203,24 @@ msgstr "State"
 #. module: tiny_sale_advance_wallet
 #. odoo-python
 #: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
-msgid "Số dư ví không đủ! (Số dư hiện tại: %s %s)"
-msgstr "Insufficient wallet balance! (Current balance: %s %s)"
+msgid "The customer has no receivable account configured!"
+msgstr "The customer has no receivable account configured!"
 
 #. module: tiny_sale_advance_wallet
-#: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__is_wallet
-msgid "Thanh toán qua Ví"
-msgstr "Pay by Wallet"
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid ""
+"The wallet deposit has already been applied to an invoice and cannot be "
+"refunded!"
+msgstr ""
+"The wallet deposit has already been applied to an invoice and cannot be "
+"refunded!"
+
+#. module: tiny_sale_advance_wallet
+#. odoo-python
+#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
+msgid "There is no remaining deposit to refund!"
+msgstr "There is no remaining deposit to refund!"
 
 #. module: tiny_sale_advance_wallet
 #: model_terms:ir.ui.view,arch_db:tiny_sale_advance_wallet.view_sale_advance_line_tree
@@ -221,24 +231,6 @@ msgstr "Total"
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_sale_advance_line__transaction_type
 msgid "Transaction Type"
 msgstr "Transaction Type"
-
-#. module: tiny_sale_advance_wallet
-#. odoo-python
-#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
-msgid "Vui lòng chọn phương thức thanh toán (Journal)!"
-msgstr "Please select a payment method (Journal)!"
-
-#. module: tiny_sale_advance_wallet
-#. odoo-python
-#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
-msgid "Vui lòng chọn ví để hoàn cọc!"
-msgstr "Please select a wallet to refund the deposit to!"
-
-#. module: tiny_sale_advance_wallet
-#. odoo-python
-#: code:addons/tiny_sale_advance_wallet/wizard/sale_advance_payment_wzd.py:0
-msgid "Vui lòng chọn ví để đặt cọc!"
-msgstr "Please select a wallet for the deposit!"
 
 #. module: tiny_sale_advance_wallet
 #: model:ir.model.fields,field_description:tiny_sale_advance_wallet.field_account_voucher_wizard__wallet_id

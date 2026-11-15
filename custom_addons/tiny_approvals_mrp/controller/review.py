@@ -174,7 +174,7 @@ class MrpReviewPortal(MrpApprovalsPortal):
         except UserError as e:
             error = e.args[0] if e.args else str(e)
         except (ValueError, TypeError):
-            error = _('Dữ liệu gửi lên không hợp lệ.')
+            error = _('Invalid submitted data.')
 
         if error:
             return request.render('tiny_approvals_mrp.portal_review_detail',
@@ -195,19 +195,19 @@ class MrpReviewPortal(MrpApprovalsPortal):
                 lambda r: r.reason_type == 'defect')
             note = (kw.get('note') or '').strip()
             if not reasons and not note:
-                raise UserError(_('Vui lòng chọn lỗi hoặc ghi chú khi đánh giá Chưa đạt.'))
+                raise UserError(_('Please select a defect or enter a note when marking Fail.'))
             workorder = review.workorder_id
             allowed = workorder | workorder._tiny_get_all_previous_workorders()
             target_id = int(kw.get('return_workorder_id') or workorder.id)
             target = allowed.filtered(lambda wo: wo.id == target_id)
             if not target:
-                raise UserError(_('Công đoạn trả về không hợp lệ.'))
+                raise UserError(_('Invalid return work order.'))
             user_ids = [int(x) for x in form.getlist('assign_user_ids') if x]
             assign_users = request.env['res.users'].sudo().browse(user_ids).exists()
             review.action_fail(defect_reason_ids=reasons, note=note or False,
                                return_workorder_id=target, assign_user_ids=assign_users)
         else:
-            raise UserError(_('Thao tác không hợp lệ.'))
+            raise UserError(_('Invalid action.'))
 
     # ------------------------------------------------------------------
     # Lệnh sản xuất: danh sách công đoạn, chọn chế độ kiểm
@@ -245,12 +245,12 @@ class MrpReviewPortal(MrpApprovalsPortal):
         try:
             workorder = production.workorder_ids.filtered(lambda wo: str(wo.id) == str(kw.get('workorder_id')))
             if not workorder:
-                raise UserError(_('Công đoạn không hợp lệ.'))
+                raise UserError(_('Invalid work order.'))
             mode = kw.get('review_mode')
             if mode not in _REVIEW_MODE_LABEL:
-                raise UserError(_('Chế độ kiểm không hợp lệ.'))
+                raise UserError(_('Invalid review mode.'))
             if not workorder.can_edit_review_mode:
-                raise UserError(_('Bạn không được chọn chế độ kiểm cho công đoạn này.'))
+                raise UserError(_('You are not allowed to choose the review mode for this work order.'))
             with request.env.cr.savepoint():
                 workorder.write({'review_mode': mode})
         except UserError as e:

@@ -102,14 +102,14 @@ class MrpApprovalsPortal(MrpPortal):
         try:
             if action == 'confirm':
                 if approval.request_status != 'new':
-                    raise UserError(_('Yêu cầu không ở trạng thái nháp.'))
+                    raise UserError(_('The request is not in draft.'))
                 approval.action_confirm()
             elif action == 'draft':
                 if approval.request_status not in ('pending', 'refused', 'cancel'):
-                    raise UserError(_('Không thể đưa về nháp từ trạng thái hiện tại.'))
+                    raise UserError(_('Cannot reset to draft from the current state.'))
                 approval.action_draft()
             else:
-                raise UserError(_('Thao tác không hợp lệ.'))
+                raise UserError(_('Invalid action.'))
         except UserError as e:
             error = e.args[0] if e.args else str(e)
         except Exception as e:
@@ -129,18 +129,18 @@ class MrpApprovalsPortal(MrpPortal):
         error = None
         try:
             if approval.request_status != 'new':
-                raise UserError(_('Chỉ có thể thêm sản phẩm khi yêu cầu ở trạng thái nháp.'))
+                raise UserError(_('Products can only be added while the request is in draft.'))
             if not product_id:
-                raise UserError(_('Vui lòng chọn sản phẩm.'))
+                raise UserError(_('Please select a product.'))
             try:
                 qty = float(quantity or 1)
             except (ValueError, TypeError):
                 qty = 1.0
             if qty <= 0:
-                raise UserError(_('Số lượng phải lớn hơn 0.'))
+                raise UserError(_('The quantity must be greater than 0.'))
             product = request.env['product.product'].sudo().browse(int(product_id))
             if not product.exists():
-                raise UserError(_('Sản phẩm không hợp lệ.'))
+                raise UserError(_('Invalid product.'))
             desc = (description or '').strip() or product.description_purchase or product.display_name
             request.env['approval.product.line'].sudo().create({
                 'approval_request_id': approval.id,
@@ -170,18 +170,18 @@ class MrpApprovalsPortal(MrpPortal):
         error = None
         try:
             if approval.request_status != 'new':
-                raise UserError(_('Chỉ có thể chỉnh sửa khi yêu cầu ở trạng thái nháp.'))
+                raise UserError(_('The request can only be edited in draft.'))
             if not product_id:
-                raise UserError(_('Vui lòng chọn sản phẩm.'))
+                raise UserError(_('Please select a product.'))
             try:
                 qty = float(quantity or 0)
             except (ValueError, TypeError):
                 qty = 0.0
             if qty <= 0:
-                raise UserError(_('Số lượng phải lớn hơn 0.'))
+                raise UserError(_('The quantity must be greater than 0.'))
             product = request.env['product.product'].sudo().browse(int(product_id))
             if not product.exists():
-                raise UserError(_('Sản phẩm không hợp lệ.'))
+                raise UserError(_('Invalid product.'))
             desc = (description or '').strip() or product.description_purchase or product.display_name
             line.write({
                 'product_id': product.id,
@@ -209,7 +209,7 @@ class MrpApprovalsPortal(MrpPortal):
         error = None
         try:
             if approval.request_status != 'new':
-                raise UserError(_('Chỉ có thể xóa dòng khi yêu cầu ở trạng thái nháp.'))
+                raise UserError(_('Lines can only be deleted while the request is in draft.'))
             line.unlink()
         except UserError as e:
             error = e.args[0] if e.args else str(e)
@@ -268,20 +268,20 @@ class MrpApprovalsPortal(MrpPortal):
         error = None
         try:
             if not user.is_mrp_stock:
-                raise UserError(_('Bạn không có quyền thực hiện thao tác này.'))
+                raise UserError(_('You are not allowed to perform this action.'))
             if production.state_stock != 'confirmed':
-                raise UserError(_('Kho chưa được xác nhận. Chỉ có thể yêu cầu phê duyệt khi trạng thái kho là "Xác nhận".'))
+                raise UserError(_('The warehouse has not confirmed yet. Approval can only be requested when the warehouse status is "Confirmed".'))
             mrp_company = request.env['res.company'].sudo().search(
                 [('is_mrp', '=', True)], limit=1
             )
             if not mrp_company:
-                raise UserError(_('Chưa cấu hình công ty sản xuất (is_mrp). Vui lòng liên hệ quản trị viên.'))
+                raise UserError(_('No manufacturing company (is_mrp) is configured. Please contact your administrator.'))
             category = request.env['approval.category'].sudo().search([
                 ('approval_type', '=', 'mrp_stock'),
                 ('company_id', '=', mrp_company.id),
             ], limit=1)
             if not category:
-                raise UserError(_('Chưa cấu hình loại phê duyệt "Phê duyệt kho MRP" cho công ty sản xuất. Vui lòng liên hệ quản trị viên.'))
+                raise UserError(_('The approval type "MRP Stock Approval" is not configured for the manufacturing company. Please contact your administrator.'))
 
             product_ids = request.httprequest.form.getlist('product_ids[]')
             descriptions = request.httprequest.form.getlist('descriptions[]')
@@ -301,7 +301,7 @@ class MrpApprovalsPortal(MrpPortal):
                 }))
 
             approval = request.env['approval.request'].sudo().create({
-                'name': _('Phê duyệt xuất kho - %s') % production.name,
+                'name': _('Stock Issue Approval - %s') % production.name,
                 'category_id': category.id,
                 'mrp_production_id': production.id,
                 'request_owner_id': user.id,

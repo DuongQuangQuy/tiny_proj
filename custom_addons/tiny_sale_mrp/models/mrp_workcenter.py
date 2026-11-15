@@ -15,7 +15,7 @@ class MrpWorkcenter(models.Model):
                 ('code', '=', workcenter.code),
                 ('company_id', '=', workcenter.company_id.id),
             ], limit=1):
-                raise ValidationError(_('Mã khu vực sản xuất %s đã được dùng trong công ty này.', workcenter.code))
+                raise ValidationError(_('Work center code %s is already used in this company.', workcenter.code))
 
     @api.model
     def web_name_search(self, name, specification, domain=None, operator='ilike', limit=100):

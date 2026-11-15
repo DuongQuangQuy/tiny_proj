@@ -12,4 +12,4 @@ _logger = logging.getLogger(__name__)
 class StockRoute(models.Model):
     _inherit = "stock.route"
 
-    is_mrp = fields.Boolean(string='Là sản xuất')
+    is_mrp = fields.Boolean(string='Is Manufacturing')

@@ -51,11 +51,11 @@ class TestMrpPatternFlow(TransactionCase):
         self.assertFalse(production.pattern_workorders_done)
 
         # Rập chưa xong: May bị chặn, chưa xác nhận NVL rập và kho được
-        with self.assertRaisesRegex(UserError, 'Công đoạn rập chưa hoàn thành'):
+        with self.assertRaisesRegex(UserError, 'pattern work order is not finished yet'):
             sewing_wo.button_start(bypass=True)
-        with self.assertRaisesRegex(UserError, 'Công đoạn rập chưa hoàn thành'):
+        with self.assertRaisesRegex(UserError, 'pattern work order is not finished yet'):
             production.action_confirm_pattern()
-        with self.assertRaisesRegex(UserError, 'rập và số lượng NVL'):
+        with self.assertRaisesRegex(UserError, 'pattern and material quantities'):
             production.action_confirm_stock()
 
         pattern_wo.button_start(bypass=True)
@@ -65,16 +65,16 @@ class TestMrpPatternFlow(TransactionCase):
         self.assertTrue(production.pattern_workorders_done)
 
         # Rập xong nhưng chưa xác nhận NVL rập
-        with self.assertRaisesRegex(UserError, 'Chưa xác nhận số lượng NVL sau rập'):
+        with self.assertRaisesRegex(UserError, 'material quantities after pattern-making have not been confirmed'):
             sewing_wo.button_start(bypass=True)
-        with self.assertRaisesRegex(UserError, 'rập và số lượng NVL'):
+        with self.assertRaisesRegex(UserError, 'pattern and material quantities'):
             production.action_confirm_stock()
 
         production.action_confirm_pattern()
         self.assertEqual(production.state_pattern, 'confirmed')
 
         # Đã xác nhận NVL rập nhưng kho chưa xác nhận
-        with self.assertRaisesRegex(UserError, 'Kho chưa xác nhận'):
+        with self.assertRaisesRegex(UserError, 'warehouse has not confirmed yet'):
             sewing_wo.button_start(bypass=True)
 
         production.action_confirm_stock()
@@ -87,7 +87,7 @@ class TestMrpPatternFlow(TransactionCase):
         production = self._create_production([('May', self.workcenter_sewing)])
 
         # MO còn nháp thì kho chưa được xác nhận
-        with self.assertRaisesRegex(UserError, 'chưa được xác nhận'):
+        with self.assertRaisesRegex(UserError, 'is not confirmed'):
             production.action_confirm_stock()
 
         production.action_confirm()
@@ -97,7 +97,7 @@ class TestMrpPatternFlow(TransactionCase):
         self.assertFalse(production.need_pattern_confirm)
         self.assertTrue(production.pattern_workorders_done)
 
-        with self.assertRaisesRegex(UserError, 'Kho chưa xác nhận'):
+        with self.assertRaisesRegex(UserError, 'warehouse has not confirmed yet'):
             sewing_wo.button_start(bypass=True)
 
         production.action_confirm_stock()

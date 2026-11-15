@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 16:26+0000\n"
-"PO-Revision-Date: 2026-11-15 16:26+0000\n"
+"POT-Creation-Date: 2026-11-15 17:27+0000\n"
+"PO-Revision-Date: 2026-11-15 17:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -80,15 +80,20 @@ msgid "Chủ TK"
 msgstr "Account Holder"
 
 #. module: tiny_sale
+#: model:ir.model.fields.selection,name:tiny_sale.selection__sale_order__ship_to__address_cus
+msgid "Customer Address"
+msgstr "Customer Address"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order__partner_code
+msgid "Customer Code"
+msgstr "Customer Code"
+
+#. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "Còn lại"
 msgstr "Remaining"
-
-#. module: tiny_sale
-#: model:ir.model.fields.selection,name:tiny_sale.selection__sale_order__ship_to__shop
-msgid "Cửa hàng"
-msgstr "Store"
 
 #. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
@@ -97,12 +102,14 @@ msgid "Delivery Date"
 msgstr "Delivery Date"
 
 #. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_account_move__display_name
 #: model:ir.model.fields,field_description:tiny_sale.field_ir_sequence__display_name
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order__display_name
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__display_name
 msgid "Display Name"
 msgstr "Display Name"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__code_fabric
+msgid "Fabric Code"
+msgstr "Fabric Code"
 
 #. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
@@ -115,16 +122,6 @@ msgstr "NOTE"
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "GIÁ"
 msgstr "PRICE"
-
-#. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__note
-msgid "Ghi chú"
-msgstr "Notes"
-
-#. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__note_pattern
-msgid "Ghi chú họa tiết"
-msgstr "Pattern Notes"
 
 #. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
@@ -161,10 +158,7 @@ msgid "Hồ Chí Minh, 700000"
 msgstr "Ho Chi Minh City, 700000"
 
 #. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_account_move__id
 #: model:ir.model.fields,field_description:tiny_sale.field_ir_sequence__id
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order__id
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__id
 msgid "ID"
 msgstr "ID"
 
@@ -174,24 +168,15 @@ msgid "In Phiếu Bán Hàng"
 msgstr "Print Sales Order"
 
 #. module: tiny_sale
-#: model:ir.model,name:tiny_sale.model_account_move
-msgid "Journal Entry"
-msgstr "Journal Entry"
-
-#. module: tiny_sale
-#: model:ir.model.fields,help:tiny_sale.field_ir_sequence__daily_reset
-msgid ""
-"Khi bật cùng \"Use subsequences per date_range\", mỗi ngày là một khoảng "
-"riêng và số thứ tự bắt đầu lại từ 1."
-msgstr ""
-"When used with \"Use subsequences per date_range\", each day is a separate "
-"range and the number restarts from 1."
-
-#. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "Khách hàng"
 msgstr "Customer"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_size
+msgid "Measurements"
+msgstr "Measurements"
 
 #. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
@@ -210,26 +195,6 @@ msgstr "PRODUCT CODE"
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "MÃ VẢI"
 msgstr "FABRIC CODE"
-
-#. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_pattern_id
-msgid "Mã họa tiết"
-msgstr "Pattern Code"
-
-#. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order__partner_code
-msgid "Mã khách hàng"
-msgstr "Customer Code"
-
-#. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__default_code
-msgid "Mã tham chiếu"
-msgstr "Reference Code"
-
-#. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__code_fabric
-msgid "Mã vải"
-msgstr "Fabric Code"
 
 #. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
@@ -256,6 +221,11 @@ msgid "No."
 msgstr "No."
 
 #. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__note
+msgid "Notes"
+msgstr "Notes"
+
+#. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "Order Date"
@@ -268,25 +238,35 @@ msgid "PHƯƠNG THỨC THANH TOÁN"
 msgstr "PAYMENT METHOD"
 
 #. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_pattern_id
+msgid "Pattern Code"
+msgstr "Pattern Code"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_pattern_image
+msgid "Pattern Image"
+msgstr "Pattern Image"
+
+#. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__note_pattern
+msgid "Pattern Notes"
+msgstr "Pattern Notes"
+
+#. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "Product Name"
 msgstr "Product Name"
 
 #. module: tiny_sale
+#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__default_code
+msgid "Reference Code"
+msgstr "Reference Code"
+
+#. module: tiny_sale
 #: model:ir.model.fields,field_description:tiny_sale.field_ir_sequence__daily_reset
-msgid "Reset theo ngày"
+msgid "Reset Daily"
 msgstr "Reset Daily"
-
-#. module: tiny_sale
-#: model:ir.model,name:tiny_sale.model_sale_order
-msgid "Sales Order"
-msgstr "Sales Order"
-
-#. module: tiny_sale
-#: model:ir.model,name:tiny_sale.model_sale_order_line
-msgid "Sales Order Line"
-msgstr "Sales Order Line"
 
 #. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
@@ -305,6 +285,11 @@ msgid "Ship to"
 msgstr "Ship to"
 
 #. module: tiny_sale
+#: model:ir.model.fields.selection,name:tiny_sale.selection__sale_order__ship_to__shop
+msgid "Store"
+msgstr "Store"
+
+#. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "SỐ ĐO"
@@ -315,11 +300,6 @@ msgstr "MEASUREMENTS"
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "Số TK"
 msgstr "Account Number"
-
-#. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_size
-msgid "Số đo"
-msgstr "Measurements"
 
 #. module: tiny_sale
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_document
@@ -338,6 +318,15 @@ msgstr "Total Amount"
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "Vietnam"
 msgstr "Vietnam"
+
+#. module: tiny_sale
+#: model:ir.model.fields,help:tiny_sale.field_ir_sequence__daily_reset
+msgid ""
+"When used with \"Use subsequences per date_range\", each day is a separate "
+"range and the number restarts from 1."
+msgstr ""
+"When used with \"Use subsequences per date_range\", each day is a separate "
+"range and the number restarts from 1."
 
 #. module: tiny_sale
 #: model:ir.actions.report,name:tiny_sale.action_report_saleorder_preview
@@ -360,13 +349,3 @@ msgstr "object.name"
 #: model_terms:ir.ui.view,arch_db:tiny_sale.report_saleorder_preview_document
 msgid "Đặt cọc"
 msgstr "Deposit"
-
-#. module: tiny_sale
-#: model:ir.model.fields.selection,name:tiny_sale.selection__sale_order__ship_to__address_cus
-msgid "Địa chỉ KH"
-msgstr "Customer Address"
-
-#. module: tiny_sale
-#: model:ir.model.fields,field_description:tiny_sale.field_sale_order_line__product_pattern_image
-msgid "Ảnh họa tiết"
-msgstr "Pattern Image"

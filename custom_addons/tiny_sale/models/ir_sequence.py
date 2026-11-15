@@ -5,8 +5,8 @@ class IrSequence(models.Model):
     _inherit = 'ir.sequence'
 
     daily_reset = fields.Boolean(
-        string='Reset theo ngày',
-        help='Khi bật cùng "Use subsequences per date_range", mỗi ngày là một khoảng riêng và số thứ tự bắt đầu lại từ 1.')
+        string='Reset Daily',
+        help='When used with "Use subsequences per date_range", each day is a separate range and the number restarts from 1.')
 
     def _create_date_range_seq(self, date):
         if not self.daily_reset:

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 16:56+0000\n"
-"PO-Revision-Date: 2026-11-15 16:56+0000\n"
+"POT-Creation-Date: 2026-11-15 17:27+0000\n"
+"PO-Revision-Date: 2026-11-15 17:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -675,11 +675,6 @@ msgid "Confirm Payment"
 msgstr "Confirm Payment"
 
 #. module: to_wallet
-#: model:wallet.type,name:to_wallet.consumption_wallet_type
-msgid "Consumption"
-msgstr "Consumption"
-
-#. module: to_wallet
 #: model:ir.model,name:to_wallet.model_res_partner
 msgid "Contact"
 msgstr "Contact"
@@ -693,11 +688,6 @@ msgid ""
 msgstr ""
 "Could not reconcile journal items related to wallet transactions in "
 "different currencies!"
-
-#. module: to_wallet
-#: model:ir.model,website_form_label:to_wallet.model_res_partner
-msgid "Create a Customer"
-msgstr "Create a Customer"
 
 #. module: to_wallet
 #: model_terms:ir.actions.act_window,help:to_wallet.action_view_wallet_types
@@ -1059,13 +1049,6 @@ msgid "Newest"
 msgstr "Newest"
 
 #. module: to_wallet
-#: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_calendar_event_id
-#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_calendar_event_id
-#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Next Activity Calendar Event"
-
-#. module: to_wallet
 #: model:ir.model.fields,field_description:to_wallet.field_wallet__activity_date_deadline
 #: model:ir.model.fields,field_description:to_wallet.field_wallet_history__activity_date_deadline
 #: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_date_deadline
@@ -1288,13 +1271,6 @@ msgid "Process"
 msgstr "Process"
 
 #. module: to_wallet
-#: model:ir.model.fields,field_description:to_wallet.field_wallet__rating_ids
-#: model:ir.model.fields,field_description:to_wallet.field_wallet_history__rating_ids
-#: model:ir.model.fields,field_description:to_wallet.field_wallet_type__rating_ids
-msgid "Ratings"
-msgstr "Ratings"
-
-#. module: to_wallet
 #: model:ir.model.fields.selection,name:to_wallet.selection__wallet_payment_wizard__account_type__asset_receivable
 msgid "Receivable"
 msgstr "Receivable"
@@ -1335,11 +1311,6 @@ msgstr "Register Payment By Wallet"
 #: model:ir.model.fields,field_description:to_wallet.field_wallet_type__activity_user_id
 msgid "Responsible User"
 msgstr "Responsible User"
-
-#. module: to_wallet
-#: model:wallet.type,name:to_wallet.reward_wallet_type
-msgid "Reward"
-msgstr "Reward"
 
 #. module: to_wallet
 #: model:ir.model.fields,field_description:to_wallet.field_wallet__message_has_sms_error
@@ -1421,21 +1392,6 @@ msgstr "Successful"
 #: code:addons/to_wallet/controllers/wallet_portal.py:0
 msgid "Successful Status"
 msgstr "Successful Status"
-
-#. module: to_wallet
-#: model_terms:payment.provider,cancel_msg:to_wallet.payment_provider_company_wallet
-msgid "Thanh toán của bạn đã bị hủy."
-msgstr "Your payment has been cancelled."
-
-#. module: to_wallet
-#: model_terms:payment.provider,auth_msg:to_wallet.payment_provider_company_wallet
-msgid "Thanh toán của bạn đã được chứng thực."
-msgstr "Your payment has been authorized."
-
-#. module: to_wallet
-#: model_terms:payment.provider,done_msg:to_wallet.payment_provider_company_wallet
-msgid "Thanh toán của bạn đã được xử lý."
-msgstr "Your payment has been processed."
 
 #. module: to_wallet
 #. odoo-python
@@ -1928,9 +1884,24 @@ msgstr ""
 "You cannot use this wizard on journal items belonging to different partners!"
 
 #. module: to_wallet
+#: model_terms:payment.provider,auth_msg:to_wallet.payment_provider_company_wallet
+msgid "Your payment has been authorized."
+msgstr "Your payment has been authorized."
+
+#. module: to_wallet
+#: model_terms:payment.provider,cancel_msg:to_wallet.payment_provider_company_wallet
+msgid "Your payment has been cancelled."
+msgstr "Your payment has been cancelled."
+
+#. module: to_wallet
 #: model_terms:payment.provider,pending_msg:to_wallet.payment_provider_company_wallet
 msgid "Your payment has been processed but is waiting for approval."
 msgstr "Your payment has been processed but is waiting for approval."
+
+#. module: to_wallet
+#: model_terms:payment.provider,done_msg:to_wallet.payment_provider_company_wallet
+msgid "Your payment has been processed."
+msgstr "Your payment has been processed."
 
 #. module: to_wallet
 #: model_terms:ir.ui.view,arch_db:to_wallet.wallet_withdraw_payment_confirm
