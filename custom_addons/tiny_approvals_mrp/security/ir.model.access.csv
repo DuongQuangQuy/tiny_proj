@@ -5,3 +5,6 @@ access_mrp_workorder_return_user,mrp.workorder.return user,model_mrp_workorder_r
 access_mrp_workorder_return_manager,mrp.workorder.return manager,model_mrp_workorder_return,mrp.group_mrp_manager,1,1,1,1
 access_mrp_workorder_return_wizard_user,mrp.workorder.return.wizard user,model_mrp_workorder_return_wizard,base.group_user,1,1,1,0
 access_mrp_workorder_return_wizard_manager,mrp.workorder.return.wizard manager,model_mrp_workorder_return_wizard,mrp.group_mrp_manager,1,1,1,1
+access_mrp_workorder_handover_user,mrp.workorder.handover user,model_mrp_workorder_handover,base.group_user,1,0,0,0
+access_mrp_workorder_handover_manager,mrp.workorder.handover manager,model_mrp_workorder_handover,mrp.group_mrp_manager,1,1,1,1
+access_mrp_workorder_handover_wizard_user,mrp.workorder.handover.wizard user,model_mrp_workorder_handover_wizard,base.group_user,1,1,1,0

@@ -31,6 +31,7 @@ class MrpProduction(models.Model):
 
     review_ids = fields.One2many('mrp.workorder.review', 'production_id', string='Review Rounds')
     return_ids = fields.One2many('mrp.workorder.return', 'production_id', string='Return Rounds')
+    handover_ids = fields.One2many('mrp.workorder.handover', 'production_id', string='Handovers')
     open_review_count = fields.Integer(string='Open Review Request', compute='_compute_open_review_rework')
     rework_open_count = fields.Integer(string='Open Rework Round', compute='_compute_open_review_rework')
     has_open_review_or_rework = fields.Boolean(string='Has Open Review / Rework',

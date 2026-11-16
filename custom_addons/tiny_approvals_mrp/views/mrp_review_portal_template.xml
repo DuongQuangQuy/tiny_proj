@@ -2,8 +2,9 @@
 <odoo>
 
     <!-- ===================== PORTAL HOME ENTRY ===================== -->
+    <!-- Tạm tắt (active="False"): hiện chỉ admin duyệt nội bộ. Muốn hiện lại thì bỏ active="False" rồi nâng cấp module. -->
     <template id="portal_my_home_reviews" inherit_id="portal.portal_my_home"
-              customize_show="True" name="Duyệt công đoạn">
+              customize_show="True" active="False" name="Duyệt công đoạn">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Duyệt công đoạn</t>
@@ -31,6 +32,52 @@
     <!-- ===================== CHI TIẾT LỆNH CÔNG VIỆC ===================== -->
     <template id="portal_workorder_detail_review" inherit_id="tiny_mrp.portal_workorder_detail"
               name="Chi tiết lệnh công việc: duyệt và chỉnh">
+        <!-- Bàn giao: đặt dưới thẻ Thao tác (xpath này phải đứng trước xpath thêm hàng mới bên dưới) -->
+        <xpath expr="//div[hasclass('o_portal_workorder_detail')]/div[hasclass('row')]/div[hasclass('col-lg-4')]/div[hasclass('card')][1]"
+               position="after">
+            <div t-if="handover_targets or handovers_in or handovers_out" class="card mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fa fa-exchange me-1"/>Bàn giao</h6>
+                </div>
+                <div class="card-body">
+                    <div t-if="handovers_in" class="alert alert-success p-2 small mb-2">
+                        <i class="fa fa-unlock me-1"/>Được bàn giao từ:
+                        <ul class="mb-0 ps-3">
+                            <li t-foreach="handovers_in" t-as="h">
+                                <strong><t t-esc="h.from_workorder_id.name"/></strong>
+                                (<t t-esc="h.user_id.name"/>, <t t-esc="fmt_dt(h.date)"/>)
+                                <div t-if="h.note" class="text-muted"><t t-esc="h.note"/></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div t-if="handovers_out" class="small text-muted mb-2">
+                        <i class="fa fa-share me-1"/>Đã bàn giao sang:
+                        <t t-esc="', '.join(handovers_out.workorder_id.mapped('name'))"/>
+                    </div>
+                    <form t-if="handover_targets" t-attf-action="/my/workorders/#{workorder.id}/handover" method="POST"
+                          onsubmit="if (!this.querySelector('input[name=target_ids]:checked')) { alert('Hãy chọn công đoạn nhận bàn giao.'); return false; } return confirm('Bàn giao để các công đoạn đã chọn bắt đầu làm song song?');">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <p class="small text-muted mb-2">
+                            Cho phép công đoạn sau bắt đầu ngay, làm song song mà không chờ công đoạn này hoàn thành.
+                        </p>
+                        <div t-foreach="handover_targets" t-as="target" class="form-check">
+                            <input class="form-check-input" type="checkbox" name="target_ids"
+                                   t-att-value="target.id" t-attf-id="handover_target_#{target.id}"
+                                   t-att-checked="target_first and 'checked' or None"/>
+                            <label class="form-check-label" t-attf-for="handover_target_#{target.id}">
+                                <t t-esc="target.name"/>
+                                <small class="text-muted">(<t t-esc="target.workcenter_id.name"/>)</small>
+                            </label>
+                        </div>
+                        <textarea name="note" class="form-control form-control-sm mt-2" rows="2"
+                                  placeholder="Ghi chú bàn giao (không bắt buộc)"/>
+                        <button type="submit" class="btn btn-outline-primary w-100 mt-2">
+                            <i class="fa fa-exchange me-1"/> Bàn giao
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </xpath>
         <xpath expr="//div[hasclass('o_portal_workorder_detail')]/div[hasclass('row')]" position="before">
             <div t-if="rework" class="alert alert-danger mb-3">
                 <h6 class="alert-heading mb-2">

@@ -142,7 +142,9 @@ class MrpApprovalsPortal(MrpPortal):
             if not product.exists():
                 raise UserError(_('Invalid product.'))
             desc = (description or '').strip() or product.description_purchase or product.display_name
-            request.env['approval.product.line'].sudo().create({
+            # Tạo theo công ty của phiếu: kho mặc định của dòng lấy theo env.company,
+            # người dùng đang ở công ty thương mại sẽ bị lệch công ty
+            request.env['approval.product.line'].sudo().with_company(approval.company_id).create({
                 'approval_request_id': approval.id,
                 'product_id': product.id,
                 'description': desc,
@@ -300,7 +302,9 @@ class MrpApprovalsPortal(MrpPortal):
                     'quantity': qty,
                 }))
 
-            approval = request.env['approval.request'].sudo().create({
+            # Phiếu thuộc công ty sản xuất (theo loại phê duyệt): tạo trong ngữ cảnh công ty đó để
+            # kho mặc định của các dòng sản phẩm cùng công ty với phiếu
+            approval = request.env['approval.request'].sudo().with_company(category.company_id).create({
                 'name': _('Stock Issue Approval - %s') % production.name,
                 'category_id': category.id,
                 'mrp_production_id': production.id,

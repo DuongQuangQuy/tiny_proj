@@ -42,6 +42,10 @@ class MrpWorkorder(models.Model):
     return_ids = fields.One2many('mrp.workorder.return', 'workorder_id', string='Rework Rounds')
     rework_count = fields.Integer(string='Rework Count', compute='_compute_rework_count', store=True)
 
+    # ---------- Bàn giao (làm song song) ----------
+    handover_in_ids = fields.One2many('mrp.workorder.handover', 'workorder_id', string='Received Handovers')
+    handover_out_ids = fields.One2many('mrp.workorder.handover', 'from_workorder_id', string='Sent Handovers')
+
     # ---------- Thời gian làm mới / sửa ----------
     duration_new = fields.Float(string='New Work Time (minutes)', compute='_compute_duration_split', store=True)
     duration_rework = fields.Float(string='Rework Time (minutes)', compute='_compute_duration_split', store=True)
@@ -180,12 +184,109 @@ class MrpWorkorder(models.Model):
             if reason:
                 return reason
         # Xét mọi công đoạn đứng trước (Odoo nối công đoạn thành chuỗi phụ thuộc nên phải lấy đệ quy)
+        released = self._tiny_get_handover_released()
+        # Chạy tuần tự: công đoạn trước phải xong. Bỏ qua với công đoạn rập (luôn làm đầu tiên)
+        # và công đoạn đã từng chạy (đã được phép bắt đầu thì không chặn lại khi tạm dừng / tiếp tục).
+        check_sequence = not self.is_pattern and not self.time_ids
         for previous in self._tiny_get_all_previous_workorders().sorted(lambda wo: wo._tiny_sort_key()):
             if previous.rework_return_id:
                 return _('Work order %s is being reworked.', previous.name)
+            if previous in released:
+                # Đã được bàn giao: làm song song, không chờ xong / chờ duyệt
+                continue
+            if check_sequence and previous.state != 'done':
+                return _('Work order %s is not finished yet.', previous.name)
             if previous.review_mode == 'before' and previous.review_state != 'passed':
                 return _('Work order %s has not passed review yet.', previous.name)
         return False
+
+    # ------------------------------------------------------------------
+    # Bàn giao công đoạn
+    # ------------------------------------------------------------------
+    def _tiny_get_handover_released(self, _seen=None):
+        """Các công đoạn trước mà `self` không phải chờ nhờ bàn giao.
+
+        Bàn giao từ A sang B: B không chờ A và các công đoạn nằm giữa A và B.
+        Nếu chính A cũng được bàn giao từ công đoạn khác thì B thừa hưởng luôn phần đó.
+        """
+        self.ensure_one()
+        seen = _seen if _seen is not None else set()
+        released = self.browse()
+        if self.id in seen or not self.handover_in_ids:
+            return released
+        seen.add(self.id)
+        previous_all = self._tiny_get_all_previous_workorders()
+        for source in self.handover_in_ids.from_workorder_id:
+            if source not in previous_all:
+                continue
+            released |= source | previous_all.filtered(
+                lambda wo: source in wo._tiny_get_all_previous_workorders())
+            released |= source._tiny_get_handover_released(seen)
+        return released
+
+    def _tiny_get_handover_targets(self):
+        """Công đoạn phía sau có thể nhận bàn giao từ `self`."""
+        self.ensure_one()
+        if self.state in ('done', 'cancel'):
+            return self.browse()
+        received = self.handover_out_ids.workorder_id
+        return self.production_id.workorder_ids.filtered(
+            lambda wo: wo.state not in ('done', 'cancel') and wo not in received
+            and self in wo._tiny_get_all_previous_workorders()
+        ).sorted(lambda wo: wo._tiny_sort_key())
+
+    def _tiny_can_handover(self, check_user=None):
+        """Thợ của công đoạn hoặc người duyệt công đoạn được bàn giao."""
+        self.ensure_one()
+        check_user = check_user or self.env.user
+        return check_user in self.user_mrp_ids or self._tiny_is_reviewer(check_user)
+
+    def _tiny_handover(self, targets, note=False, check_user=None):
+        """Bàn giao `self` sang các công đoạn `targets` để làm song song."""
+        self.ensure_one()
+        check_user = check_user or self.env.user
+        production = self.production_id
+        if not self._tiny_can_handover(check_user):
+            raise UserError(_('You are not an operator or review manager of work order "%s".', self.name))
+        if production.state in ('draft', 'done', 'cancel'):
+            raise UserError(_('No actions are allowed on the manufacturing order in its current state.'))
+        if production.is_mrp_pattern:
+            raise UserError(_('Handover is not available on pattern orders.'))
+        if self.state in ('done', 'cancel'):
+            raise UserError(_('Work order "%s" is already finished or cancelled, no handover is needed.', self.name))
+        if not targets:
+            raise UserError(_('Please select the work orders to hand over to.'))
+        invalid = targets - self._tiny_get_handover_targets()
+        if invalid:
+            raise UserError(_('Cannot hand over to: %s. Only unfinished work orders after "%s" that have not '
+                              'received a handover from it can be selected.',
+                              ', '.join(invalid.mapped('name')), self.name))
+        handovers = self.env['mrp.workorder.handover'].sudo().create([{
+            'from_workorder_id': self.id,
+            'workorder_id': target.id,
+            'from_state': self.state,
+            'user_id': check_user.id,
+            'note': note or False,
+        } for target in targets])
+        body = _('%(from)s handed over to %(to)s, they can now run in parallel.',
+                 **{'from': self.name, 'to': ', '.join(targets.mapped('name'))})
+        if note:
+            body = Markup('%s<br/>%s') % (body, note)
+        production.message_post(body=body, author_id=check_user.partner_id.id)
+        return handovers
+
+    def action_open_handover_wizard(self):
+        self.ensure_one()
+        if not self._tiny_can_handover():
+            raise UserError(_('You are not an operator or review manager of work order "%s".', self.name))
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Hand Over Work Order'),
+            'res_model': 'mrp.workorder.handover.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_workorder_id': self.id},
+        }
 
     # ------------------------------------------------------------------
     # Hoàn thành / hủy

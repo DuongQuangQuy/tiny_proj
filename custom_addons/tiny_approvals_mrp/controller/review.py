@@ -101,9 +101,41 @@ class MrpReviewPortal(MrpApprovalsPortal):
             'mrp_reasons': request.env['mrp.reason'].sudo().search([('reason_type', '=', 'pause')]),
             'rework': workorder.rework_return_id,
             'review_history': workorder.review_ids.sorted(lambda r: (r.round_no, r.id), reverse=True),
+            'handover_targets': self._get_portal_handover_targets(workorder, user),
+            'handovers_in': workorder.handover_in_ids,
+            'handovers_out': workorder.handover_out_ids,
             **self._review_common_values(),
         })
         return vals
+
+    def _get_portal_handover_targets(self, workorder, user):
+        production = workorder.production_id
+        if (production.state in ('draft', 'done', 'cancel') or production.is_mrp_pattern
+                or not workorder._tiny_can_handover(user)):
+            return workorder.browse()
+        return workorder._tiny_get_handover_targets()
+
+    @http.route('/my/workorders/<int:workorder_id>/handover', auth='user', website=True, type='http',
+                methods=['POST'])
+    def portal_workorder_handover(self, workorder_id, note=None, **kw):
+        user = request.env.user
+        workorder = request.env['mrp.workorder'].sudo().browse(workorder_id)
+        if not workorder.exists() or user not in workorder.user_mrp_ids:
+            return request.not_found()
+        error = None
+        try:
+            target_ids = [int(x) for x in request.httprequest.form.getlist('target_ids') if x]
+            targets = workorder.production_id.workorder_ids.filtered(lambda wo: wo.id in target_ids)
+            with request.env.cr.savepoint():
+                workorder._tiny_handover(targets, (note or '').strip() or False, check_user=user)
+        except UserError as e:
+            error = e.args[0] if e.args else str(e)
+        except (ValueError, TypeError):
+            error = _('Invalid submitted data.')
+        if error:
+            return request.render('tiny_mrp.portal_workorder_detail',
+                                  self._workorder_detail_values(workorder, user, error=error))
+        return request.redirect('/my/workorders/%d' % workorder_id)
 
     # ------------------------------------------------------------------
     # Người duyệt

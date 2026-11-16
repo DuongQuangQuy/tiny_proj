@@ -6,10 +6,15 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">60</field>
         </record>
+    <!-- Tạm ẩn menu portal "Duyệt công đoạn": hiện chỉ admin duyệt nội bộ trong backend.
+         Route /my/reviews vẫn giữ nguyên. Muốn hiện lại thì bỏ comment rồi nâng cấp module. -->
+    <!--
     <record id="website_menu_mrp_reviews" model="website.menu">
         <field name="name">Duyệt công đoạn</field>
         <field name="url">/my/reviews</field>
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">65</field>
     </record>
+    -->
+
 </odoo>

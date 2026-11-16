@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Smart button: phiếu phê duyệt -> lệnh sản xuất -->
+    <record id="approval_request_view_form_mrp" model="ir.ui.view">
+        <field name="name">approval.request.form.mrp</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_view_mrp_production" type="object" class="oe_stat_button" icon="fa-wrench"
+                        invisible="not mrp_production_id" groups="mrp.group_mrp_user">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Lệnh sản xuất</span>
+                        <span class="o_stat_value"><field name="mrp_production_id" readonly="1" options="{'no_open': True}"/></span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+</odoo>

@@ -286,3 +286,79 @@ class TestMrpReviewFlow(TransactionCase):
         self.assertEqual(review.state, 'waiting')
         production.action_cancel()
         self.assertEqual(review.state, 'cancel')
+
+    # ------------------------------------------------------------------
+    # Chạy tuần tự và bàn giao
+    # ------------------------------------------------------------------
+    def test_08_sequential_order(self):
+        """Không bàn giao: công đoạn sau chỉ bắt đầu khi công đoạn trước đã xong."""
+        wc_other = self.env['mrp.workcenter'].create({'name': 'Đính kết test', 'code': 'RV_ATTACH2'})
+        production = self._create_production([('Cắt', self.wc_cut), ('Đính kết', wc_other)])
+        cut, attach = self._wo(production, 'Cắt'), self._wo(production, 'Đính kết')
+        with self.assertRaisesRegex(UserError, 'Work order Cắt is not finished yet'):
+            attach.button_start(bypass=True)
+        with self.assertRaisesRegex(UserError, 'Work order Cắt is not finished yet'):
+            attach.action_pass()
+        cut.button_start(bypass=True)
+        with self.assertRaisesRegex(UserError, 'Work order Cắt is not finished yet'):
+            attach.button_start(bypass=True)
+        self._log_time(cut)
+        cut.button_finish()
+        self.assertFalse(attach._get_flow_block_reason())
+        self._run(attach)
+
+    def test_09_handover_parallel(self):
+        production = self._full_production()
+        cut, sew, paint, finish = (self._wo(production, n) for n in ('Cắt', 'May', 'Vẽ', 'Finishing'))
+        self._run(cut)
+        sew.button_start(bypass=True)
+        self.assertRegex(paint._get_flow_block_reason(), 'Work order May is not finished yet')
+
+        # Người ngoài (không phải thợ, không phải người duyệt) không được bàn giao
+        with self.assertRaisesRegex(UserError, 'not an operator or review manager'):
+            sew.with_user(self.outsider)._tiny_handover(paint)
+        # Chỉ bàn giao sang công đoạn phía sau
+        with self.assertRaisesRegex(UserError, 'Cannot hand over to'):
+            sew._tiny_handover(cut)
+
+        # Thợ May bàn giao sang Vẽ khi May đang làm
+        sew.user_mrp_ids = self.outsider
+        handover = sew.with_user(self.outsider)._tiny_handover(paint, note='Làm song song')
+        self.assertEqual(handover.from_state, 'progress')
+        self.assertEqual(handover.user_id, self.outsider)
+        self.assertIn('handed over to', production.message_ids[:1].body)
+        self.assertFalse(paint._get_flow_block_reason())
+        self.assertRegex(finish._get_flow_block_reason(), 'Work order May is not finished yet')
+        with self.assertRaisesRegex(UserError, 'Cannot hand over to'):
+            sew._tiny_handover(paint)  # đã bàn giao rồi
+
+        paint.button_start(bypass=True)
+        # Người duyệt Vẽ bàn giao tiếp sang Finishing: Finishing thừa hưởng phần đã bàn giao của Vẽ
+        paint.with_user(self.reviewer)._tiny_handover(finish)
+        self.assertFalse(finish._get_flow_block_reason())
+        finish.button_start(bypass=True)
+
+        # May xong, đang chờ duyệt trước: Vẽ đã được bàn giao nên không bị chặn
+        self._log_time(sew)
+        sew.button_finish()
+        self.assertEqual(sew.review_state, 'waiting')
+        self.assertFalse(paint._get_flow_block_reason())
+        self.assertFalse(finish._get_flow_block_reason())
+
+    def test_10_handover_choose_target(self):
+        """Bàn giao bất cứ lúc nào, chọn công đoạn đích: bỏ qua cả các công đoạn ở giữa."""
+        production = self._full_production()
+        cut, sew, paint, finish = (self._wo(production, n) for n in ('Cắt', 'May', 'Vẽ', 'Finishing'))
+        self.assertEqual(cut._tiny_get_handover_targets(), sew | paint | finish)
+        wizard = self.env['mrp.workorder.handover.wizard'].with_context(default_workorder_id=cut.id).create({})
+        self.assertEqual(wizard.target_workorder_ids, sew, 'Mặc định chọn công đoạn kế tiếp')
+        wizard.target_workorder_ids = finish
+        wizard.action_confirm()
+        self.assertEqual(cut.handover_out_ids.from_state, 'ready')
+        self.assertFalse(finish._get_flow_block_reason())
+        self.assertRegex(sew._get_flow_block_reason(), 'Work order Cắt is not finished yet')
+        self.assertRegex(paint._get_flow_block_reason(), 'Work order Cắt is not finished yet')
+        self.assertEqual(cut._tiny_get_handover_targets(), sew | paint)
+        self._run(cut)
+        with self.assertRaisesRegex(UserError, 'already finished'):
+            cut._tiny_handover(sew)

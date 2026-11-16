@@ -112,6 +112,9 @@
                 <button name="action_open_return_wizard" type="object" string="Trả lại công đoạn"
                         invisible="production_state in ('draft', 'done', 'cancel') or state == 'cancel'"
                         groups="base.group_user"/>
+                <button name="action_open_handover_wizard" type="object" string="Bàn giao"
+                        invisible="production_state in ('draft', 'done', 'cancel') or state in ('done', 'cancel')"
+                        groups="base.group_user"/>
             </xpath>
             <xpath expr="//page[@name='reason']" position="after">
                 <page name="review" string="Duyệt &amp; chỉnh">
@@ -155,6 +158,28 @@
                             <field name="rework_duration" widget="float_time"/>
                         </list>
                     </field>
+                    <group string="Nhận bàn giao" invisible="not handover_in_ids">
+                        <field name="handover_in_ids" readonly="1" nolabel="1" colspan="2">
+                            <list>
+                                <field name="from_workorder_id"/>
+                                <field name="from_state"/>
+                                <field name="user_id"/>
+                                <field name="date"/>
+                                <field name="note"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Đã bàn giao" invisible="not handover_out_ids">
+                        <field name="handover_out_ids" readonly="1" nolabel="1" colspan="2">
+                            <list>
+                                <field name="workorder_id"/>
+                                <field name="from_state"/>
+                                <field name="user_id"/>
+                                <field name="date"/>
+                                <field name="note"/>
+                            </list>
+                        </field>
+                    </group>
                 </page>
             </xpath>
         </field>
@@ -208,6 +233,17 @@
                             <field name="date_resolved"/>
                             <field name="state" widget="badge"/>
                             <field name="rework_duration" widget="float_time"/>
+                        </list>
+                    </field>
+                    <separator string="Bàn giao làm song song" invisible="not handover_ids"/>
+                    <field name="handover_ids" readonly="1" invisible="not handover_ids">
+                        <list>
+                            <field name="from_workorder_id"/>
+                            <field name="workorder_id"/>
+                            <field name="from_state"/>
+                            <field name="user_id"/>
+                            <field name="date"/>
+                            <field name="note"/>
                         </list>
                     </field>
                 </page>

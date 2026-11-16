@@ -302,7 +302,8 @@
                                             <th>Thành phần</th>
                                             <th class="text-end">Cần sử dụng</th>
                                             <th class="text-end">Tồn kho thực tế</th>
-                                            <th class="text-end">Dự báo tồn</th>
+                                            <!-- Tạm ẩn cột Dự báo tồn -->
+                                            <!-- <th class="text-end">Dự báo tồn</th> -->
                                             <th>Vị trí nguồn</th>
                                             <th></th>
                                         </tr>
@@ -329,6 +330,7 @@
                                                     <t t-esc="move.product_id.uom_id.name or ''"/>
                                                 </span>
                                             </td>
+                                            <!-- Tạm ẩn cột Dự báo tồn
                                             <td class="text-end text-nowrap">
                                                 <t t-if="move.forecast_availability is not False">
                                                     <span t-att-class="'fw-semibold ' + ('text-success' if move.forecast_availability &gt;= 0 else 'text-danger')">
@@ -340,6 +342,7 @@
                                                 </t>
                                                 <t t-else="">—</t>
                                             </td>
+                                            -->
                                             <td>
                                                 <t t-esc="move.location_id.display_name or '—'"/>
                                             </td>

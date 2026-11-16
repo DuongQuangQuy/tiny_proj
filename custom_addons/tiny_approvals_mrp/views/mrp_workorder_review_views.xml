@@ -222,6 +222,30 @@
         </field>
     </record>
 
+    <!-- ===================== WIZARD BÀN GIAO ===================== -->
+    <record id="mrp_workorder_handover_wizard_form" model="ir.ui.view">
+        <field name="name">mrp.workorder.handover.wizard.form</field>
+        <field name="model">mrp.workorder.handover.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="alert alert-info" role="alert">
+                    Công đoạn được bàn giao có thể bắt đầu ngay, làm song song mà không chờ công đoạn này
+                    (và các công đoạn ở giữa) hoàn thành hay được duyệt.
+                </div>
+                <group>
+                    <field name="workorder_id"/>
+                    <field name="allowed_workorder_ids" invisible="1"/>
+                    <field name="target_workorder_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    <field name="note"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Bàn giao" class="btn-primary"/>
+                    <button special="cancel" string="Hủy"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
     <!-- ===================== MENU ===================== -->
     <menuitem id="menu_mrp_workorder_review" name="Duyệt công đoạn" parent="mrp.menu_mrp_manufacturing"
               action="action_mrp_workorder_review" sequence="25"/>

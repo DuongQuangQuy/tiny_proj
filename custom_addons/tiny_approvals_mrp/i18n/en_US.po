@@ -1652,3 +1652,191 @@ msgstr "Pass"
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
 msgid "Để trống: giao cho nhân viên thực hiện của công đoạn trả về."
 msgstr "Leave empty to assign to the operators of the returned-to work order."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "%(from)s handed over to %(to)s, they can now run in parallel."
+msgstr "%(from)s handed over to %(to)s, they can now run in parallel."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Cannot hand over to: %s. Only unfinished work orders after \"%s\" that have not received a handover from it can be selected."
+msgstr "Cannot hand over to: %s. Only unfinished work orders after \"%s\" that have not received a handover from it can be selected."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_workorder_handover_wizard
+msgid "Hand Over Work Order"
+msgstr "Hand Over Work Order"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Handover is not available on pattern orders."
+msgstr "Handover is not available on pattern orders."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "No actions are allowed on the manufacturing order in its current state."
+msgstr "No actions are allowed on the manufacturing order in its current state."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Please select the work orders to hand over to."
+msgstr "Please select the work orders to hand over to."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Work order \"%s\" is already finished or cancelled, no handover is needed."
+msgstr "Work order \"%s\" is already finished or cancelled, no handover is needed."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "Work order %s is not finished yet."
+msgstr "Work order %s is not finished yet."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/mrp_workorder.py:0
+msgid "You are not an operator or review manager of work order \"%s\"."
+msgstr "You are not an operator or review manager of work order \"%s\"."
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_handover__from_state__blocked
+msgid "Blocked"
+msgstr "Blocked"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_handover__from_state__ready
+msgid "To Do"
+msgstr "To Do"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields.selection,name:tiny_approvals_mrp.selection__mrp_workorder_handover__from_state__progress
+msgid "In Progress"
+msgstr "In Progress"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_handover_wizard__workorder_id
+msgid "Hand Over From"
+msgstr "Hand Over From"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_handover_wizard__target_workorder_ids
+msgid "Hand Over To"
+msgstr "Hand Over To"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_handover__user_id
+msgid "Handed Over By"
+msgstr "Handed Over By"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_handover__from_workorder_id
+msgid "Handed Over From"
+msgstr "Handed Over From"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_handover__workorder_id
+msgid "Handed Over To"
+msgstr "Handed Over To"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_handover__date
+msgid "Handover Date"
+msgstr "Handover Date"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_production__handover_ids
+msgid "Handovers"
+msgstr "Handovers"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__handover_in_ids
+msgid "Received Handovers"
+msgstr "Received Handovers"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder__handover_out_ids
+msgid "Sent Handovers"
+msgstr "Sent Handovers"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.fields,field_description:tiny_approvals_mrp.field_mrp_workorder_handover__from_state
+msgid "Source Status When Handed Over"
+msgstr "Source Status When Handed Over"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model,name:tiny_approvals_mrp.model_mrp_workorder_handover
+msgid "Work Order Handover"
+msgstr "Work Order Handover"
+
+#. module: tiny_approvals_mrp
+#: model:ir.model.constraint,message:tiny_approvals_mrp.constraint_mrp_workorder_handover_from_to_uniq
+msgid "This work order has already been handed over to that work order."
+msgstr "This work order has already been handed over to that work order."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "<i class=\"fa fa-exchange me-1\"/> Bàn giao"
+msgstr "<i class=\"fa fa-exchange me-1\"/> Hand Over"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "<i class=\"fa fa-exchange me-1\"/>Bàn giao"
+msgstr "<i class=\"fa fa-exchange me-1\"/>Handover"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "<i class=\"fa fa-share me-1\"/>Đã bàn giao sang:"
+msgstr "<i class=\"fa fa-share me-1\"/>Handed over to:"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "<i class=\"fa fa-unlock me-1\"/>Được bàn giao từ:"
+msgstr "<i class=\"fa fa-unlock me-1\"/>Handed over from:"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_handover_wizard_form
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
+msgid "Bàn giao"
+msgstr "Hand Over"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_production_form_review
+msgid "Bàn giao làm song song"
+msgstr "Parallel Handovers"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Cho phép công đoạn sau bắt đầu ngay, làm song song mà không chờ công đoạn này hoàn thành."
+msgstr "Lets later work orders start now and run in parallel without waiting for this work order to finish."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.mrp_workorder_handover_wizard_form
+msgid ""
+"Công đoạn được bàn giao có thể bắt đầu ngay, làm song song mà không chờ công đoạn này\n"
+"                    (và các công đoạn ở giữa) hoàn thành hay được duyệt."
+msgstr "The receiving work orders can start right away and run in parallel, without waiting for this work order (and the ones in between) to be finished or reviewed."
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_workorder_detail_review
+msgid "Ghi chú bàn giao (không bắt buộc)"
+msgstr "Handover note (optional)"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
+msgid "Nhận bàn giao"
+msgstr "Received Handovers"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
+msgid "Đã bàn giao"
+msgstr "Sent Handovers"

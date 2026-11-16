@@ -120,3 +120,18 @@ class TestPortalReview(HttpCase):
             'action': 'set_review_mode', 'workorder_id': str(self.paint.id), 'review_mode': 'after'})
         self.assertIn('not allowed to choose the review mode', response.text)
         self.assertEqual(self.paint.review_mode, 'before')
+
+    def test_03_portal_handover(self):
+        self.authenticate('tiny_portal_worker', 'tiny_portal_worker')
+        page = self.url_open(f'/my/workorders/{self.paint.id}')
+        self.assertIn('is not finished yet', page.text)
+        url = f'/my/workorders/{self.sew.id}'
+        page = self.url_open(url)
+        self.assertIn(f'{url}/handover', page.text)
+        self._post(f'{url}/handover', url, {'target_ids': str(self.paint.id), 'note': 'Vẽ trước'})
+        self.assertEqual(self.sew.handover_out_ids.workorder_id, self.paint)
+        self.assertEqual(self.sew.handover_out_ids.user_id, self.worker)
+        self.assertFalse(self.paint._get_flow_block_reason())
+        page = self.url_open(f'/my/workorders/{self.paint.id}')
+        self.assertNotIn('is not finished yet', page.text)
+        self.assertIn('Vẽ trước', page.text)
