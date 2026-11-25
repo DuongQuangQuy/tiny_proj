@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== PORTAL HOME ENTRY ===================== -->
+    <template id="portal_my_home_workorder_history" inherit_id="portal.portal_my_home"
+              customize_show="True" name="Lịch sử công đoạn">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Lịch sử công đoạn</t>
+                <t t-set="url" t-value="'/my/workorder-history'"/>
+                <t t-set="count" t-value="workorder_history_count"/>
+                <t t-set="placeholder_count">công đoạn</t>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- ===================== DANH SÁCH LỊCH SỬ ===================== -->
+    <template id="portal_my_workorder_history" name="Lịch sử công đoạn">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_workorder_history">
+                <h3 class="mt-3 mb-3">Lịch sử công đoạn của tôi</h3>
+
+                <form method="get" action="/my/workorder-history" class="row g-2 align-items-end mb-3">
+                    <div class="col-md-6">
+                        <input type="text" name="search" class="form-control" t-att-value="search"
+                               placeholder="Tìm theo công đoạn, lệnh sản xuất, sản phẩm..."/>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="filterby" class="form-select">
+                            <t t-foreach="filters.items()" t-as="f">
+                                <option t-att-value="f[0]" t-att-selected="f[0] == filterby"><t t-esc="f[1]"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search me-1"/>Lọc</button>
+                        <a t-if="search or filterby != 'all'" href="/my/workorder-history" class="btn btn-outline-secondary">Xóa lọc</a>
+                    </div>
+                </form>
+
+                <div t-if="not workorders" class="alert alert-info" role="alert">
+                    <i class="fa fa-info-circle me-1"/>
+                    Chưa có công đoạn nào trong lịch sử.
+                </div>
+                <t t-else="">
+                    <div class="text-muted small mb-2">Tổng: <t t-esc="total"/> công đoạn</div>
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Công đoạn</th>
+                                            <th>Lệnh sản xuất / Sản phẩm</th>
+                                            <th>Hoàn thành</th>
+                                            <th class="text-end" title="Thời gian làm mới của tôi">Giờ làm mới</th>
+                                            <th class="text-end" title="Thời gian làm sửa của tôi">Giờ sửa</th>
+                                            <th class="text-center">Lượt duyệt</th>
+                                            <th class="text-center" title="Số lượt duyệt chưa đạt">Chưa đạt</th>
+                                            <th class="text-center" title="Số lần bị trả về chỉnh sửa">Lượt chỉnh sửa</th>
+                                            <th class="text-center">Kết quả duyệt</th>
+                                            <th class="text-center">Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="workorders" t-as="wo"
+                                            t-attf-onclick="window.location='/my/workorder-history/#{wo.id}'"
+                                            style="cursor: pointer;">
+                                            <t t-set="dur" t-value="durations.get(wo.id, {})"/>
+                                            <t t-set="stats" t-value="review_stats.get(wo.id, {})"/>
+                                            <td class="fw-semibold">
+                                                <t t-esc="wo.name"/>
+                                                <div class="text-muted small fw-normal"><t t-esc="wo.workcenter_id.name or ''"/></div>
+                                            </td>
+                                            <td>
+                                                <div><t t-esc="wo.production_id.name or '—'"/></div>
+                                                <div class="text-muted small"><t t-esc="wo.production_id.product_id.display_name or ''"/></div>
+                                            </td>
+                                            <td class="small"><t t-esc="fmt_dt(wo.date_finished)"/></td>
+                                            <td class="text-end"><t t-esc="fmt_minutes(dur.get('new'))"/></td>
+                                            <td class="text-end"><t t-esc="fmt_minutes(dur.get('rework'))"/></td>
+                                            <td class="text-center"><t t-esc="stats.get('review_count', 0)"/></td>
+                                            <td class="text-center">
+                                                <span t-if="stats.get('failed_count')" class="badge bg-danger"><t t-esc="stats['failed_count']"/></span>
+                                                <span t-else="" class="text-muted">0</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-if="wo.rework_count" class="badge bg-warning text-dark"><t t-esc="wo.rework_count"/></span>
+                                                <span t-else="" class="text-muted">0</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-att-class="'badge ' + review_state_color.get(wo.review_state, 'bg-secondary')">
+                                                    <t t-esc="review_state_label.get(wo.review_state, wo.review_state or '')"/>
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-att-class="'badge ' + state_color.get(wo.state, 'bg-secondary')">
+                                                    <t t-esc="state_label.get(wo.state, wo.state)"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-if="pager['page_count'] > 1" class="mt-3">
+                        <t t-call="portal.pager"/>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== CHI TIẾT LỊCH SỬ 1 CÔNG ĐOẠN ===================== -->
+    <template id="portal_workorder_history_detail" name="Chi tiết lịch sử công đoạn">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_workorder_history_detail">
+                <div class="mt-3 mb-3">
+                    <a href="/my/workorder-history" class="btn btn-sm btn-outline-secondary">
+                        <i class="fa fa-arrow-left me-1"/> Lịch sử công đoạn
+                    </a>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Thông tin chung -->
+                    <div class="col-lg-8">
+                        <div class="card h-100">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h5 class="mb-0"><i class="fa fa-cogs me-1 text-muted"/><t t-esc="workorder.name"/></h5>
+                                <div>
+                                    <span t-att-class="'badge fs-6 ' + state_color.get(workorder.state, 'bg-secondary')">
+                                        <t t-esc="state_label.get(workorder.state, workorder.state)"/>
+                                    </span>
+                                    <span t-if="workorder.is_passed" class="badge fs-6 bg-secondary ms-1">Pass</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <img t-if="product_image_src" t-att-src="product_image_src" class="rounded border"
+                                         style="width:110px;height:110px;object-fit:contain;flex-shrink:0;"/>
+                                    <div>
+                                        <div class="fw-semibold fs-5"><t t-esc="workorder.production_id.product_id.display_name or '—'"/></div>
+                                        <div class="text-muted small"><t t-esc="workorder.production_id.name or ''"/></div>
+                                    </div>
+                                </div>
+                                <dl class="row mb-0 small">
+                                    <dt class="col-sm-4">Khu vực sản xuất</dt>
+                                    <dd class="col-sm-8"><t t-esc="workorder.workcenter_id.name or '—'"/></dd>
+                                    <dt class="col-sm-4">Số lượng</dt>
+                                    <dd class="col-sm-8"><t t-esc="workorder.qty_production"/> <t t-esc="workorder.product_uom_id.name or ''"/></dd>
+                                    <dt class="col-sm-4">Nhân viên thực hiện</dt>
+                                    <dd class="col-sm-8"><t t-esc="', '.join(workorder.user_mrp_ids.mapped('name')) or '—'"/></dd>
+                                    <dt class="col-sm-4">Chế độ kiểm</dt>
+                                    <dd class="col-sm-8"><t t-esc="review_mode_label.get(workorder.review_mode, '—')"/></dd>
+                                    <dt class="col-sm-4">Bắt đầu</dt>
+                                    <dd class="col-sm-8"><t t-esc="fmt_dt(workorder.date_start)"/></dd>
+                                    <dt class="col-sm-4">Hoàn thành</dt>
+                                    <dd class="col-sm-8"><t t-esc="fmt_dt(workorder.date_finished)"/></dd>
+                                    <dt class="col-sm-4">Thời lượng dự kiến</dt>
+                                    <dd class="col-sm-8"><t t-esc="fmt_minutes(workorder.duration_expected)"/></dd>
+                                    <dt class="col-sm-4">Thời lượng thực tế (cả công đoạn)</dt>
+                                    <dd class="col-sm-8"><t t-esc="fmt_minutes(workorder.duration)"/></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tóm tắt của tôi -->
+                    <div class="col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-header"><h6 class="mb-0"><i class="fa fa-user me-1"/>Tóm tắt của tôi</h6></div>
+                            <div class="card-body">
+                                <dl class="row mb-0">
+                                    <dt class="col-7">Giờ làm mới</dt>
+                                    <dd class="col-5 text-end"><t t-esc="fmt_minutes(my_duration_new)"/></dd>
+                                    <dt class="col-7">Giờ sửa</dt>
+                                    <dd class="col-5 text-end"><t t-esc="fmt_minutes(my_duration_rework)"/></dd>
+                                    <dt class="col-7">Lượt duyệt</dt>
+                                    <dd class="col-5 text-end"><t t-esc="review_stats['review_count']"/></dd>
+                                    <dt class="col-7">Lượt chưa đạt</dt>
+                                    <dd class="col-5 text-end"><t t-esc="review_stats['failed_count']"/></dd>
+                                    <dt class="col-7">Lượt bị trả về chỉnh sửa</dt>
+                                    <dd class="col-5 text-end"><t t-esc="workorder.rework_count"/></dd>
+                                    <dt class="col-7">Kết quả duyệt</dt>
+                                    <dd class="col-5 text-end">
+                                        <span t-att-class="'badge ' + review_state_color.get(workorder.review_state, 'bg-secondary')">
+                                            <t t-esc="review_state_label.get(workorder.review_state, workorder.review_state or '')"/>
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phiên làm việc của tôi -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header"><h6 class="mb-0"><i class="fa fa-clock-o me-1"/>Phiên làm việc của tôi</h6></div>
+                            <div class="card-body p-0">
+                                <p t-if="not my_times" class="text-muted text-center p-3 mb-0 small">Chưa có phiên bấm giờ.</p>
+                                <div t-else="" class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead class="table-light">
+                                            <tr><th>Bắt đầu</th><th>Kết thúc</th><th class="text-end">Thời lượng</th><th>Loại</th><th>Lý do dừng</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="my_times" t-as="t">
+                                                <td><t t-esc="fmt_dt(t.date_start)"/></td>
+                                                <td>
+                                                    <t t-if="t.date_end" t-esc="fmt_dt(t.date_end)"/>
+                                                    <span t-else="" class="badge bg-success">Đang chạy</span>
+                                                </td>
+                                                <td class="text-end"><t t-esc="fmt_minutes(t.duration)"/></td>
+                                                <td>
+                                                    <span t-if="t.work_type == 'rework'" class="badge bg-warning text-dark">
+                                                        Sửa<t t-if="t.return_id"> (lượt <t t-esc="t.return_id.round_no"/>)</t>
+                                                    </span>
+                                                    <span t-else="" class="badge bg-light text-dark border">Làm mới</span>
+                                                </td>
+                                                <td><t t-esc="t.loss_id.name or ''"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lịch sử duyệt -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header"><h6 class="mb-0"><i class="fa fa-check-square-o me-1"/>Lịch sử duyệt</h6></div>
+                            <div class="card-body p-0">
+                                <p t-if="not review_history" class="text-muted text-center p-3 mb-0 small">Chưa có lượt duyệt.</p>
+                                <div t-else="" class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Lượt</th><th>Chế độ</th><th>Trạng thái</th><th>Người duyệt</th>
+                                                <th>Lỗi / Ghi chú</th><th>Yêu cầu lúc</th><th>Kết thúc</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="review_history" t-as="r">
+                                                <td><t t-esc="r.round_no"/></td>
+                                                <td><t t-esc="review_mode_label.get(r.mode, '')"/></td>
+                                                <td><span t-att-class="'badge ' + review_state_color.get(r.state, 'bg-secondary')"><t t-esc="review_state_label.get(r.state, r.state)"/></span></td>
+                                                <td><t t-esc="r.reviewer_id.name or '—'"/></td>
+                                                <td>
+                                                    <div t-if="r.defect_reason_ids"><t t-esc="', '.join(r.defect_reason_ids.mapped('name'))"/></div>
+                                                    <div t-if="r.note" class="text-muted small" style="white-space: pre-line;"><t t-esc="r.note"/></div>
+                                                </td>
+                                                <td><t t-esc="fmt_dt(r.date_request)"/></td>
+                                                <td><t t-esc="fmt_dt(r.date_done)"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Các lượt bị trả về chỉnh sửa -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header"><h6 class="mb-0"><i class="fa fa-wrench me-1"/>Các lượt bị trả về chỉnh sửa</h6></div>
+                            <div class="card-body p-0">
+                                <p t-if="not returns" class="text-muted text-center p-3 mb-0 small">Công đoạn chưa bị trả về chỉnh sửa.</p>
+                                <div t-else="" class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Lượt</th><th>Trả về từ</th><th>Người trả</th><th>Lý do / Ghi chú</th>
+                                                <th>Ngày trả</th><th>Chỉnh xong</th><th class="text-end">Giờ sửa</th><th>Trạng thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="returns" t-as="ret">
+                                                <td><t t-esc="ret.round_no"/></td>
+                                                <td><t t-esc="ret.from_workorder_id.name or '—'"/></td>
+                                                <td><t t-esc="ret.user_id.name or '—'"/></td>
+                                                <td>
+                                                    <div t-if="ret.reason_ids"><t t-esc="', '.join(ret.reason_ids.mapped('name'))"/></div>
+                                                    <div t-if="ret.note" class="text-muted small" style="white-space: pre-line;"><t t-esc="ret.note"/></div>
+                                                </td>
+                                                <td><t t-esc="fmt_dt(ret.date)"/></td>
+                                                <td><t t-esc="fmt_dt(ret.date_resolved)"/></td>
+                                                <td class="text-end"><t t-esc="fmt_minutes(ret.rework_duration)"/></td>
+                                                <td><span t-att-class="'badge ' + return_state_color.get(ret.state, 'bg-secondary')"><t t-esc="return_state_label.get(ret.state, ret.state)"/></span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Công đoạn này trả về công đoạn trước -->
+                    <div t-if="returns_out" class="col-12">
+                        <div class="card">
+                            <div class="card-header"><h6 class="mb-0"><i class="fa fa-reply me-1"/>Đã trả về công đoạn trước</h6></div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead class="table-light">
+                                            <tr><th>Trả về công đoạn</th><th>Người trả</th><th>Lý do / Ghi chú</th><th>Ngày trả</th><th>Trạng thái</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="returns_out" t-as="ret">
+                                                <td><t t-esc="ret.workorder_id.name or '—'"/></td>
+                                                <td><t t-esc="ret.user_id.name or '—'"/></td>
+                                                <td>
+                                                    <div t-if="ret.reason_ids"><t t-esc="', '.join(ret.reason_ids.mapped('name'))"/></div>
+                                                    <div t-if="ret.note" class="text-muted small" style="white-space: pre-line;"><t t-esc="ret.note"/></div>
+                                                </td>
+                                                <td><t t-esc="fmt_dt(ret.date)"/></td>
+                                                <td><span t-att-class="'badge ' + return_state_color.get(ret.state, 'bg-secondary')"><t t-esc="return_state_label.get(ret.state, ret.state)"/></span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

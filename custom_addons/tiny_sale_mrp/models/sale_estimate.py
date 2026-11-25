@@ -699,8 +699,15 @@ class SaleEstimateBomLine(models.Model):
                 line.cost_unit = 0
                 continue
             estimate = line.estimate_line_id.estimate_id
+            # Ưu tiên giá vốn ở công ty sản xuất; standard_price lưu theo công ty nên nếu bên đó
+            # chưa có giá (= 0) thì lấy giá vốn của công ty trên phiếu, rồi đến công ty hiện tại
             cost_company = mrp_company or estimate.company_id or self.env.company
             product = line.product_id.sudo().with_company(cost_company)
+            for company in (estimate.company_id, self.env.company):
+                if product.standard_price or not company or company == cost_company:
+                    continue
+                cost_company = company
+                product = line.product_id.sudo().with_company(cost_company)
             cost = product.uom_id._compute_price(product.standard_price, line.product_uom_id)
             line.cost_unit = cost_company.currency_id._convert(
                 cost, line.currency_id or cost_company.currency_id, cost_company,

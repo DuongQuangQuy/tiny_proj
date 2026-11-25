@@ -6,6 +6,12 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">60</field>
         </record>
+    <record id="website_menu_workorder_history" model="website.menu">
+        <field name="name">Lịch sử công đoạn</field>
+        <field name="url">/my/workorder-history</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">62</field>
+    </record>
     <!-- Tạm ẩn menu portal "Duyệt công đoạn": hiện chỉ admin duyệt nội bộ trong backend.
          Route /my/reviews vẫn giữ nguyên. Muốn hiện lại thì bỏ comment rồi nâng cấp module. -->
     <!--

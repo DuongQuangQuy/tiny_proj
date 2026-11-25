@@ -199,7 +199,7 @@
                                             </td>
                                             <!-- GIÁ -->
                                             <td style="border: 1px solid #ddd; padding: 8px; text-align: right; vertical-align: top;">
-                                                <span t-esc="'{:,.0f}'.format(line.price_unit or 0)">0</span>
+                                                <span t-out="line.price_unit or 0" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}">0</span>
                                             </td>
                                         </tr>
                                     </t>
@@ -226,7 +226,7 @@
                                                     <div style="font-size: 9pt; margin-bottom: 6px;">* Quét mã QR để thanh toán</div>
                                                 </td>
                                                 <td style="vertical-align: top; width: 140px; padding-left: 0;">
-                                                    <img t-attf-src="{{base_url}}/tiny_sale/static/description/qr_payment.png" style="width: 100px; height: auto;"/>
+                                                    <img t-attf-src="{{base_url}}/tiny_sale/static/description/qr_payment.png" style="width: 70px; height: auto;"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -261,26 +261,26 @@
                                             <tr>
                                                 <td style="padding: 4px 5px;">Tổng tiền</td>
                                                 <td style="text-align: right; padding: 4px 5px;">
-                                                    <span t-esc="'{:,.0f}'.format(doc.amount_total or 0)">0</span>
+                                                    <span t-out="doc.amount_total or 0" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}">0</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="padding: 4px 5px;">Sau chiết khấu</td>
                                                 <td style="text-align: right; padding: 4px 5px;">
-                                                    <span t-esc="'{:,.0f}'.format(doc.amount_total or 0)">0</span>
+                                                    <span t-out="doc.amount_total or 0" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}">0</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="padding: 4px 5px;">Đặt cọc</td>
                                                 <td style="text-align: right; padding: 4px 5px;">
 <!--                                                    <t t-set="deposit_amount" t-value="doc.amount_total - (doc.amount_residual or doc.amount_total)"/>-->
-                                                    <span t-esc="'{:,.0f}'.format(doc.total_advance)">0</span>
+                                                    <span t-out="doc.total_advance or 0" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}">0</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="padding: 4px 5px; font-weight: bold;">Còn lại</td>
                                                 <td style="text-align: right; padding: 4px 8px; font-weight: bold; background-color: #146b62; color: white;">
-                                                    <span t-esc="'{:,.0f}'.format(doc.amount_residual)">0</span>
+                                                    <span t-out="doc.amount_residual or 0" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}">0</span>
                                                 </td>
                                             </tr>
                                         </table>

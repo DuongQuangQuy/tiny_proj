@@ -21,6 +21,7 @@
         'views/mrp_production_portal_template.xml',
         'views/approval_request_portal_template.xml',
         'views/mrp_review_portal_template.xml',
+        'views/mrp_workorder_history_portal_template.xml',
         'views/menus.xml',
     ],
     'application': True,

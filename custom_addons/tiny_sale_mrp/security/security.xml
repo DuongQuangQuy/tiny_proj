@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Đa công ty: chỉ thấy phiếu dự toán (và dữ liệu con) của các công ty đang chọn -->
     <data noupdate="1">
         <record id="sale_estimate_company_rule" model="ir.rule">
             <field name="name">Phiếu dự toán: đa công ty</field>
             <field name="model_id" ref="model_sale_estimate"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="sale_estimate_line_company_rule" model="ir.rule">
+            <field name="name">Sản phẩm dự toán: đa công ty</field>
+            <field name="model_id" ref="model_sale_estimate_line"/>
+            <field name="domain_force">[('estimate_id.company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="sale_estimate_operation_company_rule" model="ir.rule">
+            <field name="name">Hoạt động dự toán: đa công ty</field>
+            <field name="model_id" ref="model_sale_estimate_operation"/>
+            <field name="domain_force">[('estimate_line_id.estimate_id.company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="sale_estimate_instruction_company_rule" model="ir.rule">
+            <field name="name">Hướng dẫn dự toán: đa công ty</field>
+            <field name="model_id" ref="model_sale_estimate_instruction"/>
+            <field name="domain_force">[('operation_id.estimate_line_id.estimate_id.company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="sale_estimate_bom_line_company_rule" model="ir.rule">
+            <field name="name">NVL dự toán: đa công ty</field>
+            <field name="model_id" ref="model_sale_estimate_bom_line"/>
+            <field name="domain_force">[('estimate_line_id.estimate_id.company_id', 'in', company_ids)]</field>
         </record>
     </data>
 </odoo>

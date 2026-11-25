@@ -61,7 +61,7 @@ Dành cho sản phẩm làm theo yêu cầu khách, chưa tồn tại lúc báo 
 ## Lưu ý khi sửa code
 
 - Dữ liệu của công ty sản xuất phải đọc bằng `sudo().with_company(...)`. `standard_price` phụ thuộc công ty
-  nên đơn giá NVL dự toán lấy theo công ty sản xuất.
+  nên đơn giá NVL dự toán lấy theo công ty sản xuất. Nếu giá đó bằng 0 thì lấy giá vốn công ty trên phiếu, rồi đến công ty hiện tại.
 - Khu vực sản xuất của 2 công ty nối với nhau bằng `mrp.workcenter.code`, duy nhất trong từng công ty. Phiếu dự toán chọn
   khu vực công ty thương mại; chi phí theo giờ và BOM dùng khu vực cùng mã ở công ty sản xuất (`_get_mrp_workcenter`).
 - Nhân viên bán hàng không có quyền `mrp.workcenter`. Ô chọn khu vực đi qua `mrp.workcenter.web_name_search` với context

@@ -86,6 +86,26 @@ class TestSaleEstimate(TransactionCase):
         self.assertEqual(estimate.amount_total, 3600000)
         self.assertEqual(estimate.amount_margin, 2840000)
 
+    def test_01b_cost_falls_back_to_estimate_company(self):
+        # NVL chưa có giá vốn ở công ty sản xuất: lấy giá vốn công ty trên phiếu
+        lining = self.env['product.product'].create({
+            'name': 'Lot B', 'type': 'consu', 'is_storable': True, 'company_id': False})
+        lining.with_company(self.service_company).standard_price = 45000
+        env = self.env(user=self.salesman, context={'allowed_company_ids': self.service_company.ids})
+        form = Form(env['sale.estimate'])
+        form.partner_id = self.customer
+        with form.line_ids.new() as line:
+            line.name = 'Ghe may do'
+            with line.bom_line_ids.new() as bom_line:
+                bom_line.product_id = lining
+                self.assertEqual(bom_line.cost_unit, 45000)
+            with line.bom_line_ids.new() as bom_line:
+                # Đã có giá ở công ty sản xuất thì vẫn ưu tiên giá đó
+                bom_line.product_id = self.fabric
+                self.assertEqual(bom_line.cost_unit, 100000)
+        estimate = form.save()
+        self.assertEqual(sorted(estimate.line_ids.bom_line_ids.mapped('cost_unit')), [45000, 100000])
+
     def test_02_create_order_builds_product_and_bom(self):
         estimate = self._create_estimate()
         estimate.action_create_sale_order()
@@ -451,3 +471,29 @@ class TestSaleEstimate(TransactionCase):
         operation_form.workcenter_id = self.workcenter
         self.assertEqual(operation_form.time_cycle_manual, 25)
         self.assertEqual(operation_form.save().time_cycle_manual, 25)
+
+    def test_29_multi_company_rules(self):
+        """Người dùng chỉ thuộc công ty khác không đọc được phiếu dự toán và dữ liệu con."""
+        estimate = self._create_estimate()
+        line = estimate.line_ids
+        line.operation_ids.instruction_ids = [Command.create({'title': 'Kiem tra duong may'})]
+        other_company = self.env['res.company'].create({'name': 'Tiny Cong Ty Khac'})
+        other_user = new_test_user(
+            self.env, login='estimate_sales_other', groups='sales_team.group_sale_salesman',
+            company_id=other_company.id, company_ids=[Command.set(other_company.ids)])
+        other_env = self.env(user=other_user, context={'allowed_company_ids': other_company.ids})
+        records = {
+            'sale.estimate': estimate,
+            'sale.estimate.line': line,
+            'sale.estimate.operation': line.operation_ids,
+            'sale.estimate.instruction': line.operation_ids.instruction_ids,
+            'sale.estimate.bom.line': line.bom_line_ids,
+        }
+        for model, record in records.items():
+            self.assertTrue(record, model)
+            self.assertFalse(other_env[model].search([('id', 'in', record.ids)]), model)
+            with self.assertRaises(AccessError, msg=model):
+                other_env[model].browse(record.ids).read(['display_name'])
+            # Người dùng cùng công ty vẫn đọc được
+            sales_env = self.env(user=self.salesman, context={'allowed_company_ids': self.service_company.ids})
+            self.assertEqual(sales_env[model].search([('id', 'in', record.ids)]), record.with_env(sales_env), model)

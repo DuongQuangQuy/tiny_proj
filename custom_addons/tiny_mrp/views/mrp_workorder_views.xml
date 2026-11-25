@@ -27,6 +27,8 @@
             <!-- is_passed thuộc công đoạn, không đặt trong list thời gian (mrp.workcenter.productivity) -->
             <xpath expr="//group/group/field[@name='workcenter_id']" position="after">
                 <field name="is_passed"/>
+                <!-- Mặc định lấy từ khu vực sản xuất, sửa tay được để thêm/bớt người thực hiện -->
+                <field name="user_mrp_ids" widget="many2many_tags" options="{'no_create': True}"/>
             </xpath>
             <xpath expr="//page[@ name='dependencies']" position="after" >
                 <page name="reason" string="Lý do">
