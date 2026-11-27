@@ -70,6 +70,25 @@ def _migrate_code_fabric(cr, table):
         _logger.exception('%s.code_fabric: could not map old text values, left empty (kept in %s)', table, BACKUP)
 
 
+def _fill_variants_from_template(cr):
+    """Biến thể chưa có mã vải: lấy theo mã vải của template (mặc định giống khi tạo biến thể mới)."""
+    if _column_type(cr, 'product_template', 'code_fabric') != 'int4' \
+            or _column_type(cr, 'product_product', 'code_fabric') != 'int4':
+        return
+    try:
+        cr.execute('SAVEPOINT code_fabric_fill')
+        cr.execute("""UPDATE product_product pp SET code_fabric = pt.code_fabric
+                      FROM product_template pt
+                      WHERE pp.product_tmpl_id = pt.id AND pp.code_fabric IS NULL AND pt.code_fabric IS NOT NULL""")
+        filled = cr.rowcount
+        cr.execute('RELEASE SAVEPOINT code_fabric_fill')
+        _logger.info('product_product.code_fabric: filled %s variants from their template', filled)
+    except Exception:
+        cr.execute('ROLLBACK TO SAVEPOINT code_fabric_fill')
+        _logger.exception('product_product.code_fabric: could not fill variants from template')
+
+
 def migrate(cr, version):
     for table in TABLES:
         _migrate_code_fabric(cr, table)
+    _fill_variants_from_template(cr)
