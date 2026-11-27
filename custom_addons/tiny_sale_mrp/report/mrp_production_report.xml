@@ -42,21 +42,21 @@
                 .o_tiny_production_order .o_tpo_title span { white-space: nowrap; }
                 .o_tiny_production_order .o_tpo_label { color: #666; font-size: 14px; }
                 .o_tiny_production_order .o_tpo_value { font-weight: 700; font-size: 18.3px; }
-                .o_tiny_production_order h5 { font-weight: 700; font-size: 21px; margin: 18px 0 6px 0; }
+                .o_tiny_production_order h5 { font-weight: 700; font-size: 21px; margin: 12px 0 4px 0; }
                 /* !important: ghi đè viền/đậm mặc định của CSS report Odoo cho bảng */
                 /* separate + tr không viền: wkhtmltopdf vẽ viền thừa khi collapse với tr của Bootstrap */
                 .o_tiny_production_order table { width: 100%; border-collapse: separate !important; border-spacing: 0; border: 0 !important; }
                 .o_tiny_production_order thead, .o_tiny_production_order tbody, .o_tiny_production_order tr { border: 0 none !important; }
                 .o_tiny_production_order th, .o_tiny_production_order td { border: 0 !important; font-weight: 400 !important; }
-                .o_tiny_production_order th { background: #f2f2f2 !important; font-weight: 700 !important; padding: 9px 10px; text-align: left; }
-                .o_tiny_production_order td { padding: 9px 10px; border-bottom: 1px solid #ddd !important; }
-                .o_tiny_production_order .o_tpo_note_line { border-bottom: 1px solid #bbb; height: 40px; }
+                .o_tiny_production_order th { background: #f2f2f2 !important; font-weight: 700 !important; padding: 5px 10px; text-align: left; }
+                .o_tiny_production_order td { padding: 5px 10px; border-bottom: 1px solid #ddd !important; }
+                .o_tiny_production_order .o_tpo_note_line { border-bottom: 1px solid #bbb; height: 34px; }
                 .o_tiny_production_order .o_r { text-align: right !important; }
                 .o_tiny_production_order .o_nw { white-space: nowrap; }
                 .o_tiny_production_order td.o_b, .o_tiny_production_order .o_b { font-weight: 700 !important; }
                 .o_tiny_production_order td.o_tpo_doc { font-weight: 700 !important; }
                 .o_tiny_production_order td.o_plain { border-bottom: 0 !important; padding: 0; vertical-align: middle; }
-                .o_tiny_production_order td.o_info { border-bottom: 0 !important; padding: 6px 10px 8px 0; vertical-align: top; }
+                .o_tiny_production_order td.o_info { border-bottom: 0 !important; padding: 4px 10px 6px 0; vertical-align: top; }
                 .o_tiny_production_order .o_tpo_info { border-bottom: 1px solid #ddd; margin-bottom: 4px; }
             </style>
 
@@ -150,7 +150,7 @@
             <!-- Ghi chú: để trống cho xưởng viết tay -->
             <!-- Số dòng kẻ tự giãn để phiếu kín trang A5: càng nhiều vật tư/công đoạn thì càng ít dòng (tối thiểu 2).
                  NOTE_CAPACITY = số dòng (vật tư + công đoạn + ghi chú) vừa một trang, đo theo cỡ chữ ở trên. -->
-            <t t-set="note_capacity" t-value="40"/>
+            <t t-set="note_capacity" t-value="13"/>
             <t t-set="used_rows" t-value="len(o.move_raw_ids.filtered(lambda m: m.state != 'cancel')) + len(workorders) + (0 if workorders else 2)"/>
             <h5>Ghi chú sản xuất</h5>
             <t t-foreach="range(max(2, note_capacity - used_rows))" t-as="note_line">
