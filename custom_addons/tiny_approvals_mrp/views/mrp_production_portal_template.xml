@@ -5,7 +5,7 @@
               inherit_id="tiny_mrp.portal_production_detail"
               name="Portal Production Detail - Stock Approval">
 
-        <!-- Thêm nút Phê duyệt xuất kho sau nút Xác nhận kho -->
+        <!-- Thêm nút Phê duyệt bổ sung kho (yêu cầu mua bổ sung hàng) sau nút Xác nhận kho -->
         <xpath expr="//button[@value='confirm_stock']/parent::form/parent::t" position="after">
             <!-- Hiện cả khi kho chưa xác nhận: NVL có thể đã hết nên cần phê duyệt trước khi xác nhận kho -->
             <t t-if="user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock in ('draft', 'confirmed')">
@@ -13,7 +13,7 @@
                 <div class="mb-2">
                     <button type="button" class="btn btn-primary w-100"
                             data-bs-toggle="modal" data-bs-target="#stockApprovalModal">
-                        <i class="fa fa-thumbs-up me-1"/> Phê duyệt xuất kho
+                        <i class="fa fa-thumbs-up me-1"/> Phê duyệt bổ sung kho
                     </button>
                 </div>
 
@@ -25,7 +25,7 @@
                             <div class="modal-header">
                                 <h5 class="modal-title" id="stockApprovalModalLabel">
                                     <i class="fa fa-thumbs-up me-1 text-primary"/>
-                                    Yêu cầu phê duyệt xuất kho
+                                    Yêu cầu phê duyệt bổ sung kho
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"/>
                             </div>
@@ -49,48 +49,54 @@
 
                                     <!-- Bảng sản phẩm -->
                                     <h6 class="fw-semibold mb-2">Danh sách sản phẩm</h6>
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-bordered align-middle mb-2"
-                                               id="o_approval_product_lines">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th style="min-width:200px">Sản phẩm</th>
-                                                    <th>Mô tả</th>
-                                                    <th style="width:120px">Số lượng</th>
-                                                    <th style="width:48px"/>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="o_approval_product_row">
-                                                    <td>
-                                                        <select name="product_ids[]"
-                                                                class="form-select form-select-sm o_product_select">
-                                                            <option value="">-- Chọn sản phẩm --</option>
-                                                            <t t-foreach="products" t-as="p">
-                                                                <option t-att-value="p.id"
-                                                                        t-att-data-desc="p.description_purchase or p.display_name or ''"
-                                                                        t-esc="p.display_name"/>
-                                                            </t>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" name="descriptions[]"
-                                                               class="form-control form-control-sm"/>
-                                                    </td>
-                                                    <td>
-                                                        <input type="number" name="quantities[]"
-                                                               class="form-control form-control-sm"
-                                                               value="1" min="0.001" step="0.001"/>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <button type="button"
-                                                                class="btn btn-sm btn-outline-danger o_remove_line">
-                                                            <i class="fa fa-times"/>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <!-- Layout dạng lưới: desktop 1 hàng, điện thoại xếp chồng để luôn thấy ô Số lượng -->
+                                    <div class="d-none d-md-flex row g-2 small fw-semibold text-muted mb-1">
+                                        <div class="col-md-5">Sản phẩm</div>
+                                        <div class="col-md-4">Mô tả</div>
+                                        <div class="col-md-2">Số lượng</div>
+                                        <div class="col-md-1"/>
+                                    </div>
+                                    <!-- Nguồn dữ liệu sản phẩm cho ô tìm kiếm (ẩn) -->
+                                    <select id="o_approval_product_source" class="d-none" disabled="1">
+                                        <t t-foreach="products" t-as="p">
+                                            <option t-att-value="p.id"
+                                                    t-att-data-desc="p.description_purchase or p.display_name or ''"
+                                                    t-esc="p.display_name"/>
+                                        </t>
+                                    </select>
+                                    <div id="o_approval_product_lines">
+                                        <div class="o_approval_product_row row g-2 align-items-start border rounded p-2 mb-2 mx-0">
+                                            <div class="col-12 col-md-5">
+                                                <label class="form-label small mb-1 d-md-none">Sản phẩm</label>
+                                                <!-- Ô tìm kiếm sản phẩm: gõ mã/tên (không dấu cũng được), chạm để chọn -->
+                                                <input type="hidden" name="product_ids[]" class="o_product_id" value=""/>
+                                                <div class="input-group input-group-sm">
+                                                    <span class="input-group-text"><i class="fa fa-search"/></span>
+                                                    <input type="search" class="form-control o_product_search"
+                                                           placeholder="Gõ mã hoặc tên sản phẩm..."
+                                                           autocomplete="off"/>
+                                                </div>
+                                                <div class="list-group o_product_results d-none mt-1"
+                                                     style="max-height:240px; overflow-y:auto;"/>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <label class="form-label small mb-1 d-md-none">Mô tả</label>
+                                                <input type="text" name="descriptions[]"
+                                                       class="form-control form-control-sm"/>
+                                            </div>
+                                            <div class="col-8 col-md-2">
+                                                <label class="form-label small mb-1 d-md-none">Số lượng</label>
+                                                <input type="number" name="quantities[]"
+                                                       class="form-control form-control-sm"
+                                                       value="1" min="0.001" step="0.001" inputmode="decimal"/>
+                                            </div>
+                                            <div class="col-4 col-md-1 text-end text-md-center">
+                                                <button type="button"
+                                                        class="btn btn-sm btn-outline-danger o_remove_line">
+                                                    <i class="fa fa-times"/>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-outline-secondary"
                                             id="o_add_approval_line">
@@ -111,41 +117,138 @@
 
                 <script>
                     (function () {
-                        var tbody = document.querySelector('#o_approval_product_lines tbody');
+                        var tbody = document.getElementById('o_approval_product_lines');
                         var addBtn = document.getElementById('o_add_approval_line');
                         if (!tbody || !addBtn) return;
 
+                        // Bỏ dấu tiếng Việt + chữ thường để tìm không dấu
+                        function norm(s) {
+                            return (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '')
+                                .replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase();
+                        }
+
+                        var products = [];
+                        var src = document.getElementById('o_approval_product_source');
+                        if (src) {
+                            Array.prototype.forEach.call(src.options, function (o) {
+                                products.push({id: o.value, name: o.textContent, desc: o.dataset.desc || '', key: norm(o.textContent)});
+                            });
+                        }
+                        var MAX_RESULTS = 50;
+
                         function bindRow(row) {
-                            var sel = row.querySelector('.o_product_select');
-                            if (sel) {
-                                sel.addEventListener('change', function () {
-                                    var opt = sel.options[sel.selectedIndex];
-                                    var descInput = row.querySelector('input[name="descriptions[]"]');
-                                    if (descInput &amp;&amp; !descInput.value) {
-                                        descInput.value = opt.dataset.desc || '';
-                                    }
-                                });
+                            var search = row.querySelector('.o_product_search');
+                            var hidden = row.querySelector('.o_product_id');
+                            var results = row.querySelector('.o_product_results');
+                            var descInput = row.querySelector('input[name="descriptions[]"]');
+
+                            function hideResults() {
+                                results.classList.add('d-none');
+                                results.innerHTML = '';
                             }
+
+                            function choose(p) {
+                                hidden.value = p.id;
+                                search.value = p.name;
+                                search.classList.remove('is-invalid');
+                                search.classList.add('is-valid');
+                                if (descInput &amp;&amp; !descInput.value) {
+                                    descInput.value = p.desc || p.name;
+                                }
+                                hideResults();
+                            }
+
+                            function render() {
+                                var words = norm(search.value).split(/\s+/).filter(Boolean);
+                                results.innerHTML = '';
+                                var count = 0;
+                                for (var i = 0; i &lt; products.length &amp;&amp; count &lt; MAX_RESULTS; i++) {
+                                    var p = products[i];
+                                    if (!words.every(function (w) { return p.key.indexOf(w) !== -1; })) continue;
+                                    var item = document.createElement('button');
+                                    item.type = 'button';
+                                    item.className = 'list-group-item list-group-item-action py-2 small';
+                                    item.textContent = p.name;
+                                    item.addEventListener('click', choose.bind(null, p));
+                                    results.appendChild(item);
+                                    count++;
+                                }
+                                if (!count) {
+                                    var empty = document.createElement('div');
+                                    empty.className = 'list-group-item small text-muted';
+                                    empty.textContent = 'Không tìm thấy sản phẩm';
+                                    results.appendChild(empty);
+                                }
+                                results.classList.remove('d-none');
+                            }
+
+                            search.addEventListener('input', function () {
+                                // Gõ lại thì bỏ lựa chọn cũ, bắt buộc chọn lại từ danh sách
+                                hidden.value = '';
+                                search.classList.remove('is-valid');
+                                render();
+                            });
+                            search.addEventListener('focus', function () {
+                                if (!hidden.value) render();
+                            });
+                            search.addEventListener('keydown', function (ev) {
+                                if (ev.key === 'Enter') {
+                                    // Enter chọn kết quả đầu tiên thay vì submit form
+                                    ev.preventDefault();
+                                    var first = results.querySelector('button');
+                                    if (first) first.click();
+                                } else if (ev.key === 'Escape') {
+                                    hideResults();
+                                }
+                            });
+                            document.addEventListener('click', function (ev) {
+                                if (!row.contains(ev.target)) hideResults();
+                            });
                             var removeBtn = row.querySelector('.o_remove_line');
                             if (removeBtn) {
                                 removeBtn.addEventListener('click', function () {
-                                    if (tbody.querySelectorAll('tr').length > 1) {
+                                    if (tbody.querySelectorAll('.o_approval_product_row').length > 1) {
                                         row.remove();
                                     }
                                 });
                             }
                         }
 
-                        bindRow(tbody.querySelector('tr'));
+                        bindRow(tbody.querySelector('.o_approval_product_row'));
 
                         addBtn.addEventListener('click', function () {
-                            var template = tbody.querySelector('tr').cloneNode(true);
-                            template.querySelector('.o_product_select').value = '';
+                            var template = tbody.querySelector('.o_approval_product_row').cloneNode(true);
+                            template.querySelector('.o_product_id').value = '';
+                            var s = template.querySelector('.o_product_search');
+                            s.value = '';
+                            s.classList.remove('is-valid', 'is-invalid');
+                            var r = template.querySelector('.o_product_results');
+                            r.innerHTML = '';
+                            r.classList.add('d-none');
                             template.querySelector('input[name="descriptions[]"]').value = '';
                             template.querySelector('input[name="quantities[]"]').value = '1';
                             tbody.appendChild(template);
                             bindRow(template);
+                            s.focus();
                         });
+
+                        // Chặn gửi khi có dòng đã gõ nhưng chưa chọn sản phẩm từ danh sách, hoặc không có dòng nào
+                        var form = tbody.closest('form');
+                        if (form) {
+                            form.addEventListener('submit', function (ev) {
+                                var ok = true, hasLine = false;
+                                tbody.querySelectorAll('.o_approval_product_row').forEach(function (row) {
+                                    var id = row.querySelector('.o_product_id').value;
+                                    var s = row.querySelector('.o_product_search');
+                                    if (id) { hasLine = true; return; }
+                                    if (s.value.trim()) { ok = false; s.classList.add('is-invalid'); }
+                                });
+                                if (!ok || !hasLine) {
+                                    ev.preventDefault();
+                                    alert(!ok ? 'Vui lòng chọn sản phẩm từ danh sách gợi ý.' : 'Vui lòng chọn ít nhất 1 sản phẩm.');
+                                }
+                            });
+                        }
                     })();
                 </script>
             </t>
