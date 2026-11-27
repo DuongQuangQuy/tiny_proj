@@ -17,10 +17,20 @@
                     </button>
                 </div>
 
+                <!-- Điện thoại: chữ 16px để iPhone không tự phóng to khi chạm ô nhập; dòng gợi ý cao >= 44px dễ chạm -->
+                <style>
+                    @media (max-width: 767.98px) {
+                        #stockApprovalModal .form-control,
+                        #stockApprovalModal .form-select { font-size: 16px; }
+                        #stockApprovalModal .o_product_results .list-group-item { min-height: 44px; font-size: 15px; }
+                        #stockApprovalModal .o_product_results { max-height: 45vh !important; }
+                    }
+                </style>
+
                 <!-- Modal nhập yêu cầu phê duyệt -->
                 <div class="modal fade" id="stockApprovalModal" tabindex="-1"
                      aria-labelledby="stockApprovalModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
+                    <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="stockApprovalModalLabel">
@@ -74,7 +84,8 @@
                                                     <span class="input-group-text"><i class="fa fa-search"/></span>
                                                     <input type="search" class="form-control o_product_search"
                                                            placeholder="Gõ mã hoặc tên sản phẩm..."
-                                                           autocomplete="off"/>
+                                                           autocomplete="off" autocorrect="off" autocapitalize="off"
+                                                           spellcheck="false" enterkeyhint="search"/>
                                                 </div>
                                                 <div class="list-group o_product_results d-none mt-1"
                                                      style="max-height:240px; overflow-y:auto;"/>
@@ -156,6 +167,8 @@
                                     descInput.value = p.desc || p.name;
                                 }
                                 hideResults();
+                                // Ẩn bàn phím điện thoại để thấy ô Số lượng
+                                search.blur();
                             }
 
                             function render() {
@@ -190,6 +203,12 @@
                             });
                             search.addEventListener('focus', function () {
                                 if (!hidden.value) render();
+                                // Điện thoại: đợi bàn phím bật lên rồi cuộn ô tìm kiếm lên đầu để danh sách gợi ý không bị bàn phím che
+                                if (window.innerWidth &lt; 768) {
+                                    setTimeout(function () {
+                                        search.scrollIntoView({block: 'start', behavior: 'smooth'});
+                                    }, 300);
+                                }
                             });
                             search.addEventListener('keydown', function (ev) {
                                 if (ev.key === 'Enter') {
@@ -201,8 +220,10 @@
                                     hideResults();
                                 }
                             });
-                            document.addEventListener('click', function (ev) {
-                                if (!row.contains(ev.target)) hideResults();
+                            ['pointerdown', 'touchstart'].forEach(function (evName) {
+                                document.addEventListener(evName, function (ev) {
+                                    if (!row.contains(ev.target)) hideResults();
+                                }, {passive: true});
                             });
                             var removeBtn = row.querySelector('.o_remove_line');
                             if (removeBtn) {

@@ -227,7 +227,8 @@ class SaleEstimateLine(models.Model):
     image_1920 = fields.Image(string='Image', max_width=1920, max_height=1920)
     product_size = fields.Char(string='Measurements')
     note = fields.Text(string='Notes')
-    code_fabric = fields.Char(string='Fabric Code')
+    code_fabric = fields.Many2one(
+        'product.product', string='Fabric Code', domain="[('categ_id.is_main_fabric', '=', True)]")
     product_pattern_id = fields.Many2one('product.product', string='Pattern Code')
     note_pattern = fields.Text(string='Pattern Notes')
 
@@ -489,7 +490,7 @@ class SaleEstimateLine(models.Model):
             'uom_id': self.uom_id.id,
             'list_price': self.price_unit,
             'image_1920': self.image_1920,
-            'code_fabric': self.code_fabric,
+            'code_fabric': self.code_fabric.id,
             'note': self.note,
             'route_ids': [fields.Command.set(estimate.company_id.sudo().estimate_route_ids.ids)],
         }
@@ -510,7 +511,7 @@ class SaleEstimateLine(models.Model):
             self.product_id = product
         # code_fabric/note khai báo riêng trên product.product nên phải ghi cả ở biến thể
         product.write({
-            'code_fabric': self.code_fabric,
+            'code_fabric': self.code_fabric.id,
             'note': self.note,
             'seller_ids': [fields.Command.create({
                 'partner_id': mrp_company.partner_id.id,
@@ -569,7 +570,7 @@ class SaleEstimateLine(models.Model):
             'image_128': product.image_128,
             'product_size': self.product_size,
             'note': self.note,
-            'code_fabric': self.code_fabric,
+            'code_fabric': self.code_fabric.id,
             'product_pattern_id': self.product_pattern_id.id,
             'product_pattern_image': self.product_pattern_id.image_128,
             'note_pattern': self.note_pattern,

@@ -12,7 +12,7 @@ sản phẩm mới, BOM ở công ty sản xuất và đơn bán hàng. Luồng 
     'author': "Tiny",
     'website': "https://tiny.com.vn/",
     'category': 'Sale',
-    'version': '19.0.0.3',
+    'version': '19.0.0.4',
     'license': 'LGPL-3',
     'depends': [
         'base', 'sale_mrp', 'mrp_workorder', 'tiny_contacts', 'tiny_product', 'tiny_sale_purchase_stock', 'tiny_mrp',

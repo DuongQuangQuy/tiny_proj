@@ -66,7 +66,7 @@ class TestSaleEstimate(TransactionCase):
                 'name': 'Sofa may do',
                 'product_qty': 2,
                 'product_size': '2m x 1m',
-                'code_fabric': 'V01',
+                'code_fabric': self.fabric.id,
                 'note': 'Theo yeu cau',
                 'extra_cost': 50000,
                 'bom_line_ids': [Command.create({'product_id': self.fabric.id, 'product_qty': 3})],
@@ -118,7 +118,7 @@ class TestSaleEstimate(TransactionCase):
         self.assertEqual(bom.bom_line_ids.product_qty, 3)
         self.assertEqual(bom.operation_ids.workcenter_id, self.workcenter)
         self.assertEqual(bom.operation_ids.time_cycle_manual, 30)
-        self.assertEqual(line.product_id.code_fabric, 'V01')
+        self.assertEqual(line.product_id.code_fabric, self.fabric)
         self.assertEqual(line.product_id.seller_ids.partner_id, self.mrp_company.partner_id)
         self.assertEqual(line.product_id.seller_ids.price, 380000)
         self.assertEqual(line.product_id.with_company(self.mrp_company).standard_price, 380000)
@@ -126,7 +126,7 @@ class TestSaleEstimate(TransactionCase):
         self.assertEqual(order_line.price_unit, 1800000)
         self.assertEqual(order_line.product_uom_qty, 2)
         self.assertEqual(order_line.product_size, '2m x 1m')
-        self.assertEqual(order_line.code_fabric, 'V01')
+        self.assertEqual(order_line.code_fabric, self.fabric)
 
     def test_03_full_flow_reaches_manufacturing_order(self):
         estimate = self._create_estimate()

@@ -109,7 +109,7 @@
                                     <field name="sequence" widget="handle"/>
                                     <field name="name"/>
                                     <field name="product_size" optional="show"/>
-                                    <field name="code_fabric" optional="show"/>
+                                    <field name="code_fabric" optional="show" options="{'no_create': True}"/>
                                     <field name="product_qty"/>
                                     <field name="uom_id"/>
                                     <field name="currency_id" column_invisible="1"/>
@@ -136,7 +136,7 @@
                                                 <field name="product_qty"/>
                                                 <field name="uom_id"/>
                                                 <field name="product_size"/>
-                                                <field name="code_fabric"/>
+                                                <field name="code_fabric" options="{'no_create': True}"/>
                                                 <field name="note"/>
                                                 <field name="product_pattern_id"/>
                                                 <field name="note_pattern"/>

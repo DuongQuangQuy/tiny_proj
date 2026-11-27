@@ -50,7 +50,7 @@ class PurchaseOrder(models.Model):
                     'image_128': sale_line.image_128,
                     'product_size': sale_line.product_size,
                     'note': sale_line.note,
-                    'code_fabric': sale_line.code_fabric,
+                    'code_fabric': sale_line.code_fabric.id,
                     'product_pattern_id': sale_line.product_pattern_id.id,
                     'product_pattern_image': sale_line.product_pattern_image,
                     'note_pattern': sale_line.note_pattern,

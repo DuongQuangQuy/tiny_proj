@@ -12,7 +12,9 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    code_fabric = fields.Char(string='Mã vải')
+    # Mã vải = sản phẩm NVL thuộc danh mục được đánh dấu "NVL vải chính" (trước đây là ô chữ)
+    code_fabric = fields.Many2one(
+        'product.product', string='Mã vải', domain="[('categ_id.is_main_fabric', '=', True)]")
     note = fields.Text(string='Ghi chú')
     # Khai báo trên template: product.product kế thừa qua _inherits (product_tmpl_id)
     # nên đọc/ghi ở variant sẽ đồng bộ với template và ngược lại.
@@ -30,7 +32,8 @@ class ProductTemplate(models.Model):
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    code_fabric = fields.Char(string='Mã vải')
+    code_fabric = fields.Many2one(
+        'product.product', string='Mã vải', domain="[('categ_id.is_main_fabric', '=', True)]")
     note = fields.Text(string='Ghi chú')
 
 
@@ -38,3 +41,4 @@ class ProductCategory(models.Model):
     _inherit = "product.category"
 
     is_lining = fields.Boolean(string='NVL vải lót', default=False)
+    is_main_fabric = fields.Boolean(string='NVL vải chính', default=False)

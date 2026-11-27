@@ -7,10 +7,10 @@
     'author': "Tiny",
     'website': "https://tiny.com.vn/",
     'category': 'Sale',
-    'version': '19.0.0.1',
+    'version': '19.0.0.2',
     'license': 'LGPL-3',
     'depends': [
-        'base', 'sale', 'sale_stock', 'tiny_contacts', 'sale_order_line_product_image'
+        'base', 'sale', 'sale_stock', 'tiny_contacts', 'sale_order_line_product_image', 'tiny_product'
     ],
     'data': [
         'data/sequence.xml',

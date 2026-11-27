@@ -18,8 +18,9 @@ class SaleOrderLine(models.Model):
     product_pattern_id = fields.Many2one('product.product', string='Pattern Code')
     product_pattern_image = fields.Binary(string='Pattern Image')
     note_pattern = fields.Text(string='Pattern Notes')
-    code_fabric = fields.Char(
-        string='Fabric Code', compute='_compute_code_fabric', store=True, readonly=False, precompute=True)
+    code_fabric = fields.Many2one(
+        'product.product', string='Fabric Code', domain="[('categ_id.is_main_fabric', '=', True)]",
+        compute='_compute_code_fabric', store=True, readonly=False, precompute=True)
 
     @api.onchange('product_pattern_id')
     def onchange_sale_product_pattern_image(self):
