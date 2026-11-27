@@ -32,27 +32,31 @@
         <div class="article o_tiny_production_order" t-att-data-oe-model="o._name" t-att-data-oe-id="o.id"
              t-att-data-oe-lang="o.env.lang">
             <style>
-                .o_tiny_production_order { font-size: 11px; color: #222; }
-                .o_tiny_production_order .o_tpo_company { color: #555; font-weight: 700; text-transform: uppercase; font-size: 10px; }
-                .o_tiny_production_order .o_tpo_doc { font-weight: 700; font-size: 12px; text-transform: uppercase; }
-                .o_tiny_production_order .o_tpo_title { font-weight: 700; font-size: 17px; margin: 6px 0 8px 0; }
-                .o_tiny_production_order .o_tpo_label { color: #666; font-size: 10px; }
-                .o_tiny_production_order .o_tpo_value { font-weight: 700; font-size: 12px; }
-                .o_tiny_production_order h5 { font-weight: 700; font-size: 14px; margin: 12px 0 4px 0; }
+                /* Chữ lớn cho dễ đọc ở xưởng. wkhtmltopdf thu nhỏ khi in: 1px ≈ 0,6pt trên giấy
+                   -> chữ thường 16.7px = 10pt, giá trị thông tin chung 18.3px = 11pt, tiêu đề 23.3px = 14pt */
+                .o_tiny_production_order { font-size: 16.7px; color: #222; }
+                .o_tiny_production_order .o_tpo_company { color: #555; font-weight: 700; text-transform: uppercase; font-size: 14px; }
+                .o_tiny_production_order .o_tpo_doc { font-weight: 700; font-size: 18px; text-transform: uppercase; }
+                .o_tiny_production_order .o_tpo_title { font-weight: 700; font-size: 23.3px; line-height: 1.3; margin: 8px 0 10px 0; }
+                /* Tên khách là một cụm không ngắt: dòng không đủ chỗ thì cả cụm xuống dòng dưới */
+                .o_tiny_production_order .o_tpo_title span { white-space: nowrap; }
+                .o_tiny_production_order .o_tpo_label { color: #666; font-size: 14px; }
+                .o_tiny_production_order .o_tpo_value { font-weight: 700; font-size: 18.3px; }
+                .o_tiny_production_order h5 { font-weight: 700; font-size: 21px; margin: 18px 0 6px 0; }
                 /* !important: ghi đè viền/đậm mặc định của CSS report Odoo cho bảng */
                 /* separate + tr không viền: wkhtmltopdf vẽ viền thừa khi collapse với tr của Bootstrap */
                 .o_tiny_production_order table { width: 100%; border-collapse: separate !important; border-spacing: 0; border: 0 !important; }
                 .o_tiny_production_order thead, .o_tiny_production_order tbody, .o_tiny_production_order tr { border: 0 none !important; }
                 .o_tiny_production_order th, .o_tiny_production_order td { border: 0 !important; font-weight: 400 !important; }
-                .o_tiny_production_order th { background: #f2f2f2 !important; font-weight: 700 !important; padding: 5px 8px; text-align: left; }
-                .o_tiny_production_order td { padding: 5px 8px; border-bottom: 1px solid #ddd !important; }
-                .o_tiny_production_order .o_tpo_note_line { border-bottom: 1px solid #bbb; height: 22px; }
+                .o_tiny_production_order th { background: #f2f2f2 !important; font-weight: 700 !important; padding: 9px 10px; text-align: left; }
+                .o_tiny_production_order td { padding: 9px 10px; border-bottom: 1px solid #ddd !important; }
+                .o_tiny_production_order .o_tpo_note_line { border-bottom: 1px solid #bbb; height: 40px; }
                 .o_tiny_production_order .o_r { text-align: right !important; }
                 .o_tiny_production_order .o_nw { white-space: nowrap; }
                 .o_tiny_production_order td.o_b, .o_tiny_production_order .o_b { font-weight: 700 !important; }
                 .o_tiny_production_order td.o_tpo_doc { font-weight: 700 !important; }
                 .o_tiny_production_order td.o_plain { border-bottom: 0 !important; padding: 0; vertical-align: middle; }
-                .o_tiny_production_order td.o_info { border-bottom: 0 !important; padding: 4px 8px 6px 0; vertical-align: top; }
+                .o_tiny_production_order td.o_info { border-bottom: 0 !important; padding: 6px 10px 8px 0; vertical-align: top; }
                 .o_tiny_production_order .o_tpo_info { border-bottom: 1px solid #ddd; margin-bottom: 4px; }
             </style>
 
@@ -63,11 +67,18 @@
                     <td class="o_tpo_doc o_plain">Lệnh sản xuất</td>
                     <td class="o_plain o_r">
                         <span t-field="o.name"
-                              t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 600, 'height': 100, 'img_style': 'width:170px;height:32px'}"/>
+                              t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 600, 'height': 100, 'img_style': 'width:230px;height:44px'}"/>
                     </td>
                 </tr>
             </table>
-            <div class="o_tpo_title" style="padding-bottom: 6px; border-bottom: 1.5px solid #333;" t-esc="o.full_name or o.name"/>
+            <!-- Tách "số lệnh/số đơn" và "tên khách" thành 2 cụm để tên khách xuống dòng nguyên cụm khi dài -->
+            <t t-set="title_full" t-value="o.full_name or o.name or ''"/>
+            <t t-set="customer_name" t-value="(o._get_service_sale_order().partner_id.name or '').strip()"/>
+            <t t-set="has_customer" t-value="customer_name and title_full.endswith(customer_name)"/>
+            <div class="o_tpo_title" style="padding-bottom: 6px; border-bottom: 1.5px solid #333;">
+                <span t-esc="title_full[:-len(customer_name)].strip() if has_customer else title_full"/>
+                <span t-if="has_customer" t-esc="customer_name"/>
+            </div>
 
             <!-- Thông tin chung -->
             <div class="o_tpo_info">
@@ -137,13 +148,18 @@
             </t>
 
             <!-- Ghi chú: để trống cho xưởng viết tay -->
+            <!-- Số dòng kẻ tự giãn để phiếu kín trang A5: càng nhiều vật tư/công đoạn thì càng ít dòng (tối thiểu 2).
+                 NOTE_CAPACITY = số dòng (vật tư + công đoạn + ghi chú) vừa một trang, đo theo cỡ chữ ở trên. -->
+            <t t-set="note_capacity" t-value="40"/>
+            <t t-set="used_rows" t-value="len(o.move_raw_ids.filtered(lambda m: m.state != 'cancel')) + len(workorders) + (0 if workorders else 2)"/>
             <h5>Ghi chú sản xuất</h5>
-            <div class="o_tpo_note_line"/>
-            <div class="o_tpo_note_line"/>
+            <t t-foreach="range(max(2, note_capacity - used_rows))" t-as="note_line">
+                <div class="o_tpo_note_line"/>
+            </t>
         </div>
         <!-- Chân trang: dùng div + float thay vì bảng để không bị CSS bảng của report vẽ viền -->
         <div class="footer o_tiny_production_order_footer">
-            <div style="border-top: 1px solid #333; padding-top: 3px; font-size: 9px; color: #666;">
+            <div style="border-top: 1px solid #333; padding-top: 3px; font-size: 13px; color: #666;">
                 <div style="float: right;">Trang <span class="page"/> / <span class="topage"/></div>
                 <div>In lúc <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M · %d/%m/%Y')"/></div>
             </div>
