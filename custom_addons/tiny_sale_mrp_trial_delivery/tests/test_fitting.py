@@ -1,3 +1,6 @@
+from datetime import timedelta
+
+from odoo import fields
 from odoo.tests import HttpCase, tagged
 
 
@@ -78,5 +81,9 @@ class TestFitting(HttpCase):
         page = self.url_open(f'/my/workorders/{self.wo_sew.id}')
         self.assertEqual(page.status_code, 200)
         self.assertNotIn('o_wo_fitting_badge', page.text)
+        # Danh sách chỉ hiện công đoạn của lệnh đã đến ngày bắt đầu và kho đã xác nhận
+        self.production.date_start = fields.Datetime.now() - timedelta(hours=1)
+        self.production.action_confirm_stock()
         page = self.url_open('/my/workorders')
+        self.assertIn('Thử khách', page.text)
         self.assertEqual(page.text.count('o_wo_fitting_badge'), 1)

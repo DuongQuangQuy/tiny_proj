@@ -22,9 +22,31 @@ msgid "<i class=\"fa fa-calendar\"/> Hạn:"
 msgstr "<i class=\"fa fa-calendar\"/> Due:"
 
 #. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.portal_workorder_detail_fitting
+msgid ""
+"<i class=\"fa fa-user-circle-o me-1\"/>\n"
+"                Khách thử hàng ở công đoạn này\n"
+"                ("
+msgstr ""
+"<i class=\"fa fa-user-circle-o me-1\"/>\n"
+"                The customer tries the product on at this operation\n"
+"                ("
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.portal_my_workorders_fitting
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.portal_workorder_detail_fitting
+msgid "<i class=\"fa fa-user-circle-o me-1\"/>Thử hàng"
+msgstr "<i class=\"fa fa-user-circle-o me-1\"/>Fitting"
+
+#. module: tiny_sale_mrp_trial_delivery
 #: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.view_mrp_production_form_trial_delivery
 msgid "<span class=\"o_stat_text\">Giao thử</span>"
 msgstr "<span class=\"o_stat_text\">Trial Delivery</span>"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.report_production_order_a5_document_fitting
+msgid "<span class=\"o_tpo_label\">Thử hàng:</span>"
+msgstr "<span class=\"o_tpo_label\">Fitting:</span>"
 
 #. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_needaction
@@ -92,6 +114,11 @@ msgid "Customer Return Date"
 msgstr "Customer Return Date"
 
 #. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.portal_production_detail_fitting
+msgid "Công đoạn thử:"
+msgstr "Fitting operation:"
+
+#. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__product_uom_id
 msgid "Default unit of measure used for all stock operations."
 msgstr "Default unit of measure used for all stock operations."
@@ -113,6 +140,8 @@ msgstr "Description"
 
 #. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_production__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_workorder__display_name
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_sale_order__display_name
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_sale_trial__display_name
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__display_name
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__display_name
@@ -126,9 +155,16 @@ msgstr "Draft"
 
 #. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model,name:tiny_sale_mrp_trial_delivery.model_sale_trial
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_production__trial_id
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_sale_order__trial_id
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__trial_id
 msgid "Fitting"
 msgstr "Fitting"
+
+#. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_workorder__is_fitting
+msgid "Fitting Operation"
+msgstr "Fitting Operation"
 
 #. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__message_follower_ids
@@ -177,6 +213,8 @@ msgstr "Cancel"
 
 #. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_production__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_mrp_workorder__id
+#: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_sale_order__id
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_sale_trial__id
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__id
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery_line__id
@@ -367,6 +405,11 @@ msgid "SMS Delivery error"
 msgstr "SMS Delivery error"
 
 #. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model,name:tiny_sale_mrp_trial_delivery.model_sale_order
+msgid "Sales Order"
+msgstr "Sales Order"
+
+#. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_trial_delivery__sale_origin
 msgid "Source Order"
 msgstr "Source Order"
@@ -405,6 +448,11 @@ msgid "Số phiếu"
 msgstr "Number"
 
 #. module: tiny_sale_mrp_trial_delivery
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.report_production_order_a5_document_fitting
+msgid "THỬ HÀNG"
+msgstr "FITTING"
+
+#. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model.fields,help:tiny_sale_mrp_trial_delivery.field_sale_order__trial_id
 msgid "The work order at which the customer fitting takes place."
 msgstr "The work order at which the customer fitting takes place."
@@ -427,8 +475,10 @@ msgstr "Time"
 #. module: tiny_sale_mrp_trial_delivery
 #: model:ir.actions.act_window,name:tiny_sale_mrp_trial_delivery.action_sale_trial
 #: model:ir.ui.menu,name:tiny_sale_mrp_trial_delivery.menu_sale_trial
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.mrp_production_workorder_list_fitting
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp_trial_delivery.portal_production_detail_fitting
 msgid "Thử hàng"
-msgstr "Fittings"
+msgstr "Fitting"
 
 #. module: tiny_sale_mrp_trial_delivery
 #: model:ir.model.fields.selection,name:tiny_sale_mrp_trial_delivery.selection__trial_delivery__state__delivered
@@ -515,6 +565,7 @@ msgid "Website communication history"
 msgstr "Website communication history"
 
 #. module: tiny_sale_mrp_trial_delivery
+#: model:ir.model,name:tiny_sale_mrp_trial_delivery.model_mrp_workorder
 #: model:ir.model.fields,field_description:tiny_sale_mrp_trial_delivery.field_sale_trial__workcenter_id
 msgid "Work Order"
 msgstr "Work Order"
