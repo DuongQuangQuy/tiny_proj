@@ -41,9 +41,11 @@ class MrpWorkorderReview(models.Model):
                                          string='Defects', domain=[('reason_type', '=', 'defect')])
     note = fields.Text(string='Notes')
     return_workorder_id = fields.Many2one('mrp.workorder', string='Work Order to Rework',
+                                          compute='_compute_return_workorder_id', store=True, readonly=False,
                                           domain="[('production_id', '=', production_id), ('state', '!=', 'cancel')]")
     assign_user_ids = fields.Many2many('res.users', 'mrp_workorder_review_assign_user_rel', 'review_id', 'user_id',
-                                       string='Rework Responsible')
+                                       string='Rework Responsible', compute='_compute_assign_user_ids',
+                                       store=True, readonly=False)
     return_id = fields.Many2one('mrp.workorder.return', string='Rework Round', readonly=True)
 
     @api.depends('production_id.name', 'workorder_id.name', 'round_no')
@@ -52,10 +54,18 @@ class MrpWorkorderReview(models.Model):
             review.name = _('%(mo)s - %(wo)s - Round %(n)s', mo=review.production_id.name or '',
                             wo=review.workorder_id.name or '', n=review.round_no)
 
-    @api.onchange('return_workorder_id')
-    def _onchange_return_workorder_id(self):
-        if self.return_workorder_id:
-            self.assign_user_ids = self.return_workorder_id.user_mrp_ids
+    @api.depends('workorder_id')
+    def _compute_return_workorder_id(self):
+        """Mặc định trả về chính công đoạn đang duyệt, người duyệt đổi tay nếu cần."""
+        for review in self:
+            if not review.return_workorder_id:
+                review.return_workorder_id = review.workorder_id
+
+    @api.depends('return_workorder_id')
+    def _compute_assign_user_ids(self):
+        """Mặc định người phụ trách chỉnh là nhân viên thực hiện của công đoạn trả về, sửa tay được."""
+        for review in self:
+            review.assign_user_ids = review.return_workorder_id.user_mrp_ids
 
     # ------------------------------------------------------------------
     def _tiny_check_reviewer(self):

@@ -18,13 +18,18 @@ class MrpWorkcenter(models.Model):
                 raise ValidationError(_('Work center code %s is already used in this company.', workcenter.code))
 
     @api.model
+    def _get_estimate_workcenter_domain(self):
+        """Khu vực dự toán chọn được: thuộc công ty hiện tại và có khu vực cùng mã ở công ty sản xuất."""
+        mrp_company = self.env['sale.estimate']._get_mrp_company()
+        mrp_codes = self.sudo().search([('company_id', '=', mrp_company.id), ('code', '!=', False)]).mapped('code')
+        return Domain('company_id', '=', self.env.company.id) & Domain('code', 'in', mrp_codes)
+
+    @api.model
     def web_name_search(self, name, specification, domain=None, operator='ilike', limit=100):
         """Dự toán chọn khu vực của công ty hiện tại đã có khu vực cùng mã ở công ty sản xuất.
         Nhân viên bán hàng không có quyền đọc khu vực nên chỉ lấy id và tên qua sudo."""
         if self.env.context.get('sale_estimate_workcenter') and self.env.user.has_group('sales_team.group_sale_salesman'):
-            mrp_company = self.env['sale.estimate']._get_mrp_company()
-            mrp_codes = self.sudo().search([('company_id', '=', mrp_company.id), ('code', '!=', False)]).mapped('code')
-            domain = Domain(domain or []) & Domain('company_id', '=', self.env.company.id) & Domain('code', 'in', mrp_codes)
+            domain = Domain(domain or []) & self._get_estimate_workcenter_domain()
             return super(MrpWorkcenter, self.sudo()).web_name_search(
                 name, {'display_name': {}}, domain, operator, limit)
         return super().web_name_search(name, specification, domain, operator, limit)

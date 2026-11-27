@@ -198,8 +198,10 @@ class TestSaleEstimate(TransactionCase):
             with line.bom_line_ids.new() as bom_line:
                 bom_line.product_id = self.fabric
                 bom_line.product_qty = 2
-            with line.operation_ids.new() as operation:
-                operation.workcenter_id = self.service_workcenter
+            # Dòng mới có sẵn khu vực chọn được (khu vực KHAC không có ở công ty sản xuất nên không có)
+            self.assertEqual(len(line.operation_ids), 1)
+            with line.operation_ids.edit(0) as operation:
+                self.assertEqual(operation.workcenter_id, self.service_workcenter)
                 operation.time_cycle_manual = 10
                 self.assertEqual(operation.name, 'May TM')
                 self.assertEqual(operation.costs_hour, 60000)
@@ -450,6 +452,10 @@ class TestSaleEstimate(TransactionCase):
         form = Form(env['sale.estimate'].with_context(default_estimate_type='price'))
         with form.line_ids.new() as line:
             line.name = 'Ao may do'
+            # Hoạt động mặc định cũng lấy thời lượng của khu vực cùng mã ở công ty sản xuất
+            with line.operation_ids.edit(0) as operation:
+                self.assertEqual(operation.time_cycle_manual, 45)
+            line.operation_ids.remove(0)
             with line.operation_ids.new() as operation:
                 self.assertEqual(operation.time_cycle_manual, 60)
                 operation.workcenter_id = self.service_workcenter

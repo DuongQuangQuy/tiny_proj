@@ -23,6 +23,19 @@ class MrpProduction(models.Model):
                 production.lining_product_ids = self.env['product.product'].search(
                     [('categ_id.is_lining', '=', True)])
 
+    # Tên đầy đủ hiển thị trên list, form và portal: số lệnh + số đơn + tên khách ở công ty thương mại
+    full_name = fields.Char(string='Full Name', compute='_compute_full_name', store=True, index='trigram')
+
+    @api.depends('name')
+    def _compute_full_name(self):
+        for production in self:
+            production.full_name = production._prepare_full_name()
+
+    def _prepare_full_name(self):
+        """Mặc định là số lệnh, tiny_sale_mrp bổ sung số đơn và tên khách của đơn gốc."""
+        self.ensure_one()
+        return self.name or ''
+
     def _default_user_stock(self):
         return self.env['res.users'].search(['|', ('is_mrp_stock', '=', True), ('is_mrp_pattern', '=', True)])
 

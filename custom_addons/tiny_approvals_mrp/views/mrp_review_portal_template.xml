@@ -172,7 +172,7 @@
                                 <tbody>
                                     <tr t-foreach="reviews" t-as="r" style="cursor: pointer;"
                                         t-attf-onclick="window.location='/my/reviews/#{r.id}'">
-                                        <td><t t-esc="r.production_id.name"/></td>
+                                        <td><t t-esc="r.production_id.full_name or r.production_id.name"/></td>
                                         <td class="fw-semibold"><t t-esc="r.workorder_id.name"/></td>
                                         <td class="text-center"><t t-esc="r.round_no"/></td>
                                         <td><t t-esc="review_mode_label.get(r.mode, '')"/></td>
@@ -211,7 +211,7 @@
                     <div class="col-lg-8">
                         <div class="card h-100">
                             <div class="card-header d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0"><i class="fa fa-check-square-o me-1 text-muted"/><t t-esc="review.name"/></h5>
+                                <h5 class="mb-0"><i class="fa fa-check-square-o me-1 text-muted"/><t t-esc="((review.name or '').replace(review.production_id.name, review.production_id.full_name, 1) if review.production_id.name and review.production_id.full_name else review.name)"/></h5>
                                 <span t-att-class="'badge fs-6 ' + review_state_color.get(review.state, 'bg-secondary')">
                                     <t t-esc="review_state_label.get(review.state, review.state)"/>
                                 </span>
@@ -223,7 +223,7 @@
                                     <div>
                                         <div class="fw-semibold fs-5"><t t-esc="production.product_id.display_name or '—'"/></div>
                                         <div class="text-muted small">
-                                            <a t-attf-href="/my/productions/#{production.id}"><t t-esc="production.name"/></a>
+                                            <a t-attf-href="/my/productions/#{production.id}"><t t-esc="production.full_name or production.name"/></a>
                                         </div>
                                     </div>
                                 </div>

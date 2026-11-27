@@ -1348,12 +1348,8 @@ msgstr "The return work order must belong to the same manufacturing order."
 #. module: tiny_approvals_mrp
 #. odoo-python
 #: code:addons/tiny_approvals_mrp/controller/main.py:0
-msgid ""
-"The warehouse has not confirmed yet. Approval can only be requested when the"
-" warehouse status is \"Confirmed\"."
-msgstr ""
-"The warehouse has not confirmed yet. Approval can only be requested when the"
-" warehouse status is \"Confirmed\"."
+msgid "The warehouse status is cancelled. Approval cannot be requested."
+msgstr "The warehouse status is cancelled. Approval cannot be requested."
 
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review

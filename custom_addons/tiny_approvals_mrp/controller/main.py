@@ -271,8 +271,9 @@ class MrpApprovalsPortal(MrpPortal):
         try:
             if not user.is_mrp_stock:
                 raise UserError(_('You are not allowed to perform this action.'))
-            if production.state_stock != 'confirmed':
-                raise UserError(_('The warehouse has not confirmed yet. Approval can only be requested when the warehouse status is "Confirmed".'))
+            # Cho tạo phê duyệt cả khi kho chưa xác nhận: NVL có thể đã hết nên không xác nhận kho trước được
+            if production.state_stock not in ('draft', 'confirmed'):
+                raise UserError(_('The warehouse status is cancelled. Approval cannot be requested.'))
             mrp_company = request.env['res.company'].sudo().search(
                 [('is_mrp', '=', True)], limit=1
             )

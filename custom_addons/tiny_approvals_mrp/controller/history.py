@@ -96,9 +96,10 @@ class MrpHistoryPortal(MrpReviewPortal):
         domain = expression.AND([self._history_domain(user), _HISTORY_FILTERS[filterby][1]])
         if search:
             domain = expression.AND([domain, [
-                '|', '|', '|',
+                '|', '|', '|', '|',
                 ('name', 'ilike', search),
                 ('production_id.name', 'ilike', search),
+                ('production_id.full_name', 'ilike', search),
                 ('production_id.product_id.name', 'ilike', search),
                 ('production_id.product_id.default_code', 'ilike', search),
             ]])

@@ -73,7 +73,7 @@
                                                 <div class="text-muted small fw-normal"><t t-esc="wo.workcenter_id.name or ''"/></div>
                                             </td>
                                             <td>
-                                                <div><t t-esc="wo.production_id.name or '—'"/></div>
+                                                <div><t t-esc="wo.production_id.full_name or wo.production_id.name or '—'"/></div>
                                                 <div class="text-muted small"><t t-esc="wo.production_id.product_id.display_name or ''"/></div>
                                             </td>
                                             <td class="small"><t t-esc="fmt_dt(wo.date_finished)"/></td>
@@ -141,7 +141,7 @@
                                          style="width:110px;height:110px;object-fit:contain;flex-shrink:0;"/>
                                     <div>
                                         <div class="fw-semibold fs-5"><t t-esc="workorder.production_id.product_id.display_name or '—'"/></div>
-                                        <div class="text-muted small"><t t-esc="workorder.production_id.name or ''"/></div>
+                                        <div class="text-muted small"><t t-esc="workorder.production_id.full_name or workorder.production_id.name or ''"/></div>
                                     </div>
                                 </div>
                                 <dl class="row mb-0 small">

@@ -33,7 +33,7 @@
                         <tr t-foreach="productions_rows" t-as="mo"
                             t-attf-onclick="window.location='/my/productions/#{mo.id}'"
                             style="cursor: pointer;">
-                            <td class="fw-semibold"><t t-esc="mo.name"/></td>
+                            <td class="fw-semibold"><t t-esc="mo.full_name or mo.name"/></td>
                             <td><t t-esc="mo.product_id.display_name or '—'"/></td>
                             <td class="text-end">
                                 <t t-esc="mo.product_qty"/>
@@ -133,7 +133,7 @@
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <h5 class="mb-0">
                                 <i class="fa fa-industry me-1 text-muted"/>
-                                <t t-esc="production.name"/>
+                                <t t-esc="production.full_name or production.name"/>
                             </h5>
                             <span t-att-class="'badge fs-6 ' + production_state_color.get(production.state, 'bg-secondary')">
                                 <t t-esc="production_state_label.get(production.state, production.state)"/>
@@ -383,7 +383,7 @@
             <!-- Breadcrumb back -->
             <div class="mt-3 mb-3">
                 <a t-attf-href="/my/productions/#{production.id}" class="btn btn-sm btn-outline-secondary">
-                    <i class="fa fa-arrow-left me-1"/> Quay lại: <t t-esc="production.name"/>
+                    <i class="fa fa-arrow-left me-1"/> Quay lại: <t t-esc="production.full_name or production.name"/>
                 </a>
             </div>
 
@@ -403,7 +403,7 @@
                         <div class="col-sm-5">
                             <dl class="row mb-0 small">
                                 <dt class="col-5 text-muted">Lệnh SX</dt>
-                                <dd class="col-7"><t t-esc="production.name"/></dd>
+                                <dd class="col-7"><t t-esc="production.full_name or production.name"/></dd>
                                 <dt class="col-5 text-muted">Vị trí nguồn</dt>
                                 <dd class="col-7"><t t-esc="move.location_id.display_name or '—'"/></dd>
                                 <dt class="col-5 text-muted">Dự báo tồn</dt>

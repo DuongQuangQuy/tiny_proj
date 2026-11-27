@@ -7,7 +7,8 @@
 
         <!-- Thêm nút Phê duyệt xuất kho sau nút Xác nhận kho -->
         <xpath expr="//button[@value='confirm_stock']/parent::form/parent::t" position="after">
-            <t t-if="user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock == 'confirmed'">
+            <!-- Hiện cả khi kho chưa xác nhận: NVL có thể đã hết nên cần phê duyệt trước khi xác nhận kho -->
+            <t t-if="user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock in ('draft', 'confirmed')">
                 <!-- Nút mở modal (luôn hiển thị, cho phép tạo nhiều lần) -->
                 <div class="mb-2">
                     <button type="button" class="btn btn-primary w-100"
@@ -154,7 +155,7 @@
         <xpath expr="//t[@t-if][p[@class='text-muted text-center mb-0 small']]" position="replace">
             <t t-if="not (
                 can_done_pattern or can_confirm_pattern or can_confirm_stock or can_confirm or
-                (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock in ('confirmed', 'done'))
+                (user_is_mrp_stock and not production.is_mrp_pattern and production.state_stock in ('draft', 'confirmed'))
             )">
                 <p class="text-muted text-center mb-0 small">
                     <i class="fa fa-info-circle me-1"/>

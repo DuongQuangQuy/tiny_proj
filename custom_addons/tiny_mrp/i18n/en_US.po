@@ -1029,3 +1029,8 @@ msgstr "minutes / 1 product"
 #: model_terms:ir.ui.view,arch_db:tiny_mrp.portal_production_move_detail
 msgid "Đơn vị"
 msgstr "Unit"
+
+#. module: tiny_mrp
+#: model:ir.model.fields,field_description:tiny_mrp.field_mrp_production__full_name
+msgid "Full Name"
+msgstr "Full Name"

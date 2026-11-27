@@ -232,7 +232,9 @@ class SaleEstimateLine(models.Model):
     note_pattern = fields.Text(string='Pattern Notes')
 
     bom_line_ids = fields.One2many('sale.estimate.bom.line', 'estimate_line_id', string='Bill of Materials', copy=True)
-    operation_ids = fields.One2many('sale.estimate.operation', 'estimate_line_id', string='Operations', copy=True)
+    operation_ids = fields.One2many(
+        'sale.estimate.operation', 'estimate_line_id', string='Operations', copy=True,
+        default=lambda self: self._default_operation_ids())
     material_cost = fields.Monetary(string='Material Cost', compute='_compute_cost', store=True)
     operation_cost = fields.Monetary(string='Operation Cost', compute='_compute_cost', store=True)
     extra_cost = fields.Monetary(string='Other Costs', help='Per unit of product.')
@@ -339,6 +341,30 @@ class SaleEstimateLine(models.Model):
 
     product_id = fields.Many2one('product.product', string='Created Product', copy=False, readonly=True)
     bom_id = fields.Many2one('mrp.bom', string='Created BoM', copy=False, readonly=True)
+
+    @api.model
+    def _default_operation_ids(self):
+        """Dòng mới tạo trên form có sẵn tất cả khu vực chọn được, không dùng khu vực nào thì người dùng tự xóa.
+        Chỉ áp dụng khi view truyền context estimate_default_operations, dòng tạo bằng code giữ nguyên."""
+        if not self.env.context.get('estimate_default_operations'):
+            return []
+        Workcenter = self.env['mrp.workcenter'].sudo()
+        workcenters = Workcenter.search(Workcenter._get_estimate_workcenter_domain(), order='sequence, id')
+        if not workcenters:
+            return []
+        mrp_company = self.env['sale.estimate']._get_mrp_company()
+        mrp_workcenters = Workcenter.search(
+            [('company_id', '=', mrp_company.id), ('code', 'in', workcenters.mapped('code'))])
+        estimate_times = {workcenter.code: workcenter.estimate_time for workcenter in mrp_workcenters}
+        commands = []
+        for index, workcenter in enumerate(workcenters, start=1):
+            vals = {'sequence': index * 10, 'workcenter_id': workcenter.id, 'name': workcenter.name}
+            # Thời lượng mặc định giống onchange của hoạt động
+            estimate_time = estimate_times.get(workcenter.code) or workcenter.estimate_time
+            if estimate_time:
+                vals['time_cycle_manual'] = estimate_time
+            commands.append(fields.Command.create(vals))
+        return commands
 
     @api.depends('bom_line_ids.subtotal', 'operation_ids.subtotal', 'extra_cost')
     def _compute_cost(self):

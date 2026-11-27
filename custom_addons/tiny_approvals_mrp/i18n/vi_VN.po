@@ -1345,12 +1345,8 @@ msgstr "Công đoạn trả về phải thuộc cùng lệnh sản xuất."
 #. module: tiny_approvals_mrp
 #. odoo-python
 #: code:addons/tiny_approvals_mrp/controller/main.py:0
-msgid ""
-"The warehouse has not confirmed yet. Approval can only be requested when the"
-" warehouse status is \"Confirmed\"."
-msgstr ""
-"Kho chưa được xác nhận. Chỉ có thể yêu cầu phê duyệt khi trạng thái kho là "
-"\"Xác nhận\"."
+msgid "The warehouse status is cancelled. Approval cannot be requested."
+msgstr "Trạng thái kho đã hủy, không thể yêu cầu phê duyệt."
 
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review

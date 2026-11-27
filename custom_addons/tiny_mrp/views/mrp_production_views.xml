@@ -16,6 +16,13 @@
                 <field name="state_pattern" readonly="1"/>
                 <field name="state_stock" readonly="1"/>
             </xpath>
+            <!-- Ẩn số lệnh gốc, hiển thị tên đầy đủ (số lệnh + số đơn + khách ở công ty thương mại) -->
+            <xpath expr="//div[hasclass('oe_title')]//field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]//field[@name='name']" position="after">
+                <field name="full_name" readonly="1" nolabel="1"/>
+            </xpath>
             <xpath expr="//field[@name='move_raw_ids']" position="before">
                 <field name="lining_product_ids" invisible="1"/>
             </xpath>
@@ -26,6 +33,33 @@
                 <field name="is_lining" readonly="state != 'draft'"/>
             </xpath>
 
+        </field>
+    </record>
+
+    <record id="view_mrp_production_list_inherit" model="ir.ui.view">
+        <field name="model">mrp.production</field>
+        <field name="name">view.mrp.production.list.inherit</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <!-- Số lệnh gốc chuyển vào tùy chọn cột, mặc định ẩn -->
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="full_name" decoration-bf="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mrp_production_search_inherit" model="ir.ui.view">
+        <field name="model">mrp.production</field>
+        <field name="name">view.mrp.production.search.inherit</field>
+        <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+        <field name="arch" type="xml">
+            <!-- Tìm theo số lệnh cũng tìm cả tên đầy đủ (số đơn, tên khách) -->
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="filter_domain">['|', '|', ('name', 'ilike', self), ('origin', 'ilike', self), ('full_name', 'ilike', self)]</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
