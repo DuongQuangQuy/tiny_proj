@@ -18,11 +18,30 @@
                     </div>
                 </button>
             </xpath>
+            <!-- Thử hàng (Fitting) lấy từ đơn bán gốc ở công ty thương mại, chỉ đọc -->
+            <xpath expr="//div[@name='bom_div']" position="after">
+                <field name="trial_id" readonly="1" invisible="not trial_id" options="{'no_open': True}"/>
+            </xpath>
             <xpath expr="//button[@name='action_confirm']" position="after">
                 <field name="sale_line_id" invisible="1"/>
                 <button name="action_create_trial_delivery" string="Tạo phiếu giao hàng thử"
                     type="object" class="btn-secondary"
                     invisible="state in ('draft', 'cancel') or not sale_line_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tab Công đoạn trên lệnh sản xuất: đánh dấu công đoạn khách thử hàng -->
+    <record id="mrp_production_workorder_list_fitting" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.list.fitting</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view_mo_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-info">is_fitting</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="is_fitting" string="Thử hàng" widget="boolean" readonly="1" optional="show"/>
             </xpath>
         </field>
     </record>

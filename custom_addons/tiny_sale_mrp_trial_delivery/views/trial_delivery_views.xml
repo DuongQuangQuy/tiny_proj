@@ -49,6 +49,7 @@
                         <group string="Thông tin đơn hàng">
                             <field name="production_id"/>
                             <field name="sale_origin" readonly="1"/>
+                            <field name="trial_id" options="{'no_create': True}"/>
                         </group>
                         <group string="Thông tin khách hàng">
                             <field name="partner_id" required="1"/>

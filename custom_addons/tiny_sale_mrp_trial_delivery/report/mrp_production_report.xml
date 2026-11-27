@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Phiếu sản xuất A5 (tiny_sale_mrp): in Thử hàng (Fitting) và đánh dấu công đoạn khách thử -->
+    <template id="report_production_order_a5_document_fitting"
+              inherit_id="tiny_sale_mrp.report_production_order_a5_document">
+        <xpath expr="//div[hasclass('o_tpo_info')]" position="after">
+            <div t-if="o.trial_id" style="margin: 2px 0 4px 0;">
+                <span class="o_tpo_label">Thử hàng:</span>
+                <span class="o_b" t-esc="o.trial_id.name"/>
+            </div>
+        </xpath>
+        <xpath expr="//td[@t-esc='wo.name']" position="replace">
+            <td>
+                <t t-esc="wo.name"/>
+                <span t-if="wo.is_fitting" class="o_tpo_fitting_badge"
+                      style="margin-left: 4px; padding: 1px 5px; border: 1px solid #333; border-radius: 3px; font-size: 9px; font-weight: 700;">THỬ HÀNG</span>
+            </td>
+        </xpath>
+    </template>
+
+</odoo>

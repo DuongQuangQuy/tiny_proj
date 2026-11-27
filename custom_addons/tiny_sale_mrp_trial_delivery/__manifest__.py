@@ -7,10 +7,10 @@
     'author': "Tiny",
     'website': "https://tiny.com.vn/",
     'category': 'Sale',
-    'version': '19.0.0.1',
+    'version': '19.0.0.2',
     'license': 'LGPL-3',
     'depends': [
-        'base', 'sale_mrp','tiny_sale_purchase',
+        'base', 'sale_mrp', 'tiny_sale_purchase', 'tiny_mrp', 'tiny_sale_mrp',
     ],
     'data': [
         'data/sequence.xml',
@@ -21,6 +21,8 @@
         'report/sale_order_report_templates.xml',
         'views/trial_delivery_views.xml',
         'views/mrp_production_views.xml',
+        'views/mrp_production_portal_template.xml',
+        'report/mrp_production_report.xml',
         'views/menus.xml',
 
     ],

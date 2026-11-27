@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Lệnh sản xuất: hiện Thử hàng (Fitting) của đơn gốc và công đoạn khách thử -->
+    <template id="portal_production_detail_fitting" inherit_id="tiny_mrp.portal_production_detail"
+              name="Portal Production Detail - Fitting">
+        <xpath expr="//dd[t[@t-esc='fmt_dt(production.date_deadline)']]" position="after">
+            <t t-if="production.trial_id">
+                <dt class="col-sm-5 text-muted">Thử hàng</dt>
+                <dd class="col-sm-7">
+                    <span class="badge bg-info text-dark">
+                        <i class="fa fa-user-circle-o me-1"/><t t-esc="production.trial_id.name"/>
+                    </span>
+                    <t t-set="fitting_workorders" t-value="production.workorder_ids.filtered('is_fitting')"/>
+                    <div t-if="fitting_workorders" class="small text-muted mt-1">
+                        Công đoạn thử: <t t-esc="', '.join(fitting_workorders.mapped('name'))"/>
+                    </div>
+                </dd>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Danh sách lệnh công việc: nhãn Thử hàng cạnh tên công đoạn -->
+    <template id="portal_my_workorders_fitting" inherit_id="tiny_mrp.portal_my_workorders"
+              name="Portal My Work Orders - Fitting">
+        <xpath expr="//span[@t-if='wo.is_pattern']" position="after">
+            <span t-if="wo.is_fitting" class="badge bg-info text-dark ms-1 o_wo_fitting_badge">
+                <i class="fa fa-user-circle-o me-1"/>Thử hàng
+            </span>
+        </xpath>
+    </template>
+
+    <!-- Chi tiết lệnh công việc: nhãn + nhắc thợ đây là công đoạn khách thử hàng -->
+    <template id="portal_workorder_detail_fitting" inherit_id="tiny_mrp.portal_workorder_detail"
+              name="Portal Work Order Detail - Fitting">
+        <xpath expr="//span[@t-if='workorder.is_passed']" position="after">
+            <span t-if="workorder.is_fitting" class="badge fs-6 bg-info text-dark ms-1 o_wo_fitting_badge">
+                <i class="fa fa-user-circle-o me-1"/>Thử hàng
+            </span>
+        </xpath>
+        <!-- Ngay dưới khối ảnh + tên sản phẩm của thẻ thông tin -->
+        <xpath expr="//div[t[@t-if='product_image_src']]" position="after">
+            <div t-if="workorder.is_fitting" class="alert alert-info py-2 mb-3 small">
+                <i class="fa fa-user-circle-o me-1"/>
+                Khách thử hàng ở công đoạn này
+                (<t t-esc="workorder.production_id.trial_id.name"/>).
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

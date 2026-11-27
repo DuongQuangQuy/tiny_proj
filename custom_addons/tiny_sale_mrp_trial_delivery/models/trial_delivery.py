@@ -50,6 +50,8 @@ class TrialDelivery(models.Model):
         string='Source Order',
        
     )
+    # Thử hàng (Fitting) của đơn gốc, điền sẵn khi tạo từ lệnh sản xuất
+    trial_id = fields.Many2one('sale.trial', string='Fitting', tracking=True)
 
     # Thông tin khách hàng (có thể khác với đơn hàng)
     partner_id = fields.Many2one(
