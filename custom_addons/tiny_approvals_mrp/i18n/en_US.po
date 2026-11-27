@@ -196,17 +196,18 @@ msgstr "<i class=\"fa fa-save me-1\"/>Save"
 
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
-msgid ""
-"<i class=\"fa fa-thumbs-up me-1 text-primary\"/>\n"
-"                                    Yêu cầu phê duyệt xuất kho"
-msgstr ""
-"<i class=\"fa fa-thumbs-up me-1 text-primary\"/>\n"
-"                                    Stock Issue Approval Request"
+msgid "<i class=\"fa fa-thumbs-up me-1\"/> Phê duyệt mua hàng"
+msgstr "<i class=\"fa fa-thumbs-up me-1\"/> Purchase Approval"
 
 #. module: tiny_approvals_mrp
-#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
-msgid "<i class=\"fa fa-thumbs-up me-1\"/> Phê duyệt xuất kho"
-msgstr "<i class=\"fa fa-thumbs-up me-1\"/> Stock Issue Approval"
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
+msgid "<i class=\"fa fa-plus me-1\"/> Phê duyệt bổ sung hàng"
+msgstr "<i class=\"fa fa-plus me-1\"/> Replenishment Approval"
+
+#. module: tiny_approvals_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
+msgid "Yêu cầu phê duyệt bổ sung hàng"
+msgstr "Replenishment Approval Request"
 
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
@@ -1266,8 +1267,8 @@ msgstr ""
 #. module: tiny_approvals_mrp
 #. odoo-python
 #: code:addons/tiny_approvals_mrp/controller/main.py:0
-msgid "Stock Issue Approval - %s"
-msgstr "Stock Issue Approval - %s"
+msgid "Purchase Approval - %s"
+msgstr "Purchase Approval - %s"
 
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
@@ -1604,8 +1605,9 @@ msgstr "You can only return to this work order or a previous one."
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_home_approvals
-msgid "Yêu cầu phê duyệt xuất kho"
-msgstr "Stock Issue Approval Request"
+#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
+msgid "Yêu cầu phê duyệt mua hàng"
+msgstr "Purchase Approval Request"
 
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_home_approvals
@@ -1836,3 +1838,9 @@ msgstr "Received Handovers"
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
 msgid "Đã bàn giao"
 msgstr "Sent Handovers"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Replenishment Approval - %s"
+msgstr "Replenishment Approval - %s"

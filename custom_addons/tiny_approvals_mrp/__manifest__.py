@@ -7,7 +7,7 @@
     'author': "Tiny",
     'website': "https://tiny.com.vn/",
     'category': 'Approvals/Mrp',
-    'version': '19.0.0.1',
+    'version': '19.0.0.2',
     'license': 'LGPL-3',
     'depends': [
         'base', 'mail', 'tiny_mrp', 'approvals', 'tiny_contacts'

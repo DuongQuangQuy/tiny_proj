@@ -27,6 +27,7 @@ sản phẩm mới, BOM ở công ty sản xuất và đơn bán hàng. Luồng 
         'views/sale_order_views.xml',
         'views/res_company_views.xml',
         'views/menus.xml',
+        'report/mrp_production_report.xml',
     ],
     'installable': True,
 }

@@ -1017,6 +1017,7 @@ msgstr "Kiểu hành động kế tiếp"
 
 #. module: tiny_sale_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
 msgid "Nguyên vật liệu"
 msgstr "Nguyên vật liệu"
 
@@ -1814,3 +1815,73 @@ msgstr "Ảnh"
 #: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.view_sale_estimate_form
 msgid "≈ USD"
 msgstr "≈ USD"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Công đoạn"
+msgstr "Công đoạn"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Ghi chú sản xuất"
+msgstr "Ghi chú sản xuất"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Hạn giao hàng"
+msgstr "Hạn giao hàng"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "In lúc"
+msgstr "In lúc"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Lệnh sản xuất"
+msgstr "Lệnh sản xuất"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Sản phẩm"
+msgstr "Sản phẩm"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Trang <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr "Trang <span class=\"page\"/> / <span class=\"topage\"/>"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Vật tư"
+msgstr "Vật tư"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "phút"
+msgstr "phút"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Đơn nguồn"
+msgstr "Đơn nguồn"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Định mức cần xuất"
+msgstr "Định mức cần xuất"
+
+#. module: tiny_sale_mrp
+#: model_terms:ir.ui.view,arch_db:tiny_sale_mrp.report_production_order_a5_document
+msgid "Định mức thời gian sản xuất"
+msgstr "Định mức thời gian sản xuất"
+
+#. module: tiny_sale_mrp
+#: model:ir.actions.report,name:tiny_sale_mrp.action_report_production_order_a5
+msgid "Phiếu sản xuất (A5)"
+msgstr "Phiếu sản xuất (A5)"
+
+#. module: tiny_sale_mrp
+#: model:ir.actions.report,print_report_name:tiny_sale_mrp.action_report_production_order_a5
+msgid "'Phieu SX - %s' % (object.name or '').replace('/', '_')"
+msgstr "'Phieu SX - %s' % (object.name or '').replace('/', '_')"

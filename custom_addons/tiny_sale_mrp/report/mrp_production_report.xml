@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Khổ A5 dọc, lề nhỏ, chừa chỗ chân trang (giờ in + số trang) -->
+    <record id="paperformat_production_order_a5" model="report.paperformat">
+        <field name="name">A5 - Phiếu sản xuất</field>
+        <field name="default" eval="False"/>
+        <field name="format">A5</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">8</field>
+        <field name="margin_bottom">14</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="action_report_production_order_a5" model="ir.actions.report">
+        <field name="name">Phiếu sản xuất (A5)</field>
+        <field name="model">mrp.production</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tiny_sale_mrp.report_production_order_a5</field>
+        <field name="report_file">tiny_sale_mrp.report_production_order_a5</field>
+        <field name="print_report_name">'Phieu SX - %s' % (object.name or '').replace('/', '_')</field>
+        <field name="paperformat_id" ref="paperformat_production_order_a5"/>
+        <field name="binding_model_id" ref="mrp.model_mrp_production"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_production_order_a5_document">
+        <div class="article o_tiny_production_order" t-att-data-oe-model="o._name" t-att-data-oe-id="o.id"
+             t-att-data-oe-lang="o.env.lang">
+            <style>
+                .o_tiny_production_order { font-size: 11px; color: #222; }
+                .o_tiny_production_order .o_tpo_company { color: #555; font-weight: 700; text-transform: uppercase; font-size: 10px; }
+                .o_tiny_production_order .o_tpo_doc { font-weight: 700; font-size: 12px; text-transform: uppercase; }
+                .o_tiny_production_order .o_tpo_title { font-weight: 700; font-size: 17px; margin: 6px 0 8px 0; }
+                .o_tiny_production_order .o_tpo_label { color: #666; font-size: 10px; }
+                .o_tiny_production_order .o_tpo_value { font-weight: 700; font-size: 12px; }
+                .o_tiny_production_order h5 { font-weight: 700; font-size: 14px; margin: 12px 0 4px 0; }
+                /* !important: ghi đè viền/đậm mặc định của CSS report Odoo cho bảng */
+                /* separate + tr không viền: wkhtmltopdf vẽ viền thừa khi collapse với tr của Bootstrap */
+                .o_tiny_production_order table { width: 100%; border-collapse: separate !important; border-spacing: 0; border: 0 !important; }
+                .o_tiny_production_order thead, .o_tiny_production_order tbody, .o_tiny_production_order tr { border: 0 none !important; }
+                .o_tiny_production_order th, .o_tiny_production_order td { border: 0 !important; font-weight: 400 !important; }
+                .o_tiny_production_order th { background: #f2f2f2 !important; font-weight: 700 !important; padding: 5px 8px; text-align: left; }
+                .o_tiny_production_order td { padding: 5px 8px; border-bottom: 1px solid #ddd !important; }
+                .o_tiny_production_order .o_tpo_note_line { border-bottom: 1px solid #bbb; height: 22px; }
+                .o_tiny_production_order .o_r { text-align: right !important; }
+                .o_tiny_production_order .o_nw { white-space: nowrap; }
+                .o_tiny_production_order td.o_b, .o_tiny_production_order .o_b { font-weight: 700 !important; }
+                .o_tiny_production_order td.o_tpo_doc { font-weight: 700 !important; }
+                .o_tiny_production_order td.o_plain { border-bottom: 0 !important; padding: 0; vertical-align: middle; }
+                .o_tiny_production_order td.o_info { border-bottom: 0 !important; padding: 4px 8px 6px 0; vertical-align: top; }
+                .o_tiny_production_order .o_tpo_info { border-bottom: 1px solid #ddd; margin-bottom: 4px; }
+            </style>
+
+            <!-- Tiêu đề: công ty, loại phiếu, mã vạch số lệnh -->
+            <div class="o_tpo_company" t-esc="o.company_id.name"/>
+            <table>
+                <tr>
+                    <td class="o_tpo_doc o_plain">Lệnh sản xuất</td>
+                    <td class="o_plain o_r">
+                        <span t-field="o.name"
+                              t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 600, 'height': 100, 'img_style': 'width:170px;height:32px'}"/>
+                    </td>
+                </tr>
+            </table>
+            <div class="o_tpo_title" style="padding-bottom: 6px; border-bottom: 1.5px solid #333;" t-esc="o.full_name or o.name"/>
+
+            <!-- Thông tin chung -->
+            <div class="o_tpo_info">
+            <table>
+                <tr>
+                    <td class="o_info" style="width:40%">
+                        <div class="o_tpo_label">Sản phẩm</div>
+                        <div class="o_tpo_value" t-esc="o.product_id.display_name"/>
+                    </td>
+                    <td class="o_info" style="width:30%">
+                        <div class="o_tpo_label">Đơn nguồn</div>
+                        <div class="o_tpo_value" t-esc="o.origin or '—'"/>
+                    </td>
+                    <td class="o_info" style="width:30%">
+                        <div class="o_tpo_label">Hạn giao hàng</div>
+                        <div class="o_tpo_value">
+                            <span t-if="o.date_deadline" t-field="o.date_deadline" t-options="{'widget': 'date'}"/>
+                            <span t-else="">—</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </div>
+
+            <!-- Nguyên vật liệu -->
+            <h5>Nguyên vật liệu</h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vật tư</th>
+                        <th class="o_r">Định mức cần xuất</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.move_raw_ids.filtered(lambda m: m.state != 'cancel')" t-as="move">
+                        <td t-esc="move.product_id.display_name"/>
+                        <td class="o_r o_b o_nw">
+                            <span t-esc="move.product_uom_qty"
+                                  t-options="{'widget': 'float', 'precision': 0 if move.product_uom_qty == int(move.product_uom_qty) else 2}"/>
+                            <span t-esc="(move.product_uom.name or '').lower()"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Công đoạn -->
+            <t t-set="workorders" t-value="o.workorder_ids"/>
+            <t t-if="workorders">
+                <h5>Công đoạn</h5>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Công đoạn</th>
+                            <th class="o_r">Định mức thời gian sản xuất</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="workorders" t-as="wo">
+                            <td t-esc="wo.name"/>
+                            <td class="o_r o_nw">
+                                <span t-esc="round(wo.duration_expected)" t-options="{'widget': 'float', 'precision': 0}"/>
+                                phút
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+
+            <!-- Ghi chú: để trống cho xưởng viết tay -->
+            <h5>Ghi chú sản xuất</h5>
+            <div class="o_tpo_note_line"/>
+            <div class="o_tpo_note_line"/>
+        </div>
+        <!-- Chân trang: dùng div + float thay vì bảng để không bị CSS bảng của report vẽ viền -->
+        <div class="footer o_tiny_production_order_footer">
+            <div style="border-top: 1px solid #333; padding-top: 3px; font-size: 9px; color: #666;">
+                <div style="float: right;">Trang <span class="page"/> / <span class="topage"/></div>
+                <div>In lúc <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M · %d/%m/%Y')"/></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_production_order_a5">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <!-- In theo ngôn ngữ của người bấm in (context lang) -->
+                <t t-call="tiny_sale_mrp.report_production_order_a5_document"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

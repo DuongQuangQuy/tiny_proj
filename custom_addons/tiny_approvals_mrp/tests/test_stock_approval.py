@@ -42,7 +42,7 @@ class TestStockApproval(HttpCase):
     def test_01_create_without_production_notifies_approver(self):
         self.authenticate('tiny_stock_appr', 'tiny_stock_appr')
         page = self.url_open('/my/approvals')
-        self.assertIn('Phê duyệt bổ sung hàng', page.text)
+        self.assertIn('action="/my/approvals/create"', page.text)
         res = self._post('/my/approvals/create', '/my/approvals', {
             'product_ids[]': [self.product.id, ''],
             'descriptions[]': ['Mua thêm', ''],
@@ -60,7 +60,7 @@ class TestStockApproval(HttpCase):
     def test_02_not_stock_user_cannot_create(self):
         self.authenticate('tiny_not_stock', 'tiny_not_stock')
         page = self.url_open('/my/approvals')
-        self.assertNotIn('Phê duyệt bổ sung hàng', page.text)
+        self.assertNotIn('action="/my/approvals/create"', page.text)
         # Trang này không có form cho người không phải kho: lấy csrf từ trang tài khoản
         res = self._post('/my/approvals/create', '/my/account', {
             'product_ids[]': [self.product.id], 'descriptions[]': [''], 'quantities[]': ['1']})

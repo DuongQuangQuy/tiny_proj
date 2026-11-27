@@ -195,20 +195,6 @@ msgid "<i class=\"fa fa-save me-1\"/>Lưu"
 msgstr "<i class=\"fa fa-save me-1\"/>Lưu"
 
 #. module: tiny_approvals_mrp
-#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
-msgid ""
-"<i class=\"fa fa-thumbs-up me-1 text-primary\"/>\n"
-"                                    Yêu cầu phê duyệt xuất kho"
-msgstr ""
-"<i class=\"fa fa-thumbs-up me-1 text-primary\"/>\n"
-"                                    Yêu cầu phê duyệt xuất kho"
-
-#. module: tiny_approvals_mrp
-#: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_production_detail_approvals
-msgid "<i class=\"fa fa-thumbs-up me-1\"/> Phê duyệt xuất kho"
-msgstr "<i class=\"fa fa-thumbs-up me-1\"/> Phê duyệt xuất kho"
-
-#. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_review_detail
 msgid "<i class=\"fa fa-times me-1\"/> Chưa đạt"
 msgstr "<i class=\"fa fa-times me-1\"/> Chưa đạt"
@@ -1264,8 +1250,8 @@ msgstr ""
 #. module: tiny_approvals_mrp
 #. odoo-python
 #: code:addons/tiny_approvals_mrp/controller/main.py:0
-msgid "Stock Issue Approval - %s"
-msgstr "Phê duyệt xuất kho - %s"
+msgid "Purchase Approval - %s"
+msgstr "Phê duyệt mua hàng - %s"
 
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_approval_detail
@@ -1601,8 +1587,8 @@ msgstr "Chỉ trả về được chính công đoạn này hoặc một công �
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_approvals
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_home_approvals
-msgid "Yêu cầu phê duyệt xuất kho"
-msgstr "Yêu cầu phê duyệt xuất kho"
+msgid "Yêu cầu phê duyệt mua hàng"
+msgstr "Yêu cầu phê duyệt mua hàng"
 
 #. module: tiny_approvals_mrp
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.portal_my_home_approvals

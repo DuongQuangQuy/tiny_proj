@@ -3,10 +3,10 @@
 
     <!-- ===================== PORTAL HOME ENTRY ===================== -->
     <template id="portal_my_home_approvals" inherit_id="portal.portal_my_home"
-              customize_show="True" name="Yêu cầu phê duyệt xuất kho">
+              customize_show="True" name="Yêu cầu phê duyệt mua hàng">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="title">Yêu cầu phê duyệt xuất kho</t>
+                <t t-set="title">Yêu cầu phê duyệt mua hàng</t>
                 <t t-set="url" t-value="'/my/approvals'"/>
                 <t t-set="count" t-value="approval_count"/>
                 <t t-set="placeholder_count">yêu cầu</t>
@@ -15,11 +15,11 @@
     </template>
 
     <!-- ===================== APPROVAL REQUEST LIST ===================== -->
-    <template id="portal_my_approvals" name="Yêu cầu phê duyệt xuất kho">
+    <template id="portal_my_approvals" name="Yêu cầu phê duyệt mua hàng">
         <t t-call="portal.portal_layout">
             <div class="o_portal_my_approvals">
                 <t t-call="portal.portal_searchbar">
-                    <t t-set="title">Yêu cầu phê duyệt xuất kho</t>
+                    <t t-set="title">Yêu cầu phê duyệt mua hàng</t>
                 </t>
 
                 <div t-if="error" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">

@@ -87,7 +87,7 @@ class MrpApprovalsPortal(MrpPortal):
             raise UserError(_('The approval type "MRP Stock Approval" is not configured for the manufacturing company. Please contact your administrator.'))
         product_line_vals = self._parse_approval_lines()
         if production:
-            name = _('Stock Issue Approval - %s') % production.name
+            name = _('Purchase Approval - %s') % production.name
         else:
             name = _('Replenishment Approval - %s') % user.name
         # Phiếu thuộc công ty sản xuất (theo loại phê duyệt): tạo trong ngữ cảnh công ty đó để
