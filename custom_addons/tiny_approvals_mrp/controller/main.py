@@ -45,10 +45,67 @@ class MrpApprovalsPortal(MrpPortal):
             return None
         return approval
 
+    def _get_approval_products(self):
+        return request.env['product.product'].sudo().search([('active', '=', True)], order='name')
+
+    def _parse_approval_lines(self):
+        """Đọc các dòng sản phẩm từ form của cửa sổ yêu cầu phê duyệt (bỏ dòng chưa chọn sản phẩm)."""
+        form = request.httprequest.form
+        product_ids = form.getlist('product_ids[]')
+        descriptions = form.getlist('descriptions[]')
+        quantities = form.getlist('quantities[]')
+        product_line_vals = []
+        for i, pid in enumerate(product_ids):
+            if not pid:
+                continue
+            try:
+                qty = float(quantities[i]) if i < len(quantities) else 1.0
+            except (ValueError, TypeError):
+                qty = 1.0
+            if qty <= 0:
+                raise UserError(_('The quantity must be greater than 0.'))
+            product_line_vals.append((0, 0, {
+                'product_id': int(pid),
+                'description': descriptions[i] if i < len(descriptions) else '',
+                'quantity': qty,
+            }))
+        if not product_line_vals:
+            raise UserError(_('Please select at least one product.'))
+        return product_line_vals
+
+    def _create_stock_approval(self, user, production=None):
+        """Tạo và nộp phiếu phê duyệt mua hàng (loại mrp_stock) của công ty sản xuất.
+        production: lệnh sản xuất liên quan, None nếu tạo trực tiếp từ trang Phiếu phê duyệt."""
+        mrp_company = request.env['res.company'].sudo().search([('is_mrp', '=', True)], limit=1)
+        if not mrp_company:
+            raise UserError(_('No manufacturing company (is_mrp) is configured. Please contact your administrator.'))
+        category = request.env['approval.category'].sudo().search([
+            ('approval_type', '=', 'mrp_stock'),
+            ('company_id', '=', mrp_company.id),
+        ], limit=1)
+        if not category:
+            raise UserError(_('The approval type "MRP Stock Approval" is not configured for the manufacturing company. Please contact your administrator.'))
+        product_line_vals = self._parse_approval_lines()
+        if production:
+            name = _('Stock Issue Approval - %s') % production.name
+        else:
+            name = _('Replenishment Approval - %s') % user.name
+        # Phiếu thuộc công ty sản xuất (theo loại phê duyệt): tạo trong ngữ cảnh công ty đó để
+        # kho mặc định của các dòng sản phẩm cùng công ty với phiếu.
+        # Savepoint: nộp phiếu lỗi (vd. thiếu người duyệt) thì không để lại phiếu nháp dở dang
+        with request.env.cr.savepoint():
+            approval = request.env['approval.request'].sudo().with_company(category.company_id).create({
+                'name': name,
+                'category_id': category.id,
+                'mrp_production_id': production.id if production else False,
+                'request_owner_id': user.id,
+                'product_line_ids': product_line_vals,
+            })
+            approval.action_confirm()
+        return approval
+
     def _approval_detail_values(self, approval, **extra):
-        products = request.env['product.product'].sudo().search(
-            [('active', '=', True)], order='name'
-        )
+        products = self._get_approval_products()
         vals = {
             'approval': approval,
             'fmt_dt': _make_fmt_dt(request.env),
@@ -61,20 +118,46 @@ class MrpApprovalsPortal(MrpPortal):
         vals.update(extra)
         return vals
 
-    @http.route('/my/approvals', auth='user', website=True, type='http')
-    def portal_approvals(self, **kw):
-        user = request.env.user
+    def _approval_list_values(self, user, **extra):
         approvals = request.env['approval.request'].sudo().search([
             ('request_owner_id', '=', user.id),
             ('approval_type', '=', 'mrp_stock'),
         ], order='id desc')
-        return request.render('tiny_approvals_mrp.portal_my_approvals', {
+        vals = {
             'approvals': approvals,
             'fmt_dt': _make_fmt_dt(request.env),
             'page_name': 'approval',
             'approval_status_label': _APPROVAL_STATUS_LABEL,
             'approval_status_color': _APPROVAL_STATUS_COLOR,
-        })
+            'user_is_mrp_stock': user.is_mrp_stock,
+            'products': self._get_approval_products() if user.is_mrp_stock else request.env['product.product'].sudo().browse(),
+        }
+        vals.update(extra)
+        return vals
+
+    @http.route('/my/approvals', auth='user', website=True, type='http')
+    def portal_approvals(self, **kw):
+        return request.render('tiny_approvals_mrp.portal_my_approvals',
+                              self._approval_list_values(request.env.user))
+
+    @http.route('/my/approvals/create', auth='user', website=True, type='http', methods=['POST'])
+    def portal_approval_create(self, **kw):
+        """Tạo phiếu phê duyệt bổ sung hàng trực tiếp, không gắn lệnh sản xuất."""
+        user = request.env.user
+        error = None
+        approval = None
+        try:
+            if not user.is_mrp_stock:
+                raise UserError(_('You are not allowed to perform this action.'))
+            approval = self._create_stock_approval(user)
+        except UserError as e:
+            error = e.args[0] if e.args else str(e)
+        except Exception as e:
+            error = str(e)
+        if error:
+            return request.render('tiny_approvals_mrp.portal_my_approvals',
+                                  self._approval_list_values(user, error=error))
+        return request.redirect('/my/approvals/%d' % approval.id)
 
     @http.route('/my/approvals/<int:approval_id>', auth='user', website=True, type='http')
     def portal_approval_detail(self, approval_id, edit=None, **kw):
@@ -230,9 +313,7 @@ class MrpApprovalsPortal(MrpPortal):
         ], limit=1)
 
     def _production_detail_values(self, production, user, **extra):
-        products = request.env['product.product'].sudo().search(
-            [('active', '=', True)], order='name'
-        ) if user.is_mrp_stock else request.env['product.product'].sudo().browse()
+        products = self._get_approval_products() if user.is_mrp_stock else request.env['product.product'].sudo().browse()
         vals = {
             'production': production,
             'fmt_dt': _make_fmt_dt(request.env),
@@ -274,45 +355,7 @@ class MrpApprovalsPortal(MrpPortal):
             # Cho tạo phê duyệt cả khi kho chưa xác nhận: NVL có thể đã hết nên không xác nhận kho trước được
             if production.state_stock not in ('draft', 'confirmed'):
                 raise UserError(_('The warehouse status is cancelled. Approval cannot be requested.'))
-            mrp_company = request.env['res.company'].sudo().search(
-                [('is_mrp', '=', True)], limit=1
-            )
-            if not mrp_company:
-                raise UserError(_('No manufacturing company (is_mrp) is configured. Please contact your administrator.'))
-            category = request.env['approval.category'].sudo().search([
-                ('approval_type', '=', 'mrp_stock'),
-                ('company_id', '=', mrp_company.id),
-            ], limit=1)
-            if not category:
-                raise UserError(_('The approval type "MRP Stock Approval" is not configured for the manufacturing company. Please contact your administrator.'))
-
-            product_ids = request.httprequest.form.getlist('product_ids[]')
-            descriptions = request.httprequest.form.getlist('descriptions[]')
-            quantities = request.httprequest.form.getlist('quantities[]')
-            product_line_vals = []
-            for i, pid in enumerate(product_ids):
-                if not pid:
-                    continue
-                try:
-                    qty = float(quantities[i]) if i < len(quantities) else 1.0
-                except (ValueError, TypeError):
-                    qty = 1.0
-                product_line_vals.append((0, 0, {
-                    'product_id': int(pid),
-                    'description': descriptions[i] if i < len(descriptions) else '',
-                    'quantity': qty,
-                }))
-
-            # Phiếu thuộc công ty sản xuất (theo loại phê duyệt): tạo trong ngữ cảnh công ty đó để
-            # kho mặc định của các dòng sản phẩm cùng công ty với phiếu
-            approval = request.env['approval.request'].sudo().with_company(category.company_id).create({
-                'name': _('Stock Issue Approval - %s') % production.name,
-                'category_id': category.id,
-                'mrp_production_id': production.id,
-                'request_owner_id': user.id,
-                'product_line_ids': product_line_vals,
-            })
-            approval.action_confirm()
+            self._create_stock_approval(user, production)
         except UserError as e:
             error = e.args[0] if e.args else str(e)
         except Exception as e:

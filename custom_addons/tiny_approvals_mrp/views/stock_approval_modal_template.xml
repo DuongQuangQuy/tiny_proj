@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Cửa sổ nhập yêu cầu phê duyệt mua hàng, dùng chung cho trang Lệnh sản xuất và trang Phiếu phê duyệt.
+         Tham số: approval_form_action (URL gửi form), approval_modal_title (tiêu đề), products (danh sách sản phẩm).
+         Nội dung bên trong t-call (input ẩn riêng của từng trang) được chèn vào trong form. -->
+    <template id="stock_approval_modal" name="Stock Approval Request Modal">
+                <!-- Điện thoại: chữ 16px để iPhone không tự phóng to khi chạm ô nhập; dòng gợi ý cao >= 44px dễ chạm -->
+                <style>
+                    @media (max-width: 767.98px) {
+                        #stockApprovalModal .form-control,
+                        #stockApprovalModal .form-select { font-size: 16px; }
+                        #stockApprovalModal .o_product_results .list-group-item { min-height: 44px; font-size: 15px; }
+                        #stockApprovalModal .o_product_results { max-height: 45vh !important; }
+                    }
+                </style>
+
+                <!-- Modal nhập yêu cầu phê duyệt -->
+                <div class="modal fade" id="stockApprovalModal" tabindex="-1"
+                     aria-labelledby="stockApprovalModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="stockApprovalModalLabel">
+                                    <i class="fa fa-thumbs-up me-1 text-primary"/>
+                                    <t t-esc="approval_modal_title or 'Yêu cầu phê duyệt mua hàng'"/>
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                            </div>
+                            <form t-att-action="approval_form_action" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <t t-out="0"/>
+                                <div class="modal-body">
+                                    <!-- Header: người yêu cầu và danh mục -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold small">Người yêu cầu</label>
+                                            <input type="text" class="form-control form-control-sm"
+                                                   t-att-value="request.env.user.name" readonly="1"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold small">Danh mục</label>
+                                            <input type="text" class="form-control form-control-sm"
+                                                   value="Phê duyệt kho MRP" readonly="1"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bảng sản phẩm -->
+                                    <h6 class="fw-semibold mb-2">Danh sách sản phẩm</h6>
+                                    <!-- Layout dạng lưới: desktop 1 hàng, điện thoại xếp chồng để luôn thấy ô Số lượng -->
+                                    <div class="d-none d-md-flex row g-2 small fw-semibold text-muted mb-1">
+                                        <div class="col-md-5">Sản phẩm</div>
+                                        <div class="col-md-4">Mô tả</div>
+                                        <div class="col-md-2">Số lượng</div>
+                                        <div class="col-md-1"/>
+                                    </div>
+                                    <!-- Nguồn dữ liệu sản phẩm cho ô tìm kiếm (ẩn) -->
+                                    <select id="o_approval_product_source" class="d-none" disabled="1">
+                                        <t t-foreach="products" t-as="p">
+                                            <option t-att-value="p.id"
+                                                    t-att-data-desc="p.description_purchase or p.display_name or ''"
+                                                    t-esc="p.display_name"/>
+                                        </t>
+                                    </select>
+                                    <div id="o_approval_product_lines">
+                                        <div class="o_approval_product_row row g-2 align-items-start border rounded p-2 mb-2 mx-0">
+                                            <div class="col-12 col-md-5">
+                                                <label class="form-label small mb-1 d-md-none">Sản phẩm</label>
+                                                <!-- Ô tìm kiếm sản phẩm: gõ mã/tên (không dấu cũng được), chạm để chọn -->
+                                                <input type="hidden" name="product_ids[]" class="o_product_id" value=""/>
+                                                <div class="input-group input-group-sm">
+                                                    <span class="input-group-text"><i class="fa fa-search"/></span>
+                                                    <input type="search" class="form-control o_product_search"
+                                                           placeholder="Gõ mã hoặc tên sản phẩm..."
+                                                           autocomplete="off" autocorrect="off" autocapitalize="off"
+                                                           spellcheck="false" enterkeyhint="search"/>
+                                                </div>
+                                                <div class="list-group o_product_results d-none mt-1"
+                                                     style="max-height:240px; overflow-y:auto;"/>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <label class="form-label small mb-1 d-md-none">Mô tả</label>
+                                                <input type="text" name="descriptions[]"
+                                                       class="form-control form-control-sm"/>
+                                            </div>
+                                            <div class="col-8 col-md-2">
+                                                <label class="form-label small mb-1 d-md-none">Số lượng</label>
+                                                <input type="number" name="quantities[]"
+                                                       class="form-control form-control-sm"
+                                                       value="1" min="0.001" step="0.001" inputmode="decimal"/>
+                                            </div>
+                                            <div class="col-4 col-md-1 text-end text-md-center">
+                                                <button type="button"
+                                                        class="btn btn-sm btn-outline-danger o_remove_line">
+                                                    <i class="fa fa-times"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            id="o_add_approval_line">
+                                        <i class="fa fa-plus me-1"/> Thêm dòng
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Hủy</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-paper-plane me-1"/> Gửi yêu cầu
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    (function () {
+                        var tbody = document.getElementById('o_approval_product_lines');
+                        var addBtn = document.getElementById('o_add_approval_line');
+                        if (!tbody || !addBtn) return;
+
+                        // Bỏ dấu tiếng Việt + chữ thường để tìm không dấu
+                        function norm(s) {
+                            return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                                .replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase();
+                        }
+
+                        var products = [];
+                        var src = document.getElementById('o_approval_product_source');
+                        if (src) {
+                            Array.prototype.forEach.call(src.options, function (o) {
+                                products.push({id: o.value, name: o.textContent, desc: o.dataset.desc || '', key: norm(o.textContent)});
+                            });
+                        }
+                        var MAX_RESULTS = 50;
+
+                        function bindRow(row) {
+                            var search = row.querySelector('.o_product_search');
+                            var hidden = row.querySelector('.o_product_id');
+                            var results = row.querySelector('.o_product_results');
+                            var descInput = row.querySelector('input[name="descriptions[]"]');
+
+                            function hideResults() {
+                                results.classList.add('d-none');
+                                results.innerHTML = '';
+                            }
+
+                            function choose(p) {
+                                hidden.value = p.id;
+                                search.value = p.name;
+                                search.classList.remove('is-invalid');
+                                search.classList.add('is-valid');
+                                if (descInput &amp;&amp; !descInput.value) {
+                                    descInput.value = p.desc || p.name;
+                                }
+                                hideResults();
+                                // Ẩn bàn phím điện thoại để thấy ô Số lượng
+                                search.blur();
+                            }
+
+                            function render() {
+                                var words = norm(search.value).split(/\s+/).filter(Boolean);
+                                results.innerHTML = '';
+                                var count = 0;
+                                for (var i = 0; i &lt; products.length &amp;&amp; count &lt; MAX_RESULTS; i++) {
+                                    var p = products[i];
+                                    if (!words.every(function (w) { return p.key.indexOf(w) !== -1; })) continue;
+                                    var item = document.createElement('button');
+                                    item.type = 'button';
+                                    item.className = 'list-group-item list-group-item-action py-2 small';
+                                    item.textContent = p.name;
+                                    item.addEventListener('click', choose.bind(null, p));
+                                    results.appendChild(item);
+                                    count++;
+                                }
+                                if (!count) {
+                                    var empty = document.createElement('div');
+                                    empty.className = 'list-group-item small text-muted';
+                                    empty.textContent = 'Không tìm thấy sản phẩm';
+                                    results.appendChild(empty);
+                                }
+                                results.classList.remove('d-none');
+                            }
+
+                            search.addEventListener('input', function () {
+                                // Gõ lại thì bỏ lựa chọn cũ, bắt buộc chọn lại từ danh sách
+                                hidden.value = '';
+                                search.classList.remove('is-valid');
+                                render();
+                            });
+                            search.addEventListener('focus', function () {
+                                if (!hidden.value) render();
+                                // Điện thoại: đợi bàn phím bật lên rồi cuộn ô tìm kiếm lên đầu để danh sách gợi ý không bị bàn phím che
+                                if (window.innerWidth &lt; 768) {
+                                    setTimeout(function () {
+                                        search.scrollIntoView({block: 'start', behavior: 'smooth'});
+                                    }, 300);
+                                }
+                            });
+                            search.addEventListener('keydown', function (ev) {
+                                if (ev.key === 'Enter') {
+                                    // Enter chọn kết quả đầu tiên thay vì submit form
+                                    ev.preventDefault();
+                                    var first = results.querySelector('button');
+                                    if (first) first.click();
+                                } else if (ev.key === 'Escape') {
+                                    hideResults();
+                                }
+                            });
+                            ['pointerdown', 'touchstart'].forEach(function (evName) {
+                                document.addEventListener(evName, function (ev) {
+                                    if (!row.contains(ev.target)) hideResults();
+                                }, {passive: true});
+                            });
+                            var removeBtn = row.querySelector('.o_remove_line');
+                            if (removeBtn) {
+                                removeBtn.addEventListener('click', function () {
+                                    if (tbody.querySelectorAll('.o_approval_product_row').length > 1) {
+                                        row.remove();
+                                    }
+                                });
+                            }
+                        }
+
+                        bindRow(tbody.querySelector('.o_approval_product_row'));
+
+                        addBtn.addEventListener('click', function () {
+                            var template = tbody.querySelector('.o_approval_product_row').cloneNode(true);
+                            template.querySelector('.o_product_id').value = '';
+                            var s = template.querySelector('.o_product_search');
+                            s.value = '';
+                            s.classList.remove('is-valid', 'is-invalid');
+                            var r = template.querySelector('.o_product_results');
+                            r.innerHTML = '';
+                            r.classList.add('d-none');
+                            template.querySelector('input[name="descriptions[]"]').value = '';
+                            template.querySelector('input[name="quantities[]"]').value = '1';
+                            tbody.appendChild(template);
+                            bindRow(template);
+                            s.focus();
+                        });
+
+                        // Chặn gửi khi có dòng đã gõ nhưng chưa chọn sản phẩm từ danh sách, hoặc không có dòng nào
+                        var form = tbody.closest('form');
+                        if (form) {
+                            form.addEventListener('submit', function (ev) {
+                                var ok = true, hasLine = false;
+                                tbody.querySelectorAll('.o_approval_product_row').forEach(function (row) {
+                                    var id = row.querySelector('.o_product_id').value;
+                                    var s = row.querySelector('.o_product_search');
+                                    if (id) { hasLine = true; return; }
+                                    if (s.value.trim()) { ok = false; s.classList.add('is-invalid'); }
+                                });
+                                if (!ok || !hasLine) {
+                                    ev.preventDefault();
+                                    alert(!ok ? 'Vui lòng chọn sản phẩm từ danh sách gợi ý.' : 'Vui lòng chọn ít nhất 1 sản phẩm.');
+                                }
+                            });
+                        }
+                    })();
+                </script>
+    </template>
+
+</odoo>

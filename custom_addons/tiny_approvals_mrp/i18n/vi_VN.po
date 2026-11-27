@@ -1835,3 +1835,37 @@ msgstr "Nhận bàn giao"
 #: model_terms:ir.ui.view,arch_db:tiny_approvals_mrp.view_mrp_workorder_form_review
 msgid "Đã bàn giao"
 msgstr "Đã bàn giao"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Please select at least one product."
+msgstr "Vui lòng chọn ít nhất 1 sản phẩm."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/controller/main.py:0
+msgid "Replenishment Approval - %s"
+msgstr "Phê duyệt bổ sung hàng - %s"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/approval_request.py:0
+msgid ""
+"%(owner)s submitted the purchase approval request \"%(name)s\" and is "
+"waiting for your approval."
+msgstr ""
+"%(owner)s đã gửi yêu cầu phê duyệt mua hàng \"%(name)s\" và đang chờ bạn "
+"phê duyệt."
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/approval_request.py:0
+msgid "Manufacturing order: %s"
+msgstr "Lệnh sản xuất: %s"
+
+#. module: tiny_approvals_mrp
+#. odoo-python
+#: code:addons/tiny_approvals_mrp/models/approval_request.py:0
+msgid "Products:"
+msgstr "Sản phẩm:"

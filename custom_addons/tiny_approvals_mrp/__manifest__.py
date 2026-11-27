@@ -18,6 +18,7 @@
         'views/mrp_review_config_views.xml',
         'views/mrp_workorder_review_views.xml',
         'views/approval_request_views.xml',
+        'views/stock_approval_modal_template.xml',
         'views/mrp_production_portal_template.xml',
         'views/approval_request_portal_template.xml',
         'views/mrp_review_portal_template.xml',

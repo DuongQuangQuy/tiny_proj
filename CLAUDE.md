@@ -67,6 +67,8 @@ Dành cho sản phẩm làm theo yêu cầu khách, chưa tồn tại lúc báo 
 - Nhân viên bán hàng không có quyền `mrp.workcenter`. Ô chọn khu vực đi qua `mrp.workcenter.web_name_search` với context
   `sale_estimate_workcenter`, chỉ trả về id và tên.
 - `code_fabric` và `note` khai báo riêng trên cả `product.template` và `product.product`, nên phải ghi cả hai nơi.
+  `code_fabric` là Many2one `product.product` (danh mục có `is_main_fabric`). Biến thể mới lấy theo template; đổi trên template
+  chỉ cập nhật biến thể đang trống hoặc trùng mã cũ (`ProductTemplate.write`). Chữ cũ trước khi chuyển nằm ở cột `code_fabric_text_bak`.
 - `create()` không chạy onchange: tạo dòng SO bằng code phải tự truyền `image_128`, `code_fabric`, `product_pattern_image`.
 - Tạo bản ghi có lịch làm việc cho công ty khác (như `mrp.workcenter`) phải dùng `with_company`, nếu không sẽ lỗi lệch công ty.
 - Xác nhận SO ở công ty thương mại cần quyền Mua hàng, vì `tiny_sale_purchase` xác nhận PO bằng quyền người dùng hiện tại.

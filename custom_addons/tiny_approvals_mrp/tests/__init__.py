@@ -1,3 +1,4 @@
 from . import test_mrp_review_flow
 from . import test_portal_review
 from . import test_portal_history
+from . import test_stock_approval
